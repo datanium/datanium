@@ -2,11 +2,10 @@ Ext.application({
 	requires : [ 'Ext.container.Viewport' ],
 	name : 'Datanium',
 	appFolder : 'app',
-	controllers : [],
+	controllers : [ 'Homepage' ],
 
 	init : function() {
 		Ext.enableFx = true;
-		// Ext.setGlyphFontFamily("Pictos");
 	},
 
 	launch : function() {
@@ -23,17 +22,31 @@ Ext.application({
 				region : 'north',
 				height : 45,
 				header : false,
-				items : []
+				items : [ {
+					xtype : 'top-toolbar'
+				} ]
 			}, {
 				title : 'Main Box',
 				region : 'center',
-				xtype : 'panel',
+				xtype : 'tabpanel',
 				id : 'mainBox',
 				activeTab : 0,
 				collapsible : false,
 				margins : 5,
 				header : false,
-				items : []
+				tabBar : {
+					height : 30,
+					defaults : {
+						height : 30
+					}
+				},
+				items : [ {
+					itemId : 'report-tab' + Datanium.GlobalData.tabindex,
+					closable : true,
+					// icon : 'img/icons/report.png',
+					title : 'New Report'
+				// , xtype : 'reportmockup1'
+				} ]
 			} ]
 		});
 	}
