@@ -20,7 +20,8 @@ Ext.define('Datanium.view.ReportTemplate', {
 		layout : 'fit',
 		items : [ {
 			itemId : Datanium.util.CommonUtils.genItemId('leftpanel'),
-		// xtype : 'leftpanel'
+			// cls : 'leftpanel',
+			xtype : 'leftpanel'
 		} ],
 		tools : [ {
 			itemId : Datanium.util.CommonUtils.genItemId('refreshbtn'),
@@ -43,8 +44,26 @@ Ext.define('Datanium.view.ReportTemplate', {
 				split : true
 			},
 			items : [ {
+				layout : 'vbox',
+				header : false,
+				region : 'north',
+				height : 'auto',
+				width : '100%',
+				items : [ {
+					xtype : 'inner-toolbar',
+					itemId : Datanium.util.CommonUtils.genItemId('inner-toolbar'),
+					width : '100%'
+				}, {
+					xtype : 'fieldpanel',
+					cls : 'fieldpanel',
+					itemId : Datanium.util.CommonUtils.genItemId('fieldpanel'),
+					bodyPadding : 0,
+					header : false,
+					width : '100%'
+				} ]
+			}, {
 				itemId : Datanium.util.CommonUtils.genItemId('datapanel'),
-				// xtype : 'datapanel',
+				xtype : 'datapanel',
 				region : 'center',
 				floatable : false,
 				collapsible : false,

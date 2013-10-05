@@ -1,5 +1,3 @@
-Ext.require('Ext.chart.*');
-Ext.require([ 'Ext.Window', 'Ext.fx.target.Sprite', 'Ext.layout.container.Fit', 'Ext.window.MessageBox' ]);
 Ext.define('Datanium.view.Toolbar', {
 	extend : 'Ext.toolbar.Toolbar',
 	xtype : 'basic-buttons',

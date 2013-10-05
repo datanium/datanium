@@ -2,7 +2,7 @@ Ext.application({
 	requires : [ 'Ext.container.Viewport' ],
 	name : 'Datanium',
 	appFolder : 'app',
-	controllers : [ 'Homepage' ],
+	controllers : [ 'Homepage', 'FieldController', 'GridController' ],
 
 	init : function() {
 		Ext.enableFx = true;
