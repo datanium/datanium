@@ -8,6 +8,6 @@ Ext.define('Datanium.view.GridView', {
 		floatable : false,
 		collapsible : false,
 		header : false,
-		//enableLocking : true
+	// enableLocking : true
 	}) ]
 });

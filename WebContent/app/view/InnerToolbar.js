@@ -6,31 +6,32 @@ Ext.define('Datanium.view.InnerToolbar', {
 	shadow : 'drop',
 	shadowOffset : 10,
 	minHeight : 35,
+	padding : '0 5',
 	items : [ {
-		scale : 'small',
-		tooltip : 'New Report',
-		tooltipType : 'title',
-		icon : 'img/icons/add.png',
-		action : 'report-new'
-	}, '-', {
-		scale : 'small',
-		tooltip : 'Save Report',
-		tooltipType : 'title',
-		icon : 'img/icons/disk.png',
-		action : 'save-rpt'
-	}, '-', {
 		scale : 'small',
 		tooltip : 'Run Query',
 		tooltipType : 'title',
-		icon : 'img/icons/control_play_blue.png',
+		html : '<i class="icon-play"></i>',
 		action : 'manual-run'
 	}, '-', {
 		scale : 'small',
 		tooltip : 'Auto Run',
 		tooltipType : 'title',
-		icon : 'img/icons/control_fastforward_blue.png',
+		html : '<i class="icon-forward"></i>',
 		action : 'auto-run',
 		enableToggle : true,
 		pressed : true
+	}, '-', {
+		scale : 'small',
+		tooltip : 'Export Report',
+		tooltipType : 'title',
+		html : '<i class="icon-arrow-down"></i>',
+		action : 'export'
+	}, '-', {
+		scale : 'small',
+		tooltip : 'Clear Selection',
+		tooltipType : 'title',
+		html : '<i class="icon-remove"></i>',
+		action : 'clear'
 	} ]
 });

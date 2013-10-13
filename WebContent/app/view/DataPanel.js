@@ -7,7 +7,7 @@ Ext.define('Datanium.view.DataPanel', {
 		collapsible : false,
 		header : false
 	},
-	rbar : [ {
+	/*rbar : [ {
 		xtype : 'buttongroup',
 		columns : 1,
 		activeItem : 0,
@@ -36,9 +36,10 @@ Ext.define('Datanium.view.DataPanel', {
 			toggleGroup : 'viewSwitch'
 		} ]
 
-	} ],
+	} ],*/
 	itemId : Datanium.util.CommonUtils.genItemId('dataViewBox'),
 	layout : 'card',
+	border : false,
 	items : [ {
 		xtype : 'gridview',
 		itemId : Datanium.util.CommonUtils.genItemId('gridview')

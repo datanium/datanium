@@ -21,7 +21,7 @@ Ext.define('Datanium.view.FieldPanel', {
 				border : false,
 				layout : {
 					type : 'hbox',
-					padding : '10',
+					padding : '3 12 6 12',
 					align : 'stretch'
 
 				},
@@ -46,7 +46,7 @@ Ext.define('Datanium.view.FieldPanel', {
 				border : false,
 				layout : {
 					type : 'hbox',
-					padding : '10',
+					padding : '6 12 6 12',
 					align : 'stretch'
 				},
 				items : [ {
@@ -72,7 +72,7 @@ Ext.define('Datanium.view.FieldPanel', {
 				// hidden: true,
 				layout : {
 					type : 'hbox',
-					padding : '10',
+					padding : '6 12 12 12',
 					align : 'stretch'
 				},
 				items : [ {

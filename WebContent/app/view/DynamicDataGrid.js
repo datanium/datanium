@@ -66,7 +66,8 @@ Ext.define('Datanium.view.DynamicDataGrid', {
 			xtype : 'pagingtoolbar',
 			store : store,
 			dock : 'bottom',
-			displayInfo : true
+			displayInfo : true,
+			refreshText : false
 		} ];
 		this.store = store;
 		this.columns = columns;

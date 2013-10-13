@@ -4,6 +4,7 @@ Ext.define('Datanium.view.ReportTemplate', {
 	layout : 'border',
 	bodyBorder : false,
 	border : false,
+	padding : 5,
 	defaults : {
 		collapsible : true,
 		split : true
@@ -12,7 +13,6 @@ Ext.define('Datanium.view.ReportTemplate', {
 		title : 'Data Cubes',
 		region : 'west',
 		floatable : false,
-		margins : '5 0 0 0',
 		width : 250,
 		minWidth : 100,
 		maxWidth : 250,
@@ -30,7 +30,6 @@ Ext.define('Datanium.view.ReportTemplate', {
 	}, {
 		collapsible : false,
 		region : 'center',
-		margins : '5 0 0 0',
 		header : false,
 		border : false,
 		layout : 'fit',
@@ -52,7 +51,8 @@ Ext.define('Datanium.view.ReportTemplate', {
 				items : [ {
 					xtype : 'inner-toolbar',
 					itemId : Datanium.util.CommonUtils.genItemId('inner-toolbar'),
-					width : '100%'
+					width : '100%',
+					border : false
 				}, {
 					xtype : 'fieldpanel',
 					cls : 'fieldpanel',
