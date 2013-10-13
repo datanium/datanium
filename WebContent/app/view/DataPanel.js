@@ -40,7 +40,7 @@ Ext.define('Datanium.view.DataPanel', {
 	itemId : Datanium.util.CommonUtils.genItemId('dataViewBox'),
 	layout : 'card',
 	items : [ {
-		// xtype : 'gridview',
+		xtype : 'gridview',
 		itemId : Datanium.util.CommonUtils.genItemId('gridview')
 	}, {
 		// xtype : 'chartview',
