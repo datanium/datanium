@@ -21,7 +21,7 @@ Ext.define('Datanium.view.FieldPanel', {
 				border : false,
 				layout : {
 					type : 'hbox',
-					padding : '3 12 6 12',
+					padding : '1 12 6 12',
 					align : 'stretch'
 
 				},

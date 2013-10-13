@@ -4,8 +4,9 @@ Ext.define('Datanium.view.Toolbar', {
 	cls : 'button-view',
 	id : 'basic-toolbar',
 	alias : 'widget.top-toolbar',
-	minHeight : 50,
+	minHeight : 51,
 	items : [ {
+		scale : 'large',
 		xtype : 'button',
 		id : 'newReportBtn',
 		html : '<i class="icon-plus-sign icon-3x"></i>',
@@ -14,8 +15,10 @@ Ext.define('Datanium.view.Toolbar', {
 		action : 'new-rpt'
 	}, {
 		xtype : 'tbseparator',
-		height : 24
+		height : 22,
+		margins : '0 0 0 1'
 	}, {
+		scale : 'large',
 		xtype : 'button',
 		id : 'openBtn',
 		html : '<i class="icon-folder-open icon-3x"></i>',
@@ -24,8 +27,10 @@ Ext.define('Datanium.view.Toolbar', {
 		action : 'open-rpt'
 	}, {
 		xtype : 'tbseparator',
-		height : 24
+		height : 22,
+		margins : '0 0 0 1'
 	}, {
+		scale : 'large',
 		xtype : 'button',
 		id : 'saveBtn',
 		html : '<i class="icon-save icon-3x"></i>',
@@ -34,8 +39,10 @@ Ext.define('Datanium.view.Toolbar', {
 		action : 'save-rpt'
 	}, {
 		xtype : 'tbseparator',
-		height : 24
+		height : 22,
+		margins : '0 0 0 1'
 	}, {
+		scale : 'large',
 		xtype : 'button',
 		id : 'deleteBtn',
 		html : '<i class="icon-trash icon-3x"></i>',
@@ -44,8 +51,10 @@ Ext.define('Datanium.view.Toolbar', {
 		action : 'del-rpt'
 	}, {
 		xtype : 'tbseparator',
-		height : 24
+		height : 22,
+		margins : '0 0 0 1'
 	}, {
+		scale : 'large',
 		xtype : 'button',
 		id : 'myPreBtn',
 		html : '<i class="icon-cog icon-3x"></i>',
@@ -53,8 +62,10 @@ Ext.define('Datanium.view.Toolbar', {
 		tooltipType : 'title'
 	}, {
 		xtype : 'tbseparator',
-		height : 24
+		height : 22,
+		margins : '0 0 0 1'
 	}, {
+		scale : 'large',
 		xtype : 'button',
 		id : 'helpBtn',
 		html : '<i class="icon-info-sign icon-3x"></i>',
