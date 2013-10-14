@@ -5,45 +5,33 @@ Ext.define('Datanium.view.InnerToolbar', {
 	alias : 'widget.inner-toolbar',
 	shadow : 'drop',
 	shadowOffset : 10,
-	minHeight : 38,
+	minHeight : 35,
 	padding : '0 5',
 	items : [ {
-		scale : 'medium',
+		scale : 'small',
 		tooltip : 'Run Query',
 		tooltipType : 'title',
-		html : '<i class="icon-play-sign icon-2x"></i>',
+		html : '<i class="icon-play"></i>',
 		action : 'manual-run'
-	}, {
-		xtype : 'tbseparator',
-		height : 14,
-		margins : '0 0 0 1'
-	}, {
-		scale : 'medium',
+	}, '-', {
+		scale : 'small',
 		tooltip : 'Auto Run',
 		tooltipType : 'title',
-		html : '<i class="icon-play-circle icon-2x"></i>',
+		html : '<i class="icon-forward"></i>',
 		action : 'auto-run',
 		enableToggle : true,
 		pressed : true
-	}, {
-		xtype : 'tbseparator',
-		height : 14,
-		margins : '0 0 0 1'
-	}, {
-		scale : 'medium',
+	}, '-', {
+		scale : 'small',
 		tooltip : 'Export Report',
 		tooltipType : 'title',
-		html : '<i class="icon-download icon-2x"></i>',
+		html : '<i class="icon-arrow-down"></i>',
 		action : 'export'
-	}, {
-		xtype : 'tbseparator',
-		height : 14,
-		margins : '0 0 0 1'
-	}, {
-		scale : 'medium',
+	}, '-', {
+		scale : 'small',
 		tooltip : 'Clear Selection',
 		tooltipType : 'title',
-		html : '<i class="icon-remove-circle icon-2x"></i>',
+		html : '<i class="icon-remove"></i>',
 		action : 'clear'
 	} ]
 });
