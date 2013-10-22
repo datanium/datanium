@@ -49,13 +49,21 @@
 					"name":"GDP",
 					"caption":"GDP",
 					"leaf":true
-				}{
+				},
+				{
 					"uniqueName":"[Measures].[CPI]",
 					"name":"CPI",
 					"caption":"CPI",
 					"leaf":true
 				}
 			]
+		},
+		{
+			"uniqueName":"[CUBE2]",
+			"name":"CUBE_2",
+			"caption":"Cube 2",
+			"dimensions":[],
+			"measures":[]
 		}
 	]
 }
