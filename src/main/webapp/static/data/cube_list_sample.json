@@ -1,0 +1,14 @@
+{
+	"cubes":[
+		{
+			"uniqueName":"[WDI_WORLDBANK]",
+			"name":"WDI_WORLDBANK",
+			"caption":"WDI - World Bank"
+		},
+		{
+			"uniqueName":"[CUBE2]",
+			"name":"CUBE_2",
+			"caption":"Cube 2"
+		}
+	]
+}

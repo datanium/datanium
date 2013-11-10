@@ -1,69 +1,74 @@
 {
-	"cubes":[
+	"uniqueName":"[WDI_WORLDBANK]",
+	"name":"WDI_WORLDBANK",
+	"text":"WDI - World Bank",
+	"dimensions":[
 		{
-			"uniqueName":"[WDI_WORLDBANK]",
-			"name":"WDI_WORLDBANK",
-			"caption":"WDI - World Bank",
-			"dimensions":[
+			"uniqueName":"[GEO]",
+			"name":"GEO",
+			"text":"Geography",
+			"leaf":false,
+			"children":[
 				{
-					"uniqueName":"[GEO]",
-					"name":"GEO",
-					"caption":"Geography",
-					"leaf":false,
+					"uniqueName":"[GEO].[REGION]",
+					"name":"REGION",
+					"text":"Region",
+					"leaf":true,
 					"children":[
-						{
-							"uniqueName":"[GEO].[REGION]",
-							"name":"REGION",
-							"caption":"Region",
-							"leaf":true,
-							"children":[]
-						},
-						{
-							"uniqueName":"[GEO].[COUNTRY]",
-							"name":"COUNTRY",
-							"caption":"Country",
-							"leaf":true,
-							"children":[]
-						}
+						
 					]
+					
 				},
 				{
-					"uniqueName":"[TIME]",
-					"name":"TIME",
-					"caption":"Time",
-					"leaf":false,
+					"uniqueName":"[GEO].[COUNTRY]",
+					"name":"COUNTRY",
+					"text":"Country",
+					"leaf":true,
 					"children":[
-						{
-							"uniqueName":"[TIME].[YEAR]",
-							"name":"YEAR",
-							"caption":"Year",
-							"leaf":true,
-							"children":[]
-						}
+						
 					]
+					
 				}
-			],
-			"measures":[
-				{
-					"uniqueName":"[Measures].[GDP]",
-					"name":"GDP",
-					"caption":"GDP",
-					"leaf":true
-				},
-				{
-					"uniqueName":"[Measures].[CPI]",
-					"name":"CPI",
-					"caption":"CPI",
-					"leaf":true
-				}
+				
 			]
+			
 		},
 		{
-			"uniqueName":"[CUBE2]",
-			"name":"CUBE_2",
-			"caption":"Cube 2",
-			"dimensions":[],
-			"measures":[]
+			"uniqueName":"[TIME]",
+			"name":"TIME",
+			"text":"Time",
+			"leaf":false,
+			"children":[
+				{
+					"uniqueName":"[TIME].[YEAR]",
+					"name":"YEAR",
+					"text":"Year",
+					"leaf":true,
+					"children":[
+						
+					]
+					
+				}
+				
+			]
+			
 		}
+		
+	],
+	"measures":[
+		{
+			"uniqueName":"[Measures].[GDP]",
+			"name":"GDP",
+			"text":"GDP",
+			"leaf":true
+		},
+		{
+			"uniqueName":"[Measures].[CPI]",
+			"name":"CPI",
+			"text":"CPI",
+			"leaf":true
+		}
+		
 	]
+	
 }
