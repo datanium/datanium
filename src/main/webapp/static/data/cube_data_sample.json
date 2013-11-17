@@ -14,6 +14,7 @@
 					"name":"REGION",
 					"text":"Region",
 					"leaf":true,
+					"checked":false,
 					"children":[
 						
 					]
@@ -24,6 +25,7 @@
 					"name":"COUNTRY",
 					"text":"Country",
 					"leaf":true,
+					"checked":false,
 					"children":[
 						
 					]
@@ -44,6 +46,7 @@
 					"name":"YEAR",
 					"text":"Year",
 					"leaf":true,
+					"checked":false,
 					"children":[
 						
 					]
@@ -60,13 +63,15 @@
 			"uniqueName":"[Measures].[GDP]",
 			"name":"GDP",
 			"text":"GDP",
-			"leaf":true
+			"leaf":true,
+			"checked":false
 		},
 		{
 			"uniqueName":"[Measures].[CPI]",
 			"name":"CPI",
 			"text":"CPI",
-			"leaf":true
+			"leaf":true,
+			"checked":false
 		}
 		
 	]
