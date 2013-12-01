@@ -29,5 +29,19 @@ Ext.define('Datanium.view.MeasureTree', {
 			} ]
 		});
 		this.callParent();
+	},
+	listeners : {
+		itemclick : function(me, record, item, index, e, eOpts) {
+			var node = record;
+			var checked = node.get('checked');
+			if (checked != null) {
+				if (checked) {
+					node.set('checked', false);
+				} else {
+					node.set('checked', true);
+				}
+				Datanium.util.CommonUtils.updateQueryParam();
+			}
+		}
 	}
 });

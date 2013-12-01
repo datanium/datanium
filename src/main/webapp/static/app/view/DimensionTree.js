@@ -24,26 +24,24 @@ Ext.define('Datanium.view.DimensionTree', {
 				direction : 'ASC'
 			} ]
 		});
-		this.tbar = [ {
-			text : 'Get checked nodes',
-			scope : this,
-			handler : this.onCheckedNodesClick
-		} ];
+		/*
+		 * this.tbar = [ { text : 'Get checked nodes', scope : this, handler :
+		 * this.onCheckedNodesClick } ];
+		 */
 		this.callParent();
-	},
-	onCheckedNodesClick : function() {
-		var records = this.getView().getChecked(), names = [];
-
-		Ext.Array.each(records, function(rec) {
-			names.push(rec.get('text'));
-		});
-		console.log(names);
 	},
 	listeners : {
 		itemclick : function(me, record, item, index, e, eOpts) {
-			console.log(record);
-			var id = record.get('id');
-			var text = record.get('text');
+			var node = record;
+			var checked = node.get('checked');
+			if (checked != null) {
+				if (checked) {
+					node.set('checked', false);
+				} else {
+					node.set('checked', true);
+				}
+				Datanium.util.CommonUtils.updateQueryParam();
+			}
 		}
 	}
 });

@@ -1,7 +1,10 @@
 Ext.define('Datanium.GlobalData', {
 	singleton : true,
 	tabindex : 0,
-	queryParamArray : [],
+	queryParam : {
+		dimensions : [],
+		measures : []
+	},
 	queryResult : {},
 	enableQuery : false,
 	groups : []
