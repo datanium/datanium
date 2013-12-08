@@ -1,46 +1,47 @@
 Ext.define('Datanium.view.DimensionTree', {
 	extend : 'Ext.tree.Panel',
+	xtype : 'check-tree',
 	alias : 'widget.dimensionTree',
 	title : 'Dimensions',
-//	store : 'Dimensions',
-	displayField : 'name',
 	rootVisible : false,
 	useArrows : true,
-	cls : 'dimensionTree',
-	viewConfig : {
-		stripeRows : true,
-		plugins : {
-			ddGroup: 'organizerDD',
-			ptype : 'treeviewdragdrop',
-			displayField : 'name',
-			nodeHighlightOnDrop : true,
-			nodeHighlightColor : 'c3ffff',
-			enableDrop : false,
-			appendOnly: true
-		}
-	},
+	displayField : 'text',
 
 	initComponent : function() {
-		var me = this;
-		Ext.apply(me, {
-			
+		this.store = Ext.create('Ext.data.TreeStore', {
+			model : 'Datanium.model.Dimension',
+			proxy : {
+				type : 'memory',
+				reader : {
+					type : 'json',
+					idProperty : 'uniqueName',
+					root : 'children'
+				}
+			},
+			folderSort : true,
+			sorters : [ {
+				property : 'caption',
+				direction : 'ASC'
+			} ]
 		});
-                me.store = Ext.create('Ext.data.TreeStore', {
-                   model : 'ERMDashboard.model.Dimension',
-                   proxy : {
-                        type : 'memory',
-                        reader : {
-                                type : 'json',
-                                idProperty : 'uniqueName',
-                                root : 'children'
-                        }
-                  },
-                  folderSort: true,
-                  sorters : [ {
-                        property : 'name',
-                        direction : 'ASC'
-                  } ]
-                });
-		me.callParent();
+		/*
+		 * this.tbar = [ { text : 'Get checked nodes', scope : this, handler :
+		 * this.onCheckedNodesClick } ];
+		 */
+		this.callParent();
+	},
+	listeners : {
+		itemclick : function(me, record, item, index, e, eOpts) {
+			var node = record;
+			var checked = node.get('checked');
+			if (checked != null) {
+				if (checked) {
+					node.set('checked', false);
+				} else {
+					node.set('checked', true);
+				}
+				Datanium.util.CommonUtils.updateQueryParam();
+			}
+		}
 	}
 });

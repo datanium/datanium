@@ -34,10 +34,10 @@ Ext.define('Datanium.view.FieldPanel', {
 					width : 85,
 					iconAlign : 'right'
 				}, {
-					// xtype : 'droppabletb',
+					xtype : 'fieldtb',
 					layout : 'column',
-					cls : 'ddtoolbar',
-					itemId : Datanium.util.CommonUtils.genItemId('columnsField'),
+					cls : 'fdtoolbar',
+					itemId : Datanium.util.CommonUtils.genItemId('dimField'),
 					flex : 9,
 					margin : 0
 				} ]
@@ -59,10 +59,10 @@ Ext.define('Datanium.view.FieldPanel', {
 					width : 85,
 					iconAlign : 'right'
 				}, {
-					// xtype : 'droppabletb',
-					cls : 'ddtoolbar',
+					xtype : 'fieldtb',
+					cls : 'fdtoolbar',
 					layout : 'column',
-					itemId : Datanium.util.CommonUtils.genItemId('rowsField'),
+					itemId : Datanium.util.CommonUtils.genItemId('meaField'),
 					flex : 9,
 					margin : 0
 				} ]
@@ -85,8 +85,8 @@ Ext.define('Datanium.view.FieldPanel', {
 					width : 85,
 					iconAlign : 'right'
 				}, {
-					// xtype : 'droppabletb',
-					cls : 'ddtoolbar',
+					xtype : 'fieldtb',
+					cls : 'fdtoolbar',
 					layout : 'column',
 					itemId : Datanium.util.CommonUtils.genItemId('filterField'),
 					flex : 9,
