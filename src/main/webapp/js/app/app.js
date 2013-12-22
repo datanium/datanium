@@ -1,7 +1,7 @@
 Ext.application({
 	requires : [ 'Ext.container.Viewport' ],
 	name : 'Datanium',
-	appFolder : 'app',
+	appFolder : '../js/app',
 	controllers : [ 'Homepage', 'FieldController', 'GridController' ],
 
 	init : function() {
