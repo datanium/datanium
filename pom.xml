@@ -543,7 +543,8 @@
 
 					<webAppConfig>
 						<contextPath>/${project.artifactId}</contextPath>
-					</webAppConfig>
+                        <allowDuplicateFragmentNames>true</allowDuplicateFragmentNames>
+                    </webAppConfig>
 				</configuration>
 			</plugin>
 
