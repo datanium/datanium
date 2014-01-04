@@ -18,13 +18,6 @@ Ext.application({
 				split : true
 			},
 			items : [ {
-				title : 'Datanium Analysis',
-				region : 'north',
-				header : false,
-				items : [ {
-					xtype : 'top-toolbar'
-				} ]
-			}, {
 				title : 'Main Box',
 				region : 'center',
 				xtype : 'tabpanel',
@@ -33,6 +26,7 @@ Ext.application({
 				collapsible : false,
 				header : false,
 				tabBar : {
+					display: false,
 					height : 25,
 					defaults : {
 						height : 25

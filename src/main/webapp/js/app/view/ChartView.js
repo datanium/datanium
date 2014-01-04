@@ -1,7 +1,7 @@
 Ext.define('Datanium.view.ChartView', {
 	extend : 'Ext.panel.Panel',
-	alias : 'widget.chartview',
-	itemId : Datanium.util.CommonUtils.genItemId('chartview'),
+	alias : 'widget.datachartview',
+	itemId : Datanium.util.CommonUtils.genItemId('datachartview'),
 
 	layout : 'border',
 	items : [ {

@@ -3,7 +3,7 @@ Ext.define('Datanium.store.CubeInfos', {
 	model : 'Datanium.model.CubeInfo',
 	proxy : {
 		type : 'ajax',
-		url : 'data/cube_data_sample.json',
+		url : '../data/cube_data_sample.json',
 		reader : {
 			type : 'json',
 			idProperty : 'uniqueName',
