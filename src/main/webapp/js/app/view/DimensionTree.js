@@ -29,6 +29,7 @@ Ext.define('Datanium.view.DimensionTree', {
 		 * this.onCheckedNodesClick } ];
 		 */
 		this.callParent();
+		this.addEvents('treeValueChange');
 	},
 	listeners : {
 		itemclick : function(me, record, item, index, e, eOpts) {
@@ -41,6 +42,7 @@ Ext.define('Datanium.view.DimensionTree', {
 					node.set('checked', true);
 				}
 				Datanium.util.CommonUtils.updateQueryParam();
+				this.fireEvent('treeValueChange');
 			}
 		}
 	}

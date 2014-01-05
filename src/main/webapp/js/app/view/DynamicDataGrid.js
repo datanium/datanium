@@ -29,8 +29,10 @@ function destoryGrid(cmpId, parent) {
 	groups = [];
 }
 
-function generateDynamicModel(fields_json, results_json) {
-	modelFactory('DynamicGridModel', []);
+function generateDynamicModel(fields, results_json) {
+	var dataFields = getResultHeader(results_json);
+	columns = columnFactory(fields);
+	modelFactory('DynamicGridModel', dataFields);
 	storeFactory('DynamicGridStore', store_template, 'DynamicGridModel');
 	DynamicGridStore.load();
 	return DynamicGridStore;
@@ -38,6 +40,7 @@ function generateDynamicModel(fields_json, results_json) {
 
 function storeFactory(name, template, model) {
 	template.model = model;
+	template.data = Datanium.GlobalData.QueryResult;
 	eval(name + " = Ext.create('Ext.data.Store'," + Ext.encode(template) + ");");
 }
 
@@ -46,7 +49,119 @@ function modelFactory(name, fields) {
 		extend : 'Ext.data.Model',
 		fields : fields
 	};
+	console.log(model);
 	eval("Ext.define('" + name + "'," + Ext.encode(model) + ");");
+}
+
+function columnFactory(fields_json) {
+	var temp_columns = [];
+	// add column dimension
+
+	// add other columns
+	for ( var i = 0; i < fields_json.length; i++) {
+		if ("group" in fields_json[i] == false || fields_json[i].group == null) {
+			if (fields_json[i].data_type != 'dimension' || fields_json[i].field_type != 'column') {
+				if ('is_parent' in fields_json[i]) {
+					temp_columns.push(fields_json[i]);
+				} else {
+					var column = {
+						text : "<strong>" + fields_json[i].text + "</strong>",
+						uniqueName : fields_json[i].uniqueName,
+						name : fields_json[i].text,
+						sortable : true,
+						dataIndex : fields_json[i].text,
+						data_type : fields_json[i].data_type,
+						displayOrder : fields_json[i].displayOrder,
+						align : "auto"
+					};
+					columnCellStyle(column, fields_json[i]);
+
+					temp_columns.push(column);
+				}
+			}
+		}
+	}
+	console.log(temp_columns);
+	temp_columns.sort(function(col1, col2) {
+		return col1.displayOrder - col2.displayOrder;
+	});
+	var outputColumns = [];
+	for ( var i = 0; i < temp_columns.length; i++) {
+		if (temp_columns[i].data_type == 'dimension') {
+			outputColumns.push(temp_columns[i]);
+		}
+	}
+	for ( var i = 0; i < temp_columns.length; i++) {
+		if (temp_columns[i].data_type == 'measure') {
+			outputColumns.push(temp_columns[i]);
+		}
+	}
+	return outputColumns;
+}
+
+function columnCellStyle(column, field) {
+	if ("width" in field) {
+		column.width = field.width;
+	} else {
+		var labelLength = field.text.length;
+		var columnWidth = columnWidthGen(labelLength);
+		column.width = columnWidth;
+	}
+
+	var rendererVal = "";
+
+	if (field.data_type == 'measure') {
+		if (field.name == 'Trend') {
+			column.tdCls = "x-grid-cell-inner-center";
+			rendererVal = rendererVal + "metadata.tdCls = 'erm-trend-' + value; value = '';";
+		} else {
+			column.tdCls = "x-grid-cell-inner-right";
+			rendererVal = rendererVal + "value = Ext.util.Format.number(value, '000,000');";
+		}
+	} else {
+		column.tdCls = "x-grid-cell-inner-left";
+	}
+
+	if ("link_location" in field) {
+		if (field.link_location == "cell") {
+			rendererVal = rendererVal + "value = '<a href=\"#" + field.link_target + "\">' + value + '</a>';";
+		}
+	}
+
+	if (rendererVal.length > 0) {
+		column.renderer = function(value, metadata) {
+			eval(rendererVal);
+			return value;
+		};
+	}
+}
+
+function columnWidthGen(labelLength) {
+	var width = labelLength * 8;
+	if (width % 100 > 50) {
+		width = 100;
+	}
+	if (width > 200) {
+		width = 200;
+	}
+	if (width < 100) {
+		width = 100;
+	}
+	return width;
+}
+
+function getResultHeader(results_json) {
+	var headers = [];
+	if (results_json != null && results_json.result.length > 0) {
+		for ( var obj in results_json.result[0]) {
+			if (results_json.result[0].hasOwnProperty(obj)) {
+				console.log(obj);
+				headers.push(obj);
+			}
+		}
+	}
+	console.log(headers);
+	return headers;
 }
 
 Ext.define('Datanium.view.DynamicDataGrid', {
@@ -73,7 +188,7 @@ Ext.define('Datanium.view.DynamicDataGrid', {
 			if (Datanium.GlobalData.queryParam != null) {
 				fields_json = Datanium.GlobalData.queryParam;
 				if (Datanium.GlobalData.QueryResult != null) {
-					results_json = Datanium.GlobalData.QueryResult.queryOutput;
+					results_json = Datanium.GlobalData.QueryResult;
 				}
 			} else {
 				fields = [];
@@ -82,15 +197,16 @@ Ext.define('Datanium.view.DynamicDataGrid', {
 			}
 		}
 		if (fields_json != null) {
-			if ("rows" in fields_json) {
-				for ( var i = 0; i < fields_json.rows.length; i++) {
-					var f = fields_json.rows[i];
+			console.log("dimensions" in fields_json);
+			if ("dimensions" in fields_json) {
+				for ( var i = 0; i < fields_json.dimensions.length; i++) {
+					var f = fields_json.dimensions[i];
 					f.field_type = 'row';
 					if (f.display)
 						fields.push(f);
 				}
-				for ( var i = 0; i < fields_json.columns.length; i++) {
-					var f = fields_json.columns[i];
+				for ( var i = 0; i < fields_json.measures.length; i++) {
+					var f = fields_json.measures[i];
 					f.field_type = 'column';
 					if (f.display)
 						fields.push(f);
@@ -122,6 +238,7 @@ Ext.define('Datanium.view.DynamicDataGrid', {
 					if (Datanium.util.CommonUtils.getCmpInActiveTab('dynamicdatagrid') != null) {
 						var activeItemId = Datanium.util.CommonUtils.getCmpInActiveTab('datapanel').getLayout()
 								.getActiveItem().id;
+						destoryGrid('dynamicdatagrid');
 						Datanium.util.CommonUtils.getCmpInActiveTab('datagridview').insert(0,
 								Ext.create('Datanium.view.DynamicDataGrid', {
 									xtype : 'dynamicdatagrid',

@@ -41,6 +41,7 @@ Ext.define('Datanium.view.MeasureTree', {
 					node.set('checked', true);
 				}
 				Datanium.util.CommonUtils.updateQueryParam();
+				this.fireEvent('treeValueChange');
 			}
 		}
 	}

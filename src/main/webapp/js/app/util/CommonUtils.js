@@ -28,7 +28,11 @@ Ext.define('Datanium.util.CommonUtils', {
 				var name = rec.get('text');
 				var dimItem = {
 					uniqueName : id,
-					text : name
+					text : name,
+					data_type : 'dimension',
+					field_type : 'row',
+					displayOrder : 0,
+					display : true
 				}
 				dimNodes.push(dimItem);
 			});
@@ -39,7 +43,11 @@ Ext.define('Datanium.util.CommonUtils', {
 				var name = rec.get('text');
 				var meaItem = {
 					uniqueName : id,
-					text : name
+					text : name,
+					data_type : 'measure',
+					field_type : 'column',
+					displayOrder : 0,
+					display : true
 				}
 				meaNodes.push(meaItem);
 			});

@@ -6,10 +6,10 @@ Ext.define('Datanium.controller.GridController', {
 	init : function() {
 		this.control({
 			'dimensionTree' : {
-				selectionchange : this.onTreeChange
+				treeValueChange : this.onTreeChange
 			},
 			'measureTree' : {
-				selectionchange : this.onTreeChange
+				treeValueChange : this.onTreeChange
 			},
 			'datagridview' : {
 				afterrender : this.onGridPanelReady
@@ -28,7 +28,7 @@ Ext.define('Datanium.controller.GridController', {
 			queryParam.cubeName = Datanium.util.CommonUtils.getCmpInActiveTab('cubecombo').getValue();
 			console.log(queryParam);
 			var requestConfig = {
-				url : 'ajax/query.json',
+				url : '../data/query_result_sample.json',
 				jsonData : queryParam,
 				timeout : 300000,
 				success : function(response) {
@@ -46,9 +46,6 @@ Ext.define('Datanium.controller.GridController', {
 		} else {
 			this.cleanRpt();
 		}
-	},
-	setQueryParam : function() {
-		
 	},
 	cleanRpt : function() {
 		Datanium.util.CommonUtils.getCmpInActiveTab('dynamicdatagrid').fireEvent('refreshDatagrid');
@@ -73,7 +70,6 @@ Ext.define('Datanium.controller.GridController', {
 	},
 	onTreeChange : function(me) {
 		console.log('onTreeChange');
-		this.setQueryParam();
 		this.generateRpt();
 	},
 	onGridPanelReady : function() {
