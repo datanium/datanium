@@ -21,12 +21,10 @@ Ext.define('Datanium.controller.GridController', {
 		var mask = new Ext.LoadMask(dataViewBox, {
 			msg : "Loading..."
 		});
-		console.log(1);
 		if (this.isQueryValid()) {
-			console.log(2);
 			var queryParam = Datanium.GlobalData.queryParam;
 			queryParam.cubeName = Datanium.util.CommonUtils.getCmpInActiveTab('cubecombo').getValue();
-			console.log(queryParam);
+			// console.log(Ext.encode(queryParam));
 			var requestConfig = {
 				url : '../data/query_result_sample.json',
 				jsonData : queryParam,

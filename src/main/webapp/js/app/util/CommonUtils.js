@@ -88,7 +88,7 @@ Ext.define('Datanium.util.CommonUtils', {
 			}
 			// console.log(dimField);
 			// console.log(meaField);
-			console.log(Datanium.GlobalData.queryParam);
+			// console.log(Datanium.GlobalData.queryParam);
 		}
 	}
 });

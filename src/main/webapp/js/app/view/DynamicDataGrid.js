@@ -21,7 +21,6 @@ function destoryGrid(cmpId, parent) {
 	if (parent != null) {
 		parent.down('dynamicdatagrid').destroy();
 	} else {
-		console.log(Datanium.util.CommonUtils.getCmpInActiveTab(cmpId));
 		Datanium.util.CommonUtils.getCmpInActiveTab(cmpId).destroy();
 	}
 	fields = [];
@@ -49,7 +48,6 @@ function modelFactory(name, fields) {
 		extend : 'Ext.data.Model',
 		fields : fields
 	};
-	console.log(model);
 	eval("Ext.define('" + name + "'," + Ext.encode(model) + ");");
 }
 
@@ -81,7 +79,6 @@ function columnFactory(fields_json) {
 			}
 		}
 	}
-	console.log(temp_columns);
 	temp_columns.sort(function(col1, col2) {
 		return col1.displayOrder - col2.displayOrder;
 	});
@@ -155,12 +152,10 @@ function getResultHeader(results_json) {
 	if (results_json != null && results_json.result.length > 0) {
 		for ( var obj in results_json.result[0]) {
 			if (results_json.result[0].hasOwnProperty(obj)) {
-				console.log(obj);
 				headers.push(obj);
 			}
 		}
 	}
-	console.log(headers);
 	return headers;
 }
 
@@ -197,7 +192,6 @@ Ext.define('Datanium.view.DynamicDataGrid', {
 			}
 		}
 		if (fields_json != null) {
-			console.log("dimensions" in fields_json);
 			if ("dimensions" in fields_json) {
 				for ( var i = 0; i < fields_json.dimensions.length; i++) {
 					var f = fields_json.dimensions[i];
@@ -216,9 +210,9 @@ Ext.define('Datanium.view.DynamicDataGrid', {
 				}
 			}
 		}
-		console.log(fields);
-		console.log(fields_json);
-		console.log(results_json);
+		// console.log(fields);
+		// console.log(fields_json);
+		// console.log(results_json);
 		var store = generateDynamicModel(fields, results_json);
 		this.dockedItems = [ {
 			xtype : 'pagingtoolbar',
@@ -229,8 +223,8 @@ Ext.define('Datanium.view.DynamicDataGrid', {
 		} ];
 		this.store = store;
 		this.columns = columns;
-		console.log(this.store);
-		console.log(this.columns);
+		// console.log(this.store);
+		// console.log(this.columns);
 		this.callParent();
 		this.addEvents('refreshDatagrid');
 		this.on('refreshDatagrid',
