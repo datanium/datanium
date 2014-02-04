@@ -108,13 +108,8 @@ function columnCellStyle(column, field) {
 	var rendererVal = "";
 
 	if (field.data_type == 'measure') {
-		if (field.name == 'Trend') {
-			column.tdCls = "x-grid-cell-inner-center";
-			rendererVal = rendererVal + "metadata.tdCls = 'erm-trend-' + value; value = '';";
-		} else {
-			column.tdCls = "x-grid-cell-inner-right";
-			rendererVal = rendererVal + "value = Ext.util.Format.number(value, '000,000');";
-		}
+		column.tdCls = "x-grid-cell-inner-right";
+		rendererVal = rendererVal + "value = Ext.util.Format.number(value, '0,000.####');";
 	} else {
 		column.tdCls = "x-grid-cell-inner-left";
 	}

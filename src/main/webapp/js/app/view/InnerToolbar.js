@@ -56,7 +56,8 @@ Ext.define('Datanium.view.InnerToolbar', {
 		html : '<i class="fa fa-table fa-2x"></i>',
 		action : 'grid-mode',
 		enableToggle : true,
-		pressed : true
+		pressed : true,
+		toggleGroup : 'rptMode'
 	}, {
 		xtype : 'tbseparator',
 		height : 14,
@@ -68,6 +69,7 @@ Ext.define('Datanium.view.InnerToolbar', {
 		html : '<i class="fa fa-bar-chart-o fa-2x"></i>',
 		action : 'chart-mode',
 		enableToggle : true,
-		pressed : false
+		pressed : false,
+		toggleGroup : 'rptMode'
 	} ]
 });

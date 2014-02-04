@@ -9,8 +9,19 @@ Ext.define('Datanium.controller.Homepage', {
 			'viewport reporttemplate' : {},
 			'leftpanel > cubecombo' : {
 				change : this.loadTrees
+			},
+			'inner-toolbar > button[action=grid-mode]' : {
+				click : function(btn) {
+					Datanium.GlobalData.rptMode = 'grid';
+				}
+			},
+			'inner-toolbar > button[action=chart-mode]' : {
+				click : function(btn) {
+					Datanium.GlobalData.rptMode = 'chart';
+				}
 			}
 		});
+
 	},
 
 	loadTrees : function(combobox, newValue, oldValue, eOpts) {

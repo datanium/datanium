@@ -73,3 +73,15 @@
 	background: -webkit-gradient(linear, 0 bottom, 0 0, from(#A4EAA1),
 		to(#8DD28B));
 }
+
+.x-grid-cell-inner-right {
+	text-align: right !important;
+}
+
+.x-grid-cell-inner-left {
+	text-align: left !important;
+}
+
+.x-grid-cell-inner-center {
+	text-align: center !important;
+}

@@ -72,8 +72,14 @@
 			"text":"CPI",
 			"leaf":true,
 			"checked":false
+		},
+		{
+			"uniqueName":"[Measures].[Interest Rate]",
+			"name":"Interest Rate",
+			"text":"Interest Rate",
+			"leaf":true,
+			"checked":false
 		}
-		
 	]
 	
 }

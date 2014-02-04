@@ -8,5 +8,6 @@ Ext.define('Datanium.GlobalData', {
 	},
 	queryResult : {},
 	enableQuery : false,
-	groups : []
+	groups : [],
+	rptMode : 'grid'
 });
