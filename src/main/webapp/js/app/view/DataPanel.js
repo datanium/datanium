@@ -24,7 +24,10 @@ Ext.define('Datanium.view.DataPanel', {
 			border : false,
 			items : [ {
 				xtype : 'datagridview',
-				itemId : Datanium.util.CommonUtils.genItemId('datagridview')
+				itemId : Datanium.util.CommonUtils.genItemId('dataGridView')
+			}, {
+				xtype : 'datachartview',
+				itemId : Datanium.util.CommonUtils.genItemId('dataChartView')
 			} ]
 		});
 		this.callParent();

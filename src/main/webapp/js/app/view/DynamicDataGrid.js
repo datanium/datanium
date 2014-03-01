@@ -4,7 +4,7 @@ var store_template = {
 	pageSize : 25,
 	proxy : {
 		type : 'memory',
-		enablePaging : true,
+		enablePaging : false,
 		reader : {
 			type : 'json',
 			root : 'result',
@@ -164,7 +164,6 @@ Ext.define('Datanium.view.DynamicDataGrid', {
 			autoHeight : true,
 			autoWidth : true,
 			forceFit : false,
-			title : 'Result',
 			viewConfig : {
 				stripeRows : true
 			}

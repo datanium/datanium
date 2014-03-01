@@ -12,7 +12,8 @@ Ext.define('Datanium.controller.GridController', {
 				treeValueChange : this.onTreeChange
 			},
 			'datagridview' : {
-				afterrender : this.onGridPanelReady
+				afterrender : this.onGridPanelReady,
+				beforeshow : this.onGridPanelShow
 			}
 		});
 	},
@@ -70,7 +71,7 @@ Ext.define('Datanium.controller.GridController', {
 		console.log('onTreeChange');
 		this.generateRpt();
 	},
-	onGridPanelReady : function() {
+	onGridPanelReady : function(me) {
 		console.log('onGridPanelReady');
 		var datagrid = Ext.create('widget.dynamicdatagrid', {
 			itemId : Datanium.util.CommonUtils.genItemId('dynamicdatagrid'),
@@ -80,5 +81,8 @@ Ext.define('Datanium.controller.GridController', {
 			header : false
 		});
 		Datanium.util.CommonUtils.getCmpInActiveTab('datagridview').insert(datagrid);
+	},
+	onGridPanelShow : function() {
+		console.log('onGridPanelShow');
 	}
 });

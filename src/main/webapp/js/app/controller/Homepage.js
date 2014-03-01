@@ -12,12 +12,18 @@ Ext.define('Datanium.controller.Homepage', {
 			},
 			'inner-toolbar > button[action=grid-mode]' : {
 				click : function(btn) {
-					Datanium.GlobalData.rptMode = 'grid';
+					if (Datanium.GlobalData.rptMode != 'grid') {
+						Datanium.GlobalData.rptMode = 'grid';
+						Datanium.util.CommonUtils.getCmpInActiveTab('datapanel').getLayout().setActiveItem(0);
+					}
 				}
 			},
 			'inner-toolbar > button[action=chart-mode]' : {
 				click : function(btn) {
-					Datanium.GlobalData.rptMode = 'chart';
+					if (Datanium.GlobalData.rptMode != 'chart') {
+						Datanium.GlobalData.rptMode = 'chart';
+						Datanium.util.CommonUtils.getCmpInActiveTab('datapanel').getLayout().setActiveItem(1);
+					}
 				}
 			}
 		});

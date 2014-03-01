@@ -51,7 +51,7 @@ Ext.define('Datanium.view.InnerToolbar', {
 		margins : '0 0 0 1'
 	}, {
 		scale : 'medium',
-		tooltip : 'Grid Mode',
+		tooltip : 'Grid View',
 		tooltipType : 'title',
 		html : '<i class="fa fa-table fa-2x"></i>',
 		action : 'grid-mode',
@@ -64,12 +64,27 @@ Ext.define('Datanium.view.InnerToolbar', {
 		margins : '0 0 0 1'
 	}, {
 		scale : 'medium',
-		tooltip : 'Chart Mode',
+		tooltip : 'Chart View',
 		tooltipType : 'title',
 		html : '<i class="fa fa-bar-chart-o fa-2x"></i>',
 		action : 'chart-mode',
 		enableToggle : true,
 		pressed : false,
 		toggleGroup : 'rptMode'
-	} ]
+	} , {
+		xtype : 'tbseparator',
+		height : 14,
+		margins : '0 0 0 1'
+	}, {
+		scale : 'medium',
+		tooltip : 'Mixed View',
+		tooltipType : 'title',
+		html : '<i class="fa fa-puzzle-piece fa-2x"></i>',
+		action : 'mixed-mode',
+		enableToggle : true,
+		pressed : false,
+		toggleGroup : 'rptMode'
+	} 
+	
+	]
 });
