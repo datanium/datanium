@@ -40,6 +40,7 @@ function generateDynamicModel(fields, results_json) {
 function storeFactory(name, template, model) {
 	template.model = model;
 	template.data = Datanium.GlobalData.QueryResult;
+	console.log(template);
 	eval(name + " = Ext.create('Ext.data.Store'," + Ext.encode(template) + ");");
 }
 

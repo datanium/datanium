@@ -35,6 +35,8 @@ Ext.define('Datanium.controller.GridController', {
 					var result = Ext.JSON.decode(response.responseText, true);
 					Datanium.GlobalData.QueryResult = result;
 					Datanium.util.CommonUtils.getCmpInActiveTab('dynamicdatagrid').fireEvent('refreshDatagrid');
+					Datanium.util.CommonUtils.getCmpInActiveTab('columnchart').fireEvent('refreshColumnChart');
+					
 				},
 				failure : function() {
 					mask.destroy();
@@ -48,6 +50,7 @@ Ext.define('Datanium.controller.GridController', {
 	},
 	cleanRpt : function() {
 		Datanium.util.CommonUtils.getCmpInActiveTab('dynamicdatagrid').fireEvent('refreshDatagrid');
+		Datanium.util.CommonUtils.getCmpInActiveTab('columnchart').fireEvent('refreshColumnChart');
 	},
 	isQueryValid : function() {
 		var queryParam = Datanium.GlobalData.queryParam;
