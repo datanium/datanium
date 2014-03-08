@@ -1,7 +1,5 @@
-{"total": 8,
-		"page": 1,
-		"start": 0,
-		"result": [{
+{"success": true,
+	"result": [{
 			"Region": "Asia",
 			"Country": "China",
 			"Year": "1998",

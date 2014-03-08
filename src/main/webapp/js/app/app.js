@@ -2,29 +2,39 @@ Ext.application({
 	requires : [ 'Ext.container.Viewport' ],
 	name : 'Datanium',
 	appFolder : '../js/app',
-	controllers : [ 'Homepage', 'FieldController', 'GridController' ],
+	controllers : [ 'Homepage', 'FieldController', 'GridController', 'ChartController' ],
 
 	init : function() {
 		Ext.enableFx = true;
 	},
 
 	launch : function() {
-		Ext.create('Ext.container.Viewport', {
+		Ext.create('Ext.panel.Panel', {
 			layout : 'border',
+			// renderTo : Ext.getBody(),
+			renderTo : Ext.get('appContainer'),
 			bodyBorder : false,
+			bodyStyle : {
+				'position' : 'relative',
+				'z-index' : 1
+			},
 			defaults : {
 				collapsible : true,
 				border : false,
 				split : true
 			},
+			id : "appPanel",
+			listeners : {
+				beforerender : function() {
+					Ext.getCmp("appPanel").setHeight(Ext.get("appContainer").getHeight());
+					Ext.getCmp("appPanel").doLayout();
+					Ext.EventManager.onWindowResize(function() {
+						Ext.getCmp("appPanel").setHeight(Ext.get("appContainer").getHeight());
+						Ext.getCmp("appPanel").doLayout();
+					});
+				}
+			},
 			items : [ {
-				title : 'Datanium Analysis',
-				region : 'north',
-				header : false,
-				items : [ {
-					xtype : 'top-toolbar'
-				} ]
-			}, {
 				title : 'Main Box',
 				region : 'center',
 				xtype : 'tabpanel',
@@ -33,6 +43,7 @@ Ext.application({
 				collapsible : false,
 				header : false,
 				tabBar : {
+					display : false,
 					height : 25,
 					defaults : {
 						height : 25

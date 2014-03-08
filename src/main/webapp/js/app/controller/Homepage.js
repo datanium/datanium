@@ -9,8 +9,25 @@ Ext.define('Datanium.controller.Homepage', {
 			'viewport reporttemplate' : {},
 			'leftpanel > cubecombo' : {
 				change : this.loadTrees
+			},
+			'inner-toolbar > button[action=grid-mode]' : {
+				click : function(btn) {
+					if (Datanium.GlobalData.rptMode != 'grid') {
+						Datanium.GlobalData.rptMode = 'grid';
+						Datanium.util.CommonUtils.getCmpInActiveTab('datapanel').getLayout().setActiveItem(0);
+					}
+				}
+			},
+			'inner-toolbar > button[action=chart-mode]' : {
+				click : function(btn) {
+					if (Datanium.GlobalData.rptMode != 'chart') {
+						Datanium.GlobalData.rptMode = 'chart';
+						Datanium.util.CommonUtils.getCmpInActiveTab('datapanel').getLayout().setActiveItem(1);
+					}
+				}
 			}
 		});
+
 	},
 
 	loadTrees : function(combobox, newValue, oldValue, eOpts) {

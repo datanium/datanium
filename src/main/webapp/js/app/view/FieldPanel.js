@@ -21,7 +21,7 @@ Ext.define('Datanium.view.FieldPanel', {
 				border : false,
 				layout : {
 					type : 'hbox',
-					padding : '1 12 6 12',
+					padding : '2 12 6 12',
 					align : 'stretch'
 
 				},
@@ -46,7 +46,7 @@ Ext.define('Datanium.view.FieldPanel', {
 				border : false,
 				layout : {
 					type : 'hbox',
-					padding : '6 12 6 12',
+					padding : '6 12 12 12',
 					align : 'stretch'
 				},
 				items : [ {
@@ -66,33 +66,7 @@ Ext.define('Datanium.view.FieldPanel', {
 					flex : 9,
 					margin : 0
 				} ]
-			}, {
-				xtype : 'panel',
-				border : false,
-				// hidden: true,
-				layout : {
-					type : 'hbox',
-					padding : '6 12 12 12',
-					align : 'stretch'
-				},
-				items : [ {
-					xtype : 'button',
-					text : '<strong>Filter</strong>',
-					padding : '0 0 2 6',
-					textAlign : 'left',
-					scale : 'medium',
-					/* flex : 1 */
-					width : 85,
-					iconAlign : 'right'
-				}, {
-					xtype : 'fieldtb',
-					cls : 'fdtoolbar',
-					layout : 'column',
-					itemId : Datanium.util.CommonUtils.genItemId('filterField'),
-					flex : 9,
-					margin : 0
-				} ]
-			} ]
+			}, ]
 		});
 		me.callParent();
 	}

@@ -3,9 +3,11 @@ Ext.define('Datanium.GlobalData', {
 	tabindex : 0,
 	queryParam : {
 		dimensions : [],
-		measures : []
+		measures : [],
+		groups : []
 	},
 	queryResult : {},
 	enableQuery : false,
-	groups : []
+	groups : [],
+	rptMode : 'grid'
 });
