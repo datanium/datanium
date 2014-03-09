@@ -27,8 +27,8 @@ Ext.define('Datanium.controller.GridController', {
 			queryParam.cubeName = Datanium.util.CommonUtils.getCmpInActiveTab('cubecombo').getValue();
 			// console.log(Ext.encode(queryParam));
 			var requestConfig = {
-				url : '../data/query_result_sample.json',
-				jsonData : queryParam,
+				url : './data/query_result_sample.json',
+				//jsonData : queryParam,
 				timeout : 300000,
 				success : function(response) {
 					mask.destroy();
