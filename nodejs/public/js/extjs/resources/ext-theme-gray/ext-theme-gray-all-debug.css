@@ -6268,8 +6268,8 @@ body.x-nbr .x-btn-default-small-frameInfo {
 }
 /* line 382, ../../../ext-theme-neutral/sass/src/button/Button.scss */
 .x-btn-default-small-icon-text-left .x-btn-inner {
-  line-height: 16px;
-  padding-left: 20px;
+  /*line-height: 16px;*/
+  padding-left: 24px;
 }
 /* line 398, ../../../ext-theme-neutral/sass/src/button/Button.scss */
 .x-btn-default-small-icon-text-left .x-btn-icon-el {
@@ -9014,6 +9014,7 @@ body.x-nbr .x-btn-default-toolbar-large-frameInfo {
 /* line 1161, ../../../ext-theme-neutral/sass/src/button/Button.scss */
 .x-btn-icon-text-left .x-btn-icon-el {
   background-position: left center;
+  margin: 2px 4px;
 }
 
 /* line 1173, ../../../ext-theme-neutral/sass/src/button/Button.scss */

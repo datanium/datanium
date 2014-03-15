@@ -3,12 +3,6 @@
 	"name":"WDI_WORLDBANK",
 	"text":"WDI - World Bank",
 	"dimensions":[
-		{
-			"uniqueName":"[GEO]",
-			"name":"GEO",
-			"text":"Geography",
-			"leaf":false,
-			"children":[
 				{
 					"uniqueName":"[GEO].[REGION]",
 					"name":"REGION",
@@ -30,17 +24,7 @@
 						
 					]
 					
-				}
-				
-			]
-			
-		},
-		{
-			"uniqueName":"[TIME]",
-			"name":"TIME",
-			"text":"Time",
-			"leaf":false,
-			"children":[
+				},
 				{
 					"uniqueName":"[TIME].[YEAR]",
 					"name":"YEAR",
@@ -52,10 +36,6 @@
 					]
 					
 				}
-				
-			]
-			
-		}
 		
 	],
 	"measures":[

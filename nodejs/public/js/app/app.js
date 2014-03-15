@@ -53,7 +53,7 @@ Ext.application({
 					itemId : 'report-tab' + Datanium.GlobalData.tabindex,
 					closable : true,
 					// icon : 'img/icons/report.png',
-					title : 'New Report',
+					title : 'New Analysis',
 					xtype : 'reporttemplate'
 				} ]
 			} ]

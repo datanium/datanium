@@ -56,6 +56,42 @@ Ext.define('Datanium.util.CommonUtils', {
 			queryParam.measures = meaNodes;
 			Datanium.util.CommonUtils.updateFields();
 		},
+		updateQueryParamByEP : function() {
+			var epItems = Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').items;
+			var dimNodes = [];
+			var meaNodes = [];
+			Ext.Array.each(epItems.items, function(rec) {
+				var id = rec.itemId;
+				var name = rec.text;
+				if (id != null && rec.pressed) {
+					if (id.indexOf('Measures') > -1) {
+						var meaItem = {
+							uniqueName : id,
+							text : name,
+							data_type : 'measure',
+							field_type : 'column',
+							displayOrder : 0,
+							display : true
+						}
+						meaNodes.push(meaItem);
+					} else {
+						var dimItem = {
+							uniqueName : id,
+							text : name,
+							data_type : 'dimension',
+							field_type : 'row',
+							displayOrder : 0,
+							display : true
+						}
+						dimNodes.push(dimItem);
+					}
+				}
+			});
+			var queryParam = Datanium.GlobalData.queryParam;
+			queryParam.dimensions = dimNodes;
+			queryParam.measures = meaNodes;
+			Datanium.util.CommonUtils.updateFields();
+		},
 		updateFields : function() {
 			var dimField = Datanium.util.CommonUtils.getCmpInActiveTab(Datanium.util.CommonUtils
 					.getCmpSearchKey('dimField'));

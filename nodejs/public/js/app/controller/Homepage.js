@@ -1,7 +1,7 @@
 Ext.define('Datanium.controller.Homepage', {
 	extend : 'Ext.app.Controller',
 	views : [ 'Toolbar', 'ReportTemplate', 'LeftPanel', 'CubeCombo', 'Accordion', 'DimensionTree', 'MeasureTree',
-			'DataPanel', 'InnerToolbar' ],
+			'ElementPanel', 'DataPanel', 'InnerToolbar' ],
 	models : [ 'CubeName' ],
 	stores : [ 'CubeNames' ],
 	init : function() {
@@ -25,6 +25,11 @@ Ext.define('Datanium.controller.Homepage', {
 						Datanium.util.CommonUtils.getCmpInActiveTab('datapanel').getLayout().setActiveItem(1);
 					}
 				}
+			},
+			'inner-toolbar > button[action=clear]' : {
+				click : function(btn) {
+
+				}
 			}
 		});
 
@@ -45,6 +50,7 @@ Ext.define('Datanium.controller.Homepage', {
 			callback : function(records, operation, success) {
 				if (success) {
 					var tmpstore = records[0];
+					console.log(tmpstore);
 					var dimensionTree = Datanium.util.CommonUtils.getCmpInActiveTab('dimensionTree');
 					var measureTree = Datanium.util.CommonUtils.getCmpInActiveTab('measureTree');
 					var dimensionData = {};
@@ -53,6 +59,9 @@ Ext.define('Datanium.controller.Homepage', {
 					dimensionTree.store.setRootNode(dimensionData);
 					measureData.children = tmpstore.data.measures;
 					measureTree.store.setRootNode(measureData);
+					Datanium.GlobalData.qubeInfo.dimensions = tmpstore.data.dimensions;
+					Datanium.GlobalData.qubeInfo.measures = tmpstore.data.measures;
+					Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('refreshElementPanel');
 					mask.destroy();
 				} else {
 					console.log('cube loading failed');
