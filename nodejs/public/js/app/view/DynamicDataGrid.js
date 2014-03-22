@@ -214,7 +214,16 @@ Ext.define('Datanium.view.DynamicDataGrid', {
 			store : store,
 			dock : 'bottom',
 			displayInfo : true,
-			refreshText : false
+			displayMsg : 'Total {2} records',
+			listeners : {
+				afterrender : function() {
+					Ext.Array.each(this.items.items, function(item) {
+						item.hide();
+					});
+					this.child('tbfill').show();
+					this.child('#displayItem').show();
+				}
+			}
 		} ];
 		this.store = store;
 		this.columns = columns;
