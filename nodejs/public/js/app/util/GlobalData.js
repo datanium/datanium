@@ -6,6 +6,10 @@ Ext.define('Datanium.GlobalData', {
 		measures : [],
 		groups : []
 	},
+	qubeInfo : {
+		dimensions : [],
+		measures : []
+	},
 	queryResult : {},
 	enableQuery : false,
 	groups : [],

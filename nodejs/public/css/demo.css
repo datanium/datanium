@@ -102,9 +102,22 @@ body {
 	-webkit-font-smoothing: antialiased;
 }
 
+.codrops-icon-next:before {
+	content: "\e000";
+}
+
 .codrops-icon-drop:before {
 	content: "\e001";
 }
+
+.codrops-icon-fold:before {
+	content: "\e002";
+}
+
+.codrops-icon-help:before {
+	content: "\e003";
+}
+
 
 .codrops-icon-prev:before {
 	content: "\e004";

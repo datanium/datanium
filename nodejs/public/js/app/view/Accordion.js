@@ -16,12 +16,21 @@ Ext.define('Datanium.view.Accordion', {
 				xtype : 'dimensionTree',
 				itemId : Datanium.util.CommonUtils.genItemId('dimensionTree'),
 				padding : '0 0 5 0',
-				flex : 1
+				flex : 1,
+				hidden : true
 			}, {
 				xtype : 'measureTree',
 				itemId : Datanium.util.CommonUtils.genItemId('measureTree'),
 				padding : '0 0 5 0',
-				flex : 1
+				flex : 1,
+				hidden : true
+			}, {
+				xtype : 'elementPanel',
+				itemId : Datanium.util.CommonUtils.genItemId('elementPanel'),
+				padding : '0 0 5 0',
+				flex : 1,
+				title : 'Indicators',
+				autoScroll : true
 			} ]
 		});
 		this.callParent();

@@ -13,14 +13,14 @@ Ext.define('Datanium.view.ReportTemplate', {
 		title : 'Data Cubes',
 		region : 'west',
 		floatable : false,
-		width : 250,
-		minWidth : 100,
-		maxWidth : 250,
+		header : false,
+		width : 280,
+		minWidth : 150,
+		maxWidth : 400,
 		bodyPadding : 0,
 		layout : 'fit',
 		items : [ {
 			itemId : Datanium.util.CommonUtils.genItemId('leftpanel'),
-			// cls : 'leftpanel',
 			xtype : 'leftpanel'
 		} ],
 		tools : [ {

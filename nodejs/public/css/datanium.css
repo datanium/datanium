@@ -85,3 +85,10 @@
 .x-grid-cell-inner-center {
 	text-align: center !important;
 }
+
+.elementBtn {
+	width: 96%;
+	height: 30px;
+	margin: 4px 2% 2px 2%;
+	padding: 5px 0px 5px 2px;
+}
