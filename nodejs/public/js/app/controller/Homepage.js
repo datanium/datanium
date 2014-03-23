@@ -8,10 +8,10 @@ Ext.define('Datanium.controller.Homepage', {
 		this.control({
 			'viewport reporttemplate' : {},
 			'leftpanel > cubecombo' : {
-				change : this.loadTrees
+				select : this.loadTrees
 			},
 			'leftpanel > searchcombo' : {
-				change : this.addIndicator
+				select : this.addIndicator
 			},
 			'inner-toolbar > button[action=grid-mode]' : {
 				click : function(btn) {

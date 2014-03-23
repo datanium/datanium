@@ -69,8 +69,11 @@ exports.indicatorMapping = function(req, res) {
 }
 
 exports.indicatorSearch = function(req, res) {
-	var indicatorResultJSON = {
-		"indicators" : [ {
+	var query = require('url').parse(req.url, true).query;
+	var results = [];
+	if (query.query != null) {
+		var key = query.query.toLowerCase();
+		var idcLib = [ {
 			"uniqueName" : "[Measures].[CPI]",
 			"text" : "CPI"
 		}, {
@@ -79,7 +82,15 @@ exports.indicatorSearch = function(req, res) {
 		}, {
 			"uniqueName" : "[Measures].[Interest Rate]",
 			"text" : "Interest Rate"
-		} ]
+		} ];
+		idcLib.forEach(function(item, index) {
+			if (item.text.toLowerCase().indexOf(key) > -1) {
+				results.push(item);
+			}
+		})
+	}
+	var indicatorResultJSON = {
+		"indicators" : results
 	};
 	res.send(indicatorResultJSON);
 };
