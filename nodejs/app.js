@@ -34,6 +34,8 @@ app.get('/helloworld', routes.helloworld);
 app.get('/rest/cube/list', rest.cubeList);
 app.get('/rest/cube/info', rest.cubeInfo);
 app.get('/rest/query/result', rest.queryResult);
+app.get('/rest/indicator/search', rest.indicatorSearch);
+app.get('/rest/indicator/map', rest.indicatorMapping);
 
 http.createServer(app).listen(app.get('port'), function() {
 	console.log('Express server listening on port ' + app.get('port'));

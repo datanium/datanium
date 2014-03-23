@@ -1,14 +1,17 @@
 Ext.define('Datanium.controller.Homepage', {
 	extend : 'Ext.app.Controller',
-	views : [ 'Toolbar', 'ReportTemplate', 'LeftPanel', 'CubeCombo', 'Accordion', 'DimensionTree', 'MeasureTree',
-			'ElementPanel', 'DataPanel', 'InnerToolbar' ],
-	models : [ 'CubeName' ],
-	stores : [ 'CubeNames' ],
+	views : [ 'Toolbar', 'ReportTemplate', 'LeftPanel', 'CubeCombo', 'IndicatorSearchCombo', 'Accordion',
+			'DimensionTree', 'MeasureTree', 'ElementPanel', 'DataPanel', 'InnerToolbar' ],
+	models : [ 'CubeName', 'Indicator' ],
+	stores : [ 'CubeNames', 'Indicators' ],
 	init : function() {
 		this.control({
 			'viewport reporttemplate' : {},
 			'leftpanel > cubecombo' : {
-				change : this.loadTrees
+				select : this.loadTrees
+			},
+			'leftpanel > searchcombo' : {
+				select : this.addIndicator
 			},
 			'inner-toolbar > button[action=grid-mode]' : {
 				click : function(btn) {
@@ -50,7 +53,6 @@ Ext.define('Datanium.controller.Homepage', {
 			callback : function(records, operation, success) {
 				if (success) {
 					var tmpstore = records[0];
-					console.log(tmpstore);
 					var dimensionTree = Datanium.util.CommonUtils.getCmpInActiveTab('dimensionTree');
 					var measureTree = Datanium.util.CommonUtils.getCmpInActiveTab('measureTree');
 					var dimensionData = {};
@@ -69,5 +71,30 @@ Ext.define('Datanium.controller.Homepage', {
 				}
 			}
 		});
+	},
+	addIndicator : function(combobox, newValue, oldValue, eOpts) {
+		var leftpanel = Datanium.util.CommonUtils.getCmpInActiveTab('leftpanel');
+		var mask = new Ext.LoadMask(leftpanel, {
+			msg : "Loading..."
+		});
+		mask.show();
+		var requestConfig = {
+			url : '/rest/indicator/map?idc=' + combobox.getValue(),
+			timeout : 300000,
+			success : function(response) {
+				mask.destroy();
+				var result = Ext.JSON.decode(response.responseText, true);
+				Datanium.GlobalData.qubeInfo.dimensions = Datanium.util.CommonUtils.pushElements2Array(
+						result.dimensions, Datanium.GlobalData.qubeInfo.dimensions);
+				Datanium.GlobalData.qubeInfo.measures = Datanium.util.CommonUtils.pushElements2Array(result.measures,
+						Datanium.GlobalData.qubeInfo.measures);
+				Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('refreshElementPanel');
+			},
+			failure : function() {
+				mask.destroy();
+			}
+		};
+		Ext.Ajax.request(requestConfig);
+
 	}
 });

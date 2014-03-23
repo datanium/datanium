@@ -31,9 +31,9 @@ Ext.define('Datanium.view.InnerToolbar', {
 		margins : '0 0 0 1'
 	}, {
 		scale : 'medium',
-		tooltip : 'Export Report',
+		tooltip : 'Save Analysis',
 		tooltipType : 'title',
-		html : '<i class="fa fa-arrow-circle-o-down fa-2x"></i>',
+		html : '<i class="fa fa-floppy-o fa-2x"></i>',
 		action : 'export'
 	}, {
 		xtype : 'tbseparator',

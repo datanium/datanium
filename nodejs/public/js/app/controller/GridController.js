@@ -24,8 +24,6 @@ Ext.define('Datanium.controller.GridController', {
 		});
 		if (this.isQueryValid()) {
 			var queryParam = Datanium.GlobalData.queryParam;
-			queryParam.cubeName = Datanium.util.CommonUtils.getCmpInActiveTab('cubecombo').getValue();
-			// console.log(Ext.encode(queryParam));
 			var requestConfig = {
 				url : '/rest/query/result',
 				// jsonData : queryParam,
