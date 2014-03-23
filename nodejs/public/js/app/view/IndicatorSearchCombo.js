@@ -5,7 +5,7 @@ Ext.define('Datanium.view.IndicatorSearchCombo', {
 	valueField : 'uniqueName',
 	queryMode : 'remote',
 	minChars : 2,
-	triggerAction : 'all',
+	hideTrigger : true,
 	lastQuery : '',
 	store : 'Indicators',
 	typeAhead : true,
