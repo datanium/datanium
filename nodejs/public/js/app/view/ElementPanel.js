@@ -29,9 +29,7 @@ Ext.define('Datanium.view.ElementPanel', {
 							Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('selectionChange');
 						},
 						menu : [ {
-							text : 'Menu Button 1'
-						}, {
-							text : 'Menu Button 2'
+							text : 'Remove'
 						} ]
 					}
 					ep.add(btn);
@@ -57,7 +55,6 @@ Ext.define('Datanium.view.ElementPanel', {
 					}
 					ep.add(btn);
 				});
-				console.log(ep.items);
 				ep.doLayout();
 			}
 		});

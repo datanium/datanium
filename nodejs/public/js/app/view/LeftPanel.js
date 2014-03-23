@@ -12,8 +12,8 @@ Ext.define('Datanium.view.LeftPanel', {
 				border : false
 			},
 			items : [ {
-				xtype : 'cubecombo',
-				itemId : Datanium.util.CommonUtils.genItemId('cubecombo'),
+				xtype : 'searchcombo',
+				itemId : Datanium.util.CommonUtils.genItemId('searchcombo'),
 				flex : 0
 			}, {
 				xtype : 'accordion',

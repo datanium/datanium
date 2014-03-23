@@ -101,8 +101,8 @@ Ext.define('Datanium.util.CommonUtils', {
 			meaField.removeAll();
 			var queryParam = Datanium.GlobalData.queryParam;
 			if ('dimensions' in queryParam) {
-				Ext.Array.each(queryParam.dimensions, function(name, index) {
-					var dim = queryParam.dimensions[index];
+				Ext.Array.each(queryParam.dimensions, function(rec, index) {
+					var dim = rec;
 					var field = {
 						uniqueName : dim.uniqueName,
 						text : dim.text,
@@ -112,8 +112,8 @@ Ext.define('Datanium.util.CommonUtils', {
 				});
 			}
 			if ('measures' in queryParam) {
-				Ext.Array.each(queryParam.measures, function(name, index) {
-					var mea = queryParam.measures[index];
+				Ext.Array.each(queryParam.measures, function(rec, index) {
+					var mea = rec;
 					var field = {
 						uniqueName : mea.uniqueName,
 						text : mea.text,
@@ -125,6 +125,21 @@ Ext.define('Datanium.util.CommonUtils', {
 			// console.log(dimField);
 			// console.log(meaField);
 			// console.log(Datanium.GlobalData.queryParam);
+		},
+		pushElements2Array : function(items, array) {
+			Ext.Array.each(items, function(item) {
+				var dupFlag = false;
+				Ext.Array.each(array, function(rec) {
+					if (item.uniqueName == rec.uniqueName) {
+						dupFlag = true;
+						return false;
+					}
+				});
+				if (!dupFlag) {
+					array.push(item);
+				}
+			});
+			return array;
 		}
 	}
 });
