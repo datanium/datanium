@@ -1,0 +1,94 @@
+@CHARSET "UTF-8";
+
+.leftpanel .x-box-inner {
+	background: #EFEFEF;
+}
+
+.fieldpanel .x-box-inner {
+	background: #EFEFEF;
+}
+
+.fdtoolbar .x-box-inner {
+	background: #FFFFFF !important;
+}
+
+.fdtoolbar div {
+	background: #FFFFFF !important;
+}
+
+.fdtoolbar .x-box-menu-after {
+	background: #EEEEEE;
+}
+
+.fieldBtn {
+	border: solid 1px #999999;
+	background: -webkit-gradient(linear, 0 bottom, 0 0, from(#EEEEEE),
+		to(#FFFFFF));
+}
+
+.fieldBtn:hover {
+	border: solid 1px #999999;
+	background: -webkit-gradient(linear, 0 bottom, 0 0, from(#DEDEDE),
+		to(#EFEFEF));
+}
+
+.fieldBtn:active {
+	border: solid 1px #999999;
+	background: -webkit-gradient(linear, 0 bottom, 0 0, from(#DEDEDE),
+		to(#CDCDCD));
+}
+
+.fieldBtn-d {
+	border: solid 1px #2C79BC;
+	background: -webkit-gradient(linear, 0 bottom, 0 0, from(#DFF0FF),
+		to(#F5FAFF));
+}
+
+.fieldBtn-d:hover {
+	border: solid 1px #2C79BC;
+	background: -webkit-gradient(linear, 0 bottom, 0 0, from(#ACCDE9),
+		to(#DFF0FF));
+}
+
+.fieldBtn-d:active {
+	border: solid 1px #2C79BC;
+	background: -webkit-gradient(linear, 0 bottom, 0 0, from(#ACCDE9),
+		to(#83B2DA));
+}
+
+.fieldBtn-m {
+	border: solid 1px #27A823;
+	background: -webkit-gradient(linear, 0 bottom, 0 0, from(#E1FFE0),
+		to(#F7FFF7));
+}
+
+.fieldBtn-m:hover {
+	border: solid 1px #27A823;
+	background: -webkit-gradient(linear, 0 bottom, 0 0, from(#A4EAA1),
+		to(#E1FFE0));
+}
+
+.fieldBtn-m:active {
+	border: solid 1px #27A823;
+	background: -webkit-gradient(linear, 0 bottom, 0 0, from(#A4EAA1),
+		to(#8DD28B));
+}
+
+.x-grid-cell-inner-right {
+	text-align: right !important;
+}
+
+.x-grid-cell-inner-left {
+	text-align: left !important;
+}
+
+.x-grid-cell-inner-center {
+	text-align: center !important;
+}
+
+.elementBtn {
+	width: 96%;
+	height: 30px;
+	margin: 4px 2% 2px 2%;
+	padding: 5px 0px 5px 2px;
+}

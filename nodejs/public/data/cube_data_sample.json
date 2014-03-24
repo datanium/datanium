@@ -1,0 +1,65 @@
+{
+	"uniqueName":"[WDI_WORLDBANK]",
+	"name":"WDI_WORLDBANK",
+	"text":"WDI - World Bank",
+	"dimensions":[
+				{
+					"uniqueName":"[GEO].[REGION]",
+					"name":"REGION",
+					"text":"Region",
+					"leaf":true,
+					"checked":false,
+					"children":[
+						
+					]
+					
+				},
+				{
+					"uniqueName":"[GEO].[COUNTRY]",
+					"name":"COUNTRY",
+					"text":"Country",
+					"leaf":true,
+					"checked":false,
+					"children":[
+						
+					]
+					
+				},
+				{
+					"uniqueName":"[TIME].[YEAR]",
+					"name":"YEAR",
+					"text":"Year",
+					"leaf":true,
+					"checked":false,
+					"children":[
+						
+					]
+					
+				}
+		
+	],
+	"measures":[
+		{
+			"uniqueName":"[Measures].[GDP]",
+			"name":"GDP",
+			"text":"GDP",
+			"leaf":true,
+			"checked":false
+		},
+		{
+			"uniqueName":"[Measures].[CPI]",
+			"name":"CPI",
+			"text":"CPI",
+			"leaf":true,
+			"checked":false
+		},
+		{
+			"uniqueName":"[Measures].[Interest Rate]",
+			"name":"Interest Rate",
+			"text":"Interest Rate",
+			"leaf":true,
+			"checked":false
+		}
+	]
+	
+}
