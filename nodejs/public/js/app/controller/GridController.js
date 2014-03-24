@@ -47,8 +47,7 @@ Ext.define('Datanium.controller.GridController', {
 		}
 	},
 	cleanRpt : function() {
-		Datanium.util.CommonUtils.getCmpInActiveTab('dynamicdatagrid').fireEvent('refreshDatagrid');
-		Datanium.util.CommonUtils.getCmpInActiveTab('columnchart').fireEvent('refreshColumnChart');
+		Datanium.util.CommonUtils.refreshAll();
 	},
 	isQueryValid : function() {
 		var queryParam = Datanium.GlobalData.queryParam;

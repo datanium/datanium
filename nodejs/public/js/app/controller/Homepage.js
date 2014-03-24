@@ -31,7 +31,13 @@ Ext.define('Datanium.controller.Homepage', {
 			},
 			'inner-toolbar > button[action=clear]' : {
 				click : function(btn) {
-
+					Datanium.GlobalData.queryParam = {
+						dimensions : [],
+						measures : [],
+						groups : []
+					};
+					Datanium.util.CommonUtils.updateQueryParamByEP();
+					Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('refreshElementPanel');
 				}
 			}
 		});
@@ -88,6 +94,7 @@ Ext.define('Datanium.controller.Homepage', {
 						result.dimensions, Datanium.GlobalData.qubeInfo.dimensions);
 				Datanium.GlobalData.qubeInfo.measures = Datanium.util.CommonUtils.pushElements2Array(result.measures,
 						Datanium.GlobalData.qubeInfo.measures);
+				Datanium.util.CommonUtils.updateQueryParamByEP();
 				Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('refreshElementPanel');
 			},
 			failure : function() {

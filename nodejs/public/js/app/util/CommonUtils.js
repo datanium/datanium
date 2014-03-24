@@ -140,6 +140,10 @@ Ext.define('Datanium.util.CommonUtils', {
 				}
 			});
 			return array;
+		},
+		refreshAll : function() {
+			Datanium.util.CommonUtils.getCmpInActiveTab('dynamicdatagrid').fireEvent('refreshDatagrid');
+			Datanium.util.CommonUtils.getCmpInActiveTab('columnchart').fireEvent('refreshColumnChart');
 		}
 	}
 });
