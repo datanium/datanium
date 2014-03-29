@@ -72,7 +72,11 @@
 	<script>
 		new gnMenu(document.getElementById('gn-menu'));
 		var appCon = document.getElementById('appContainer');
-		appCon.style.height = (appCon.offsetHeight - 137) + 'px';
+		appCon.style.height = (window.innerHeight - 137) + 'px';
+		console.log(appCon.offsetHeight);
+		window.onresize = function() {
+			appCon.style.height = (window.innerHeight - 137) + 'px';
+		}
 	</script>
 </body>
 </html>

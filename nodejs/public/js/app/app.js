@@ -26,12 +26,8 @@ Ext.application({
 			id : "appPanel",
 			listeners : {
 				beforerender : function() {
-					Ext.getCmp("appPanel").setHeight(Ext.get("appContainer").getHeight());
-					Ext.getCmp("appPanel").doLayout();
-					Ext.EventManager.onWindowResize(function() {
-						Ext.getCmp("appPanel").setHeight(Ext.get("appContainer").getHeight());
-						Ext.getCmp("appPanel").doLayout();
-					});
+					this.setHeight(Ext.get("appContainer").getHeight());
+					this.doLayout();
 				}
 			},
 			items : [ {
@@ -57,6 +53,10 @@ Ext.application({
 					xtype : 'reporttemplate'
 				} ]
 			} ]
+		});
+		Ext.EventManager.onWindowResize(function() {
+			Ext.getCmp("appPanel").setHeight(Ext.get("appContainer").getHeight());
+			Ext.getCmp("appPanel").doLayout();
 		});
 	}
 });
