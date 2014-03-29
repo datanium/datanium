@@ -10,7 +10,7 @@ Ext.define('Datanium.GlobalData', {
 		dimensions : [],
 		measures : []
 	},
-	queryResult : {},
+	queryResult : null,
 	enableQuery : false,
 	groups : [],
 	rptMode : 'grid'

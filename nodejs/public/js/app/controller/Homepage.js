@@ -36,7 +36,7 @@ Ext.define('Datanium.controller.Homepage', {
 						measures : [],
 						groups : []
 					};
-					Datanium.util.CommonUtils.updateQueryParamByEP();
+					Datanium.GlobalData.QueryResult = null;
 					Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('refreshElementPanel');
 				}
 			}
