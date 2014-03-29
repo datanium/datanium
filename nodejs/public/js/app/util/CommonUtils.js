@@ -90,6 +90,7 @@ Ext.define('Datanium.util.CommonUtils', {
 			var queryParam = Datanium.GlobalData.queryParam;
 			queryParam.dimensions = dimNodes;
 			queryParam.measures = meaNodes;
+			Datanium.GlobalData.QueryResult = null;
 			Datanium.util.CommonUtils.updateFields();
 		},
 		updateFields : function() {

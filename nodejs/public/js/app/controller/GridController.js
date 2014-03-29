@@ -22,6 +22,7 @@ Ext.define('Datanium.controller.GridController', {
 		var mask = new Ext.LoadMask(dataViewBox, {
 			msg : "Loading..."
 		});
+		Datanium.GlobalData.QueryResult = null;
 		if (this.isQueryValid()) {
 			var queryParam = Datanium.GlobalData.queryParam;
 			var requestConfig = {
