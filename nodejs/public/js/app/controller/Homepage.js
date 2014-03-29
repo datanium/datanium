@@ -39,6 +39,20 @@ Ext.define('Datanium.controller.Homepage', {
 					Datanium.GlobalData.QueryResult = null;
 					Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('refreshElementPanel');
 				}
+			},
+			'inner-toolbar > button[action=auto-run]' : {
+				click : function(btn) {
+					if (btn.pressed) {
+						Datanium.GlobalData.autoRun = true;
+					} else {
+						Datanium.GlobalData.autoRun = false;
+					}
+				}
+			},
+			'inner-toolbar > button[action=manual-run]' : {
+				click : function(btn) {
+					this.getController('GridController').generateRpt(true);
+				}
 			}
 		});
 

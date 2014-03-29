@@ -18,33 +18,35 @@ Ext.define('Datanium.controller.GridController', {
 		});
 	},
 	generateRpt : function(manualRun) {
-		var dataViewBox = Datanium.util.CommonUtils.getCmpInActiveTab('datapanel');
-		var mask = new Ext.LoadMask(dataViewBox, {
-			msg : "Loading..."
-		});
-		Datanium.GlobalData.QueryResult = null;
-		if (this.isQueryValid()) {
-			var queryParam = Datanium.GlobalData.queryParam;
-			var requestConfig = {
-				url : '/rest/query/result',
-				// jsonData : queryParam,
-				timeout : 300000,
-				success : function(response) {
-					mask.destroy();
-					var result = Ext.JSON.decode(response.responseText, true);
-					Datanium.GlobalData.QueryResult = result;
-					Datanium.util.CommonUtils.getCmpInActiveTab('dynamicdatagrid').fireEvent('refreshDatagrid');
-					Datanium.util.CommonUtils.getCmpInActiveTab('columnchart').fireEvent('refreshColumnChart');
+		if (Datanium.GlobalData.autoRun || (manualRun != null && manualRun)) {
+			var dataViewBox = Datanium.util.CommonUtils.getCmpInActiveTab('datapanel');
+			var mask = new Ext.LoadMask(dataViewBox, {
+				msg : "Loading..."
+			});
+			Datanium.GlobalData.QueryResult = null;
+			if (this.isQueryValid()) {
+				var queryParam = Datanium.GlobalData.queryParam;
+				var requestConfig = {
+					url : '/rest/query/result',
+					// jsonData : queryParam,
+					timeout : 300000,
+					success : function(response) {
+						mask.destroy();
+						var result = Ext.JSON.decode(response.responseText, true);
+						Datanium.GlobalData.QueryResult = result;
+						Datanium.util.CommonUtils.getCmpInActiveTab('dynamicdatagrid').fireEvent('refreshDatagrid');
+						Datanium.util.CommonUtils.getCmpInActiveTab('columnchart').fireEvent('refreshColumnChart');
 
-				},
-				failure : function() {
-					mask.destroy();
-				}
-			};
-			Ext.Ajax.request(requestConfig);
-			mask.show();
-		} else {
-			this.cleanRpt();
+					},
+					failure : function() {
+						mask.destroy();
+					}
+				};
+				Ext.Ajax.request(requestConfig);
+				mask.show();
+			} else {
+				this.cleanRpt();
+			}
 		}
 	},
 	cleanRpt : function() {
@@ -52,8 +54,10 @@ Ext.define('Datanium.controller.GridController', {
 	},
 	isQueryValid : function() {
 		var queryParam = Datanium.GlobalData.queryParam;
-		if (!queryParam)
+		if (!queryParam) {
+			Datanium.GlobalData.enableQuery = false;
 			return false;
+		}
 		if (this.checkCount(queryParam.dimensions) > 0 && this.checkCount(queryParam.measures) > 0) {
 			Datanium.GlobalData.enableQuery = true;
 			return true;
