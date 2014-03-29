@@ -55,7 +55,6 @@ Ext.define('Datanium.controller.Homepage', {
 				}
 			}
 		});
-
 	},
 
 	loadTrees : function(combobox, newValue, oldValue, eOpts) {
