@@ -28,7 +28,7 @@ Ext.define('Datanium.controller.GridController', {
 				var queryParam = Datanium.GlobalData.queryParam;
 				var requestConfig = {
 					url : '/rest/query/result',
-					// jsonData : queryParam,
+					jsonData : queryParam,
 					timeout : 300000,
 					success : function(response) {
 						mask.destroy();

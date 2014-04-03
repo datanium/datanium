@@ -12,104 +12,58 @@ exports.cubeInfo = function(req, res) {
 };
 
 exports.queryResult = function(req, res) {
+	console.log(req.body);
 	var returnJson = [];
 	var Schema = mongodb.mongoose.Schema;
 	var DatasetSchema = new Schema({
-	"region" : String,
-	"country" : String,
-	"year" : Number,
-	"gdp" : Number
-});
-	var Dataset = mongodb.mongoose.model('Dataset', DatasetSchema,'dataset'); 
-	Dataset.find({},function(err, doc){
-		res.json(doc);
+		"region" : String,
+		"country" : String,
+		"year" : Number,
+		"gdp" : Number
 	});
-	//res.send(data.queryResultJSON);
+	console.log(mongodb.mongoose.modelNames());
+	var dataSet = mongodb.mongoose.model('Dataset', DatasetSchema, 'dataset');
+	dataSet.find({}, function(err, doc) {
+		console.log(doc);
+		res.send(returnJson);
+	});
 };
 
 exports.indicatorMapping = function(req, res) {
-	var indicatorMappingJSON ={};
+	var indicatorMappingJSON = {};
 	var query = require('url').parse(req.url, true).query;
 	var idc = query.idc;
-	console.log(idc);
 	var dimensions = [];
 	var measures = [];
-	IndicatorSchema.find({indicator_key:idc},function(err, doc) {
-			doc.forEach(function(item, index){
-				console.log(item.indicator_key);
-				console.log(item.indicator_text);
-				var tempDimensions = item.dimension;
-				tempDimensions.forEach(function(dimension,index){
-					var tempDimension ={
-						"uniqueName" : dimension.dimension_key,
-						"name" : dimension.dimension_key,
-						"text" : dimension.dimension_text
-					};
-					dimensions.push(tempDimension);
-				});
-				var tempMesureJson = {
-					"uniqueName" : item.indicator_key,
-					"name" : item.indicator_key,
-					"text" : item.indicator_text
+	IndicatorSchema.find({
+		indicator_key : idc
+	}, function(err, doc) {
+		doc.forEach(function(item, index) {
+			console.log(item.indicator_key);
+			console.log(item.indicator_text);
+			var tempDimensions = item.dimension;
+			tempDimensions.forEach(function(dimension, index) {
+				var tempDimension = {
+					"uniqueName" : dimension.dimension_key,
+					"name" : dimension.dimension_key,
+					"text" : dimension.dimension_text
 				};
-				measures.push(tempMesureJson);
+				dimensions.push(tempDimension);
 			});
-			indicatorMappingJSON = {
-				"dimensions" : dimensions,
-				"measures" : measures
-				};
-				console.log(indicatorMappingJSON);
-	res.send(indicatorMappingJSON);	        
-	    });
-	/*if (idc == '[Measures].[CPI]') {
+			var tempMesureJson = {
+				"uniqueName" : item.indicator_key,
+				"name" : item.indicator_key,
+				"text" : item.indicator_text
+			};
+			measures.push(tempMesureJson);
+		});
 		indicatorMappingJSON = {
-			"dimensions" : [ {
-				"uniqueName" : "[GEO].[COUNTRY]",
-				"name" : "COUNTRY",
-				"text" : "Country"
-			}, {
-				"uniqueName" : "[TIME].[YEAR]",
-				"name" : "YEAR",
-				"text" : "Year"
-			} ],
-			"measures" : [ {
-				"uniqueName" : "[Measures].[CPI]",
-				"name" : "CPI",
-				"text" : "CPI"
-			} ]
+			"dimensions" : dimensions,
+			"measures" : measures
 		};
-	} else if (idc == '[Measures].[GDP]') {
-		indicatorMappingJSON = {
-			"dimensions" : [ {
-				"uniqueName" : "[GEO].[REGION]",
-				"name" : "REGION",
-				"text" : "Region"
-			}, {
-				"uniqueName" : "[GEO].[COUNTRY]",
-				"name" : "COUNTRY",
-				"text" : "Country"
-			} ],
-			"measures" : [ {
-				"uniqueName" : "[Measures].[GDP]",
-				"name" : "GDP",
-				"text" : "GDP"
-			} ]
-		};
-	} else if (idc == '[Measures].[Interest Rate]') {
-		indicatorMappingJSON = {
-			"dimensions" : [ {
-				"uniqueName" : "[GEO].[COUNTRY]",
-				"name" : "COUNTRY",
-				"text" : "Country"
-			} ],
-			"measures" : [ {
-				"uniqueName" : "[Measures].[Interest Rate]",
-				"name" : "Interest Rate",
-				"text" : "Interest Rate"
-			} ]
-		};
-	}
-	res.send(indicatorMappingJSON);*/
+		console.log(indicatorMappingJSON);
+		res.send(indicatorMappingJSON);
+	});
 }
 
 exports.indicatorSearch = function(req, res) {
@@ -117,9 +71,13 @@ exports.indicatorSearch = function(req, res) {
 	var indicatorResultJSON = {};
 	if (query.query != null) {
 		var key = query.query.toLowerCase();
-		var results =[];
-		IndicatorSchema.find({indicator_key:{$regex:key}},function(err, doc) {
-			doc.forEach(function(item, index){
+		var results = [];
+		IndicatorSchema.find({
+			indicator_key : {
+				$regex : key
+			}
+		}, function(err, doc) {
+			doc.forEach(function(item, index) {
 				console.log(item.indicator_key);
 				console.log(item.indicator_text);
 				var tempJson = {
@@ -130,13 +88,13 @@ exports.indicatorSearch = function(req, res) {
 			});
 			indicatorResultJSON = {
 				"indicators" : results
-				};
-	res.send(indicatorResultJSON);	        
-	    });
-	}else{
+			};
+			res.send(indicatorResultJSON);
+		});
+	} else {
 		indicatorResultJSON = {
 			"indicators" : []
 		};
-		res.send(indicatorResultJSON);	    
+		res.send(indicatorResultJSON);
 	}
 };

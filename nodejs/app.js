@@ -33,7 +33,7 @@ app.get('/', routes.index);
 app.get('/helloworld', routes.helloworld);
 app.get('/rest/cube/list', rest.cubeList);
 app.get('/rest/cube/info', rest.cubeInfo);
-app.get('/rest/query/result', rest.queryResult);
+app.post('/rest/query/result', rest.queryResult);
 app.get('/rest/indicator/search', rest.indicatorSearch);
 app.get('/rest/indicator/map', rest.indicatorMapping);
 
