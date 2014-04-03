@@ -90,6 +90,7 @@ Ext.define('Datanium.util.CommonUtils', {
 			var queryParam = Datanium.GlobalData.queryParam;
 			queryParam.dimensions = dimNodes;
 			queryParam.measures = meaNodes;
+			Datanium.GlobalData.QueryResult = null;
 			Datanium.util.CommonUtils.updateFields();
 		},
 		updateFields : function() {
@@ -140,6 +141,10 @@ Ext.define('Datanium.util.CommonUtils', {
 				}
 			});
 			return array;
+		},
+		refreshAll : function() {
+			Datanium.util.CommonUtils.getCmpInActiveTab('dynamicdatagrid').fireEvent('refreshDatagrid');
+			Datanium.util.CommonUtils.getCmpInActiveTab('columnchart').fireEvent('refreshColumnChart');
 		}
 	}
 });

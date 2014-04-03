@@ -233,6 +233,7 @@ Ext.define('Datanium.view.DynamicDataGrid', {
 		this.addEvents('refreshDatagrid');
 		this.on('refreshDatagrid',
 				function() {
+					console.log('refreshDatagrid');
 					if (Datanium.util.CommonUtils.getCmpInActiveTab('dynamicdatagrid') != null) {
 						var activeItemId = Datanium.util.CommonUtils.getCmpInActiveTab('datapanel').getLayout()
 								.getActiveItem().id;
