@@ -64,7 +64,7 @@ Ext.define('Datanium.util.CommonUtils', {
 				var id = rec.itemId;
 				var name = rec.text;
 				if (id != null && rec.pressed) {
-					if (id.indexOf('Measures') > -1) {
+					if (id.indexOf('measure') > -1) {
 						var meaItem = {
 							uniqueName : id,
 							text : name,
@@ -90,6 +90,7 @@ Ext.define('Datanium.util.CommonUtils', {
 			var queryParam = Datanium.GlobalData.queryParam;
 			queryParam.dimensions = dimNodes;
 			queryParam.measures = meaNodes;
+			Datanium.GlobalData.QueryResult = null;
 			Datanium.util.CommonUtils.updateFields();
 		},
 		updateFields : function() {
@@ -140,6 +141,10 @@ Ext.define('Datanium.util.CommonUtils', {
 				}
 			});
 			return array;
+		},
+		refreshAll : function() {
+			Datanium.util.CommonUtils.getCmpInActiveTab('dynamicdatagrid').fireEvent('refreshDatagrid');
+			Datanium.util.CommonUtils.getCmpInActiveTab('columnchart').fireEvent('refreshColumnChart');
 		}
 	}
 });

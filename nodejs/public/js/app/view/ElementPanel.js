@@ -17,7 +17,7 @@ Ext.define('Datanium.view.ElementPanel', {
 				var msrs = Datanium.GlobalData.qubeInfo.measures;
 				Ext.Array.each(dims, function(d) {
 					var btn = {
-						itemId : d.uniqueName,
+						itemId : 'dimension.' + d.uniqueName,
 						xtype : 'splitbutton',
 						text : d.text,
 						iconCls : 'fa fa-bars',
@@ -36,7 +36,7 @@ Ext.define('Datanium.view.ElementPanel', {
 				});
 				Ext.Array.each(msrs, function(m) {
 					var btn = {
-						itemId : m.uniqueName,
+						itemId : 'measure.' + m.uniqueName,
 						xtype : 'splitbutton',
 						text : m.text,
 						iconCls : 'fa fa-bar-chart-o',
@@ -48,14 +48,14 @@ Ext.define('Datanium.view.ElementPanel', {
 							Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('selectionChange');
 						},
 						menu : [ {
-							text : 'Menu Button 1'
-						}, {
-							text : 'Menu Button 2'
+							text : 'Remove'
 						} ]
 					}
 					ep.add(btn);
 				});
 				ep.doLayout();
+				Datanium.util.CommonUtils.updateQueryParamByEP();
+				Datanium.util.CommonUtils.refreshAll();
 			}
 		});
 	}

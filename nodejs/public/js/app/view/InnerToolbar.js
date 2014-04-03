@@ -34,7 +34,8 @@ Ext.define('Datanium.view.InnerToolbar', {
 		tooltip : 'Save Analysis',
 		tooltipType : 'title',
 		html : '<i class="fa fa-floppy-o fa-2x"></i>',
-		action : 'export'
+		action : 'export',
+		disabled : true
 	}, {
 		xtype : 'tbseparator',
 		height : 14,
@@ -71,7 +72,7 @@ Ext.define('Datanium.view.InnerToolbar', {
 		enableToggle : true,
 		pressed : false,
 		toggleGroup : 'rptMode'
-	} , {
+	}, {
 		xtype : 'tbseparator',
 		height : 14,
 		margins : '0 0 0 1'
@@ -80,11 +81,10 @@ Ext.define('Datanium.view.InnerToolbar', {
 		tooltip : 'Mixed View',
 		tooltipType : 'title',
 		html : '<i class="fa fa-puzzle-piece fa-2x"></i>',
-		action : 'mixed-mode',
+		action : 'analysis-mode',
 		enableToggle : true,
 		pressed : false,
-		toggleGroup : 'rptMode'
-	} 
-	
-	]
+		toggleGroup : 'rptMode',
+		disabled : true
+	} ]
 });

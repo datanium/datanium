@@ -70,7 +70,6 @@ Ext.define('Datanium.view.charts.ColumnChart', {
 		var fields_json = null;
 		var results_json = null;
 		if (Datanium.GlobalData.enableQuery) {
-			this.hidden = false;
 			if (Datanium.GlobalData.queryParam != null) {
 				fields_json = Datanium.GlobalData.queryParam;
 				if (Datanium.GlobalData.QueryResult != null) {
@@ -156,6 +155,7 @@ Ext.define('Datanium.view.charts.ColumnChart', {
 		this.addEvents('refreshColumnChart');
 		this.on('refreshColumnChart',
 				function() {
+					console.log('refreshColumnChart');
 					if (Datanium.util.CommonUtils.getCmpInActiveTab('columnchart') != null) {
 						var activeItemId = Datanium.util.CommonUtils.getCmpInActiveTab('datapanel').getLayout()
 								.getActiveItem().id;
