@@ -1,5 +1,5 @@
 var data = require('../data/sampleData');
-
+var mongodb = require('../data/mongodb');
 var indicator = require('../data/indicator');
 var IndicatorSchema = indicator.Indicator;
 
@@ -12,7 +12,19 @@ exports.cubeInfo = function(req, res) {
 };
 
 exports.queryResult = function(req, res) {
-	res.send(data.queryResultJSON);
+	var returnJson = [];
+	var Schema = mongodb.mongoose.Schema;
+	var DatasetSchema = new Schema({
+	"region" : String,
+	"country" : String,
+	"year" : Number,
+	"gdp" : Number
+});
+	var Dataset = mongodb.mongoose.model('Dataset', DatasetSchema,'dataset'); 
+	Dataset.find({},function(err, doc){
+		res.json(doc);
+	});
+	//res.send(data.queryResultJSON);
 };
 
 exports.indicatorMapping = function(req, res) {
@@ -102,6 +114,7 @@ exports.indicatorMapping = function(req, res) {
 
 exports.indicatorSearch = function(req, res) {
 	var query = require('url').parse(req.url, true).query;
+	var indicatorResultJSON = {};
 	if (query.query != null) {
 		var key = query.query.toLowerCase();
 		var results =[];
@@ -115,10 +128,15 @@ exports.indicatorSearch = function(req, res) {
 				};
 				results.push(tempJson);
 			});
-			var indicatorResultJSON = {
+			indicatorResultJSON = {
 				"indicators" : results
 				};
 	res.send(indicatorResultJSON);	        
 	    });
+	}else{
+		indicatorResultJSON = {
+			"indicators" : []
+		};
+		res.send(indicatorResultJSON);	    
 	}
 };
