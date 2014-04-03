@@ -64,7 +64,7 @@ Ext.define('Datanium.util.CommonUtils', {
 				var id = rec.itemId;
 				var name = rec.text;
 				if (id != null && rec.pressed) {
-					if (id.indexOf('Measures') > -1) {
+					if (id.indexOf('measure') > -1) {
 						var meaItem = {
 							uniqueName : id,
 							text : name,
