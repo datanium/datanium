@@ -62,13 +62,14 @@ Ext.define('Datanium.util.CommonUtils', {
 			var meaNodes = [];
 			Ext.Array.each(epItems.items, function(rec) {
 				var id = rec.itemId;
+				var iconCls = rec.iconCls;
 				var name = rec.text;
 				if (id != null && rec.pressed) {
-					if (id.indexOf('measure') > -1) {
+					if (iconCls == 'fa fa-bar-chart-o') {
 						var meaItem = {
 							uniqueName : id,
 							text : name,
-							data_type : 'measure',
+							data_type : 'number',
 							field_type : 'column',
 							displayOrder : 0,
 							display : true

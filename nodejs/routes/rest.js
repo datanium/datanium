@@ -1,7 +1,9 @@
 var data = require('../data/sampleData');
 var mongodb = require('../data/mongodb');
 var indicator = require('../data/indicator');
+var dataset = require('../data/dataset');
 var IndicatorSchema = indicator.Indicator;
+var datasetSchema = dataset.Dataset;
 
 exports.cubeList = function(req, res) {
 	res.send(data.cubeListJSON);
@@ -12,22 +14,76 @@ exports.cubeInfo = function(req, res) {
 };
 
 exports.queryResult = function(req, res) {
-	console.log(req.body);
-	var returnJson = [];
-	var Schema = mongodb.mongoose.Schema;
-	var DatasetSchema = new Schema({
-		"region" : String,
-		"country" : String,
-		"year" : Number,
-		"gdp" : Number
-	});
-	console.log(mongodb.mongoose.modelNames());
-	var dataSet = mongodb.mongoose.model('Dataset', DatasetSchema, 'dataset');
-	dataSet.find({}, function(err, doc) {
-		console.log(doc);
-		res.send(returnJson);
+	var queryParam = req.body;
+	// console.log(queryParam);
+	var resultJSON = {
+		"total" : 0,
+		"result" : []
+	};
+	var groupStr = generateGroupStr(queryParam);
+	// console.log(groupStr);
+	var groupObj = eval("(" + groupStr + ")");
+	// console.log(groupObj);
+	datasetSchema.aggregate().group(groupObj).exec(function(err, doc) {
+		if (err)
+			return handleError(err);
+		resultJSON.result = convertResult(doc);
+		resultJSON.total = doc.length;
+		res.send(resultJSON);
 	});
 };
+
+function generateGroupStr(queryParam) {
+	var dimensions = queryParam.dimensions;
+	var measures = queryParam.measures;
+	var idStr = "_id:{";
+	dimensions.forEach(function(item, index) {
+		idStr += item.uniqueName;
+		idStr += ":\"$";
+		idStr += item.uniqueName;
+		idStr += "\"";
+		if (index < dimensions.length - 1) {
+			idStr += ","
+		}
+	});
+	idStr += "},"
+	var indicatorStr = "";
+	measures.forEach(function(item, index) {
+		indicatorStr += item.uniqueName;
+		indicatorStr += ":{";
+		if (item.data_type == 'number') {
+			indicatorStr += "$sum:";
+		} else if (item.data_type == 'percentage') {
+			indicatorStr += "$avg:";
+		} else {
+			return "";
+		}
+		indicatorStr += "\"$";
+		indicatorStr += item.uniqueName;
+		indicatorStr += "\"";
+		indicatorStr += "}"
+		if (index < measures.length - 1) {
+			indicatorStr += ","
+		}
+	});
+	var res = "{" + idStr + indicatorStr + "}";
+	return res;
+}
+
+function convertResult(doc) {
+	var results = [];
+	doc.forEach(function(item) {
+		var gstr = JSON.stringify(item._id);
+		gstr = gstr.substring(1, gstr.length - 1);
+		delete item._id;
+		var mstr = JSON.stringify(item);
+		mstr = mstr.substring(1, mstr.length - 1);
+		var recordStr = '{' + gstr + ',' + mstr + '}';
+		var recordObj = eval("(" + recordStr + ")");
+		results.push(recordObj);
+	});
+	return results;
+}
 
 exports.indicatorMapping = function(req, res) {
 	var indicatorMappingJSON = {};
