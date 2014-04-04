@@ -86,12 +86,12 @@ Ext.define('Datanium.view.charts.ColumnChart', {
 					var f = fields_json.dimensions[i];
 					f.field_type = 'xField';
 					if (f.display) {
-						fields.push(f.text);
-						xFields.push(f.text);
+						fields.push(f.uniqueName);
+						xFields.push(f.uniqueName);
 						if (xFieldsLabel.length > 0) {
-							xFieldsLabel = xFieldsLabel + "/" + f.text;
+							xFieldsLabel = xFieldsLabel + "/" + f.uniqueName;
 						} else {
-							xFieldsLabel = f.text;
+							xFieldsLabel = f.uniqueName;
 						}
 					}
 				}
@@ -99,8 +99,8 @@ Ext.define('Datanium.view.charts.ColumnChart', {
 					var f = fields_json.measures[i];
 					f.field_type = 'yField';
 					if (f.display) {
-						fields.push(f.text);
-						yFields.push(f.text);
+						fields.push(f.uniqueName);
+						yFields.push(f.uniqueName);
 					}
 				}
 			}

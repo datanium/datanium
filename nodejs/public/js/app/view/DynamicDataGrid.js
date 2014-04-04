@@ -68,7 +68,7 @@ function columnFactory(fields_json) {
 						uniqueName : fields_json[i].uniqueName,
 						name : fields_json[i].text,
 						sortable : true,
-						dataIndex : fields_json[i].text,
+						dataIndex : fields_json[i].uniqueName,
 						data_type : fields_json[i].data_type,
 						displayOrder : fields_json[i].displayOrder,
 						align : "auto"
@@ -85,14 +85,7 @@ function columnFactory(fields_json) {
 	});
 	var outputColumns = [];
 	for ( var i = 0; i < temp_columns.length; i++) {
-		if (temp_columns[i].data_type == 'dimension') {
-			outputColumns.push(temp_columns[i]);
-		}
-	}
-	for ( var i = 0; i < temp_columns.length; i++) {
-		if (temp_columns[i].data_type == 'measure') {
-			outputColumns.push(temp_columns[i]);
-		}
+		outputColumns.push(temp_columns[i]);
 	}
 	return outputColumns;
 }
