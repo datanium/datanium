@@ -29,7 +29,15 @@ Ext.define('Datanium.view.ElementPanel', {
 							Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('selectionChange');
 						},
 						menu : [ {
-							text : 'Remove'
+							iconCls : 'fa fa-times-circle-o',
+							text : 'Remove',
+							handler : function() {
+								Datanium.util.CommonUtils.removeElement(this.parentMenu.ownerButton.itemId);
+								this.parentMenu.ownerButton.destroy();
+								Datanium.util.CommonUtils.updateQueryParamByEP();
+								Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel')
+										.fireEvent('selectionChange');
+							}
 						} ]
 					}
 					ep.add(btn);
@@ -48,7 +56,15 @@ Ext.define('Datanium.view.ElementPanel', {
 							Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('selectionChange');
 						},
 						menu : [ {
-							text : 'Remove'
+							iconCls : 'fa fa-times-circle-o',
+							text : 'Remove',
+							handler : function() {
+								Datanium.util.CommonUtils.removeElement(this.parentMenu.ownerButton.itemId);
+								this.parentMenu.ownerButton.destroy();
+								Datanium.util.CommonUtils.updateQueryParamByEP();
+								Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel')
+										.fireEvent('selectionChange');
+							}
 						} ]
 					}
 					ep.add(btn);

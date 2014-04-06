@@ -129,13 +129,12 @@ exports.indicatorSearch = function(req, res) {
 		var key = query.query.toLowerCase();
 		var results = [];
 		IndicatorSchema.find({
-			indicator_key : {
-				$regex : key
+			indicator_text : {
+				$regex : key,
+				$options : 'i'
 			}
 		}, function(err, doc) {
 			doc.forEach(function(item, index) {
-				console.log(item.indicator_key);
-				console.log(item.indicator_text);
 				var tempJson = {
 					"uniqueName" : item.indicator_key,
 					"text" : item.indicator_text

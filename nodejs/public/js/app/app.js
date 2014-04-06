@@ -31,7 +31,6 @@ Ext.application({
 				}
 			},
 			items : [ {
-				title : 'Main Box',
 				region : 'center',
 				xtype : 'tabpanel',
 				id : 'mainBox',
@@ -49,7 +48,7 @@ Ext.application({
 					itemId : 'report-tab' + Datanium.GlobalData.tabindex,
 					closable : true,
 					// icon : 'img/icons/report.png',
-					title : 'New Analysis',
+					title : 'My Analysis',
 					xtype : 'reporttemplate'
 				} ]
 			} ]
