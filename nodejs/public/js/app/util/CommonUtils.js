@@ -146,6 +146,21 @@ Ext.define('Datanium.util.CommonUtils', {
 		refreshAll : function() {
 			Datanium.util.CommonUtils.getCmpInActiveTab('dynamicdatagrid').fireEvent('refreshDatagrid');
 			Datanium.util.CommonUtils.getCmpInActiveTab('columnchart').fireEvent('refreshColumnChart');
+		},
+		removeElement : function(uniqueName) {
+			var dims = Datanium.GlobalData.qubeInfo.dimensions;
+			var meas = Datanium.GlobalData.qubeInfo.measures;
+			var i;
+			for (i = dims.length - 1; i >= 0; i -= 1) {
+				if (dims[i].uniqueName === uniqueName) {
+					Datanium.GlobalData.qubeInfo.dimensions.splice(i, 1);
+				}
+			}
+			for (i = meas.length - 1; i >= 0; i -= 1) {
+				if (meas[i].uniqueName === uniqueName) {
+					Datanium.GlobalData.qubeInfo.measures.splice(i, 1);
+				}
+			}
 		}
 	}
 });

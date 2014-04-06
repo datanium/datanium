@@ -120,14 +120,12 @@ Ext.define('Datanium.view.charts.ColumnChart', {
 			label : {
 				renderer : Ext.util.Format.numberRenderer('0,0.###')
 			},
-			title : 'Measures',
 			grid : true,
 			minimum : 0
 		}, {
 			type : 'Category',
 			position : 'bottom',
-			fields : xFieldsLabel,
-			title : 'Dimensions'
+			fields : xFieldsLabel
 		} ], this.series = [ {
 			type : 'column',
 			axis : 'left',
@@ -138,7 +136,7 @@ Ext.define('Datanium.view.charts.ColumnChart', {
 				width : 140,
 				height : 28,
 				renderer : function(storeItem, item) {
-					this.setTitle(item.yField + ' ' + storeItem.get(xFieldsLabel) + ': ' + storeItem.get(item.yField)
+					this.setTitle(item.yField + ': ' + storeItem.get(item.yField)
 							+ ' $');
 					this.width = this.title.length * 7.8;
 				}
