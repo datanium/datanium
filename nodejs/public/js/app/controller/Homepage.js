@@ -107,7 +107,6 @@ Ext.define('Datanium.controller.Homepage', {
 						result.dimensions, Datanium.GlobalData.qubeInfo.dimensions);
 				Datanium.GlobalData.qubeInfo.measures = Datanium.util.CommonUtils.pushElements2Array(result.measures,
 						Datanium.GlobalData.qubeInfo.measures);
-				Datanium.util.CommonUtils.updateQueryParamByEP();
 				Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('refreshElementPanel');
 			},
 			failure : function() {

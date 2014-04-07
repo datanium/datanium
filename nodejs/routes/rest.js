@@ -15,15 +15,12 @@ exports.cubeInfo = function(req, res) {
 
 exports.queryResult = function(req, res) {
 	var queryParam = req.body;
-	// console.log(queryParam);
 	var resultJSON = {
 		"total" : 0,
 		"result" : []
 	};
 	var groupStr = generateGroupStr(queryParam);
-	// console.log(groupStr);
 	var groupObj = eval("(" + groupStr + ")");
-	// console.log(groupObj);
 	datasetSchema.aggregate().group(groupObj).exec(function(err, doc) {
 		if (err)
 			return handleError(err);
@@ -95,8 +92,6 @@ exports.indicatorMapping = function(req, res) {
 		indicator_key : idc
 	}, function(err, doc) {
 		doc.forEach(function(item, index) {
-			console.log(item.indicator_key);
-			console.log(item.indicator_text);
 			var tempDimensions = item.dimension;
 			tempDimensions.forEach(function(dimension, index) {
 				var tempDimension = {
@@ -109,7 +104,9 @@ exports.indicatorMapping = function(req, res) {
 			var tempMesureJson = {
 				"uniqueName" : item.indicator_key,
 				"name" : item.indicator_key,
-				"text" : item.indicator_text
+				"text" : item.indicator_text,
+				"data_source" : item.data_source,
+				"data_type" : item.data_type
 			};
 			measures.push(tempMesureJson);
 		});
@@ -117,7 +114,6 @@ exports.indicatorMapping = function(req, res) {
 			"dimensions" : dimensions,
 			"measures" : measures
 		};
-		console.log(indicatorMappingJSON);
 		res.send(indicatorMappingJSON);
 	});
 }
@@ -137,7 +133,7 @@ exports.indicatorSearch = function(req, res) {
 			doc.forEach(function(item, index) {
 				var tempJson = {
 					"uniqueName" : item.indicator_key,
-					"text" : item.indicator_text
+					"text" : item.indicator_text + ' - ' + item.data_source
 				};
 				results.push(tempJson);
 			});
