@@ -46,7 +46,11 @@ Ext.define('Datanium.view.ElementPanel', {
 					var btn = {
 						itemId : m.uniqueName,
 						xtype : 'splitbutton',
-						text : m.text,
+						text : m.text + ' - ' + m.data_source,
+						params : {
+							data_type : m.data_type,
+							data_source : m.data_source
+						},
 						iconCls : 'fa fa-bar-chart-o',
 						cls : 'elementBtn',
 						enableToggle : true,

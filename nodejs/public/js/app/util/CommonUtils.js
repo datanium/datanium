@@ -64,12 +64,13 @@ Ext.define('Datanium.util.CommonUtils', {
 				var id = rec.itemId;
 				var iconCls = rec.iconCls;
 				var name = rec.text;
+				var params = rec.params;
 				if (id != null && rec.pressed) {
 					if (iconCls == 'fa fa-bar-chart-o') {
 						var meaItem = {
 							uniqueName : id,
 							text : name,
-							data_type : 'number',
+							data_type : params.data_type,
 							field_type : 'column',
 							displayOrder : 0,
 							display : true
