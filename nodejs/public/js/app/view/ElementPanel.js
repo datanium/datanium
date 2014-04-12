@@ -28,17 +28,24 @@ Ext.define('Datanium.view.ElementPanel', {
 							Datanium.util.CommonUtils.updateQueryParamByEP();
 							Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('selectionChange');
 						},
-						menu : [ {
-							iconCls : 'fa fa-times-circle-o',
-							text : 'Remove',
-							handler : function() {
-								Datanium.util.CommonUtils.removeElement(this.parentMenu.ownerButton.itemId);
-								this.parentMenu.ownerButton.destroy();
-								Datanium.util.CommonUtils.updateQueryParamByEP();
-								Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel')
-										.fireEvent('selectionChange');
-							}
-						} ]
+						menu : [
+								{
+									iconCls : 'fa fa-times-circle-o',
+									text : 'Remove',
+									handler : function() {
+										Datanium.util.CommonUtils.removeElement(this.parentMenu.ownerButton.itemId);
+										this.parentMenu.ownerButton.destroy();
+										Datanium.util.CommonUtils.updateQueryParamByEP();
+										Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent(
+												'selectionChange');
+									}
+								}, {
+									iconCls : 'fa fa-filter',
+									text : 'Filter',
+									handler : function() {
+
+									}
+								} ]
 					}
 					ep.add(btn);
 				});

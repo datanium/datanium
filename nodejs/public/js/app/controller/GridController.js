@@ -34,9 +34,7 @@ Ext.define('Datanium.controller.GridController', {
 						mask.destroy();
 						var result = Ext.JSON.decode(response.responseText, true);
 						Datanium.GlobalData.QueryResult = result;
-						Datanium.util.CommonUtils.getCmpInActiveTab('dynamicdatagrid').fireEvent('refreshDatagrid');
-						Datanium.util.CommonUtils.getCmpInActiveTab('columnchart').fireEvent('refreshColumnChart');
-
+						Datanium.util.CommonUtils.generateChart();
 					},
 					failure : function() {
 						mask.destroy();
