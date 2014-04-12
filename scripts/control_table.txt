@@ -1,3 +1,5 @@
+use datanium;
+
 d_region={"dimension_key":"region", "dimension_text":"Region"}; 
 d_country={"dimension_key":"country", "dimension_text":"Country"}; 
 d_year={"dimension_key":"year", "dimension_text":"Year"}; 

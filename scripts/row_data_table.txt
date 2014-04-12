@@ -1,3 +1,5 @@
+use datanium;
+
 db.dataset.insert({"region":"Asia", "country":"China", "year":2000, "gdp":10000, "cpi":0.04, "interest_rate":0.02,"data_source":"WDI"}); 
 db.dataset.insert({"region":"Asia", "country":"China", "year":2001, "gdp":8000, "cpi":0.08, "interest_rate":0.06,"data_source":"WDI"}); 
 db.dataset.insert({"region":"Asia", "country":"China", "year":2002, "gdp":14000, "cpi":0.09, "interest_rate":0.04,"data_source":"WDI"}); 
