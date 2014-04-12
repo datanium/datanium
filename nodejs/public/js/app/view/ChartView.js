@@ -4,7 +4,13 @@ Ext.define('Datanium.view.ChartView', {
 	initComponent : function() {
 		Ext.apply(this, {
 			layout : 'border',
-			items : []
+			items : [ {
+				region : 'south',
+				xtype : 'chart-toolbar',
+				itemId : Datanium.util.CommonUtils.genItemId('chart-toolbar'),
+				width : '100%',
+				border : false
+			} ]
 		});
 		this.callParent();
 	}

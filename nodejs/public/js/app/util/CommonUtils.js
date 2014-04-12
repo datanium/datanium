@@ -146,7 +146,7 @@ Ext.define('Datanium.util.CommonUtils', {
 		},
 		refreshAll : function() {
 			Datanium.util.CommonUtils.getCmpInActiveTab('dynamicdatagrid').fireEvent('refreshDatagrid');
-			Datanium.util.CommonUtils.getCmpInActiveTab('columnchart').fireEvent('refreshColumnChart');
+			Datanium.util.CommonUtils.generateChart();
 		},
 		removeElement : function(uniqueName) {
 			var dims = Datanium.GlobalData.qubeInfo.dimensions;
@@ -162,6 +162,26 @@ Ext.define('Datanium.util.CommonUtils', {
 					Datanium.GlobalData.qubeInfo.measures.splice(i, 1);
 				}
 			}
+		},
+		destoryChart : function() {
+			if (Datanium.util.CommonUtils.getCmpInActiveTab('columnchart') != null) {
+				Datanium.util.CommonUtils.getCmpInActiveTab('columnchart').destroy();
+			}
+			if (Datanium.util.CommonUtils.getCmpInActiveTab('stackchart') != null) {
+				Datanium.util.CommonUtils.getCmpInActiveTab('stackchart').destroy();
+			}
+		},
+		generateChart : function() {
+			Datanium.util.CommonUtils.destoryChart();
+			var classname = 'widget.' + Datanium.GlobalData.chartMode;
+			var chart = Ext.create(classname, {
+				itemId : Datanium.util.CommonUtils.genItemId(Datanium.GlobalData.chartMode),
+				region : 'center',
+				floatable : false,
+				collapsible : false,
+				header : false
+			});
+			Datanium.util.CommonUtils.getCmpInActiveTab('datachartview').insert(chart);
 		}
 	}
 });

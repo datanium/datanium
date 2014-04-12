@@ -52,9 +52,9 @@ var xFields = [];
 var yFields = [];
 var xFieldsLabel = "";
 
-Ext.define('Datanium.view.charts.ColumnChart', {
+Ext.define('Datanium.view.charts.StackChart', {
 	extend : 'Ext.chart.Chart',
-	alias : 'widget.columnchart',
+	alias : 'widget.stackchart',
 	initComponent : function() {
 		Ext.apply(this, {
 			layout : 'fit',
@@ -110,12 +110,6 @@ Ext.define('Datanium.view.charts.ColumnChart', {
 				}
 			}
 		}
-		// console.log(fields);
-		// console.log(xFields);
-		// console.log(xFieldsLabel);
-		// console.log(yFields);
-		// console.log(fields_json);
-		// console.log(results_json);
 		var store = genChartStore(columnchart_store_template, fields);
 		this.store = store;
 		this.axes = [ {
@@ -146,27 +140,23 @@ Ext.define('Datanium.view.charts.ColumnChart', {
 					this.width = this.title.length * 7.8;
 				}
 			},
-			/*
-			 * label : { display : 'insideEnd', 'text-anchor' : 'middle', field : [
-			 * 'China', 'US' ], renderer : Ext.util.Format.numberRenderer('0'),
-			 * orientation : 'horizontal', color : '#fff' },
-			 */
 			xField : xFields,
-			yField : yFields
+			yField : yFields,
+			stacked : true
 		} ]
 		this.callParent();
-		this.addEvents('refreshColumnChart');
-		this.on('refreshColumnChart',
+		this.addEvents('refreshStackChart');
+		this.on('refreshStackChart',
 				function() {
-					console.log('refreshColumnChart');
-					if (Datanium.util.CommonUtils.getCmpInActiveTab('columnchart') != null) {
+					console.log('refreshStackChart');
+					if (Datanium.util.CommonUtils.getCmpInActiveTab('stackchart') != null) {
 						var activeItemId = Datanium.util.CommonUtils.getCmpInActiveTab('datapanel').getLayout()
 								.getActiveItem().id;
 						Datanium.util.CommonUtils.destoryChart();
 						Datanium.util.CommonUtils.getCmpInActiveTab('datachartview').insert(0,
-								Ext.create('Datanium.view.charts.ColumnChart', {
+								Ext.create('Datanium.view.charts.StackChart', {
 									xtype : 'columnchart',
-									itemId : Datanium.util.CommonUtils.genItemId('columnchart'),
+									itemId : Datanium.util.CommonUtils.genItemId('stackchart'),
 									region : 'center',
 									floatable : false,
 									collapsible : false,
