@@ -1,4 +1,4 @@
-var columnchart_store_template = {
+var chart_store_template = {
 	extend : 'Ext.data.Store',
 	autoLoad : true,
 	proxy : {
@@ -12,7 +12,10 @@ var columnchart_store_template = {
 
 function genChartStore(template, fields) {
 	template.fields = mergeFields(fields);
-	template.data = mergeDimensions(Datanium.GlobalData.QueryResult);
+	if (Datanium.GlobalData.QueryResult != null) {
+		var queryResult = JSON.parse(JSON.stringify(Datanium.GlobalData.QueryResult));
+		template.data = mergeDimensions(queryResult);
+	}
 	// console.log("ColumnChartStore = Ext.create('Ext.data.Store'," +
 	// Ext.encode(template) + ");");
 	eval("ColumnChartStore = Ext.create('Ext.data.Store'," + Ext.encode(template) + ");");
@@ -110,14 +113,14 @@ Ext.define('Datanium.view.charts.ColumnChart', {
 				}
 			}
 		}
+		var store = genChartStore(chart_store_template, fields);
+		this.store = store;
 		// console.log(fields);
 		// console.log(xFields);
 		// console.log(xFieldsLabel);
 		// console.log(yFields);
 		// console.log(fields_json);
 		// console.log(results_json);
-		var store = genChartStore(columnchart_store_template, fields);
-		this.store = store;
 		this.axes = [ {
 			type : 'Numeric',
 			position : 'left',
