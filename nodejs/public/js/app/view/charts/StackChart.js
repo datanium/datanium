@@ -1,4 +1,4 @@
-var columnchart_store_template = {
+var chart_store_template = {
 	extend : 'Ext.data.Store',
 	autoLoad : true,
 	proxy : {
@@ -12,12 +12,13 @@ var columnchart_store_template = {
 
 function genChartStore(template, fields) {
 	template.fields = mergeFields(fields);
-	template.data = mergeDimensions(Datanium.GlobalData.QueryResult);
-	// console.log("ColumnChartStore = Ext.create('Ext.data.Store'," +
-	// Ext.encode(template) + ");");
-	eval("ColumnChartStore = Ext.create('Ext.data.Store'," + Ext.encode(template) + ");");
-	ColumnChartStore.load();
-	return ColumnChartStore;
+	if (Datanium.GlobalData.QueryResult != null) {
+		var queryResult = JSON.parse(JSON.stringify(Datanium.GlobalData.QueryResult));
+		template.data = mergeDimensions(queryResult);
+	}
+	eval("StackChartStore = Ext.create('Ext.data.Store'," + Ext.encode(template) + ");");
+	StackChartStore.load();
+	return StackChartStore;
 }
 
 function mergeDimensions(queryResult) {
@@ -110,7 +111,7 @@ Ext.define('Datanium.view.charts.StackChart', {
 				}
 			}
 		}
-		var store = genChartStore(columnchart_store_template, fields);
+		var store = genChartStore(chart_store_template, fields);
 		this.store = store;
 		this.axes = [ {
 			type : 'Numeric',
@@ -145,25 +146,5 @@ Ext.define('Datanium.view.charts.StackChart', {
 			stacked : true
 		} ]
 		this.callParent();
-		this.addEvents('refreshStackChart');
-		this.on('refreshStackChart',
-				function() {
-					console.log('refreshStackChart');
-					if (Datanium.util.CommonUtils.getCmpInActiveTab('stackchart') != null) {
-						var activeItemId = Datanium.util.CommonUtils.getCmpInActiveTab('datapanel').getLayout()
-								.getActiveItem().id;
-						Datanium.util.CommonUtils.destoryChart();
-						Datanium.util.CommonUtils.getCmpInActiveTab('datachartview').insert(0,
-								Ext.create('Datanium.view.charts.StackChart', {
-									xtype : 'columnchart',
-									itemId : Datanium.util.CommonUtils.genItemId('stackchart'),
-									region : 'center',
-									floatable : false,
-									collapsible : false,
-									header : false,
-									hidden : true
-								}));
-					}
-				});
 	}
 });
