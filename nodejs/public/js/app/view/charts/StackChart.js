@@ -137,12 +137,13 @@ Ext.define('Datanium.view.charts.StackChart', {
 				width : 140,
 				height : 28,
 				renderer : function(storeItem, item) {
-					this.setTitle(item.yField + ': ' + storeItem.get(item.yField) + ' $');
-					this.width = this.title.length * 7.8;
+					this.setTitle(storeItem.get(item.yField) + '');
+					this.width = this.title.length * 10;
 				}
 			},
 			xField : xFields,
 			yField : yFields,
+			title : yFieldsTxt,
 			stacked : true
 		} ]
 		this.callParent();
