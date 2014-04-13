@@ -74,6 +74,7 @@ Ext.define('Datanium.view.charts.ColumnChart', {
 		fields = [];
 		xFields = [];
 		yFields = [];
+		yFieldsTxt = [];
 		xFieldsLabel = "";
 		var fields_json = null;
 		var results_json = null;
@@ -109,6 +110,7 @@ Ext.define('Datanium.view.charts.ColumnChart', {
 					if (f.display) {
 						fields.push(f.uniqueName);
 						yFields.push(f.uniqueName);
+						yFieldsTxt.push(f.text);
 					}
 				}
 			}
@@ -145,8 +147,8 @@ Ext.define('Datanium.view.charts.ColumnChart', {
 				width : 140,
 				height : 28,
 				renderer : function(storeItem, item) {
-					this.setTitle(item.yField + ': ' + storeItem.get(item.yField) + ' $');
-					this.width = this.title.length * 7.8;
+					this.setTitle(storeItem.get(item.yField) + '');
+					this.width = this.title.length * 10;
 				}
 			},
 			/*
@@ -155,7 +157,8 @@ Ext.define('Datanium.view.charts.ColumnChart', {
 			 * orientation : 'horizontal', color : '#fff' },
 			 */
 			xField : xFields,
-			yField : yFields
+			yField : yFields,
+			title : yFieldsTxt
 		} ]
 		this.callParent();
 		this.addEvents('refreshColumnChart');
