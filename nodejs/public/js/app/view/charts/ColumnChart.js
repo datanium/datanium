@@ -161,25 +161,5 @@ Ext.define('Datanium.view.charts.ColumnChart', {
 			title : yFieldsTxt
 		} ]
 		this.callParent();
-		this.addEvents('refreshColumnChart');
-		this.on('refreshColumnChart',
-				function() {
-					console.log('refreshColumnChart');
-					if (Datanium.util.CommonUtils.getCmpInActiveTab('columnchart') != null) {
-						var activeItemId = Datanium.util.CommonUtils.getCmpInActiveTab('datapanel').getLayout()
-								.getActiveItem().id;
-						Datanium.util.CommonUtils.destoryChart();
-						Datanium.util.CommonUtils.getCmpInActiveTab('datachartview').insert(0,
-								Ext.create('Datanium.view.charts.ColumnChart', {
-									xtype : 'columnchart',
-									itemId : Datanium.util.CommonUtils.genItemId('columnchart'),
-									region : 'center',
-									floatable : false,
-									collapsible : false,
-									header : false,
-									hidden : true
-								}));
-					}
-				});
 	}
 });

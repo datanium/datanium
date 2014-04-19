@@ -145,7 +145,7 @@ Ext.define('Datanium.util.CommonUtils', {
 			return array;
 		},
 		refreshAll : function() {
-			Datanium.util.CommonUtils.getCmpInActiveTab('dynamicdatagrid').fireEvent('refreshDatagrid');
+			Datanium.util.CommonUtils.generateGrid();
 			Datanium.util.CommonUtils.generateChart();
 		},
 		removeElement : function(uniqueName) {
@@ -163,7 +163,7 @@ Ext.define('Datanium.util.CommonUtils', {
 				}
 			}
 		},
-		destoryChart : function() {
+		destroyChart : function() {
 			if (Datanium.util.CommonUtils.getCmpInActiveTab('columnchart') != null) {
 				Datanium.util.CommonUtils.getCmpInActiveTab('columnchart').destroy();
 			}
@@ -172,7 +172,7 @@ Ext.define('Datanium.util.CommonUtils', {
 			}
 		},
 		generateChart : function() {
-			Datanium.util.CommonUtils.destoryChart();
+			Datanium.util.CommonUtils.destroyChart();
 			var classname = 'widget.' + Datanium.GlobalData.chartMode;
 			var chart = Ext.create(classname, {
 				itemId : Datanium.util.CommonUtils.genItemId(Datanium.GlobalData.chartMode),
@@ -182,6 +182,23 @@ Ext.define('Datanium.util.CommonUtils', {
 				header : false
 			});
 			Datanium.util.CommonUtils.getCmpInActiveTab('datachartview').insert(chart);
+		},
+		destroyGrid : function() {
+			if (Datanium.util.CommonUtils.getCmpInActiveTab('dynamicdatagrid') != null) {
+				Datanium.util.CommonUtils.getCmpInActiveTab('dynamicdatagrid').destroy();
+			}
+		},
+		generateGrid : function() {
+			Datanium.util.CommonUtils.destroyGrid();
+			var grid = Ext.create('Datanium.view.DynamicDataGrid', {
+				xtype : 'dynamicdatagrid',
+				itemId : Datanium.util.CommonUtils.genItemId('dynamicdatagrid'),
+				region : 'center',
+				floatable : false,
+				collapsible : false,
+				header : false
+			});
+			Datanium.util.CommonUtils.getCmpInActiveTab('datagridview').insert(grid);
 		}
 	}
 });
