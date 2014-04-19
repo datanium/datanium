@@ -17,17 +17,6 @@ var fields = [];
 var columns = [];
 var groups = [];
 
-function destoryGrid(cmpId, parent) {
-	if (parent != null) {
-		parent.down('dynamicdatagrid').destroy();
-	} else {
-		Datanium.util.CommonUtils.getCmpInActiveTab(cmpId).destroy();
-	}
-	fields = [];
-	columns = [];
-	groups = [];
-}
-
 function generateDynamicModel(fields, results_json) {
 	var dataFields = getResultHeader(results_json);
 	columns = columnFactory(fields);
@@ -220,17 +209,13 @@ Ext.define('Datanium.view.DynamicDataGrid', {
 		} ];
 		this.store = store;
 		this.columns = columns;
-		// console.log(this.store);
-		// console.log(this.columns);
 		this.callParent();
-		this.addEvents('refreshDatagrid');
+		/*this.addEvents('refreshDatagrid');
 		this.on('refreshDatagrid',
 				function() {
 					console.log('refreshDatagrid');
 					if (Datanium.util.CommonUtils.getCmpInActiveTab('dynamicdatagrid') != null) {
-						var activeItemId = Datanium.util.CommonUtils.getCmpInActiveTab('datapanel').getLayout()
-								.getActiveItem().id;
-						destoryGrid('dynamicdatagrid');
+						destroyGrid('dynamicdatagrid');
 						Datanium.util.CommonUtils.getCmpInActiveTab('datagridview').insert(0,
 								Ext.create('Datanium.view.DynamicDataGrid', {
 									xtype : 'dynamicdatagrid',
@@ -241,6 +226,6 @@ Ext.define('Datanium.view.DynamicDataGrid', {
 									header : false
 								}).show());
 					}
-				});
+				});*/
 	}
 });
