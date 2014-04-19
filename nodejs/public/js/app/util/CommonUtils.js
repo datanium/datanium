@@ -190,7 +190,7 @@ Ext.define('Datanium.util.CommonUtils', {
 		},
 		generateGrid : function() {
 			Datanium.util.CommonUtils.destroyGrid();
-			var grid = Ext.create('Datanium.view.DynamicDataGrid', {
+			var grid = Ext.create('widget.dynamicdatagrid', {
 				xtype : 'dynamicdatagrid',
 				itemId : Datanium.util.CommonUtils.genItemId('dynamicdatagrid'),
 				region : 'center',

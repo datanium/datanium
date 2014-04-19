@@ -76,14 +76,7 @@ Ext.define('Datanium.controller.GridController', {
 	},
 	onGridPanelReady : function(me) {
 		console.log('onGridPanelReady');
-		var datagrid = Ext.create('widget.dynamicdatagrid', {
-			itemId : Datanium.util.CommonUtils.genItemId('dynamicdatagrid'),
-			region : 'center',
-			floatable : false,
-			collapsible : false,
-			header : false
-		});
-		Datanium.util.CommonUtils.getCmpInActiveTab('datagridview').insert(datagrid);
+		Datanium.util.CommonUtils.generateGrid();
 	},
 	onGridPanelShow : function() {
 		console.log('onGridPanelShow');
