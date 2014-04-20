@@ -170,6 +170,9 @@ Ext.define('Datanium.util.CommonUtils', {
 			if (Datanium.util.CommonUtils.getCmpInActiveTab('stackchart') != null) {
 				Datanium.util.CommonUtils.getCmpInActiveTab('stackchart').destroy();
 			}
+			if (Datanium.util.CommonUtils.getCmpInActiveTab('linechart') != null) {
+				Datanium.util.CommonUtils.getCmpInActiveTab('linechart').destroy();
+			}
 		},
 		generateChart : function() {
 			Datanium.util.CommonUtils.destroyChart();
@@ -199,6 +202,20 @@ Ext.define('Datanium.util.CommonUtils', {
 				header : false
 			});
 			Datanium.util.CommonUtils.getCmpInActiveTab('datagridview').insert(grid);
+		},
+		getStoreTemplate : function() {
+			var storeTemplate = {
+				extend : 'Ext.data.Store',
+				autoLoad : true,
+				proxy : {
+					type : 'memory',
+					reader : {
+						type : 'json',
+						root : 'result'
+					}
+				}
+			};
+			return storeTemplate;
 		}
 	}
 });

@@ -1,14 +1,4 @@
-var chart_store_template = {
-	extend : 'Ext.data.Store',
-	autoLoad : true,
-	proxy : {
-		type : 'memory',
-		reader : {
-			type : 'json',
-			root : 'result'
-		}
-	}
-};
+var chart_store_template = Datanium.util.CommonUtils.getStoreTemplate();
 
 function genChartStore(template, fields) {
 	template.fields = mergeFields(fields);
@@ -107,6 +97,7 @@ Ext.define('Datanium.view.charts.StackChart', {
 					if (f.display) {
 						fields.push(f.uniqueName);
 						yFields.push(f.uniqueName);
+						yFieldsTxt.push(f.text);
 					}
 				}
 			}
@@ -141,7 +132,7 @@ Ext.define('Datanium.view.charts.StackChart', {
 					this.width = this.title.length * 10;
 				}
 			},
-			xField : xFields,
+			xField : xFieldsLabel,
 			yField : yFields,
 			title : yFieldsTxt,
 			stacked : true
