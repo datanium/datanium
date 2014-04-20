@@ -1,6 +1,6 @@
 Ext.define('Datanium.controller.ChartController', {
 	extend : 'Ext.app.Controller',
-	views : [ 'ChartView', 'charts.ColumnChart', 'charts.StackChart', 'charts.ChartToolbar' ],
+	views : [ 'ChartView', 'charts.ColumnChart', 'charts.LineChart', 'charts.StackChart', 'charts.ChartToolbar' ],
 	stores : [],
 	models : [],
 	init : function() {
@@ -13,6 +13,14 @@ Ext.define('Datanium.controller.ChartController', {
 				click : function(btn) {
 					if (Datanium.GlobalData.chartMode != 'columnchart') {
 						Datanium.GlobalData.chartMode = 'columnchart';
+						Datanium.util.CommonUtils.generateChart();
+					}
+				}
+			},
+			'chart-toolbar > button[action=line-chart]' : {
+				click : function(btn) {
+					if (Datanium.GlobalData.chartMode != 'linechart') {
+						Datanium.GlobalData.chartMode = 'linechart';
 						Datanium.util.CommonUtils.generateChart();
 					}
 				}
