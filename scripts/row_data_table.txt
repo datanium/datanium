@@ -1,0 +1,14 @@
+use datanium;
+
+db.dataset.insert({"region":"Asia", "country":"China", "year":2000, "gdp":10000, "cpi":0.04, "interest_rate":0.02,"data_source":"WDI"}); 
+db.dataset.insert({"region":"Asia", "country":"China", "year":2001, "gdp":8000, "cpi":0.08, "interest_rate":0.06,"data_source":"WDI"}); 
+db.dataset.insert({"region":"Asia", "country":"China", "year":2002, "gdp":14000, "cpi":0.09, "interest_rate":0.04,"data_source":"WDI"}); 
+db.dataset.insert({"region":"Asia", "country":"Japan", "year":2000, "gdp":8000, "cpi":0.01, "interest_rate":0.01,"data_source":"WDI"}); 
+db.dataset.insert({"region":"Asia", "country":"Japan", "year":2001, "gdp":8400, "cpi":0.02, "interest_rate":0.02,"data_source":"WDI"}); 
+db.dataset.insert({"region":"Asia", "country":"China", "year":2002, "gdp":8800, "cpi":0.03, "interest_rate":0.03,"data_source":"WDI"}); 
+db.dataset.insert({"region":"North America", "country":"US", "year":2000, "gdp":70000, "cpi":0.01, "interest_rate":0.04,"data_source":"WDI"}); 
+db.dataset.insert({"region":"North America", "country":"US", "year":2001, "gdp":85000, "cpi":0.02, "interest_rate":0.05,"data_source":"WDI"}); 
+db.dataset.insert({"region":"North America", "country":"US", "year":2002, "gdp":88000, "cpi":0.01, "interest_rate":0.06,"data_source":"WDI"}); 
+db.dataset.insert({"region":"Europe", "country":"UK", "year":2000, "gdp":12000, "cpi":0.03, "interest_rate":0.07,"data_source":"WDI"}); 
+db.dataset.insert({"region":"Europe", "country":"UK", "year":2001, "gdp":10000, "cpi":0.02, "interest_rate":0.06,"data_source":"WDI"}); 
+db.dataset.insert({"region":"Europe", "country":"UK", "year":2002, "gdp":9000, "cpi":0.02, "interest_rate":0.07,"data_source":"WDI"});

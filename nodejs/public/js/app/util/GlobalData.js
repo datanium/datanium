@@ -14,5 +14,6 @@ Ext.define('Datanium.GlobalData', {
 	enableQuery : false,
 	groups : [],
 	rptMode : 'grid',
+	chartMode : 'columnchart',
 	autoRun : true
 });

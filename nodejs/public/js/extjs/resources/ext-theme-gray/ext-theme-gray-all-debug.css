@@ -16242,6 +16242,7 @@ body.x-nbr .x-grid-row-editor-buttons-default-top-frameInfo {
   line-height: 22px;
   padding: 0 0 0 30px;
   display: inline-block;
+  color: #34495e;
 }
 
 /* line 98, ../../../ext-theme-neutral/sass/src/menu/Menu.scss */
@@ -16253,7 +16254,7 @@ body.x-nbr .x-grid-row-editor-buttons-default-top-frameInfo {
 .x-menu-item-icon {
   width: 16px;
   height: 16px;
-  top: 4px;
+  top: 6px;
   left: 3px;
   background-position: center center;
 }
@@ -16274,7 +16275,7 @@ body.x-nbr .x-grid-row-editor-buttons-default-top-frameInfo {
 .x-gecko .x-menu-item-active .x-menu-item-icon,
 .x-quirks .x-menu-item-active .x-menu-item-icon,
 .x-ie9m .x-menu-item-active .x-menu-item-icon {
-  top: 3px;
+  top: 5px;
   left: 2px;
 }
 
@@ -16290,7 +16291,7 @@ body.x-nbr .x-grid-row-editor-buttons-default-top-frameInfo {
 /* line 183, ../../../ext-theme-neutral/sass/src/menu/Menu.scss */
 .x-menu-item-text {
   font-size: 11px;
-  color: #222222;
+  color: #34495e;
   cursor: pointer;
   margin-right: 16px;
 }

@@ -17,7 +17,7 @@ Ext.define('Datanium.view.ElementPanel', {
 				var msrs = Datanium.GlobalData.qubeInfo.measures;
 				Ext.Array.each(dims, function(d) {
 					var btn = {
-						itemId : 'dimension.' + d.uniqueName,
+						itemId : d.uniqueName,
 						xtype : 'splitbutton',
 						text : d.text,
 						iconCls : 'fa fa-bars',
@@ -28,17 +28,36 @@ Ext.define('Datanium.view.ElementPanel', {
 							Datanium.util.CommonUtils.updateQueryParamByEP();
 							Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('selectionChange');
 						},
-						menu : [ {
-							text : 'Remove'
-						} ]
+						menu : [
+								{
+									iconCls : 'fa fa-times-circle-o',
+									text : 'Remove',
+									handler : function() {
+										Datanium.util.CommonUtils.removeElement(this.parentMenu.ownerButton.itemId);
+										this.parentMenu.ownerButton.destroy();
+										Datanium.util.CommonUtils.updateQueryParamByEP();
+										Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent(
+												'selectionChange');
+									}
+								}, {
+									iconCls : 'fa fa-filter',
+									text : 'Filter',
+									handler : function() {
+
+									}
+								} ]
 					}
 					ep.add(btn);
 				});
 				Ext.Array.each(msrs, function(m) {
 					var btn = {
-						itemId : 'measure.' + m.uniqueName,
+						itemId : m.uniqueName,
 						xtype : 'splitbutton',
-						text : m.text,
+						text : m.text + ' - ' + m.data_source,
+						params : {
+							data_type : m.data_type,
+							data_source : m.data_source
+						},
 						iconCls : 'fa fa-bar-chart-o',
 						cls : 'elementBtn',
 						enableToggle : true,
@@ -48,7 +67,15 @@ Ext.define('Datanium.view.ElementPanel', {
 							Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('selectionChange');
 						},
 						menu : [ {
-							text : 'Remove'
+							iconCls : 'fa fa-times-circle-o',
+							text : 'Remove',
+							handler : function() {
+								Datanium.util.CommonUtils.removeElement(this.parentMenu.ownerButton.itemId);
+								this.parentMenu.ownerButton.destroy();
+								Datanium.util.CommonUtils.updateQueryParamByEP();
+								Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel')
+										.fireEvent('selectionChange');
+							}
 						} ]
 					}
 					ep.add(btn);

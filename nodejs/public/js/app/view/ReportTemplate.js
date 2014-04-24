@@ -43,7 +43,7 @@ Ext.define('Datanium.view.ReportTemplate', {
 				split : true
 			},
 			items : [ {
-				title : 'Fields',
+				title : 'My Analysis',
 				layout : 'vbox',
 				header : false,
 				region : 'north',

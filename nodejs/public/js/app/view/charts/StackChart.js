@@ -6,11 +6,9 @@ function genChartStore(template, fields) {
 		var queryResult = JSON.parse(JSON.stringify(Datanium.GlobalData.QueryResult));
 		template.data = mergeDimensions(queryResult);
 	}
-	// console.log("ColumnChartStore = Ext.create('Ext.data.Store'," +
-	// Ext.encode(template) + ");");
-	eval("ColumnChartStore = Ext.create('Ext.data.Store'," + Ext.encode(template) + ");");
-	ColumnChartStore.load();
-	return ColumnChartStore;
+	eval("StackChartStore = Ext.create('Ext.data.Store'," + Ext.encode(template) + ");");
+	StackChartStore.load();
+	return StackChartStore;
 }
 
 function mergeDimensions(queryResult) {
@@ -45,9 +43,9 @@ var xFields = [];
 var yFields = [];
 var xFieldsLabel = "";
 
-Ext.define('Datanium.view.charts.ColumnChart', {
+Ext.define('Datanium.view.charts.StackChart', {
 	extend : 'Ext.chart.Chart',
-	alias : 'widget.columnchart',
+	alias : 'widget.stackchart',
 	initComponent : function() {
 		Ext.apply(this, {
 			layout : 'fit',
@@ -64,7 +62,6 @@ Ext.define('Datanium.view.charts.ColumnChart', {
 		fields = [];
 		xFields = [];
 		yFields = [];
-		yFieldsTxt = [];
 		xFieldsLabel = "";
 		var fields_json = null;
 		var results_json = null;
@@ -107,12 +104,6 @@ Ext.define('Datanium.view.charts.ColumnChart', {
 		}
 		var store = genChartStore(chart_store_template, fields);
 		this.store = store;
-		// console.log(fields);
-		// console.log(xFields);
-		// console.log(xFieldsLabel);
-		// console.log(yFields);
-		// console.log(fields_json);
-		// console.log(results_json);
 		this.axes = [ {
 			type : 'Numeric',
 			position : 'left',
@@ -141,14 +132,10 @@ Ext.define('Datanium.view.charts.ColumnChart', {
 					this.width = this.title.length * 10;
 				}
 			},
-			/*
-			 * label : { display : 'insideEnd', 'text-anchor' : 'middle', field : [
-			 * 'China', 'US' ], renderer : Ext.util.Format.numberRenderer('0'),
-			 * orientation : 'horizontal', color : '#fff' },
-			 */
 			xField : xFieldsLabel,
 			yField : yFields,
-			title : yFieldsTxt
+			title : yFieldsTxt,
+			stacked : true
 		} ]
 		this.callParent();
 	}

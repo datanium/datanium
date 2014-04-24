@@ -1,7 +1,9 @@
 var data = require('../data/sampleData');
 var mongodb = require('../data/mongodb');
 var indicator = require('../data/indicator');
+var dataset = require('../data/dataset');
 var IndicatorSchema = indicator.Indicator;
+var datasetSchema = dataset.Dataset;
 
 exports.cubeList = function(req, res) {
 	res.send(data.cubeListJSON);
@@ -12,104 +14,108 @@ exports.cubeInfo = function(req, res) {
 };
 
 exports.queryResult = function(req, res) {
-	var returnJson = [];
-	var Schema = mongodb.mongoose.Schema;
-	var DatasetSchema = new Schema({
-	"region" : String,
-	"country" : String,
-	"year" : Number,
-	"gdp" : Number
-});
-	var Dataset = mongodb.mongoose.model('Dataset', DatasetSchema,'dataset'); 
-	Dataset.find({},function(err, doc){
-		res.json(doc);
+	var queryParam = req.body;
+	var resultJSON = {
+		"total" : 0,
+		"result" : []
+	};
+	var groupStr = generateGroupStr(queryParam);
+	var groupObj = eval("(" + groupStr + ")");
+	datasetSchema.aggregate().group(groupObj).exec(function(err, doc) {
+		if (err)
+			return handleError(err);
+		resultJSON.result = convertResult(doc);
+		resultJSON.total = doc.length;
+		res.send(resultJSON);
 	});
-	//res.send(data.queryResultJSON);
 };
 
+function generateGroupStr(queryParam) {
+	var dimensions = queryParam.dimensions;
+	var measures = queryParam.measures;
+	var idStr = "_id:{";
+	dimensions.forEach(function(item, index) {
+		idStr += item.uniqueName;
+		idStr += ":\"$";
+		idStr += item.uniqueName;
+		idStr += "\"";
+		if (index < dimensions.length - 1) {
+			idStr += ","
+		}
+	});
+	idStr += "},"
+	var indicatorStr = "";
+	measures.forEach(function(item, index) {
+		indicatorStr += item.uniqueName;
+		indicatorStr += ":{";
+		if (item.data_type == 'number') {
+			indicatorStr += "$sum:";
+		} else if (item.data_type == 'percentage') {
+			indicatorStr += "$avg:";
+		} else {
+			return "";
+		}
+		indicatorStr += "\"$";
+		indicatorStr += item.uniqueName;
+		indicatorStr += "\"";
+		indicatorStr += "}"
+		if (index < measures.length - 1) {
+			indicatorStr += ","
+		}
+	});
+	var res = "{" + idStr + indicatorStr + "}";
+	return res;
+}
+
+function convertResult(doc) {
+	var results = [];
+	doc.forEach(function(item) {
+		var gstr = JSON.stringify(item._id);
+		gstr = gstr.substring(1, gstr.length - 1);
+		delete item._id;
+		var mstr = JSON.stringify(item);
+		mstr = mstr.substring(1, mstr.length - 1);
+		var recordStr = '{' + gstr + ',' + mstr + '}';
+		var recordObj = eval("(" + recordStr + ")");
+		results.push(recordObj);
+	});
+	return results;
+}
+
 exports.indicatorMapping = function(req, res) {
-	var indicatorMappingJSON ={};
+	var indicatorMappingJSON = {};
 	var query = require('url').parse(req.url, true).query;
 	var idc = query.idc;
-	console.log(idc);
 	var dimensions = [];
 	var measures = [];
-	IndicatorSchema.find({indicator_key:idc},function(err, doc) {
-			doc.forEach(function(item, index){
-				console.log(item.indicator_key);
-				console.log(item.indicator_text);
-				var tempDimensions = item.dimension;
-				tempDimensions.forEach(function(dimension,index){
-					var tempDimension ={
-						"uniqueName" : dimension.dimension_key,
-						"name" : dimension.dimension_key,
-						"text" : dimension.dimension_text
-					};
-					dimensions.push(tempDimension);
-				});
-				var tempMesureJson = {
-					"uniqueName" : item.indicator_key,
-					"name" : item.indicator_key,
-					"text" : item.indicator_text
+	IndicatorSchema.find({
+		indicator_key : idc
+	}, function(err, doc) {
+		doc.forEach(function(item, index) {
+			var tempDimensions = item.dimension;
+			tempDimensions.forEach(function(dimension, index) {
+				var tempDimension = {
+					"uniqueName" : dimension.dimension_key,
+					"name" : dimension.dimension_key,
+					"text" : dimension.dimension_text
 				};
-				measures.push(tempMesureJson);
+				dimensions.push(tempDimension);
 			});
-			indicatorMappingJSON = {
-				"dimensions" : dimensions,
-				"measures" : measures
-				};
-				console.log(indicatorMappingJSON);
-	res.send(indicatorMappingJSON);	        
-	    });
-	/*if (idc == '[Measures].[CPI]') {
+			var tempMesureJson = {
+				"uniqueName" : item.indicator_key,
+				"name" : item.indicator_key,
+				"text" : item.indicator_text,
+				"data_source" : item.data_source,
+				"data_type" : item.data_type
+			};
+			measures.push(tempMesureJson);
+		});
 		indicatorMappingJSON = {
-			"dimensions" : [ {
-				"uniqueName" : "[GEO].[COUNTRY]",
-				"name" : "COUNTRY",
-				"text" : "Country"
-			}, {
-				"uniqueName" : "[TIME].[YEAR]",
-				"name" : "YEAR",
-				"text" : "Year"
-			} ],
-			"measures" : [ {
-				"uniqueName" : "[Measures].[CPI]",
-				"name" : "CPI",
-				"text" : "CPI"
-			} ]
+			"dimensions" : dimensions,
+			"measures" : measures
 		};
-	} else if (idc == '[Measures].[GDP]') {
-		indicatorMappingJSON = {
-			"dimensions" : [ {
-				"uniqueName" : "[GEO].[REGION]",
-				"name" : "REGION",
-				"text" : "Region"
-			}, {
-				"uniqueName" : "[GEO].[COUNTRY]",
-				"name" : "COUNTRY",
-				"text" : "Country"
-			} ],
-			"measures" : [ {
-				"uniqueName" : "[Measures].[GDP]",
-				"name" : "GDP",
-				"text" : "GDP"
-			} ]
-		};
-	} else if (idc == '[Measures].[Interest Rate]') {
-		indicatorMappingJSON = {
-			"dimensions" : [ {
-				"uniqueName" : "[GEO].[COUNTRY]",
-				"name" : "COUNTRY",
-				"text" : "Country"
-			} ],
-			"measures" : [ {
-				"uniqueName" : "[Measures].[Interest Rate]",
-				"name" : "Interest Rate",
-				"text" : "Interest Rate"
-			} ]
-		};
-	}
-	res.send(indicatorMappingJSON);*/
+		res.send(indicatorMappingJSON);
+	});
 }
 
 exports.indicatorSearch = function(req, res) {
@@ -117,26 +123,29 @@ exports.indicatorSearch = function(req, res) {
 	var indicatorResultJSON = {};
 	if (query.query != null) {
 		var key = query.query.toLowerCase();
-		var results =[];
-		IndicatorSchema.find({indicator_key:{$regex:key}},function(err, doc) {
-			doc.forEach(function(item, index){
-				console.log(item.indicator_key);
-				console.log(item.indicator_text);
+		var results = [];
+		IndicatorSchema.find({
+			indicator_text : {
+				$regex : key,
+				$options : 'i'
+			}
+		}, function(err, doc) {
+			doc.forEach(function(item, index) {
 				var tempJson = {
 					"uniqueName" : item.indicator_key,
-					"text" : item.indicator_text
+					"text" : item.indicator_text + ' - ' + item.data_source
 				};
 				results.push(tempJson);
 			});
 			indicatorResultJSON = {
 				"indicators" : results
-				};
-	res.send(indicatorResultJSON);	        
-	    });
-	}else{
+			};
+			res.send(indicatorResultJSON);
+		});
+	} else {
 		indicatorResultJSON = {
 			"indicators" : []
 		};
-		res.send(indicatorResultJSON);	    
+		res.send(indicatorResultJSON);
 	}
 };
