@@ -63,7 +63,7 @@ Ext.define('Datanium.util.CommonUtils', {
 			Ext.Array.each(epItems.items, function(rec) {
 				var id = rec.itemId;
 				var iconCls = rec.iconCls;
-				var name = rec.text;
+				var name = rec.tooltip;
 				var params = rec.params;
 				if (id != null && rec.pressed) {
 					if (iconCls == 'fa fa-bar-chart-o') {
@@ -216,6 +216,13 @@ Ext.define('Datanium.util.CommonUtils', {
 				}
 			};
 			return storeTemplate;
+		},
+		limitLabelLength : function(label, len) {
+			if (label != null && label.length > len) {
+				return label.substr(0, len) + '...';
+			} else {
+				return label;
+			}
 		}
 	}
 });

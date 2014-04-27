@@ -20,6 +20,8 @@ Ext.define('Datanium.view.ElementPanel', {
 						itemId : d.uniqueName,
 						xtype : 'splitbutton',
 						text : d.text,
+						tooltip : d.text,
+						tooltipType : 'title',
 						iconCls : 'fa fa-bars',
 						cls : 'elementBtn',
 						enableToggle : true,
@@ -53,7 +55,9 @@ Ext.define('Datanium.view.ElementPanel', {
 					var btn = {
 						itemId : m.uniqueName,
 						xtype : 'splitbutton',
-						text : m.text + ' - ' + m.data_source,
+						text : Datanium.util.CommonUtils.limitLabelLength(m.text + ' - ' + m.data_source, 32),
+						tooltip : m.text + ' - ' + m.data_source,
+						tooltipType : 'title',
 						params : {
 							data_type : m.data_type,
 							data_source : m.data_source
