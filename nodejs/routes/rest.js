@@ -21,7 +21,8 @@ exports.queryResult = function(req, res) {
 	};
 	var groupStr = generateGroupStr(queryParam);
 	var groupObj = eval("(" + groupStr + ")");
-	datasetSchema.aggregate().group(groupObj).exec(function(err, doc) {
+	var sortStr = generateSortStr(queryParam);
+	datasetSchema.aggregate().group(groupObj).sort(sortStr).limit(500).exec(function(err, doc) {
 		if (err)
 			return handleError(err);
 		resultJSON.result = convertResult(doc);
@@ -65,6 +66,17 @@ function generateGroupStr(queryParam) {
 	});
 	var res = "{" + idStr + indicatorStr + "}";
 	return res;
+}
+
+function generateSortStr(queryParam) {
+	var measures = queryParam.measures;
+	var sortStr = 'field -';
+	if (measures != null && measures.length > 0) {
+		sortStr += measures[0].uniqueName;
+		return sortStr;
+	} else {
+		return null;
+	}
 }
 
 function convertResult(doc) {

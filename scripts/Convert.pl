@@ -1,5 +1,4 @@
-#!D:\Perl64\bin\perl.exe
-
+#!/usr/bin/perl
 use strict;
 use Text::CSV;
 
@@ -61,6 +60,7 @@ close (INPUT);
 # start reading CSV
 my $csv = Text::CSV->new ( { binary => 1 } )  # should set binary attribute.
 	or die "Cannot use CSV: ".Text::CSV->error_diag ();
+$csv->eol ("\r\n");
 open my $fh, "<:encoding(utf8)", $input or die "$input: $!";
 
 my $lineNumber=0;
@@ -106,24 +106,7 @@ foreach $country (@countries){
 			push (@row, $DataByCountry{$country}->{$year}->{$indicatorCode});
 		}
 		$csv->print ($fh, \@row);
+		
 	}
 }
 close $fh or die "new.csv: $!";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
