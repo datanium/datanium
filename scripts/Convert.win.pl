@@ -81,6 +81,9 @@ while (my $fieldsInLine = $csv->getline($fh)){
 		$Offset=0;
 		foreach $year(@years) {
 			$value=$fieldsInLine->[$yearOffset+$Offset];
+			if ($value =~ m/E[-+]/){
+				$value=$value*1;
+			}
 			$DataByCountry{$country}->{$year}->{$indicatorCode}=$value;
 			$Offset++;
 		}
@@ -131,5 +134,4 @@ foreach $indicatorCode (keys (%Indicators)){
 	print CONTROL_OUT $line;
 }
 close CONTROL_OUT or die "$controlOutput: $!";
-
 
