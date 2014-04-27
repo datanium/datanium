@@ -72,6 +72,8 @@ while (my $fieldsInLine = $csv->getline($fh)){
 		$country=$fieldsInLine->[$countryNameOffset];
 		$indicatorCode=$fieldsInLine->[$indicatorCodeOffset];
 		$indicatorName=$fieldsInLine->[$indicatorNameOffset];
+		#replace '.' with '_' as mongo db doesn't accetp '.' inside keys
+		$indicatorCode=~ s/\./_/g;
 		
 		$Indicators{$indicatorCode}=$indicatorName;
 		push (@countries, $country) unless grep { $_ eq $country} @countries;
@@ -91,7 +93,7 @@ close $fh;
 
 #write to a data file
 open $fh, ">:encoding(utf8)", "$dataOutput" or die "$dataOutput: $!";
-$csv->eol("\r\n");
+$csv->eol("\n");
 push (@row, "country");
 push (@row, "year");
 push (@row, keys (%Indicators));
@@ -106,7 +108,7 @@ foreach $country (@countries){
 			#push (@row, $indicatorCode);
 			push (@row, $DataByCountry{$country}->{$year}->{$indicatorCode});
 		}
-		#$csv->print ($fh, \@row);
+		$csv->print ($fh, \@row);
 	}
 }
 close $fh or die "$dataOutput: $!";
@@ -129,4 +131,5 @@ foreach $indicatorCode (keys (%Indicators)){
 	print CONTROL_OUT $line;
 }
 close CONTROL_OUT or die "$controlOutput: $!";
+
 
