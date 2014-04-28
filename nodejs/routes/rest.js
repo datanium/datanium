@@ -21,7 +21,8 @@ exports.queryResult = function(req, res) {
 	};
 	var groupStr = generateGroupStr(queryParam);
 	var groupObj = eval("(" + groupStr + ")");
-	datasetSchema.aggregate().group(groupObj).exec(function(err, doc) {
+	var sortStr = generateSortStr(queryParam);
+	datasetSchema.aggregate().group(groupObj).sort(sortStr).limit(500).exec(function(err, doc) {
 		if (err)
 			return handleError(err);
 		resultJSON.result = convertResult(doc);
@@ -67,6 +68,17 @@ function generateGroupStr(queryParam) {
 	return res;
 }
 
+function generateSortStr(queryParam) {
+	var measures = queryParam.measures;
+	var sortStr = 'field -';
+	if (measures != null && measures.length > 0) {
+		sortStr += measures[0].uniqueName;
+		return sortStr;
+	} else {
+		return null;
+	}
+}
+
 function convertResult(doc) {
 	var results = [];
 	doc.forEach(function(item) {
@@ -79,7 +91,25 @@ function convertResult(doc) {
 		var recordObj = eval("(" + recordStr + ")");
 		results.push(recordObj);
 	});
+	//sort result by year for charts
+	if (results.length > 0 && 'year' in results[0])
+		bubbleSort(results, 'year');
 	return results;
+}
+
+function bubbleSort(a, par) {
+	var swapped;
+	do {
+		swapped = false;
+		for ( var i = 0; i < a.length - 1; i++) {
+			if (a[i][par] > a[i + 1][par]) {
+				var temp = a[i];
+				a[i] = a[i + 1];
+				a[i + 1] = temp;
+				swapped = true;
+			}
+		}
+	} while (swapped);
 }
 
 exports.indicatorMapping = function(req, res) {

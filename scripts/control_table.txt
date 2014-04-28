@@ -4,6 +4,6 @@ d_region={"dimension_key":"region", "dimension_text":"Region"};
 d_country={"dimension_key":"country", "dimension_text":"Country"}; 
 d_year={"dimension_key":"year", "dimension_text":"Year"}; 
 
-db.indicator.insert({"indicator_key":"gdp", "indicator_text":"GDP Annual US$", "data_source":"WDI", "data_type":"number", "dimension":[d_region, d_country, d_year], "tag":["gdp","abc"]}); 
+db.indicator.insert({"indicator_key":"gdp", "indicator_text":"GDP Annual US$", "indicator_category":"xxxx", "data_source":"WDI", "data_type":"number", "dimension":[d_region, d_country, d_year], "tag":["gdp","abc"]}); 
 db.indicator.insert({"indicator_key":"cpi", "indicator_text":"Consumer Price %", "data_source":"WDI", "data_type":"percentage", "dimension":[d_region, d_year], "tag":["cpi","consumer price"]}); 
 db.indicator.insert({"indicator_key":"interest_rate", "indicator_text":"Interest Rate", "data_source":"WDI", "data_type":"percentage", "dimension":[d_country, d_year], "tag":["interest rate","ddd"]});
