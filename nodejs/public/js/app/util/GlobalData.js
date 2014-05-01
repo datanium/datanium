@@ -4,13 +4,15 @@ Ext.define('Datanium.GlobalData', {
 	queryParam : {
 		dimensions : [],
 		measures : [],
-		groups : []
+		groups : [],
+		primaryDimension : null
 	},
 	qubeInfo : {
 		dimensions : [],
 		measures : []
 	},
 	queryResult : null,
+	queryResult4Chart : null,
 	enableQuery : false,
 	groups : [],
 	rptMode : 'grid',

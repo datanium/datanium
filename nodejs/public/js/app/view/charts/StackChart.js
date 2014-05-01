@@ -2,8 +2,8 @@ var chart_store_template = Datanium.util.CommonUtils.getStoreTemplate();
 
 function genChartStore(template, fields) {
 	template.fields = mergeFields(fields);
-	if (Datanium.GlobalData.QueryResult != null) {
-		var queryResult = JSON.parse(JSON.stringify(Datanium.GlobalData.QueryResult));
+	if (Datanium.GlobalData.QueryResult4Chart != null) {
+		var queryResult = JSON.parse(JSON.stringify(Datanium.GlobalData.QueryResult4Chart));
 		template.data = mergeDimensions(queryResult);
 	}
 	eval("StackChartStore = Ext.create('Ext.data.Store'," + Ext.encode(template) + ");");
@@ -68,9 +68,9 @@ Ext.define('Datanium.view.charts.StackChart', {
 		if (Datanium.GlobalData.enableQuery) {
 			if (Datanium.GlobalData.queryParam != null) {
 				fields_json = Datanium.GlobalData.queryParam;
-				if (Datanium.GlobalData.QueryResult != null) {
+				if (Datanium.GlobalData.QueryResult4Chart != null) {
 					this.hidden = false;
-					results_json = Datanium.GlobalData.QueryResult;
+					results_json = Datanium.GlobalData.QueryResult4Chart;
 				}
 			} else {
 				fields = [];

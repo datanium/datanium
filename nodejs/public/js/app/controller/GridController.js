@@ -33,7 +33,8 @@ Ext.define('Datanium.controller.GridController', {
 					success : function(response) {
 						mask.destroy();
 						var result = Ext.JSON.decode(response.responseText, true);
-						Datanium.GlobalData.QueryResult = result;
+						Datanium.GlobalData.QueryResult = result.grid;
+						Datanium.GlobalData.QueryResult4Chart = result.chart;
 						Datanium.util.CommonUtils.refreshAll();
 					},
 					failure : function() {
