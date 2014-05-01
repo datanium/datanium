@@ -18,16 +18,19 @@ Ext.define('Datanium.view.ElementPanel', {
 				Ext.Array.each(dims, function(d) {
 					var btn = {
 						itemId : d.uniqueName,
+						uniqueName : d.uniqueName,
 						xtype : 'splitbutton',
 						text : d.text,
 						tooltip : d.text,
 						tooltipType : 'title',
 						iconCls : 'fa fa-bars',
+						eleType : 'dim',
 						cls : 'elementBtn',
 						enableToggle : true,
 						textAlign : 'left',
-						toggleHandler : function() {
-							Datanium.util.CommonUtils.updateQueryParamByEP();
+						toggleHandler : function(me) {
+							Datanium.util.CommonUtils.updateQueryParamByEP(me.uniqueName);
+							Datanium.util.CommonUtils.markPrimary();
 							Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('selectionChange');
 						},
 						menu : [
@@ -63,6 +66,7 @@ Ext.define('Datanium.view.ElementPanel', {
 							data_source : m.data_source
 						},
 						iconCls : 'fa fa-bar-chart-o',
+						eleType : 'mea',
 						cls : 'elementBtn',
 						enableToggle : true,
 						textAlign : 'left',
