@@ -2,6 +2,7 @@ var data = require('../data/sampleData');
 var mongodb = require('../data/mongodb');
 var indicator = require('../data/indicator');
 var dataset = require('../data/dataset');
+var async = require('../lib/async');
 var IndicatorSchema = indicator.Indicator;
 var datasetSchema = dataset.Dataset;
 
@@ -16,34 +17,73 @@ exports.cubeInfo = function(req, res) {
 exports.queryResult = function(req, res) {
 	var queryParam = req.body;
 	var resultJSON = {
-		"total" : 0,
-		"result" : []
+		"grid" : {
+			"total" : 0,
+			"result" : []
+		},
+		"chart" : {
+			"result" : []
+		}
 	};
-	var groupStr = generateGroupStr(queryParam);
+	var groupStr = generateGroupStr(queryParam, false);
 	var groupObj = eval("(" + groupStr + ")");
+	var groupStr4Chart = generateGroupStr(queryParam, true);
+	var groupObj4Chart = eval("(" + groupStr4Chart + ")");
 	var sortStr = generateSortStr(queryParam);
-	datasetSchema.aggregate().group(groupObj).sort(sortStr).limit(500).exec(function(err, doc) {
-		if (err)
-			return handleError(err);
-		resultJSON.result = convertResult(doc);
-		resultJSON.total = doc.length;
+	console.log("group string: " + groupStr);
+	console.log("group string for chart: " + groupStr4Chart);
+	// to get all the query results and return
+	async.parallel([ function(callback) {
+		// query for grid
+		datasetSchema.aggregate().group(groupObj).sort(sortStr).limit(500).exec(function(err, doc) {
+			if (err)
+				return handleError(err);
+			resultJSON.grid.result = convertResult(doc, false);
+			resultJSON.grid.total = doc.length;
+			callback();
+		});
+	}, function(callback) {
+		// query for chart
+		datasetSchema.aggregate().group(groupObj4Chart).sort(sortStr).limit(500).exec(function(err, doc) {
+			if (err)
+				return handleError(err);
+			resultJSON.chart.result = convertResult(doc, true);
+			callback();
+		});
+	} ], function() {
 		res.send(resultJSON);
 	});
 };
 
-function generateGroupStr(queryParam) {
+function generateGroupStr(queryParam, isChart) {
 	var dimensions = queryParam.dimensions;
 	var measures = queryParam.measures;
+	var breakException = {};
 	var idStr = "_id:{";
-	dimensions.forEach(function(item, index) {
-		idStr += item.uniqueName;
-		idStr += ":\"$";
-		idStr += item.uniqueName;
-		idStr += "\"";
-		if (index < dimensions.length - 1) {
-			idStr += ","
-		}
-	});
+	try {
+		dimensions.forEach(function(item, index) {
+			if (isChart) {
+				if (item.uniqueName == queryParam.primaryDimension) {
+					idStr += item.uniqueName;
+					idStr += ":\"$";
+					idStr += item.uniqueName;
+					idStr += "\"";
+					throw breakException;
+				}
+			} else {
+				idStr += item.uniqueName;
+				idStr += ":\"$";
+				idStr += item.uniqueName;
+				idStr += "\"";
+				if (index < dimensions.length - 1) {
+					idStr += ","
+				}
+			}
+		});
+	} catch (e) {
+		if (e !== breakException)
+			throw e;
+	}
 	idStr += "},"
 	var indicatorStr = "";
 	measures.forEach(function(item, index) {
@@ -79,7 +119,7 @@ function generateSortStr(queryParam) {
 	}
 }
 
-function convertResult(doc) {
+function convertResult(doc, isChart) {
 	var results = [];
 	doc.forEach(function(item) {
 		var gstr = JSON.stringify(item._id);
@@ -91,9 +131,11 @@ function convertResult(doc) {
 		var recordObj = eval("(" + recordStr + ")");
 		results.push(recordObj);
 	});
-	//sort result by year for charts
-	if (results.length > 0 && 'year' in results[0])
-		bubbleSort(results, 'year');
+	// sort result by year for charts
+	if (isChart) {
+		if (results.length > 0 && 'year' in results[0])
+			bubbleSort(results, 'year');
+	}
 	return results;
 }
 
