@@ -65,7 +65,7 @@ Ext.define('Datanium.util.CommonUtils', {
 				var eleType = rec.eleType;
 				var name = rec.tooltip;
 				var params = rec.params;
-				if (!rec.pressed && toggleDimension == id) {
+				if (!rec.pressed && toggleDimension == Datanium.GlobalData.queryParam.primaryDimension) {
 					Datanium.GlobalData.queryParam.primaryDimension = null;
 				}
 				if (id != null && rec.pressed) {
@@ -85,12 +85,12 @@ Ext.define('Datanium.util.CommonUtils', {
 							text : name,
 							data_type : 'dimension',
 							field_type : 'row',
-							is_primary : false,
+							// is_primary : false,
 							displayOrder : 0,
 							display : true
 						}
 						if (toggleDimension == id && Datanium.GlobalData.queryParam.primaryDimension == null) {
-							dimItem.is_primary = true;
+							// dimItem.is_primary = true;
 							Datanium.GlobalData.queryParam.primaryDimension = id;
 						}
 						dimNodes.push(dimItem);
