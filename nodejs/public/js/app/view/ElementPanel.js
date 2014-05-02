@@ -44,11 +44,25 @@ Ext.define('Datanium.view.ElementPanel', {
 										Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent(
 												'selectionChange');
 									}
-								}, {
+								},
+								{
 									iconCls : 'fa fa-filter',
 									text : 'Filter',
 									handler : function() {
-
+									}
+								},
+								{
+									iconCls : 'fa fa-star',
+									text : 'Primary Dimension for Charts',
+									handler : function() {
+										var btn = this.parentMenu.ownerButton;
+										if (!btn.pressed)
+											btn.toggle();
+										Datanium.GlobalData.queryParam.primaryDimension = btn.uniqueName;
+										Datanium.util.CommonUtils.updateQueryParamByEP(btn.uniqueName);
+										Datanium.util.CommonUtils.markPrimary();
+										Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent(
+												'selectionChange');
 									}
 								} ]
 					}
