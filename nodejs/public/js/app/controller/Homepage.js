@@ -104,16 +104,30 @@ Ext.define('Datanium.controller.Homepage', {
 				mask.destroy();
 				var result = Ext.JSON.decode(response.responseText, true);
 				Datanium.GlobalData.qubeInfo.dimensions = Datanium.util.CommonUtils.pushElements2Array(
-						result.dimensions, Datanium.GlobalData.qubeInfo.dimensions);
+						result.dimensions, Datanium.GlobalData.qubeInfo.dimensions);				
 				Datanium.GlobalData.qubeInfo.measures = Datanium.util.CommonUtils.pushElements2Array(result.measures,
-						Datanium.GlobalData.qubeInfo.measures);
+						Datanium.GlobalData.qubeInfo.measures);				
 				Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('refreshElementPanel');
 			},
 			failure : function() {
 				mask.destroy();
 			}
 		};
+		if(this.isValidMeasures()){
 		Ext.Ajax.request(requestConfig);
+		}else{
+			Ext.MessageBox.alert("Alert","Sorry, you cannot add more than 10 measures!");
+			mask.destroy();
+		}
 
+	},
+	isValidMeasures : function() {
+		var measures = Datanium.GlobalData.qubeInfo.measures;
+		if(measures.length>=10){
+			return false;
+		}else{
+			return true;
+		}
 	}
+	
 });
