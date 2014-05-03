@@ -8,7 +8,7 @@ Ext.define('Datanium.util.CommonUtils', {
 		getCmpSearchKey : function(xtype, key) {
 			return '#' + Datanium.util.CommonUtils.genItemId(xtype, key);
 		},
-		getCurrentTab : function(tab) {
+		getCurrentTab : function() {
 			return Ext.getCmp('mainBox').getActiveTab();
 		},
 		getCmpInActiveTab : function(selector) {
@@ -61,7 +61,7 @@ Ext.define('Datanium.util.CommonUtils', {
 			var dimNodes = [];
 			var meaNodes = [];
 			Ext.Array.each(epItems.items, function(rec) {
-				var id = rec.itemId;
+				var id = rec.uniqueName;
 				var eleType = rec.eleType;
 				var name = rec.tooltip;
 				var params = rec.params;
