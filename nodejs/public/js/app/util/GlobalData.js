@@ -21,6 +21,5 @@ Ext.define('Datanium.GlobalData', {
 	autoRun : true,
 	dimensionValues : [],
 	popDimensionKey : null,
-	popDimension : null,
-	popSelection : []
+	popDimension : null
 });

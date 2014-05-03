@@ -25,37 +25,38 @@ exports.queryResult = function(req, res) {
 			"result" : []
 		}
 	};
-	var groupStr = generateGroupStr(queryParam, false);
-	var groupObj = eval("(" + groupStr + ")");
-	var groupStr4Chart = generateGroupStr(queryParam, true);
-	var groupObj4Chart = eval("(" + groupStr4Chart + ")");
+	var groupObj = generateGroupObj(queryParam, false);
+	var groupObj4Chart = generateGroupObj(queryParam, true);
+	var matchObj = generateMatchObj(queryParam);
 	var sortStr = generateSortStr(queryParam);
-	console.log("group string: " + groupStr);
-	console.log("group string for chart: " + groupStr4Chart);
 	// to get all the query results and return
-	async.parallel([ function(callback) {
-		// query for grid
-		datasetSchema.aggregate().group(groupObj).sort(sortStr).limit(500).exec(function(err, doc) {
-			if (err)
-				return handleError(err);
-			resultJSON.grid.result = convertResult(doc, false);
-			resultJSON.grid.total = doc.length;
-			callback();
-		});
-	}, function(callback) {
-		// query for chart
-		datasetSchema.aggregate().group(groupObj4Chart).sort(sortStr).limit(500).exec(function(err, doc) {
-			if (err)
-				return handleError(err);
-			resultJSON.chart.result = convertResult(doc, true);
-			callback();
-		});
-	} ], function() {
+	async.parallel([
+			function(callback) {
+				// query for grid
+				datasetSchema.aggregate().match(matchObj).group(groupObj).sort(sortStr).limit(500).exec(
+						function(err, doc) {
+							if (err)
+								throw err;
+							resultJSON.grid.result = convertResult(doc, false);
+							resultJSON.grid.total = doc.length;
+							callback();
+						});
+			},
+			function(callback) {
+				// query for chart
+				datasetSchema.aggregate().match(matchObj).group(groupObj4Chart).sort(sortStr).limit(500).exec(
+						function(err, doc) {
+							if (err)
+								throw err;
+							resultJSON.chart.result = convertResult(doc, true);
+							callback();
+						});
+			} ], function() {
 		res.send(resultJSON);
 	});
 };
 
-function generateGroupStr(queryParam, isChart) {
+function generateGroupObj(queryParam, isChart) {
 	var dimensions = queryParam.dimensions;
 	var measures = queryParam.measures;
 	var breakException = {};
@@ -105,7 +106,30 @@ function generateGroupStr(queryParam, isChart) {
 		}
 	});
 	var res = "{" + idStr + indicatorStr + "}";
-	return res;
+	var returnObj = eval("(" + res + ")");
+	return returnObj;
+}
+
+function generateMatchObj(queryParam) {
+	var dimensions = queryParam.dimensions;
+	var filters = queryParam.filters;
+	var filterArray = [];
+	dimensions.forEach(function(item, index) {
+		if (item.uniqueName in filters) {
+			var array = eval('filters.' + item.uniqueName);
+			var str = '';
+			if (item.uniqueName == 'year') {
+				str = array.join(",");
+			} else {
+				str = "'" + array.join("','") + "'";
+			}
+			filterArray.push(item.uniqueName + ': {$in:[' + str + ']}');
+		}
+	});
+	var matchStr = '{ ' + filterArray.join(",") + ' }';
+	console.log(matchStr);
+	var returnObj = eval("(" + matchStr + ")");
+	return returnObj;
 }
 
 function generateSortStr(queryParam) {
@@ -163,6 +187,8 @@ exports.indicatorMapping = function(req, res) {
 	IndicatorSchema.find({
 		indicator_key : idc
 	}, function(err, doc) {
+		if (err)
+			throw err;
 		doc.forEach(function(item, index) {
 			var tempDimensions = item.dimension;
 			tempDimensions.forEach(function(dimension, index) {
@@ -202,6 +228,8 @@ exports.indicatorSearch = function(req, res) {
 				$options : 'i'
 			}
 		}, function(err, doc) {
+			if (err)
+				throw err;
 			doc.forEach(function(item, index) {
 				var tempJson = {
 					"uniqueName" : item.indicator_key,
@@ -221,3 +249,31 @@ exports.indicatorSearch = function(req, res) {
 		res.send(indicatorResultJSON);
 	}
 };
+
+exports.dimensionValueSearch = function(req, res) {
+	var query = require('url').parse(req.url, true).query;
+	var dimensionValueResultJSON = {};
+	if (query.dim != null) {
+		var key = query.dim.toLowerCase();
+		var results = [];
+		datasetSchema.distinct(key, function(err, doc) {
+			if (err)
+				throw err;
+			doc.forEach(function(item, index) {
+				var tempJson = {
+					"name" : item
+				};
+				results.push(tempJson);
+			});
+			dimensionValueResultJSON = {
+				"dimensionValues" : results
+			};
+			res.send(dimensionValueResultJSON);
+		});
+	} else {
+		dimensionValueResultJSON = {
+			"dimensionValues" : []
+		};
+		res.send(dimensionValueResultJSON);
+	}
+}

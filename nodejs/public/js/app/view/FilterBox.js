@@ -1,3 +1,4 @@
+var popSelection;
 Ext.define('Datanium.view.FilterBox', {
 	alias : 'widget.filterbox',
 	border : false,
@@ -18,8 +19,11 @@ Ext.define('Datanium.view.FilterBox', {
 			},
 			fn : this.submitFilter
 		});
-
+		popSelection = [];
 		var dimValues = Datanium.GlobalData.dimensionValues;
+		var key = Datanium.GlobalData.popDimensionKey;
+		if (key in Datanium.GlobalData.queryParam.filters)
+			popSelection = eval('Datanium.GlobalData.queryParam.filters.' + key);
 		var buttons = [];
 		Ext.Array.each(dimValues, function(rec, index) {
 			var btn = {
@@ -34,16 +38,16 @@ Ext.define('Datanium.view.FilterBox', {
 				width : 180,
 				toggleHandler : function(me) {
 					if (me.pressed) {
-						Ext.Array.each(Datanium.GlobalData.popSelection, function(rec, index) {
+						Ext.Array.each(popSelection, function(rec, index) {
 							if (rec == me.uniqueName) {
 								return;
 							}
 						});
-						Datanium.GlobalData.popSelection.push(me.uniqueName);
+						popSelection.push(me.uniqueName);
 					} else {
-						Ext.Array.each(Datanium.GlobalData.popSelection, function(rec, index) {
+						Ext.Array.each(popSelection, function(rec, index) {
 							if (rec == me.uniqueName) {
-								Datanium.GlobalData.popSelection.splice(index, 1);
+								popSelection.splice(index, 1);
 							}
 						});
 					}
@@ -76,9 +80,14 @@ Ext.define('Datanium.view.FilterBox', {
 	},
 	submitFilter : function(buttonId, text, opt) {
 		if (buttonId == 'ok') {
-			var popSelection = "'" + Datanium.GlobalData.popSelection.join("','") + "'";
 			var key = Datanium.GlobalData.popDimensionKey;
-			if (Datanium.GlobalData.popSelection.length > 0) {
+			// time dimension no quotes
+			if (key == 'year') {
+				popSelection = popSelection.join(",");
+			} else {
+				popSelection = "'" + popSelection.join("','") + "'";
+			}
+			if (popSelection.length > 0) {
 				eval('Datanium.GlobalData.queryParam.filters.' + key + '=[' + popSelection + ']');
 				console.log(Datanium.GlobalData.queryParam.filters);
 				Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('submitFilter');

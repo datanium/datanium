@@ -53,7 +53,6 @@ Ext.define('Datanium.controller.GridController', {
 	},
 	isQueryValid : function() {
 		var queryParam = Datanium.GlobalData.queryParam;
-		console.log(queryParam);
 		if (!queryParam) {
 			Datanium.GlobalData.enableQuery = false;
 			return false;
