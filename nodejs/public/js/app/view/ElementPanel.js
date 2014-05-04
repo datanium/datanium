@@ -17,7 +17,6 @@ Ext.define('Datanium.view.ElementPanel', {
 				var msrs = Datanium.GlobalData.qubeInfo.measures;
 				Ext.Array.each(dims, function(d) {
 					var btn = {
-						itemId : d.uniqueName,
 						uniqueName : d.uniqueName,
 						xtype : 'splitbutton',
 						text : d.text,
@@ -44,11 +43,28 @@ Ext.define('Datanium.view.ElementPanel', {
 										Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent(
 												'selectionChange');
 									}
-								}, {
+								},
+								{
 									iconCls : 'fa fa-filter',
 									text : 'Filter',
 									handler : function() {
-
+										var btn = this.parentMenu.ownerButton;
+										Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent(
+												'popFilter', btn.uniqueName, btn.text);
+									}
+								},
+								{
+									iconCls : 'fa fa-star',
+									text : 'Primary Dimension for Charts',
+									handler : function() {
+										var btn = this.parentMenu.ownerButton;
+										if (!btn.pressed)
+											btn.toggle();
+										Datanium.GlobalData.queryParam.primaryDimension = btn.uniqueName;
+										Datanium.util.CommonUtils.updateQueryParamByEP(btn.uniqueName);
+										Datanium.util.CommonUtils.markPrimary();
+										Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent(
+												'selectionChange');
 									}
 								} ]
 					}
@@ -56,7 +72,7 @@ Ext.define('Datanium.view.ElementPanel', {
 				});
 				Ext.Array.each(msrs, function(m) {
 					var btn = {
-						itemId : m.uniqueName,
+						uniqueName : m.uniqueName,
 						xtype : 'splitbutton',
 						text : Datanium.util.CommonUtils.limitLabelLength(m.text + ' - ' + m.data_source, 32),
 						tooltip : m.text + ' - ' + m.data_source,

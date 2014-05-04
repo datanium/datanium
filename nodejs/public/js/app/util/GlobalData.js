@@ -5,6 +5,7 @@ Ext.define('Datanium.GlobalData', {
 		dimensions : [],
 		measures : [],
 		groups : [],
+		filters : {},
 		primaryDimension : null
 	},
 	qubeInfo : {
@@ -17,5 +18,8 @@ Ext.define('Datanium.GlobalData', {
 	groups : [],
 	rptMode : 'grid',
 	chartMode : 'columnchart',
-	autoRun : true
+	autoRun : true,
+	dimensionValues : [],
+	popDimensionKey : null,
+	popDimension : null
 });
