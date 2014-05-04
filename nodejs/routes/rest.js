@@ -36,7 +36,7 @@ exports.queryResult = function(req, res) {
 				datasetSchema.aggregate().match(matchObj).group(groupObj).sort(sortStr).limit(500).exec(
 						function(err, doc) {
 							if (err)
-								throw err;
+								console.log('Exception: ' + err);
 							resultJSON.grid.result = convertResult(doc, false);
 							resultJSON.grid.total = doc.length;
 							callback();
@@ -47,7 +47,7 @@ exports.queryResult = function(req, res) {
 				datasetSchema.aggregate().match(matchObj).group(groupObj4Chart).sort(sortStr).limit(500).exec(
 						function(err, doc) {
 							if (err)
-								throw err;
+								console.log('Exception: ' + err);
 							resultJSON.chart.result = convertResult(doc, true);
 							callback();
 						});
@@ -188,7 +188,7 @@ exports.indicatorMapping = function(req, res) {
 		indicator_key : idc
 	}, function(err, doc) {
 		if (err)
-			throw err;
+			console.log('Exception: ' + err);
 		doc.forEach(function(item, index) {
 			var tempDimensions = item.dimension;
 			tempDimensions.forEach(function(dimension, index) {
@@ -229,7 +229,7 @@ exports.indicatorSearch = function(req, res) {
 			}
 		}, function(err, doc) {
 			if (err)
-				throw err;
+				console.log('Exception: ' + err);
 			doc.forEach(function(item, index) {
 				var tempJson = {
 					"uniqueName" : item.indicator_key,
@@ -258,7 +258,7 @@ exports.dimensionValueSearch = function(req, res) {
 		var results = [];
 		datasetSchema.distinct(key, function(err, doc) {
 			if (err)
-				throw err;
+				console.log('Exception: ' + err);
 			doc.forEach(function(item, index) {
 				var tempJson = {
 					"name" : item
