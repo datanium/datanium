@@ -267,6 +267,18 @@ Ext.define('Datanium.util.CommonUtils', {
 					}
 				}
 			});
+		},
+		scaleLg10 : function(number) {
+			if (number <= 0)
+				return NaN;
+			else
+				return (Math.log(number) / Math.LN10).toFixed(3);
+		},
+		scaleLn : function(number) {
+			if (number <= 0)
+				return NaN;
+			else
+				return Math.log(number).toFixed(3);
 		}
 	}
 });
