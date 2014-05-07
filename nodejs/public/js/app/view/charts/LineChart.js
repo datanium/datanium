@@ -93,13 +93,11 @@ Ext.define('Datanium.view.charts.LineChart', {
 		yFieldsTxt = [];
 		xFieldsLabel = "";
 		var fields_json = null;
-		var results_json = null;
 		if (Datanium.GlobalData.enableQuery) {
 			if (Datanium.GlobalData.queryParam != null) {
 				fields_json = Datanium.GlobalData.queryParam;
 				if (Datanium.GlobalData.QueryResult4Chart != null) {
 					this.hidden = false;
-					results_json = Datanium.GlobalData.QueryResult4Chart;
 				}
 			} else {
 				fields = [];
