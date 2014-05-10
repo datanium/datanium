@@ -30,27 +30,20 @@ Ext.application({
 					this.doLayout();
 				}
 			},
+			/*
+			 * items : [ { region : 'center', xtype : 'tabpanel', id :
+			 * 'mainBox', activeTab : 0, collapsible : false, header : false,
+			 * tabBar : { display : false, height : 25, defaults : { height : 25 } },
+			 * items : [ { itemId : 'report-tab' + Datanium.GlobalData.tabindex,
+			 * closable : true, // icon : 'img/icons/report.png', title : 'My
+			 * Analysis', xtype : 'reporttemplate' } ] } ],
+			 */
 			items : [ {
 				region : 'center',
-				xtype : 'tabpanel',
 				id : 'mainBox',
-				activeTab : 0,
-				collapsible : false,
 				header : false,
-				tabBar : {
-					display : false,
-					height : 25,
-					defaults : {
-						height : 25
-					}
-				},
-				items : [ {
-					itemId : 'report-tab' + Datanium.GlobalData.tabindex,
-					closable : true,
-					// icon : 'img/icons/report.png',
-					title : 'My Analysis',
-					xtype : 'reporttemplate'
-				} ]
+				title : 'My Analysis',
+				xtype : 'reporttemplate'
 			} ]
 		});
 		Ext.EventManager.onWindowResize(function() {

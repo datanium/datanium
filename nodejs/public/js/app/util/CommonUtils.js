@@ -9,7 +9,8 @@ Ext.define('Datanium.util.CommonUtils', {
 			return '#' + Datanium.util.CommonUtils.genItemId(xtype, key);
 		},
 		getCurrentTab : function() {
-			return Ext.getCmp('mainBox').getActiveTab();
+			// return Ext.getCmp('mainBox').getActiveTab();
+			return Ext.getCmp('mainBox');
 		},
 		getCmpInActiveTab : function(selector) {
 			return this.getCurrentTab().down(selector);
