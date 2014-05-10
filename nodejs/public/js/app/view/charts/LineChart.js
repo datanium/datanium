@@ -14,16 +14,27 @@ function genLineChartStore(template, fields) {
 }
 
 function scaleMeasures(queryResult) {
-	for ( var i = 0; i < queryResult.result.length; i++) {
-		console.log(i);
-		for ( var j = 0; j < yFields.length; j++) {
-			console.log(j);
+	for ( var j = 0; j < yFields.length; j++) {
+		var numbers = [];
+		for ( var i = 0; i < queryResult.result.length; i++) {
 			if (yFields[j] in queryResult.result[i]) {
 				var number = (queryResult.result[i])[yFields[j]];
-				(queryResult.result[i])[yFields[j]] = Datanium.util.CommonUtils.scaleLn(number);
+				numbers.push(number);
+			}
+		}
+		// console.log(numbers);
+		var sf = Datanium.util.CommonUtils.getScaleFactor(numbers);
+		// console.log(sf);
+		if (Datanium.util.CommonUtils.isNumber(sf)) {
+			for ( var i = 0; i < queryResult.result.length; i++) {
+				if (yFields[j] in queryResult.result[i]) {
+					var number = (queryResult.result[i])[yFields[j]];
+					(queryResult.result[i])[yFields[j]] = number * sf;
+				}
 			}
 		}
 	}
+	return queryResult;
 }
 
 function mergeDimensions(queryResult) {
@@ -124,7 +135,7 @@ Ext.define('Datanium.view.charts.LineChart', {
 				for ( var i = 0; i < fields_json.dimensions.length; i++) {
 					var f = fields_json.dimensions[i];
 					f.field_type = 'xField';
-					if (f.display) {
+					if (f.display && f.uniqueName == Datanium.GlobalData.queryParam.primaryDimension) {
 						fields.push(f.uniqueName);
 						xFields.push(f.uniqueName);
 						if (xFieldsLabel.length > 0) {
@@ -161,6 +172,9 @@ Ext.define('Datanium.view.charts.LineChart', {
 			position : 'bottom',
 			fields : xFieldsLabel
 		} ];
+		// console.log(fields);
+		// console.log(xFields);
+		// console.log(xFieldsLabel);
 		this.series = generateSeries(yFields, yFieldsTxt, xFieldsLabel);
 		this.callParent();
 	}

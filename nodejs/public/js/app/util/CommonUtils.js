@@ -280,6 +280,17 @@ Ext.define('Datanium.util.CommonUtils', {
 				return NaN;
 			else
 				return Math.log(number).toFixed(3);
+		},
+		getScaleFactor : function(array) {
+			var sum = 0;
+			for ( var i = 0; i < array.length; i++) {
+				sum += array[i];
+			}
+			var avg = sum / array.length;
+			return 1000 / avg;
+		},
+		isNumber : function(n) {
+			return !isNaN(parseFloat(n));
 		}
 	}
 });

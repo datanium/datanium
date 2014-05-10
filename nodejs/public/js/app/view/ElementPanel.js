@@ -88,6 +88,7 @@ Ext.define('Datanium.view.ElementPanel', {
 						textAlign : 'left',
 						toggleHandler : function() {
 							Datanium.util.CommonUtils.updateQueryParamByEP();
+							Datanium.util.CommonUtils.markPrimary();
 							Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('selectionChange');
 						},
 						menu : [ {
@@ -107,6 +108,7 @@ Ext.define('Datanium.view.ElementPanel', {
 				ep.doLayout();
 				Datanium.util.CommonUtils.updateQueryParamByEP();
 				Datanium.util.CommonUtils.refreshAll();
+				Datanium.GlobalData.queryParam.primaryDimension = null;
 			}
 		});
 	}
