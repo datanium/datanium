@@ -1,10 +1,12 @@
 var chart_store_template = Datanium.util.CommonUtils.getStoreTemplate();
 
-function genChartStore(template, fields) {
+function genColumnChartStore(template, fields) {
 	template.fields = mergeFields(fields);
 	if (Datanium.GlobalData.QueryResult4Chart != null) {
-		var queryResult = JSON.parse(JSON.stringify(Datanium.GlobalData.QueryResult4Chart));
-		template.data = mergeDimensions(queryResult);
+		// var queryResult =
+		// JSON.parse(JSON.stringify(Datanium.GlobalData.QueryResult4Chart));
+		// template.data = mergeDimensions(queryResult);
+		template.data = Datanium.GlobalData.QueryResult4Chart;
 	}
 	// console.log("ColumnChartStore = Ext.create('Ext.data.Store'," +
 	// Ext.encode(template) + ");");
@@ -67,16 +69,12 @@ Ext.define('Datanium.view.charts.ColumnChart', {
 		yFieldsTxt = [];
 		xFieldsLabel = "";
 		var fields_json = null;
-		var results_json = null;
 		if (Datanium.GlobalData.enableQuery) {
 			if (Datanium.GlobalData.queryParam != null) {
 				fields_json = Datanium.GlobalData.queryParam;
 				if (Datanium.GlobalData.QueryResult4Chart != null) {
 					this.hidden = false;
-					results_json = Datanium.GlobalData.QueryResult4Chart;
 				}
-			} else {
-				fields = [];
 			}
 		}
 		if (fields_json != null) {
@@ -84,7 +82,7 @@ Ext.define('Datanium.view.charts.ColumnChart', {
 				for ( var i = 0; i < fields_json.dimensions.length; i++) {
 					var f = fields_json.dimensions[i];
 					f.field_type = 'xField';
-					if (f.display) {
+					if (f.display && f.uniqueName == Datanium.GlobalData.queryParam.primaryDimension) {
 						fields.push(f.uniqueName);
 						xFields.push(f.uniqueName);
 						if (xFieldsLabel.length > 0) {
@@ -105,7 +103,7 @@ Ext.define('Datanium.view.charts.ColumnChart', {
 				}
 			}
 		}
-		var store = genChartStore(chart_store_template, fields);
+		var store = genColumnChartStore(chart_store_template, fields);
 		this.store = store;
 		// console.log(fields);
 		// console.log(xFields);

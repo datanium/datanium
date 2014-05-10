@@ -1,17 +1,44 @@
 var chart_store_template = Datanium.util.CommonUtils.getStoreTemplate();
 
-function genChartStore(template, fields) {
+function genLineChartStore(template, fields) {
 	template.fields = mergeFields(fields);
 	if (Datanium.GlobalData.QueryResult4Chart != null) {
+		// clone
 		var queryResult = JSON.parse(JSON.stringify(Datanium.GlobalData.QueryResult4Chart));
-		template.data = mergeDimensions(queryResult);
+		template.data = Datanium.GlobalData.QueryResult4Chart;
+		// template.data = scaleMeasures(queryResult);
 	}
 	eval("LineChartStore = Ext.create('Ext.data.Store'," + Ext.encode(template) + ");");
 	LineChartStore.load();
 	return LineChartStore;
 }
 
+function scaleMeasures(queryResult) {
+	for ( var j = 0; j < yFields.length; j++) {
+		var numbers = [];
+		for ( var i = 0; i < queryResult.result.length; i++) {
+			if (yFields[j] in queryResult.result[i]) {
+				var number = (queryResult.result[i])[yFields[j]];
+				numbers.push(number);
+			}
+		}
+		// console.log(numbers);
+		var sf = Datanium.util.CommonUtils.getScaleFactor(numbers);
+		// console.log(sf);
+		if (Datanium.util.CommonUtils.isNumber(sf)) {
+			for ( var i = 0; i < queryResult.result.length; i++) {
+				if (yFields[j] in queryResult.result[i]) {
+					var number = (queryResult.result[i])[yFields[j]];
+					(queryResult.result[i])[yFields[j]] = number * sf;
+				}
+			}
+		}
+	}
+	return queryResult;
+}
+
 function mergeDimensions(queryResult) {
+	// never pass this condition since there is only one dimension now
 	if (queryResult != null && queryResult.result != null && xFields.length > 1) {
 		for ( var i = 0; i < queryResult.result.length; i++) {
 			for ( var j = 0; j < xFields.length; j++) {
@@ -93,13 +120,11 @@ Ext.define('Datanium.view.charts.LineChart', {
 		yFieldsTxt = [];
 		xFieldsLabel = "";
 		var fields_json = null;
-		var results_json = null;
 		if (Datanium.GlobalData.enableQuery) {
 			if (Datanium.GlobalData.queryParam != null) {
 				fields_json = Datanium.GlobalData.queryParam;
 				if (Datanium.GlobalData.QueryResult4Chart != null) {
 					this.hidden = false;
-					results_json = Datanium.GlobalData.QueryResult4Chart;
 				}
 			} else {
 				fields = [];
@@ -110,7 +135,7 @@ Ext.define('Datanium.view.charts.LineChart', {
 				for ( var i = 0; i < fields_json.dimensions.length; i++) {
 					var f = fields_json.dimensions[i];
 					f.field_type = 'xField';
-					if (f.display) {
+					if (f.display && f.uniqueName == Datanium.GlobalData.queryParam.primaryDimension) {
 						fields.push(f.uniqueName);
 						xFields.push(f.uniqueName);
 						if (xFieldsLabel.length > 0) {
@@ -131,7 +156,7 @@ Ext.define('Datanium.view.charts.LineChart', {
 				}
 			}
 		}
-		var store = genChartStore(chart_store_template, fields);
+		var store = genLineChartStore(chart_store_template, fields);
 		this.store = store;
 		this.axes = [ {
 			type : 'Numeric',
@@ -147,6 +172,9 @@ Ext.define('Datanium.view.charts.LineChart', {
 			position : 'bottom',
 			fields : xFieldsLabel
 		} ];
+		// console.log(fields);
+		// console.log(xFields);
+		// console.log(xFieldsLabel);
 		this.series = generateSeries(yFields, yFieldsTxt, xFieldsLabel);
 		this.callParent();
 	}

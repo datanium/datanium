@@ -9,7 +9,8 @@ Ext.define('Datanium.util.CommonUtils', {
 			return '#' + Datanium.util.CommonUtils.genItemId(xtype, key);
 		},
 		getCurrentTab : function() {
-			return Ext.getCmp('mainBox').getActiveTab();
+			// return Ext.getCmp('mainBox').getActiveTab();
+			return Ext.getCmp('mainBox');
 		},
 		getCmpInActiveTab : function(selector) {
 			return this.getCurrentTab().down(selector);
@@ -267,6 +268,29 @@ Ext.define('Datanium.util.CommonUtils', {
 					}
 				}
 			});
+		},
+		scaleLg10 : function(number) {
+			if (number <= 0)
+				return NaN;
+			else
+				return (Math.log(number) / Math.LN10).toFixed(3);
+		},
+		scaleLn : function(number) {
+			if (number <= 0)
+				return NaN;
+			else
+				return Math.log(number).toFixed(3);
+		},
+		getScaleFactor : function(array) {
+			var sum = 0;
+			for ( var i = 0; i < array.length; i++) {
+				sum += array[i];
+			}
+			var avg = sum / array.length;
+			return 1000 / avg;
+		},
+		isNumber : function(n) {
+			return !isNaN(parseFloat(n));
 		}
 	}
 });
