@@ -82,7 +82,7 @@ Ext.define('Datanium.view.charts.ColumnChart', {
 				for ( var i = 0; i < fields_json.dimensions.length; i++) {
 					var f = fields_json.dimensions[i];
 					f.field_type = 'xField';
-					if (f.display) {
+					if (f.display && f.uniqueName == Datanium.GlobalData.queryParam.primaryDimension) {
 						fields.push(f.uniqueName);
 						xFields.push(f.uniqueName);
 						if (xFieldsLabel.length > 0) {
