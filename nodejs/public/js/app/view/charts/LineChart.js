@@ -5,8 +5,11 @@ function genLineChartStore(template, fields) {
 	if (Datanium.GlobalData.QueryResult4Chart != null) {
 		// clone
 		var queryResult = JSON.parse(JSON.stringify(Datanium.GlobalData.QueryResult4Chart));
-		template.data = Datanium.GlobalData.QueryResult4Chart;
-		// template.data = scaleMeasures(queryResult);
+		if (Datanium.GlobalData.autoScale) {
+			template.data = scaleMeasures(queryResult);
+		} else {
+			template.data = Datanium.GlobalData.QueryResult4Chart;
+		}
 	}
 	eval("LineChartStore = Ext.create('Ext.data.Store'," + Ext.encode(template) + ");");
 	LineChartStore.load();
@@ -74,7 +77,12 @@ function generateSeries(yFields, yFieldsTxt, xFieldsLabel) {
 			highlight : true,
 			smooth : true,
 			fill : true,
-			tips : {
+			xField : xFieldsLabel,
+			yField : yfld,
+			title : yFieldsTxt[index]
+		};
+		if (!Datanium.GlobalData.autoScale) {
+			s.tips = {
 				style : 'background:#fff; text-align: center;',
 				trackMouse : true,
 				width : 140,
@@ -83,11 +91,8 @@ function generateSeries(yFields, yFieldsTxt, xFieldsLabel) {
 					this.setTitle(storeItem.get(yfld) + '');
 					this.width = this.title.length * 10;
 				}
-			},
-			xField : xFieldsLabel,
-			yField : yfld,
-			title : yFieldsTxt[index]
-		};
+			};
+		}
 		series.push(s);
 	});
 	return series;
@@ -158,12 +163,18 @@ Ext.define('Datanium.view.charts.LineChart', {
 		}
 		var store = genLineChartStore(chart_store_template, fields);
 		this.store = store;
+		var yLabel = function() {
+			return ''
+		};
+		if (!Datanium.GlobalData.autoScale) {
+			yLabel = Ext.util.Format.numberRenderer('0,0.###');
+		}
 		this.axes = [ {
 			type : 'Numeric',
 			position : 'left',
 			fields : yFields,
 			label : {
-				renderer : Ext.util.Format.numberRenderer('0,0.###')
+				renderer : yLabel
 			},
 			grid : true,
 			minimum : 0
