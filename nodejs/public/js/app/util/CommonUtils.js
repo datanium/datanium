@@ -291,6 +291,29 @@ Ext.define('Datanium.util.CommonUtils', {
 		},
 		isNumber : function(n) {
 			return !isNaN(parseFloat(n));
+		},
+		scaleMeasures : function(queryResult, yFields) {
+			for ( var j = 0; j < yFields.length; j++) {
+				var numbers = [];
+				for ( var i = 0; i < queryResult.result.length; i++) {
+					if (yFields[j] in queryResult.result[i]) {
+						var number = (queryResult.result[i])[yFields[j]];
+						numbers.push(number);
+					}
+				}
+				// console.log(numbers);
+				var sf = Datanium.util.CommonUtils.getScaleFactor(numbers);
+				// console.log(sf);
+				if (Datanium.util.CommonUtils.isNumber(sf)) {
+					for ( var i = 0; i < queryResult.result.length; i++) {
+						if (yFields[j] in queryResult.result[i]) {
+							var number = (queryResult.result[i])[yFields[j]];
+							(queryResult.result[i])[yFields[j]] = number * sf;
+						}
+					}
+				}
+			}
+			return queryResult;
 		}
 	}
 });
