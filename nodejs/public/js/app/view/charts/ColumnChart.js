@@ -3,34 +3,16 @@ var chart_store_template = Datanium.util.CommonUtils.getStoreTemplate();
 function genColumnChartStore(template, fields) {
 	template.fields = mergeFields(fields);
 	if (Datanium.GlobalData.QueryResult4Chart != null) {
-		// var queryResult =
-		// JSON.parse(JSON.stringify(Datanium.GlobalData.QueryResult4Chart));
-		// template.data = mergeDimensions(queryResult);
-		template.data = Datanium.GlobalData.QueryResult4Chart;
+		var queryResult = JSON.parse(JSON.stringify(Datanium.GlobalData.QueryResult4Chart));
+		if (Datanium.GlobalData.autoScale) {
+			template.data = Datanium.util.CommonUtils.scaleMeasures(queryResult, yFields);
+		} else {
+			template.data = Datanium.GlobalData.QueryResult4Chart;
+		}
 	}
-	// console.log("ColumnChartStore = Ext.create('Ext.data.Store'," +
-	// Ext.encode(template) + ");");
 	eval("ColumnChartStore = Ext.create('Ext.data.Store'," + Ext.encode(template) + ");");
 	ColumnChartStore.load();
 	return ColumnChartStore;
-}
-
-function mergeDimensions(queryResult) {
-	if (queryResult != null && queryResult.result != null && xFields.length > 1) {
-		for ( var i = 0; i < queryResult.result.length; i++) {
-			for ( var j = 0; j < xFields.length; j++) {
-				if (xFields[j] in queryResult.result[i]) {
-					if (queryResult.result[i][xFieldsLabel] == null) {
-						queryResult.result[i][xFieldsLabel] = queryResult.result[i][xFields[j]]
-					} else {
-						queryResult.result[i][xFieldsLabel] = queryResult.result[i][xFieldsLabel] + "/"
-								+ queryResult.result[i][xFields[j]]
-					}
-				}
-			}
-		}
-	}
-	return queryResult;
 }
 
 function mergeFields(fields) {
@@ -111,12 +93,18 @@ Ext.define('Datanium.view.charts.ColumnChart', {
 		// console.log(yFields);
 		// console.log(fields_json);
 		// console.log(results_json);
+		var yLabel = function() {
+			return ''
+		};
+		if (!Datanium.GlobalData.autoScale) {
+			yLabel = Ext.util.Format.numberRenderer('0,0.###');
+		}
 		this.axes = [ {
 			type : 'Numeric',
 			position : 'left',
 			fields : yFields,
 			label : {
-				renderer : Ext.util.Format.numberRenderer('0,0.###')
+				renderer : yLabel
 			},
 			grid : true,
 			minimum : 0
@@ -125,20 +113,10 @@ Ext.define('Datanium.view.charts.ColumnChart', {
 			position : 'bottom',
 			fields : xFieldsLabel
 		} ];
-		this.series = [ {
+		var s = [ {
 			type : 'column',
 			axis : 'left',
 			highlight : true,
-			tips : {
-				style : 'background:#fff; text-align: center;',
-				trackMouse : true,
-				width : 140,
-				height : 28,
-				renderer : function(storeItem, item) {
-					this.setTitle(storeItem.get(item.yField) + '');
-					this.width = this.title.length * 10;
-				}
-			},
 			/*
 			 * label : { display : 'insideEnd', 'text-anchor' : 'middle', field : [
 			 * 'China', 'US' ], renderer : Ext.util.Format.numberRenderer('0'),
@@ -148,6 +126,19 @@ Ext.define('Datanium.view.charts.ColumnChart', {
 			yField : yFields,
 			title : yFieldsTxt
 		} ]
+		if (!Datanium.GlobalData.autoScale) {
+			s.tips = {
+				style : 'background:#fff; text-align: center;',
+				trackMouse : true,
+				width : 140,
+				height : 28,
+				renderer : function(storeItem, item) {
+					this.setTitle(storeItem.get(item.yField) + '');
+					this.width = this.title.length * 10;
+				}
+			};
+		}
+		this.series = s;
 		this.callParent();
 	}
 });

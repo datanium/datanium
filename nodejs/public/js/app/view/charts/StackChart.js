@@ -3,29 +3,16 @@ var chart_store_template = Datanium.util.CommonUtils.getStoreTemplate();
 function genStackChartStore(template, fields) {
 	template.fields = mergeFields(fields);
 	if (Datanium.GlobalData.QueryResult4Chart != null) {
-		template.data = Datanium.GlobalData.QueryResult4Chart;
+		var queryResult = JSON.parse(JSON.stringify(Datanium.GlobalData.QueryResult4Chart));
+		if (Datanium.GlobalData.autoScale) {
+			template.data = Datanium.util.CommonUtils.scaleMeasures(queryResult, yFields);
+		} else {
+			template.data = Datanium.GlobalData.QueryResult4Chart;
+		}
 	}
 	eval("StackChartStore = Ext.create('Ext.data.Store'," + Ext.encode(template) + ");");
 	StackChartStore.load();
 	return StackChartStore;
-}
-
-function mergeDimensions(queryResult) {
-	if (queryResult != null && queryResult.result != null && xFields.length > 1) {
-		for ( var i = 0; i < queryResult.result.length; i++) {
-			for ( var j = 0; j < xFields.length; j++) {
-				if (xFields[j] in queryResult.result[i]) {
-					if (queryResult.result[i][xFieldsLabel] == null) {
-						queryResult.result[i][xFieldsLabel] = queryResult.result[i][xFields[j]]
-					} else {
-						queryResult.result[i][xFieldsLabel] = queryResult.result[i][xFieldsLabel] + "/"
-								+ queryResult.result[i][xFields[j]]
-					}
-				}
-			}
-		}
-	}
-	return queryResult;
 }
 
 function mergeFields(fields) {
@@ -99,12 +86,18 @@ Ext.define('Datanium.view.charts.StackChart', {
 		}
 		var store = genStackChartStore(chart_store_template, fields);
 		this.store = store;
+		var yLabel = function() {
+			return ''
+		};
+		if (!Datanium.GlobalData.autoScale) {
+			yLabel = Ext.util.Format.numberRenderer('0,0.###');
+		}
 		this.axes = [ {
 			type : 'Numeric',
 			position : 'left',
 			fields : yFields,
 			label : {
-				renderer : Ext.util.Format.numberRenderer('0,0.###')
+				renderer : yLabel
 			},
 			grid : true,
 			minimum : 0
@@ -113,11 +106,22 @@ Ext.define('Datanium.view.charts.StackChart', {
 			position : 'bottom',
 			fields : xFieldsLabel
 		} ];
-		this.series = [ {
+		var s = [ {
 			type : 'column',
 			axis : 'left',
 			highlight : true,
-			tips : {
+			/*
+			 * label : { display : 'insideEnd', 'text-anchor' : 'middle', field : [
+			 * 'China', 'US' ], renderer : Ext.util.Format.numberRenderer('0'),
+			 * orientation : 'horizontal', color : '#fff' },
+			 */
+			xField : xFieldsLabel,
+			yField : yFields,
+			title : yFieldsTxt,
+			stacked : true
+		} ]
+		if (!Datanium.GlobalData.autoScale) {
+			s.tips = {
 				style : 'background:#fff; text-align: center;',
 				trackMouse : true,
 				width : 140,
@@ -126,12 +130,9 @@ Ext.define('Datanium.view.charts.StackChart', {
 					this.setTitle(storeItem.get(item.yField) + '');
 					this.width = this.title.length * 10;
 				}
-			},
-			xField : xFieldsLabel,
-			yField : yFields,
-			title : yFieldsTxt,
-			stacked : true
-		} ]
+			};
+		}
+		this.series = s;
 		this.callParent();
 	}
 });

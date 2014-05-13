@@ -6,7 +6,7 @@ function genLineChartStore(template, fields) {
 		// clone
 		var queryResult = JSON.parse(JSON.stringify(Datanium.GlobalData.QueryResult4Chart));
 		if (Datanium.GlobalData.autoScale) {
-			template.data = scaleMeasures(queryResult);
+			template.data = Datanium.util.CommonUtils.scaleMeasures(queryResult, yFields);
 		} else {
 			template.data = Datanium.GlobalData.QueryResult4Chart;
 		}
@@ -16,48 +16,17 @@ function genLineChartStore(template, fields) {
 	return LineChartStore;
 }
 
-function scaleMeasures(queryResult) {
-	for ( var j = 0; j < yFields.length; j++) {
-		var numbers = [];
-		for ( var i = 0; i < queryResult.result.length; i++) {
-			if (yFields[j] in queryResult.result[i]) {
-				var number = (queryResult.result[i])[yFields[j]];
-				numbers.push(number);
-			}
-		}
-		// console.log(numbers);
-		var sf = Datanium.util.CommonUtils.getScaleFactor(numbers);
-		// console.log(sf);
-		if (Datanium.util.CommonUtils.isNumber(sf)) {
-			for ( var i = 0; i < queryResult.result.length; i++) {
-				if (yFields[j] in queryResult.result[i]) {
-					var number = (queryResult.result[i])[yFields[j]];
-					(queryResult.result[i])[yFields[j]] = number * sf;
-				}
-			}
-		}
-	}
-	return queryResult;
-}
-
-function mergeDimensions(queryResult) {
-	// never pass this condition since there is only one dimension now
-	if (queryResult != null && queryResult.result != null && xFields.length > 1) {
-		for ( var i = 0; i < queryResult.result.length; i++) {
-			for ( var j = 0; j < xFields.length; j++) {
-				if (xFields[j] in queryResult.result[i]) {
-					if (queryResult.result[i][xFieldsLabel] == null) {
-						queryResult.result[i][xFieldsLabel] = queryResult.result[i][xFields[j]]
-					} else {
-						queryResult.result[i][xFieldsLabel] = queryResult.result[i][xFieldsLabel] + "/"
-								+ queryResult.result[i][xFields[j]]
-					}
-				}
-			}
-		}
-	}
-	return queryResult;
-}
+/*
+ * function mergeDimensions(queryResult) { // never pass this condition since
+ * there is only one dimension now if (queryResult != null && queryResult.result !=
+ * null && xFields.length > 1) { for ( var i = 0; i < queryResult.result.length;
+ * i++) { for ( var j = 0; j < xFields.length; j++) { if (xFields[j] in
+ * queryResult.result[i]) { if (queryResult.result[i][xFieldsLabel] == null) {
+ * queryResult.result[i][xFieldsLabel] = queryResult.result[i][xFields[j]] }
+ * else { queryResult.result[i][xFieldsLabel] =
+ * queryResult.result[i][xFieldsLabel] + "/" + queryResult.result[i][xFields[j]] } } } } }
+ * return queryResult; }
+ */
 
 function mergeFields(fields) {
 	if (xFields.length > 1) {
