@@ -6,7 +6,12 @@ Ext.define('Datanium.GlobalData', {
 		measures : [],
 		groups : [],
 		filters : {},
-		primaryDimension : null
+		primaryDimension : null,
+		split : {
+			dimensions : null,
+			splitValue : []
+		},
+		isSplit : false
 	},
 	qubeInfo : {
 		dimensions : [],
