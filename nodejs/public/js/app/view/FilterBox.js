@@ -89,7 +89,6 @@ Ext.define('Datanium.view.FilterBox', {
 			}
 			if (popSelection.length > 0) {
 				eval('Datanium.GlobalData.queryParam.filters.' + key + '=[' + popSelection + ']');
-				console.log(Datanium.GlobalData.queryParam.filters);
 				Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('submitFilter');
 			}
 		}
