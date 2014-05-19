@@ -14,7 +14,7 @@ exports.cubeInfo = function(req, res) {
 	res.send(data.cubeInfoJSON);
 };
 
-exports.dimensionValueSplit = function(req, res) {
+exports.querySplit = function(req, res) {
 	var resultJSON = {
 		"grid" : {
 			"total" : 0,
@@ -24,17 +24,21 @@ exports.dimensionValueSplit = function(req, res) {
 			"result" : []
 		}
 	};
-	var queryParam = {
-		"dimensions":[{"uniqueName":"year","text":"Year","data_type":"dimension","field_type":"xField","displayOrder":0,"display":true},
-					  {"uniqueName":"country","text":"Country","data_type":"dimension","field_type":"xField","displayOrder":0,"display":true}],
-		"measures" :[ { "uniqueName": "FM_LBL_BMNY_GD_ZS","text": 'Broad money (% of GDP) - WDI',"data_type": 'percentage',
-    				    "field_type": 'column',"displayOrder": 0,"display": true },
-  					  { "uniqueName": "FP_CPI_TOTL","text": 'Consumer price index (2005 = 100) - WDI',"data_type": 'number',
-    					"field_type": 'column',"displayOrder": 0,"display": true } ],
-		"filters" : {"country":['China','Japan']},
-		"split" :{"dimensions":'country',"splitValue":['China','Japan'],"measures":['FM_LBL_BMNY_GD_ZS','FP_CPI_TOTL']},
-		"primaryDimension" : "year"
-	}
+	var queryParam = req.body;
+	console.log(queryParam);
+	/*
+	 * var queryParam = {
+	 * "dimensions":[{"uniqueName":"year","text":"Year","data_type":"dimension","field_type":"xField","displayOrder":0,"display":true},
+	 * {"uniqueName":"country","text":"Country","data_type":"dimension","field_type":"xField","displayOrder":0,"display":true}],
+	 * "measures" :[ { "uniqueName": "FM_LBL_BMNY_GD_ZS","text": 'Broad money (%
+	 * of GDP) - WDI',"data_type": 'percentage', "field_type":
+	 * 'column',"displayOrder": 0,"display": true }, { "uniqueName":
+	 * "FP_CPI_TOTL","text": 'Consumer price index (2005 = 100) -
+	 * WDI',"data_type": 'number', "field_type": 'column',"displayOrder":
+	 * 0,"display": true } ], "filters" : {"country":['China','Japan']}, "split"
+	 * :{"dimensions":'country',"splitValue":['China','Japan'],"measures":['FM_LBL_BMNY_GD_ZS','FP_CPI_TOTL']},
+	 * "primaryDimension" : "year" }
+	 */
 	var matchObj = generateMatchObj(queryParam);
 	var groupObj = generateGroupObj(queryParam, false);
 	var groupSplitJSON4Chart = generateGroupSplitObj(queryParam);
@@ -42,7 +46,7 @@ exports.dimensionValueSplit = function(req, res) {
 	var groupObj4ChartProject = groupSplitJSON4Chart.returnProject;
 	var sortStr4Chart = groupSplitJSON4Chart.returnSort;
 	console.log(sortStr4Chart);
-	var sortStr = generateSortStr(queryParam); 
+	var sortStr = generateSortStr(queryParam);
 	// to get all the query results and return
 	async.parallel([
 			function(callback) {
@@ -58,14 +62,14 @@ exports.dimensionValueSplit = function(req, res) {
 			},
 			function(callback) {
 				// query for chart
-				datasetSchema.aggregate().match(matchObj).group(groupObj4Chart).project(groupObj4ChartProject).sort(sortStr4Chart).limit(500).exec(
-						function(err, doc) {
-							if (err)
-								throw err;
-							console.log(doc);
-							resultJSON.chart.result = doc;
-							callback();
-						});
+				datasetSchema.aggregate().match(matchObj).group(groupObj4Chart).project(groupObj4ChartProject).sort(
+						sortStr4Chart).limit(500).exec(function(err, doc) {
+					if (err)
+						throw err;
+					console.log(doc);
+					resultJSON.chart.result = doc;
+					callback();
+				});
 			} ], function() {
 		res.send(resultJSON);
 	});
@@ -79,18 +83,19 @@ function generateGroupSplitObj(queryParam) {
 	var breakException = {};
 	var idStr = "_id:{";
 	var projectStr = "{";
-	//var sortStr = "{" + queryParam.primaryDimension + ": -1}";//will change by sort parameter later
+	// var sortStr = "{" + queryParam.primaryDimension + ": -1}";//will change
+	// by sort parameter later
 	try {
 		dimensions.forEach(function(item, index) {
-				if (item.uniqueName == queryParam.primaryDimension) {
-					projectStr +=item.uniqueName;
-					projectStr +=":\"$_id." + item.uniqueName + "\",";
-					idStr += item.uniqueName;
-					idStr += ":\"$";
-					idStr += item.uniqueName;
-					idStr += "\"";
-					throw breakException;
-				}
+			if (item.uniqueName == queryParam.primaryDimension) {
+				projectStr += item.uniqueName;
+				projectStr += ":\"$_id." + item.uniqueName + "\",";
+				idStr += item.uniqueName;
+				idStr += ":\"$";
+				idStr += item.uniqueName;
+				idStr += "\"";
+				throw breakException;
+			}
 		});
 	} catch (e) {
 		if (e !== breakException)
@@ -98,60 +103,55 @@ function generateGroupSplitObj(queryParam) {
 	}
 	idStr += "},"
 	var indicatorStr = "";
-	var splitMeasures = split.measures;
 	var splitValue = split.splitValue;
 	var sortStr = "";
 	measures.forEach(function(item, index) {
-		var num=0;
-			splitMeasures.forEach(function(item0,index0){
-				if(item.uniqueName == item0){
-				splitValue.forEach(function(item1,index1){
-					if (indicatorStr !='') {
-					indicatorStr += ","
-				}
-				var splitIndicator = "";
-				splitIndicator += item.uniqueName;
-				splitIndicator += "_";
-				splitIndicator += item1;
-				if(index ==0 && sortStr ==''){
-					sortStr = "{" + splitIndicator + ": -1}";//will change by sort parameter later
-				}
-				projectStr += splitIndicator
-				projectStr += ":1,";
-				indicatorStr += splitIndicator;
-				indicatorStr += ":{";
-				if (item.data_type == 'number') {
-					indicatorStr += "$sum:{$cond:[{$eq:[";
-			  } else if (item.data_type == 'percentage') {
-					indicatorStr += "$avg:{$cond:[{$eq:[";
-			  } else {
-				return "";
-			  }
-			  indicatorStr += "\"$";
-			  indicatorStr += split.dimensions;
-			  indicatorStr += "\",";
-			  indicatorStr += "\"";
-			  indicatorStr += item1;
-			  indicatorStr += "\"]},";
-			  indicatorStr += "\"$";
-			  indicatorStr += item.uniqueName;
-			  indicatorStr += "\",0]}}";
-			});
-		}else{
-			num++;
-		}
-			});
-			if(num==splitMeasures.length){
-				if(index ==0 && sortStr ==''){
-					sortStr = "{" + item.uniqueName + ": -1}";//will change by sort parameter later
-				}
-				if (indicatorStr !='') {
-					indicatorStr += ","
-				}
-				projectStr += item.uniqueName;
-				projectStr += ":1,";
-			indicatorStr += item.uniqueName;
+		splitValue.forEach(function(item1, index1) {
+			if (indicatorStr != '') {
+				indicatorStr += ","
+			}
+			var splitIndicator = "";
+			splitIndicator += item.uniqueName;
+			splitIndicator += "_";
+			splitIndicator += item1;
+			if (index == 0 && sortStr == '') {
+				sortStr = "{" + splitIndicator + ": -1}";// will change by
+				// sort parameter
+				// later
+			}
+			projectStr += splitIndicator
+			projectStr += ":1,";
+			indicatorStr += splitIndicator;
 			indicatorStr += ":{";
+			if (item.data_type == 'number') {
+				indicatorStr += "$sum:{$cond:[{$eq:[";
+			} else if (item.data_type == 'percentage') {
+				indicatorStr += "$avg:{$cond:[{$eq:[";
+			} else {
+				return "";
+			}
+			indicatorStr += "\"$";
+			indicatorStr += split.dimensions;
+			indicatorStr += "\",";
+			indicatorStr += "\"";
+			indicatorStr += item1;
+			indicatorStr += "\"]},";
+			indicatorStr += "\"$";
+			indicatorStr += item.uniqueName;
+			indicatorStr += "\",0]}}";
+		});
+		if (index == 0 && sortStr == '') {
+			sortStr = "{" + item.uniqueName + ": -1}";// will change by
+			// sort parameter
+			// later
+		}
+		if (indicatorStr != '') {
+			indicatorStr += ","
+		}
+		projectStr += item.uniqueName;
+		projectStr += ":1,";
+		indicatorStr += item.uniqueName;
+		indicatorStr += ":{";
 		if (item.data_type == 'number') {
 			indicatorStr += "$sum:";
 		} else if (item.data_type == 'percentage') {
@@ -163,14 +163,11 @@ function generateGroupSplitObj(queryParam) {
 		indicatorStr += item.uniqueName;
 		indicatorStr += "\"";
 		indicatorStr += "}";
-			}
-	}					
-			
-	);
+	});
 	var res = "{" + idStr + indicatorStr + "}";
 	var returnObj = eval("(" + res + ")");
 	projectStr += "_id:0}";
-	var projectObj = eval("(" + projectStr +")");
+	var projectObj = eval("(" + projectStr + ")");
 	returnJSON = {
 		"returnObj" : returnObj,
 		"returnProject" : projectObj,

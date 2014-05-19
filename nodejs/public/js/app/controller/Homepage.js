@@ -134,7 +134,7 @@ Ext.define('Datanium.controller.Homepage', {
 		if (this.isValidMeasures()) {
 			Ext.Ajax.request(requestConfig);
 		} else {
-			Ext.MessageBox.alert("Alert", "Sorry, you cannot add more than 10 measures!");
+			Ext.MessageBox.alert("Alert", "Sorry, you cannot add more than 10 measures.");
 			mask.destroy();
 		}
 

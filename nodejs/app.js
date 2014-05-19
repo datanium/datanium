@@ -37,7 +37,7 @@ app.post('/rest/query/result', rest.queryResult);
 app.get('/rest/indicator/search', rest.indicatorSearch);
 app.get('/rest/indicator/map', rest.indicatorMapping);
 app.get('/rest/dimension/search', rest.dimensionValueSearch);
-app.get('/rest/dimension/split', rest.dimensionValueSplit);
+app.post('/rest/query/split', rest.querySplit);
 
 http.createServer(app).listen(app.get('port'), function() {
 	console.log('Express server listening on port ' + app.get('port'));
