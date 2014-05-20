@@ -314,6 +314,18 @@ Ext.define('Datanium.util.CommonUtils', {
 				}
 			}
 			return queryResult;
+		},
+		getSplitMeasures : function(measure, splitValue) {
+			var returnArray = [];
+			Ext.Array.each(splitValue, function(rec, index) {
+				var obj = {
+					uniqueName : measure.uniqueName + '_' + rec,
+					text : measure.text + ' - ' + rec,
+					display : true
+				};
+				returnArray.push(obj);
+			});
+			return returnArray;
 		}
 	}
 });

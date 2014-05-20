@@ -100,8 +100,8 @@ Ext.define('Datanium.view.FilterBox', {
 					splitValue : popSelection
 				};
 				Datanium.GlobalData.queryParam.split = splitObj;
-				Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('submitFilter');
 				Datanium.GlobalData.queryParam.isSplit = true;
+				Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('submitFilter');
 			}
 		}
 	}
