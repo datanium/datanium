@@ -120,12 +120,26 @@ Ext.define('Datanium.view.charts.LineChart', {
 					}
 				}
 				for ( var i = 0; i < fields_json.measures.length; i++) {
-					var f = fields_json.measures[i];
-					f.field_type = 'yField';
-					if (f.display) {
-						fields.push(f.uniqueName);
-						yFields.push(f.uniqueName);
-						yFieldsTxt.push(f.text);
+					if (fields_json.isSplit) {
+						var splitMeasures = Datanium.util.CommonUtils.getSplitMeasures(fields_json.measures[i],
+								fields_json.split.splitValue);
+						for ( var j = 0; j < splitMeasures.length; j++) {
+							var f = splitMeasures[j];
+							f.field_type = 'yField';
+							if (f.display) {
+								fields.push(f.uniqueName);
+								yFields.push(f.uniqueName);
+								yFieldsTxt.push(f.text);
+							}
+						}
+					} else {
+						var f = fields_json.measures[i];
+						f.field_type = 'yField';
+						if (f.display) {
+							fields.push(f.uniqueName);
+							yFields.push(f.uniqueName);
+							yFieldsTxt.push(f.text);
+						}
 					}
 				}
 			}

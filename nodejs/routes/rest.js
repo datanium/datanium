@@ -45,7 +45,6 @@ exports.querySplit = function(req, res) {
 	var groupObj4Chart = groupSplitJSON4Chart.returnObj;
 	var groupObj4ChartProject = groupSplitJSON4Chart.returnProject;
 	var sortStr4Chart = groupSplitJSON4Chart.returnSort;
-	console.log(sortStr4Chart);
 	var sortStr = generateSortStr(queryParam);
 	// to get all the query results and return
 	async.parallel([
@@ -79,12 +78,12 @@ function generateGroupSplitObj(queryParam) {
 	var returnJSON = {};
 	var dimensions = queryParam.dimensions;
 	var measures = queryParam.measures;
+	var primaryDimension = queryParam.primaryDimension;
 	var split = queryParam.split;
 	var breakException = {};
 	var idStr = "_id:{";
 	var projectStr = "{";
-	// var sortStr = "{" + queryParam.primaryDimension + ": -1}";//will change
-	// by sort parameter later
+	var sortStr = "field " + primaryDimension;
 	try {
 		dimensions.forEach(function(item, index) {
 			if (item.uniqueName == queryParam.primaryDimension) {
@@ -104,7 +103,7 @@ function generateGroupSplitObj(queryParam) {
 	idStr += "},"
 	var indicatorStr = "";
 	var splitValue = split.splitValue;
-	var sortStr = "";
+	// var sortStr = "";
 	measures.forEach(function(item, index) {
 		splitValue.forEach(function(item1, index1) {
 			if (indicatorStr != '') {
@@ -114,11 +113,9 @@ function generateGroupSplitObj(queryParam) {
 			splitIndicator += item.uniqueName;
 			splitIndicator += "_";
 			splitIndicator += item1;
-			if (index == 0 && sortStr == '') {
-				sortStr = "{" + splitIndicator + ": -1}";// will change by
-				// sort parameter
-				// later
-			}
+			// if (index == 0 && sortStr == '') {
+			// sortStr = "{" + splitIndicator + ": 1}";
+			// }
 			projectStr += splitIndicator
 			projectStr += ":1,";
 			indicatorStr += splitIndicator;
@@ -140,29 +137,6 @@ function generateGroupSplitObj(queryParam) {
 			indicatorStr += item.uniqueName;
 			indicatorStr += "\",0]}}";
 		});
-		if (index == 0 && sortStr == '') {
-			sortStr = "{" + item.uniqueName + ": -1}";// will change by
-			// sort parameter
-			// later
-		}
-		if (indicatorStr != '') {
-			indicatorStr += ","
-		}
-		projectStr += item.uniqueName;
-		projectStr += ":1,";
-		indicatorStr += item.uniqueName;
-		indicatorStr += ":{";
-		if (item.data_type == 'number') {
-			indicatorStr += "$sum:";
-		} else if (item.data_type == 'percentage') {
-			indicatorStr += "$avg:";
-		} else {
-			return "";
-		}
-		indicatorStr += "\"$";
-		indicatorStr += item.uniqueName;
-		indicatorStr += "\"";
-		indicatorStr += "}";
 	});
 	var res = "{" + idStr + indicatorStr + "}";
 	var returnObj = eval("(" + res + ")");
