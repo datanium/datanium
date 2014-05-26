@@ -318,14 +318,19 @@ Ext.define('Datanium.util.CommonUtils', {
 		getSplitMeasures : function(measure, splitValue) {
 			var returnArray = [];
 			Ext.Array.each(splitValue, function(rec, index) {
+				var cvtVal = Datanium.util.CommonUtils.convertSplitValue(rec);
 				var obj = {
-					uniqueName : measure.uniqueName + '_' + rec,
+					uniqueName : measure.uniqueName + '_' + cvtVal,
 					text : measure.text + ' - ' + rec,
 					display : true
 				};
 				returnArray.push(obj);
 			});
 			return returnArray;
+		},
+		convertSplitValue : function(str) {
+			var returnStr = str.trim().replace(/ /g, '').replace(/-/g, '').replace(/&/g, '');
+			return returnStr;
 		}
 	}
 });
