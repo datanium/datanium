@@ -23,6 +23,7 @@ my $countryCodeOffset;
 my $indicatorNameOffset;
 my $indicatorCodeOffset;
 my $regionOffset;
+my $topicOffset;
 my $yearOffset=0;
 my $offset;
 my $country;
@@ -38,6 +39,7 @@ my %DataByCountry;
 my %Indicators;
 my %Regions;
 my %Countries;
+my %Topics;
 my @years;
 #my @countries;
 
@@ -162,13 +164,43 @@ while (my $fieldsInLine = $csv->getline($fh)){
 }
 $csv->eof or $csv->error_diag();
 close ($fh);
+
 #----------------WDI SERIES-----------------------------
 if (!open (WDI_SERIES, $opt_WDI_Series)){
 	die "cannot open file $opt_WDI_Series , $!";
 }
+$line=<WDI_SERIES>;
+@fields=split(',',$line);
+$offset=0;
+foreach (@fields){
+	if ($_ =~ m/SeriesCode/){
+		$indicatorCodeOffset=$offset;
+	}
+	if ($_ =~ m/Topic/){
+		$topicOffset=$offset;
+	}
+	$offset++;
+}
 close (WDI_SERIES);
 
-#write to a data file
+open my $fh, "<", $opt_WDI_Series or die "$opt_WDI_Series: $!";
+print "Start Loading WDI_SERIES file\n";
+$lineNumber=0;
+while (my $fieldsInLine = $csv->getline($fh)){
+	if ($lineNumber ne 0){
+	
+		$indicatorCode=$fieldsInLine->[$indicatorCodeOffset];
+		#replace '.' with '_' as mongo db doesn't accept '.' inside keys
+		$indicatorCode=~ s/\./_/g;
+		$Topics{$indicatorCode}=$fieldsInLine->[$topicOffset];
+	}
+	$lineNumber++;
+}
+$csv->eof or $csv->error_diag();
+close ($fh);
+
+#########write to a data file
+print "Start writing WDI data to $opt_dataOutput\n";
 open my $fh, ">:encoding(utf8)", "$opt_dataOutput" or die "$opt_dataOutput: $!";
 $csv->eol("\n");
 push (@row, "country");
@@ -193,6 +225,7 @@ foreach $countryCode (keys (%Countries)){
 close $fh or die "$opt_dataOutput: $!";
 
 #write to control file
+print "Start writing control data to $opt_controlOutput\n";
 open CONTROL_OUT, ">", "$opt_controlOutput" or die "$opt_controlOutput: $!";
 
 foreach $indicatorCode (keys (%Indicators)){
@@ -200,12 +233,13 @@ foreach $indicatorCode (keys (%Indicators)){
 	$line="db.indicator.insert( { \"indicator_key\":\"$indicatorCode\","
 		."\"indicator_text\":\"$indicatorName\"," 
 		."\"data_source\":\"WDI\"," 
-		."\"dimension\":[d_country, d_region, d_year],";
+		."\"dimension\":[d_country, d_year, d_region],";
 	if ($indicatorName =~ m/\%/ ){
-		$line.="\"data_type\":\"percentage\"";
+		$line.="\"data_type\":\"percentage\",";
 	}else{
-		$line.="\"data_type\":\"number\"";
+		$line.="\"data_type\":\"number\",";
 	}
+	$line.="\"topic\":\"$Topics{$indicatorCode}\"";
 	$line.="});\n";
 	print CONTROL_OUT $line;
 }
