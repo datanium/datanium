@@ -65,7 +65,7 @@ exports.querySplit = function(req, res) {
 						sortStr4Chart).limit(500).exec(function(err, doc) {
 					if (err)
 						throw err;
-					console.log(doc);
+					// console.log(doc);
 					resultJSON.chart.result = doc;
 					callback();
 				});
@@ -104,15 +104,17 @@ function generateGroupSplitObj(queryParam) {
 	var indicatorStr = "";
 	var splitValue = split.splitValue;
 	// var sortStr = "";
-	measures.forEach(function(item, index) {
-		splitValue.forEach(function(item1, index1) {
+	measures.forEach(function(item) {
+		splitValue.forEach(function(value) {
+			// convert split value string
+			var cvtVal = convertSplitValue(value);
 			if (indicatorStr != '') {
 				indicatorStr += ","
 			}
 			var splitIndicator = "";
 			splitIndicator += item.uniqueName;
 			splitIndicator += "_";
-			splitIndicator += item1;
+			splitIndicator += cvtVal;
 			// if (index == 0 && sortStr == '') {
 			// sortStr = "{" + splitIndicator + ": 1}";
 			// }
@@ -131,7 +133,7 @@ function generateGroupSplitObj(queryParam) {
 			indicatorStr += split.dimensions;
 			indicatorStr += "\",";
 			indicatorStr += "\"";
-			indicatorStr += item1;
+			indicatorStr += value;
 			indicatorStr += "\"]},";
 			indicatorStr += "\"$";
 			indicatorStr += item.uniqueName;
@@ -139,6 +141,7 @@ function generateGroupSplitObj(queryParam) {
 		});
 	});
 	var res = "{" + idStr + indicatorStr + "}";
+	console.log('result string:' + res);
 	var returnObj = eval("(" + res + ")");
 	projectStr += "_id:0}";
 	var projectObj = eval("(" + projectStr + ")");
@@ -312,6 +315,11 @@ function bubbleSort(a, par) {
 			}
 		}
 	} while (swapped);
+}
+
+function convertSplitValue(str) {
+	var returnStr = str.trim().replace(/ /g, '').replace(/-/g, '').replace(/&/g, '');
+	return returnStr;
 }
 
 exports.indicatorMapping = function(req, res) {
