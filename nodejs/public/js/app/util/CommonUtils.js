@@ -329,7 +329,7 @@ Ext.define('Datanium.util.CommonUtils', {
 			return returnArray;
 		},
 		convertSplitValue : function(str) {
-			var returnStr = str.trim().replace(/ /g, '').replace(/-/g, '').replace(/&/g, '');
+			var returnStr = str.trim().replace(/ |-|&/g, '');
 			return returnStr;
 		}
 	}

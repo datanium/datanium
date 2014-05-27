@@ -85,24 +85,31 @@ Ext.define('Datanium.view.FilterBox', {
 	},
 	submitFilter : function(buttonId, text, opt) {
 		if (buttonId == 'ok') {
-			var key = Datanium.GlobalData.popDimensionKey;
-			// time dimension no quotes
-			var popSelStr = '';
-			if (key == 'year') {
-				popSelStr = popSelection.join(",");
+			if (popSelection.length > 0) {
+				var key = Datanium.GlobalData.popDimensionKey;
+				console.log();
+				// time dimension no quotes
+				var popSelStr = '';
+				if (key == 'year') {
+					popSelStr = popSelection.join(",");
+				} else {
+					popSelStr = "'" + popSelection.join("','") + "'";
+				}
+				if (popSelStr.length > 0) {
+					eval('Datanium.GlobalData.queryParam.filters.' + key + '=[' + popSelStr + ']');
+					var splitObj = {
+						dimensions : key,
+						splitValue : popSelection
+					};
+					Datanium.GlobalData.queryParam.split = splitObj;
+					Datanium.GlobalData.queryParam.isSplit = true;
+				}
 			} else {
-				popSelStr = "'" + popSelection.join("','") + "'";
+				Datanium.GlobalData.queryParam.split = null;
+				Datanium.GlobalData.queryParam.isSplit = false;
+				Datanium.GlobalData.queryParam.filters = {};
 			}
-			if (popSelStr.length > 0) {
-				eval('Datanium.GlobalData.queryParam.filters.' + key + '=[' + popSelStr + ']');
-				var splitObj = {
-					dimensions : key,
-					splitValue : popSelection
-				};
-				Datanium.GlobalData.queryParam.split = splitObj;
-				Datanium.GlobalData.queryParam.isSplit = true;
-				Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('submitFilter');
-			}
+			Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('submitFilter');
 		}
 	}
 });
