@@ -400,7 +400,10 @@ exports.dimensionValueSearch = function(req, res) {
 	if (query.dim != null) {
 		var key = query.dim.toLowerCase();
 		var results = [];
-		datasetSchema.distinct(key, function(err, doc) {
+		// exclude blank record
+		var matchStr = '{ ' + key + ' : { $ne : \'\' } }';
+		var matchObj = eval("(" + matchStr + ")");
+		datasetSchema.distinct(key, matchObj, function(err, doc) {
 			if (err)
 				console.log('Exception: ' + err);
 			doc.forEach(function(item, index) {

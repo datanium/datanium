@@ -77,14 +77,5 @@ Ext.define('Datanium.view.InnerToolbar', {
 		enableToggle : true,
 		pressed : false,
 		disabled : true
-	}, {
-		scale : 'medium',
-		tooltip : 'Indicator Split',
-		tooltipType : 'title',
-		html : '<i class="fa fa-sitemap fa-2x"></i>',
-		action : 'indicator-split',
-		enableToggle : true,
-		pressed : false,
-		disabled : true
 	} ]
 });
