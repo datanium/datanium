@@ -13,9 +13,10 @@ Ext.define('Datanium.view.FilterBox', {
 
 		popup.show({
 			title : 'Select ' + Datanium.GlobalData.popDimension,
-			buttons : Ext.Msg.OKCANCEL,
+			buttons : Ext.Msg.YESNOCANCEL,
 			buttonText : {
-				ok : 'Submit'
+				yes : 'Submit',
+				no : 'Clear'
 			},
 			fn : this.submitFilter
 		});
@@ -84,10 +85,9 @@ Ext.define('Datanium.view.FilterBox', {
 		popup.center();
 	},
 	submitFilter : function(buttonId, text, opt) {
-		if (buttonId == 'ok') {
+		if (buttonId == 'yes') {
 			if (popSelection.length > 0) {
 				var key = Datanium.GlobalData.popDimensionKey;
-				console.log();
 				// time dimension no quotes
 				var popSelStr = '';
 				if (key == 'year') {
@@ -109,6 +109,12 @@ Ext.define('Datanium.view.FilterBox', {
 				Datanium.GlobalData.queryParam.isSplit = false;
 				Datanium.GlobalData.queryParam.filters = {};
 			}
+			Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('submitFilter');
+		} else if(buttonId == 'no'){
+			popSelection = [];
+			Datanium.GlobalData.queryParam.split = null;
+			Datanium.GlobalData.queryParam.isSplit = false;
+			Datanium.GlobalData.queryParam.filters = {};
 			Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('submitFilter');
 		}
 	}

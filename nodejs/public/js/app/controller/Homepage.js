@@ -20,8 +20,6 @@ Ext.define('Datanium.controller.Homepage', {
 						Datanium.util.CommonUtils.getCmpInActiveTab('datapanel').getLayout().setActiveItem(0);
 						Datanium.util.CommonUtils.getCmpInActiveTab('inner-toolbar > button[action=auto-scale]')
 								.disable();
-						Datanium.util.CommonUtils.getCmpInActiveTab('inner-toolbar > button[action=indicator-split]')
-								.disable();
 					}
 				}
 			},
@@ -31,8 +29,6 @@ Ext.define('Datanium.controller.Homepage', {
 						Datanium.GlobalData.rptMode = 'chart';
 						Datanium.util.CommonUtils.getCmpInActiveTab('datapanel').getLayout().setActiveItem(1);
 						Datanium.util.CommonUtils.getCmpInActiveTab('inner-toolbar > button[action=auto-scale]')
-								.enable();
-						Datanium.util.CommonUtils.getCmpInActiveTab('inner-toolbar > button[action=indicator-split]')
 								.enable();
 					}
 				}
