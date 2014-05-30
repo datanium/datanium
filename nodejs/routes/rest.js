@@ -25,39 +25,29 @@ exports.querySplit = function(req, res) {
 		}
 	};
 	var queryParam = req.body;
-	console.log(queryParam);
-	/*
-	 * var queryParam = {
-	 * "dimensions":[{"uniqueName":"year","text":"Year","data_type":"dimension","field_type":"xField","displayOrder":0,"display":true},
-	 * {"uniqueName":"country","text":"Country","data_type":"dimension","field_type":"xField","displayOrder":0,"display":true}],
-	 * "measures" :[ { "uniqueName": "FM_LBL_BMNY_GD_ZS","text": 'Broad money (%
-	 * of GDP) - WDI',"data_type": 'percentage', "field_type":
-	 * 'column',"displayOrder": 0,"display": true }, { "uniqueName":
-	 * "FP_CPI_TOTL","text": 'Consumer price index (2005 = 100) -
-	 * WDI',"data_type": 'number', "field_type": 'column',"displayOrder":
-	 * 0,"display": true } ], "filters" : {"country":['China','Japan']}, "split"
-	 * :{"dimensions":'country',"splitValue":['China','Japan'],"measures":['FM_LBL_BMNY_GD_ZS','FP_CPI_TOTL']},
-	 * "primaryDimension" : "year" }
-	 */
-	var matchObj = generateMatchObj(queryParam);
-	var groupObj = generateGroupObj(queryParam, false);
+	var matchObj = generateMatchObj(queryParam, false);
+	// for grid
+	var group = generateGroupObj(queryParam);
+	var groupObj = group.returnObj;
+	var groupObjProject = group.returnProject;
+	var sortStr = group.returnSort;
+	// for chart
 	var groupSplitJSON4Chart = generateGroupSplitObj(queryParam);
 	var groupObj4Chart = groupSplitJSON4Chart.returnObj;
 	var groupObj4ChartProject = groupSplitJSON4Chart.returnProject;
 	var sortStr4Chart = groupSplitJSON4Chart.returnSort;
-	var sortStr = generateSortStr(queryParam);
 	// to get all the query results and return
 	async.parallel([
 			function(callback) {
 				// query for grid
-				datasetSchema.aggregate().match(matchObj).group(groupObj).sort(sortStr).limit(500).exec(
-						function(err, doc) {
-							if (err)
-								throw err;
-							resultJSON.grid.result = convertResult(doc, false);
-							resultJSON.grid.total = doc.length;
-							callback();
-						});
+				datasetSchema.aggregate().match(matchObj).group(groupObj).project(groupObjProject).sort(sortStr).limit(
+						500).exec(function(err, doc) {
+					if (err)
+						throw err;
+					resultJSON.grid.result = doc;
+					resultJSON.grid.total = doc.length;
+					callback();
+				});
 			},
 			function(callback) {
 				// query for chart
@@ -164,27 +154,33 @@ exports.queryResult = function(req, res) {
 			"result" : []
 		}
 	};
-	var groupObj = generateGroupObj(queryParam, false);
-	var groupObj4Chart = generateGroupObj(queryParam, true);
 	var matchObj = generateMatchObj(queryParam);
-	var sortStr = generateSortStr(queryParam);
+	// for grid
+	var group = generateGroupObj(queryParam, false);
+	var groupObj = group.returnObj;
+	var groupObjProject = group.returnProject;
+	var sortStr = group.returnSort;
+	// for chart
+	var chartGroup = generateGroupObj(queryParam, true);
+	var groupObj4Chart = chartGroup.returnObj;
+
 	// to get all the query results and return
 	async.parallel([
 			function(callback) {
 				// query for grid
-				datasetSchema.aggregate().match(matchObj).group(groupObj).sort(sortStr).limit(500).exec(
-						function(err, doc) {
-							if (err)
-								console.log('Exception: ' + err);
-							resultJSON.grid.result = convertResult(doc, false);
-							resultJSON.grid.total = doc.length;
-							callback();
-						});
+				datasetSchema.aggregate().match(matchObj).group(groupObj).project(groupObjProject).sort(sortStr).limit(
+						500).exec(function(err, doc) {
+					if (err)
+						console.log('Exception: ' + err);
+					resultJSON.grid.result = convertResult(doc, false);
+					resultJSON.grid.total = doc.length;
+					callback();
+				});
 			},
 			function(callback) {
 				// query for chart
-				datasetSchema.aggregate().match(matchObj).group(groupObj4Chart).sort(sortStr).limit(500).exec(
-						function(err, doc) {
+				datasetSchema.aggregate().match(matchObj).group(groupObj4Chart).project(groupObjProject).sort(sortStr)
+						.limit(500).exec(function(err, doc) {
 							if (err)
 								console.log('Exception: ' + err);
 							resultJSON.chart.result = convertResult(doc, true);
@@ -200,6 +196,7 @@ function generateGroupObj(queryParam, isChart) {
 	var measures = queryParam.measures;
 	var breakException = {};
 	var idStr = "_id:{";
+	var projectStr = "{";
 	try {
 		dimensions.forEach(function(item, index) {
 			if (isChart) {
@@ -208,6 +205,8 @@ function generateGroupObj(queryParam, isChart) {
 					idStr += ":\"$";
 					idStr += item.uniqueName;
 					idStr += "\"";
+					projectStr += item.uniqueName;
+					projectStr += ":\"$_id." + item.uniqueName + "\",";
 					throw breakException;
 				}
 			} else {
@@ -218,6 +217,8 @@ function generateGroupObj(queryParam, isChart) {
 				if (index < dimensions.length - 1) {
 					idStr += ","
 				}
+				projectStr += item.uniqueName;
+				projectStr += ":\"$_id." + item.uniqueName + "\",";
 			}
 		});
 	} catch (e) {
@@ -229,6 +230,8 @@ function generateGroupObj(queryParam, isChart) {
 	measures.forEach(function(item, index) {
 		indicatorStr += item.uniqueName;
 		indicatorStr += ":{";
+		projectStr += item.uniqueName
+		projectStr += ":1,";
 		if (item.data_type == 'number') {
 			indicatorStr += "$sum:";
 		} else if (item.data_type == 'percentage') {
@@ -246,7 +249,15 @@ function generateGroupObj(queryParam, isChart) {
 	});
 	var res = "{" + idStr + indicatorStr + "}";
 	var returnObj = eval("(" + res + ")");
-	return returnObj;
+	projectStr += "_id:0}";
+	console.log(projectStr);
+	var projectObj = eval("(" + projectStr + ")");
+	returnJSON = {
+		"returnObj" : returnObj,
+		"returnProject" : projectObj,
+		"returnSort" : generateSortStr(measures)
+	}
+	return returnJSON;
 }
 
 function generateMatchObj(queryParam) {
@@ -271,8 +282,7 @@ function generateMatchObj(queryParam) {
 	return returnObj;
 }
 
-function generateSortStr(queryParam) {
-	var measures = queryParam.measures;
+function generateSortStr(measures) {
 	var sortStr = 'field -';
 	if (measures != null && measures.length > 0) {
 		sortStr += measures[0].uniqueName;
@@ -283,17 +293,17 @@ function generateSortStr(queryParam) {
 }
 
 function convertResult(doc, isChart) {
-	var results = [];
-	doc.forEach(function(item) {
-		var gstr = JSON.stringify(item._id);
-		gstr = gstr.substring(1, gstr.length - 1);
-		delete item._id;
-		var mstr = JSON.stringify(item);
-		mstr = mstr.substring(1, mstr.length - 1);
-		var recordStr = '{' + gstr + ',' + mstr + '}';
-		var recordObj = eval("(" + recordStr + ")");
-		results.push(recordObj);
-	});
+	var results = doc;
+	// doc.forEach(function(item) {
+	// var gstr = JSON.stringify(item._id);
+	// gstr = gstr.substring(1, gstr.length - 1);
+	// delete item._id;
+	// var mstr = JSON.stringify(item);
+	// mstr = mstr.substring(1, mstr.length - 1);
+	// var recordStr = '{' + gstr + ',' + mstr + '}';
+	// var recordObj = eval("(" + recordStr + ")");
+	// results.push(recordObj);
+	// });
 	// sort result by year for charts
 	if (isChart) {
 		if (results.length > 0 && 'year' in results[0])
