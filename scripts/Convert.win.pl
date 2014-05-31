@@ -244,21 +244,3 @@ foreach $indicatorCode (keys (%Indicators)){
 	print CONTROL_OUT $line;
 }
 close CONTROL_OUT or die "$opt_controlOutput: $!";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
