@@ -96,8 +96,11 @@ function generateGroupSplitObj(queryParam) {
 	// var sortStr = "";
 	measures.forEach(function(item) {
 		splitValue.forEach(function(value) {
+			var isString = (typeof value === 'string');
 			// convert split value string
-			var cvtVal = convertSplitValue(value);
+			var cvtVal = value;
+			if (isString)
+				cvtVal = convertSplitValue(value);
 			if (indicatorStr != '') {
 				indicatorStr += ","
 			}
@@ -122,9 +125,14 @@ function generateGroupSplitObj(queryParam) {
 			indicatorStr += "\"$";
 			indicatorStr += split.dimensions;
 			indicatorStr += "\",";
-			indicatorStr += "\"";
-			indicatorStr += value;
-			indicatorStr += "\"]},";
+			if (isString) {
+				indicatorStr += "\"";
+				indicatorStr += value;
+				indicatorStr += "\"]},";
+			} else {
+				indicatorStr += value;
+				indicatorStr += "]},";
+			}
 			indicatorStr += "\"$";
 			indicatorStr += item.uniqueName;
 			indicatorStr += "\",0]}}";
