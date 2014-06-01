@@ -318,7 +318,9 @@ Ext.define('Datanium.util.CommonUtils', {
 		getSplitMeasures : function(measure, splitValue) {
 			var returnArray = [];
 			Ext.Array.each(splitValue, function(rec, index) {
-				var cvtVal = Datanium.util.CommonUtils.convertSplitValue(rec);
+				var cvtVal = rec;
+				if (typeof rec === 'string')
+					cvtVal = Datanium.util.CommonUtils.convertSplitValue(rec);
 				var obj = {
 					uniqueName : measure.uniqueName + '_' + cvtVal,
 					text : measure.text + ' - ' + rec,
