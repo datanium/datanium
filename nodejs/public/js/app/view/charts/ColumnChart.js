@@ -125,7 +125,12 @@ Ext.define('Datanium.view.charts.ColumnChart', {
 		}, {
 			type : 'Category',
 			position : 'bottom',
-			fields : xFieldsLabel
+			fields : xFieldsLabel,
+			label : {
+				rotate : {
+					degrees : 315
+				}
+			}
 		} ];
 		var s = [ {
 			type : 'column',

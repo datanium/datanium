@@ -164,7 +164,12 @@ Ext.define('Datanium.view.charts.LineChart', {
 		}, {
 			type : 'Category',
 			position : 'bottom',
-			fields : xFieldsLabel
+			fields : xFieldsLabel,
+			label : {
+				rotate : {
+					degrees : 315
+				}
+			}
 		} ];
 		// console.log(fields);
 		// console.log(xFields);
