@@ -1,13 +1,13 @@
 Ext.define('Datanium.view.charts.ChartToolbar', {
 	extend : 'Ext.toolbar.Toolbar',
 	xtype : 'basic-buttons',
-	cls : 'button-view',
 	alias : 'widget.chart-toolbar',
-	shadow : 'drop',
 	shadowOffset : 10,
 	minHeight : 38,
 	padding : '0 5',
 	items : [ {
+		iconCls : 'fa fa-bar-chart-o',
+		cls : 'chartTypeBtn',
 		scale : 'medium',
 		tooltip : 'Column Chart',
 		tooltipType : 'title',
@@ -21,6 +21,8 @@ Ext.define('Datanium.view.charts.ChartToolbar', {
 		height : 14,
 		margins : '0 0 0 1'
 	}, {
+		iconCls : 'fa fa-bar-chart-o',
+		cls : 'chartTypeBtn',
 		scale : 'medium',
 		tooltip : 'Line Chart',
 		tooltipType : 'title',
@@ -34,6 +36,8 @@ Ext.define('Datanium.view.charts.ChartToolbar', {
 		height : 14,
 		margins : '0 0 0 1'
 	}, {
+		iconCls : 'fa fa-bar-chart-o',
+		cls : 'chartTypeBtn',
 		scale : 'medium',
 		tooltip : 'Stack Chart',
 		tooltipType : 'title',
