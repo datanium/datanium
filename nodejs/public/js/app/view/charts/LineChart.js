@@ -167,7 +167,7 @@ Ext.define('Datanium.view.charts.LineChart', {
 			fields : xFieldsLabel,
 			label : {
 				rotate : {
-					degrees : 315
+					degrees : 330
 				}
 			}
 		} ];
