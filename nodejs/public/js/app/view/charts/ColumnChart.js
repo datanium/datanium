@@ -128,7 +128,7 @@ Ext.define('Datanium.view.charts.ColumnChart', {
 			fields : xFieldsLabel,
 			label : {
 				rotate : {
-					degrees : 315
+					degrees : 330
 				}
 			}
 		} ];
