@@ -13,9 +13,10 @@ Ext.define('Datanium.view.FilterBox', {
 
 		popup.show({
 			title : 'Select ' + Datanium.GlobalData.popDimension,
-			buttons : Ext.Msg.OKCANCEL,
+			buttons : Ext.Msg.YESNOCANCEL,
 			buttonText : {
-				ok : 'Submit'
+				yes : 'Submit',
+				no : 'Clear'
 			},
 			fn : this.submitFilter
 		});
@@ -43,7 +44,12 @@ Ext.define('Datanium.view.FilterBox', {
 								return;
 							}
 						});
-						popSelection.push(me.uniqueName);
+						if (popSelection.length >= 10) {
+							Ext.MessageBox.alert("Alert", "Sorry, you cannot select more than 10 filter values.");
+							me.toggle();
+						} else {
+							popSelection.push(me.uniqueName);
+						}
 					} else {
 						Ext.Array.each(popSelection, function(rec, index) {
 							if (rec == me.uniqueName) {
@@ -79,19 +85,37 @@ Ext.define('Datanium.view.FilterBox', {
 		popup.center();
 	},
 	submitFilter : function(buttonId, text, opt) {
-		if (buttonId == 'ok') {
-			var key = Datanium.GlobalData.popDimensionKey;
-			// time dimension no quotes
-			if (key == 'year') {
-				popSelection = popSelection.join(",");
-			} else {
-				popSelection = "'" + popSelection.join("','") + "'";
-			}
+		if (buttonId == 'yes') {
 			if (popSelection.length > 0) {
-				eval('Datanium.GlobalData.queryParam.filters.' + key + '=[' + popSelection + ']');
-				console.log(Datanium.GlobalData.queryParam.filters);
-				Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('submitFilter');
+				var key = Datanium.GlobalData.popDimensionKey;
+				// time dimension no quotes
+				var popSelStr = '';
+				if (key == 'year') {
+					popSelStr = popSelection.join(",");
+				} else {
+					popSelStr = "'" + popSelection.join("','") + "'";
+				}
+				if (popSelStr.length > 0) {
+					eval('Datanium.GlobalData.queryParam.filters.' + key + '=[' + popSelStr + ']');
+					var splitObj = {
+						dimensions : key,
+						splitValue : popSelection
+					};
+					Datanium.GlobalData.queryParam.split = splitObj;
+					Datanium.GlobalData.queryParam.isSplit = true;
+				}
+			} else {
+				Datanium.GlobalData.queryParam.split = null;
+				Datanium.GlobalData.queryParam.isSplit = false;
+				Datanium.GlobalData.queryParam.filters = {};
 			}
+			Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('submitFilter');
+		} else if(buttonId == 'no'){
+			popSelection = [];
+			Datanium.GlobalData.queryParam.split = null;
+			Datanium.GlobalData.queryParam.isSplit = false;
+			Datanium.GlobalData.queryParam.filters = {};
+			Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('submitFilter');
 		}
 	}
 });

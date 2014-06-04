@@ -291,6 +291,48 @@ Ext.define('Datanium.util.CommonUtils', {
 		},
 		isNumber : function(n) {
 			return !isNaN(parseFloat(n));
+		},
+		scaleMeasures : function(queryResult, yFields) {
+			for ( var j = 0; j < yFields.length; j++) {
+				var numbers = [];
+				for ( var i = 0; i < queryResult.result.length; i++) {
+					if (yFields[j] in queryResult.result[i]) {
+						var number = (queryResult.result[i])[yFields[j]];
+						numbers.push(number);
+					}
+				}
+				// console.log(numbers);
+				var sf = Datanium.util.CommonUtils.getScaleFactor(numbers);
+				// console.log(sf);
+				if (Datanium.util.CommonUtils.isNumber(sf)) {
+					for ( var i = 0; i < queryResult.result.length; i++) {
+						if (yFields[j] in queryResult.result[i]) {
+							var number = (queryResult.result[i])[yFields[j]];
+							(queryResult.result[i])[yFields[j]] = number * sf;
+						}
+					}
+				}
+			}
+			return queryResult;
+		},
+		getSplitMeasures : function(measure, splitValue) {
+			var returnArray = [];
+			Ext.Array.each(splitValue, function(rec, index) {
+				var cvtVal = rec;
+				if (typeof rec === 'string')
+					cvtVal = Datanium.util.CommonUtils.convertSplitValue(rec);
+				var obj = {
+					uniqueName : measure.uniqueName + '_' + cvtVal,
+					text : measure.text + ' - ' + rec,
+					display : true
+				};
+				returnArray.push(obj);
+			});
+			return returnArray;
+		},
+		convertSplitValue : function(str) {
+			var returnStr = str.trim().replace(/ |-|&/g, '');
+			return returnStr;
 		}
 	}
 });

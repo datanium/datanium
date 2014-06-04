@@ -18,6 +18,8 @@ Ext.define('Datanium.controller.Homepage', {
 					if (Datanium.GlobalData.rptMode != 'grid') {
 						Datanium.GlobalData.rptMode = 'grid';
 						Datanium.util.CommonUtils.getCmpInActiveTab('datapanel').getLayout().setActiveItem(0);
+						Datanium.util.CommonUtils.getCmpInActiveTab('inner-toolbar > button[action=auto-scale]')
+								.disable();
 					}
 				}
 			},
@@ -26,6 +28,8 @@ Ext.define('Datanium.controller.Homepage', {
 					if (Datanium.GlobalData.rptMode != 'chart') {
 						Datanium.GlobalData.rptMode = 'chart';
 						Datanium.util.CommonUtils.getCmpInActiveTab('datapanel').getLayout().setActiveItem(1);
+						Datanium.util.CommonUtils.getCmpInActiveTab('inner-toolbar > button[action=auto-scale]')
+								.enable();
 					}
 				}
 			},
@@ -52,6 +56,16 @@ Ext.define('Datanium.controller.Homepage', {
 			'inner-toolbar > button[action=manual-run]' : {
 				click : function(btn) {
 					this.getController('GridController').generateRpt(true);
+				}
+			},
+			'inner-toolbar > button[action=auto-scale]' : {
+				click : function(btn) {
+					if (btn.pressed) {
+						Datanium.GlobalData.autoScale = true;
+					} else {
+						Datanium.GlobalData.autoScale = false;
+					}
+					Datanium.util.CommonUtils.generateChart();
 				}
 			}
 		});
@@ -104,30 +118,30 @@ Ext.define('Datanium.controller.Homepage', {
 				mask.destroy();
 				var result = Ext.JSON.decode(response.responseText, true);
 				Datanium.GlobalData.qubeInfo.dimensions = Datanium.util.CommonUtils.pushElements2Array(
-						result.dimensions, Datanium.GlobalData.qubeInfo.dimensions);				
+						result.dimensions, Datanium.GlobalData.qubeInfo.dimensions);
 				Datanium.GlobalData.qubeInfo.measures = Datanium.util.CommonUtils.pushElements2Array(result.measures,
-						Datanium.GlobalData.qubeInfo.measures);				
+						Datanium.GlobalData.qubeInfo.measures);
 				Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('refreshElementPanel');
 			},
 			failure : function() {
 				mask.destroy();
 			}
 		};
-		if(this.isValidMeasures()){
-		Ext.Ajax.request(requestConfig);
-		}else{
-			Ext.MessageBox.alert("Alert","Sorry, you cannot add more than 10 measures!");
+		if (this.isValidMeasures()) {
+			Ext.Ajax.request(requestConfig);
+		} else {
+			Ext.MessageBox.alert("Alert", "Sorry, you cannot add more than 10 measures.");
 			mask.destroy();
 		}
 
 	},
 	isValidMeasures : function() {
 		var measures = Datanium.GlobalData.qubeInfo.measures;
-		if(measures.length>=10){
+		if (measures.length >= 10) {
 			return false;
-		}else{
+		} else {
 			return true;
 		}
 	}
-	
+
 });

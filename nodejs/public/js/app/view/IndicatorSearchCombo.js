@@ -13,7 +13,7 @@ Ext.define('Datanium.view.IndicatorSearchCombo', {
 	selectOnFocus : true,
 	forceSelection : false,
 	allowBlank : true,
-	emptyText : 'Search for Indicators',
+	emptyText : 'Eg. GDP, Consumer Price, Interest Rate.',
 	height : 22,
 	margin : '5 5',
 	listeners : {
