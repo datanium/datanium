@@ -64,18 +64,5 @@ Ext.define('Datanium.view.InnerToolbar', {
 		pressed : false,
 		toggleGroup : 'rptMode',
 		disabled : true
-	}, {
-		xtype : 'tbseparator',
-		height : 14,
-		margins : '0 0 0 1'
-	}, {
-		scale : 'medium',
-		tooltip : 'Auto Scale',
-		tooltipType : 'title',
-		html : '<i class="fa fa-arrows fa-2x"></i>',
-		action : 'auto-scale',
-		enableToggle : true,
-		pressed : false,
-		disabled : true
 	} ]
 });

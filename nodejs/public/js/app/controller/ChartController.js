@@ -9,28 +9,14 @@ Ext.define('Datanium.controller.ChartController', {
 				afterrender : this.onChartPanelReady,
 				beforeshow : this.onChartPanelShow
 			},
-			'chart-toolbar > button[action=column-chart]' : {
+			'chart-toolbar > button[action=auto-scale]' : {
 				click : function(btn) {
-					if (Datanium.GlobalData.chartMode != 'columnchart') {
-						Datanium.GlobalData.chartMode = 'columnchart';
-						Datanium.util.CommonUtils.generateChart();
+					if (btn.pressed) {
+						Datanium.GlobalData.autoScale = true;
+					} else {
+						Datanium.GlobalData.autoScale = false;
 					}
-				}
-			},
-			'chart-toolbar > button[action=line-chart]' : {
-				click : function(btn) {
-					if (Datanium.GlobalData.chartMode != 'linechart') {
-						Datanium.GlobalData.chartMode = 'linechart';
-						Datanium.util.CommonUtils.generateChart();
-					}
-				}
-			},
-			'chart-toolbar > button[action=stack-chart]' : {
-				click : function(btn) {
-					if (Datanium.GlobalData.chartMode != 'stackchart') {
-						Datanium.GlobalData.chartMode = 'stackchart';
-						Datanium.util.CommonUtils.generateChart();
-					}
+					Datanium.util.CommonUtils.generateChart();
 				}
 			}
 		});
