@@ -101,3 +101,7 @@
 	line-height: 15px;
 	padding-left: 28px;
 }
+
+.x-btn-default-toolbar-medium-icon-text-left .x-btn-button {
+	height: 15px;
+}
