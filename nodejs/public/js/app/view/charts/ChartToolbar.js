@@ -1,11 +1,3 @@
-function markSelection(selectedItem) {
-	var menuitems = selectedItem.parentMenu.items.items;
-	Ext.Array.each(menuitems, function(item, i) {
-		item.setIconCls('');
-	});
-	selectedItem.setIconCls('fa fa-star-o');
-}
-
 Ext.define('Datanium.view.charts.ChartToolbar', {
 	extend : 'Ext.toolbar.Toolbar',
 	xtype : 'basic-buttons',
@@ -13,6 +5,9 @@ Ext.define('Datanium.view.charts.ChartToolbar', {
 	shadowOffset : 10,
 	minHeight : 38,
 	padding : '0 5',
+	initComponent : function() {
+		this.callParent();
+	},
 	items : [ {
 		xtype : 'splitbutton',
 		iconCls : 'fa fa-bar-chart-o',
@@ -26,7 +21,7 @@ Ext.define('Datanium.view.charts.ChartToolbar', {
 			text : 'Column Chart',
 			handler : function() {
 				this.parentMenu.ownerButton.setText('Column Chart');
-				markSelection(this);
+				Datanium.util.CommonUtils.markSelection(this);
 				if (Datanium.GlobalData.chartMode != 'columnchart') {
 					Datanium.GlobalData.chartMode = 'columnchart';
 					Datanium.util.CommonUtils.generateChart();
@@ -36,7 +31,7 @@ Ext.define('Datanium.view.charts.ChartToolbar', {
 			text : 'Stack Chart',
 			handler : function() {
 				this.parentMenu.ownerButton.setText('Stack Chart');
-				markSelection(this);
+				Datanium.util.CommonUtils.markSelection(this);
 				if (Datanium.GlobalData.chartMode != 'stackchart') {
 					Datanium.GlobalData.chartMode = 'stackchart';
 					Datanium.util.CommonUtils.generateChart();
@@ -46,13 +41,27 @@ Ext.define('Datanium.view.charts.ChartToolbar', {
 			text : 'Line Chart',
 			handler : function() {
 				this.parentMenu.ownerButton.setText('Line Chart');
-				markSelection(this);
+				Datanium.util.CommonUtils.markSelection(this);
 				if (Datanium.GlobalData.chartMode != 'linechart') {
 					Datanium.GlobalData.chartMode = 'linechart';
 					Datanium.util.CommonUtils.generateChart();
 				}
 			}
 		} ]
+	}, {
+		xtype : 'tbseparator',
+		height : 14,
+		margins : '0 0 0 1'
+	}, {
+		id : 'dimSwitch',
+		xtype : 'splitbutton',
+		iconCls : 'fa fa-cube',
+		cls : 'chartTypeBtn',
+		scale : 'medium',
+		tooltip : 'Column Chart',
+		tooltipType : 'title',
+		text : 'Primary Dimension',
+		menu : []
 	}, {
 		xtype : 'tbseparator',
 		height : 14,

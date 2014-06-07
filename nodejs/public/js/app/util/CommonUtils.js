@@ -333,6 +333,13 @@ Ext.define('Datanium.util.CommonUtils', {
 		convertSplitValue : function(str) {
 			var returnStr = str.trim().replace(/ |-|&/g, '');
 			return returnStr;
+		},
+		markSelection : function(selectedItem) {
+			var menuItems = selectedItem.parentMenu.items.items;
+			Ext.Array.each(menuItems, function(item, i) {
+				item.setIconCls('');
+			});
+			selectedItem.setIconCls('fa fa-star-o');
 		}
 	}
 });
