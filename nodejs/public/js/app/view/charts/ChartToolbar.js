@@ -16,6 +16,9 @@ Ext.define('Datanium.view.charts.ChartToolbar', {
 		tooltip : 'Column Chart',
 		tooltipType : 'title',
 		text : 'Column Chart',
+		handler : function() {
+			this.showMenu();
+		},
 		menu : [ {
 			iconCls : 'fa fa-star-o',
 			text : 'Column Chart',
@@ -61,6 +64,9 @@ Ext.define('Datanium.view.charts.ChartToolbar', {
 		tooltip : 'Column Chart',
 		tooltipType : 'title',
 		text : 'Primary Dimension',
+		handler : function() {
+			this.showMenu();
+		},
 		menu : []
 	}, {
 		xtype : 'tbseparator',
