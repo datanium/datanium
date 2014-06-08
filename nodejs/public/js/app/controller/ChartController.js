@@ -49,7 +49,6 @@ Ext.define('Datanium.controller.ChartController', {
 						Datanium.util.CommonUtils.markSelection(this);
 
 						Datanium.GlobalData.queryParam.primaryDimension = dim.uniqueName;
-						Datanium.util.CommonUtils.updateQueryParamByEP(dim.uniqueName);
 						Datanium.util.CommonUtils.markPrimary();
 						Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('selectionChange');
 					}

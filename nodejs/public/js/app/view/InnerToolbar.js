@@ -64,5 +64,30 @@ Ext.define('Datanium.view.InnerToolbar', {
 		pressed : false,
 		toggleGroup : 'rptMode',
 		disabled : true
+	}, {
+		xtype : 'tbseparator',
+		height : 14,
+		margins : '0 0 0 1'
+	}, {
+		scale : 'medium',
+		tooltip : 'Export to PDF',
+		tooltipType : 'title',
+		html : '<i class="fa fa-file-pdf-o fa-2x"></i>',
+		action : 'export-pdf',
+		disabled : true
+	}, {
+		scale : 'medium',
+		tooltip : 'Export to Twitter',
+		tooltipType : 'title',
+		html : '<i class="fa fa-twitter fa-2x"></i>',
+		action : 'export-twitter',
+		disabled : true
+	}, {
+		scale : 'medium',
+		tooltip : 'Export to Weibo',
+		tooltipType : 'title',
+		html : '<i class="fa fa-weibo fa-2x"></i>',
+		action : 'export-weibo',
+		disabled : true
 	} ]
 });
