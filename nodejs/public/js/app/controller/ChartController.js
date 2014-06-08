@@ -28,5 +28,34 @@ Ext.define('Datanium.controller.ChartController', {
 	},
 	onChartPanelShow : function(me) {
 		console.log('onChartPanelShow');
+	},
+	reloadDimSwitchMenu : function() {
+		var dimensions = Datanium.GlobalData.queryParam.dimensions;
+		var primaryDim = Datanium.GlobalData.queryParam.primaryDimension;
+		if (dimensions != null && dimensions.length > 0 && primaryDim != null) {
+			var dimSwitch = Ext.getCmp('dimSwitch');
+			dimSwitch.menu.removeAll();
+			Ext.Array.each(dimensions, function(dim) {
+				var iconClsTxt = '';
+				if (primaryDim == dim.uniqueName) {
+					dimSwitch.setText(dim.text);
+					iconClsTxt = 'fa fa-star-o';
+				}
+				var item = new Ext.menu.Item({
+					iconCls : iconClsTxt,
+					text : dim.text,
+					handler : function() {
+						this.parentMenu.ownerButton.setText(dim.text);
+						Datanium.util.CommonUtils.markSelection(this);
+
+						Datanium.GlobalData.queryParam.primaryDimension = dim.uniqueName;
+						Datanium.util.CommonUtils.updateQueryParamByEP(dim.uniqueName);
+						Datanium.util.CommonUtils.markPrimary();
+						Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('selectionChange');
+					}
+				});
+				dimSwitch.menu.add(item);
+			});
+		}
 	}
 });
