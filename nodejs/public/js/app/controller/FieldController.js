@@ -14,6 +14,7 @@ Ext.define('Datanium.controller.FieldController', {
 	},
 	elementSelChange : function(me) {
 		console.log('elementSelChange');
+		this.getController('ChartController').reloadDimSwitchMenu()
 		this.getController('GridController').generateRpt();
 	},
 	searchDimensionValue : function(key, name) {

@@ -9,28 +9,14 @@ Ext.define('Datanium.controller.ChartController', {
 				afterrender : this.onChartPanelReady,
 				beforeshow : this.onChartPanelShow
 			},
-			'chart-toolbar > button[action=column-chart]' : {
+			'chart-toolbar > button[action=auto-scale]' : {
 				click : function(btn) {
-					if (Datanium.GlobalData.chartMode != 'columnchart') {
-						Datanium.GlobalData.chartMode = 'columnchart';
-						Datanium.util.CommonUtils.generateChart();
+					if (btn.pressed) {
+						Datanium.GlobalData.autoScale = true;
+					} else {
+						Datanium.GlobalData.autoScale = false;
 					}
-				}
-			},
-			'chart-toolbar > button[action=line-chart]' : {
-				click : function(btn) {
-					if (Datanium.GlobalData.chartMode != 'linechart') {
-						Datanium.GlobalData.chartMode = 'linechart';
-						Datanium.util.CommonUtils.generateChart();
-					}
-				}
-			},
-			'chart-toolbar > button[action=stack-chart]' : {
-				click : function(btn) {
-					if (Datanium.GlobalData.chartMode != 'stackchart') {
-						Datanium.GlobalData.chartMode = 'stackchart';
-						Datanium.util.CommonUtils.generateChart();
-					}
+					Datanium.util.CommonUtils.generateChart();
 				}
 			}
 		});
@@ -42,5 +28,34 @@ Ext.define('Datanium.controller.ChartController', {
 	},
 	onChartPanelShow : function(me) {
 		console.log('onChartPanelShow');
+	},
+	reloadDimSwitchMenu : function() {
+		var dimensions = Datanium.GlobalData.queryParam.dimensions;
+		var primaryDim = Datanium.GlobalData.queryParam.primaryDimension;
+		if (dimensions != null && dimensions.length > 0 && primaryDim != null) {
+			var dimSwitch = Ext.getCmp('dimSwitch');
+			dimSwitch.menu.removeAll();
+			Ext.Array.each(dimensions, function(dim) {
+				var iconClsTxt = '';
+				if (primaryDim == dim.uniqueName) {
+					dimSwitch.setText(dim.text);
+					iconClsTxt = 'fa fa-star-o';
+				}
+				var item = new Ext.menu.Item({
+					iconCls : iconClsTxt,
+					text : dim.text,
+					handler : function() {
+						this.parentMenu.ownerButton.setText(dim.text);
+						Datanium.util.CommonUtils.markSelection(this);
+
+						Datanium.GlobalData.queryParam.primaryDimension = dim.uniqueName;
+						Datanium.util.CommonUtils.updateFields();
+						Datanium.util.CommonUtils.markPrimary();
+						Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('selectionChange');
+					}
+				});
+				dimSwitch.menu.add(item);
+			});
+		}
 	}
 });

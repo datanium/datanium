@@ -247,27 +247,6 @@ Ext.define('Datanium.util.CommonUtils', {
 					dimField.items.items[index].setText("* " + txt);
 				}
 			});
-			var elemtPanel = Datanium.util.CommonUtils.getCmpInActiveTab(Datanium.util.CommonUtils
-					.getCmpSearchKey('elementPanel'));
-			Ext.Array.each(elemtPanel.items.items, function(rec, index) {
-				if (rec.eleType == 'dim') {
-					var txt = rec.text;
-					var starFlag = txt.indexOf("* ") > -1;
-					if (rec.uniqueName == primDim) {
-						if (!starFlag) {
-							elemtPanel.items.items[index].setText("* " + txt);
-						} else if (!rec.pressed) {
-							var newTxt = txt.substr(2, txt.length - 2);
-							elemtPanel.items.items[index].setText(newTxt);
-						}
-					} else {
-						if (starFlag) {
-							var newTxt = txt.substr(2, txt.length - 2);
-							elemtPanel.items.items[index].setText(newTxt);
-						}
-					}
-				}
-			});
 		},
 		scaleLg10 : function(number) {
 			if (number <= 0)
@@ -333,6 +312,13 @@ Ext.define('Datanium.util.CommonUtils', {
 		convertSplitValue : function(str) {
 			var returnStr = str.trim().replace(/ |-|&/g, '');
 			return returnStr;
+		},
+		markSelection : function(selectedItem) {
+			var menuItems = selectedItem.parentMenu.items.items;
+			Ext.Array.each(menuItems, function(item, i) {
+				item.setIconCls('');
+			});
+			selectedItem.setIconCls('fa fa-star-o');
 		}
 	}
 });

@@ -5,46 +5,82 @@ Ext.define('Datanium.view.charts.ChartToolbar', {
 	shadowOffset : 10,
 	minHeight : 38,
 	padding : '0 5',
+	initComponent : function() {
+		this.callParent();
+	},
 	items : [ {
+		xtype : 'splitbutton',
 		iconCls : 'fa fa-bar-chart-o',
 		cls : 'chartTypeBtn',
 		scale : 'medium',
 		tooltip : 'Column Chart',
 		tooltipType : 'title',
 		text : 'Column Chart',
-		action : 'column-chart',
-		enableToggle : true,
-		pressed : true,
-		toggleGroup : 'chartMode'
+		handler : function() {
+			this.showMenu();
+		},
+		menu : [ {
+			iconCls : 'fa fa-star-o',
+			text : 'Column Chart',
+			handler : function() {
+				this.parentMenu.ownerButton.setText('Column Chart');
+				Datanium.util.CommonUtils.markSelection(this);
+				if (Datanium.GlobalData.chartMode != 'columnchart') {
+					Datanium.GlobalData.chartMode = 'columnchart';
+					Datanium.util.CommonUtils.generateChart();
+				}
+			}
+		}, {
+			text : 'Stack Chart',
+			handler : function() {
+				this.parentMenu.ownerButton.setText('Stack Chart');
+				Datanium.util.CommonUtils.markSelection(this);
+				if (Datanium.GlobalData.chartMode != 'stackchart') {
+					Datanium.GlobalData.chartMode = 'stackchart';
+					Datanium.util.CommonUtils.generateChart();
+				}
+			}
+		}, {
+			text : 'Line Chart',
+			handler : function() {
+				this.parentMenu.ownerButton.setText('Line Chart');
+				Datanium.util.CommonUtils.markSelection(this);
+				if (Datanium.GlobalData.chartMode != 'linechart') {
+					Datanium.GlobalData.chartMode = 'linechart';
+					Datanium.util.CommonUtils.generateChart();
+				}
+			}
+		} ]
 	}, {
 		xtype : 'tbseparator',
 		height : 14,
 		margins : '0 0 0 1'
 	}, {
-		iconCls : 'fa fa-bar-chart-o',
+		id : 'dimSwitch',
+		xtype : 'splitbutton',
+		iconCls : 'fa fa-cube',
 		cls : 'chartTypeBtn',
 		scale : 'medium',
-		tooltip : 'Line Chart',
+		tooltip : 'Column Chart',
 		tooltipType : 'title',
-		text : 'Line Chart',
-		action : 'line-chart',
-		enableToggle : true,
-		pressed : false,
-		toggleGroup : 'chartMode'
+		text : 'Primary Dimension',
+		handler : function() {
+			this.showMenu();
+		},
+		menu : []
 	}, {
 		xtype : 'tbseparator',
 		height : 14,
 		margins : '0 0 0 1'
 	}, {
-		iconCls : 'fa fa-bar-chart-o',
+		iconCls : 'fa fa-arrows fa',
 		cls : 'chartTypeBtn',
 		scale : 'medium',
-		tooltip : 'Stack Chart',
+		tooltip : 'Auto Scale',
 		tooltipType : 'title',
-		text : 'Stack Chart',
-		action : 'stack-chart',
+		text : 'Auto Scale',
+		action : 'auto-scale',
 		enableToggle : true,
-		pressed : false,
-		toggleGroup : 'chartMode'
+		pressed : false
 	} ]
 });
