@@ -85,7 +85,8 @@ Ext.define('Datanium.view.charts.LineChart', {
 			shadow : true,
 			hidden : true,
 			legend : {
-				position : 'right'
+				position : 'right',
+				visible : Datanium.GlobalData.showLegend
 			}
 		});
 		fields = [];

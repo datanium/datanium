@@ -42,7 +42,8 @@ Ext.define('Datanium.view.charts.ColumnChart', {
 			shadow : true,
 			hidden : true,
 			legend : {
-				position : 'right'
+				position : 'right',
+				visible : Datanium.GlobalData.showLegend
 			}
 		});
 		fields = [];
