@@ -82,5 +82,19 @@ Ext.define('Datanium.view.charts.ChartToolbar', {
 		action : 'auto-scale',
 		enableToggle : true,
 		pressed : false
+	}, {
+		xtype : 'tbseparator',
+		height : 14,
+		margins : '0 0 0 1'
+	}, {
+		iconCls : 'fa fa-eye-slash fa',
+		cls : 'chartTypeBtn',
+		scale : 'medium',
+		tooltip : 'Hide Legend Box',
+		tooltipType : 'title',
+		text : 'Hide Legend',
+		action : 'hide-legend',
+		enableToggle : true,
+		pressed : false
 	} ]
 });
