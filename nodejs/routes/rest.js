@@ -275,13 +275,15 @@ function generateMatchObj(queryParam) {
 	dimensions.forEach(function(item, index) {
 		if (item.uniqueName in filters) {
 			var array = eval('filters.' + item.uniqueName);
-			var str = '';
-			if (item.uniqueName == 'year') {
-				str = array.join(",");
-			} else {
-				str = "'" + array.join("','") + "'";
+			if (array != null && array.length > 0) {
+				var str = '';
+				if (item.uniqueName == 'year') {
+					str = array.join(",");
+				} else {
+					str = "'" + array.join("','") + "'";
+				}
+				filterArray.push(item.uniqueName + ': {$in:[' + str + ']}');
 			}
-			filterArray.push(item.uniqueName + ': {$in:[' + str + ']}');
 		}
 	});
 	var matchStr = '{ ' + filterArray.join(",") + ' }';

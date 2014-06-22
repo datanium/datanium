@@ -319,6 +319,10 @@ Ext.define('Datanium.util.CommonUtils', {
 				item.setIconCls('');
 			});
 			selectedItem.setIconCls('fa fa-star-o');
+		},
+		clearPopDimFilter : function() {
+			var key = Datanium.GlobalData.popDimensionKey;
+			var selections = eval('Datanium.GlobalData.queryParam.filters.' + key + '=[]');
 		}
 	}
 });
