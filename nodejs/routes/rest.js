@@ -355,7 +355,6 @@ exports.indicatorMapping = function(req, res) {
 			console.log('Exception: ' + err);
 		doc.forEach(function(item, index) {
 			var tempDimensions = item.dimension;
-			console.log(tempDimensions);
 			tempDimensions.forEach(function(dimension, index) {
 				var tempDimension = {
 					"uniqueName" : dimension.dimension_key,
