@@ -228,12 +228,16 @@ close $fh or die "$opt_dataOutput: $!";
 print "Start writing control data to $opt_controlOutput\n";
 open CONTROL_OUT, ">", "$opt_controlOutput" or die "$opt_controlOutput: $!";
 
+print CONTROL_OUT "d_year={\"dimension_key\":\"year\", \"dimension_text\":\"Year\"};\n";
+print CONTROL_OUT "d_region={\"dimension_key\":\"region\", \"dimension_text\":\"Region\"};\n"; 
+print CONTROL_OUT "d_country={\"dimension_key\":\"country\", \"dimension_text\":\"Country\"};\n";
+
 foreach $indicatorCode (keys (%Indicators)){
 	$indicatorName=$Indicators{$indicatorCode};
 	$line="db.indicator.insert( { \"indicator_key\":\"$indicatorCode\","
 		."\"indicator_text\":\"$indicatorName\"," 
 		."\"data_source\":\"WDI\"," 
-		."\"dimension\":[d_region, d_country, d_year],";
+		."\"dimension\":[d_year, d_region, d_country],";
 	if ($indicatorName =~ m/\%/ ){
 		$line.="\"data_type\":\"percentage\",";
 	}else{

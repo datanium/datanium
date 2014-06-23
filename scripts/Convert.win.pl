@@ -237,7 +237,7 @@ foreach $indicatorCode (keys (%Indicators)){
 	$line="db.indicator.insert( { \"indicator_key\":\"$indicatorCode\","
 		."\"indicator_text\":\"$indicatorName\"," 
 		."\"data_source\":\"WDI\"," 
-		."\"dimension\":[d_region, d_country, d_year],";
+		."\"dimension\":[d_year, d_region, d_country],";
 	if ($indicatorName =~ m/\%/ ){
 		$line.="\"data_type\":\"percentage\",";
 	}else{
