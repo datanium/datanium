@@ -31,13 +31,7 @@ Ext.define('Datanium.controller.Homepage', {
 			},
 			'inner-toolbar > button[action=clear]' : {
 				click : function(btn) {
-					Datanium.GlobalData.queryParam = {
-						dimensions : [],
-						measures : [],
-						groups : []
-					};
-					Datanium.GlobalData.QueryResult = null;
-					Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('refreshElementPanel');
+					Datanium.util.CommonUtils.cleanData();
 				}
 			},
 			'inner-toolbar > button[action=auto-run]' : {
@@ -107,7 +101,9 @@ Ext.define('Datanium.controller.Homepage', {
 						result.dimensions, Datanium.GlobalData.qubeInfo.dimensions);
 				Datanium.GlobalData.qubeInfo.measures = Datanium.util.CommonUtils.pushElements2Array(result.measures,
 						Datanium.GlobalData.qubeInfo.measures);
-				Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('refreshElementPanel');
+				// clean up the query param/result when adding indicator.
+				// should enhance this to keeping param in the future.
+				Datanium.util.CommonUtils.cleanData();
 			},
 			failure : function() {
 				mask.destroy();
@@ -129,5 +125,4 @@ Ext.define('Datanium.controller.Homepage', {
 			return true;
 		}
 	}
-
 });
