@@ -107,14 +107,14 @@ Ext.define('Datanium.view.FilterBox', {
 			} else {
 				Datanium.GlobalData.queryParam.split = null;
 				Datanium.GlobalData.queryParam.isSplit = false;
-				Datanium.GlobalData.queryParam.filters = {};
+				Datanium.util.CommonUtils.clearPopDimFilter();
 			}
 			Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('submitFilter');
-		} else if(buttonId == 'no'){
+		} else if (buttonId == 'no') {
 			popSelection = [];
 			Datanium.GlobalData.queryParam.split = null;
 			Datanium.GlobalData.queryParam.isSplit = false;
-			Datanium.GlobalData.queryParam.filters = {};
+			Datanium.util.CommonUtils.clearPopDimFilter();
 			Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('submitFilter');
 		}
 	}

@@ -319,6 +319,27 @@ Ext.define('Datanium.util.CommonUtils', {
 				item.setIconCls('');
 			});
 			selectedItem.setIconCls('fa fa-star-o');
+		},
+		clearPopDimFilter : function() {
+			var key = Datanium.GlobalData.popDimensionKey;
+			var selections = eval('Datanium.GlobalData.queryParam.filters.' + key + '=[]');
+		},
+		cleanData : function() {
+			Datanium.GlobalData.queryParam = {
+				dimensions : [],
+				measures : [],
+				groups : [],
+				filters : {},
+				primaryDimension : null,
+				split : {
+					dimensions : null,
+					splitValue : []
+				},
+				isSplit : false
+			};
+			Datanium.GlobalData.QueryResult = null;
+			Datanium.GlobalData.QueryResult4Chart = null;
+			Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('refreshElementPanel');
 		}
 	}
 });

@@ -24,6 +24,7 @@ Ext.define('Datanium.GlobalData', {
 	rptMode : 'grid',
 	chartMode : 'columnchart',
 	autoScale : false,
+	showLegend : true,
 	autoRun : true,
 	dimensionValues : [],
 	popDimensionKey : null,

@@ -18,6 +18,16 @@ Ext.define('Datanium.controller.ChartController', {
 					}
 					Datanium.util.CommonUtils.generateChart();
 				}
+			},
+			'chart-toolbar > button[action=hide-legend]' : {
+				click : function(btn) {
+					if (btn.pressed) {
+						Datanium.GlobalData.showLegend = false;
+					} else {
+						Datanium.GlobalData.showLegend = true;
+					}
+					Datanium.util.CommonUtils.generateChart();
+				}
 			}
 		});
 	},
