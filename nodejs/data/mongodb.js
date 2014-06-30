@@ -1,3 +1,3 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/datanium');
+mongoose.connect('mongodb://www.dtnium.com:27017/datanium');
 exports.mongoose = mongoose;

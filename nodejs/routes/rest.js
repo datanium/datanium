@@ -14,6 +14,22 @@ exports.cubeInfo = function(req, res) {
 	res.send(data.cubeInfoJSON);
 };
 
+exports.topicSearch = function(req,res){
+	var resultJSON=[];
+	var topic = {};
+	IndicatorSchema.find().select({'topic' : 1, '_id' : 0}).sort({'topic':1}).exec(function(err, doc) { 
+		//IndicatorSchema.distinct('topic').sort().exec(function(err, doc) {
+		if (err)
+			console.log('Exception: ' + err);
+		doc.forEach(function(item, index) {
+			//var topicArray = item.split(':');
+			resultJSON.push(item.topic);
+		});
+		res.send(resultJSON);
+	});
+	
+};
+
 exports.querySplit = function(req, res) {
 	var resultJSON = {
 		"grid" : {
