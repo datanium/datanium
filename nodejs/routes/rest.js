@@ -16,15 +16,42 @@ exports.cubeInfo = function(req, res) {
 
 exports.topicSearch = function(req,res){
 	var resultJSON=[];
-	var topic = {};
-	IndicatorSchema.find().select({'topic' : 1, '_id' : 0}).sort({'topic':1}).exec(function(err, doc) { 
+	var mainTopic = '';
+	var subTopic = [];
+	IndicatorSchema.aggregate().group({'_id':'$topic'}).project({'topic' : '$_id'}).sort({'topic': 1}).exec(function(err, doc){
+		//.match({'topic' : 'Education: Efficiency'})
+	//IndicatorSchema.find().select({'topic' : 1, '_id' : 0}).sort({'topic':1}).exec(function(err, doc) { 
 		//IndicatorSchema.distinct('topic').sort().exec(function(err, doc) {
 		if (err)
 			console.log('Exception: ' + err);
 		doc.forEach(function(item, index) {
-			//var topicArray = item.split(':');
-			resultJSON.push(item.topic);
+			var topicArray = item.topic.split(':');
+			var mainTopicStr = topicArray[0].trim();
+			var subTopicStr = topicArray[topicArray.length-1].trim();
+			console.log(mainTopicStr);
+			console.log(subTopicStr);
+			if(index == 0){
+				mainTopic = mainTopicStr;
+				subTopic.push(subTopicStr);
+			}
+			else if(mainTopicStr==mainTopic){
+				subTopic.push(subTopicStr);
+			}else{
+				var topic = {'topic' : mainTopic,
+							 'subTopic' : subTopic
+							}
+				resultJSON.push(topic);
+				mainTopic = mainTopicStr;
+				subTopic = [];
+				subTopic.push(subTopicStr);
+			}
+			//resultJSON.push(item.topic);
 		});
+		//deal with the last topic
+		var topic = {'topic' : mainTopic,
+					 'subTopic' : subTopic
+					}
+		resultJSON.push(topic);
 		res.send(resultJSON);
 	});
 	
