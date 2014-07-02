@@ -38,6 +38,7 @@ app.get('/rest/indicator/search', rest.indicatorSearch);
 app.get('/rest/indicator/map', rest.indicatorMapping);
 app.get('/rest/dimension/search', rest.dimensionValueSearch);
 app.post('/rest/query/split', rest.querySplit);
+app.get('/rest/query/topicSearch', rest.topicSearch);
 
 http.createServer(app).listen(app.get('port'), function() {
 	console.log('Express server listening on port ' + app.get('port'));
