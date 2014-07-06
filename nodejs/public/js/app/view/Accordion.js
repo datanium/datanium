@@ -13,18 +13,6 @@ Ext.define('Datanium.view.Accordion', {
 	initComponent : function() {
 		Ext.apply(this, {
 			items : [ {
-				xtype : 'dimensionTree',
-				itemId : Datanium.util.CommonUtils.genItemId('dimensionTree'),
-				padding : '0 0 5 0',
-				flex : 1,
-				hidden : true
-			}, {
-				xtype : 'measureTree',
-				itemId : Datanium.util.CommonUtils.genItemId('measureTree'),
-				padding : '0 0 5 0',
-				flex : 1,
-				hidden : true
-			}, {
 				xtype : 'elementPanel',
 				itemId : Datanium.util.CommonUtils.genItemId('elementPanel'),
 				padding : '0 0 5 0',

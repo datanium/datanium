@@ -1,9 +1,9 @@
 Ext.define('Datanium.controller.Homepage', {
 	extend : 'Ext.app.Controller',
-	views : [ 'Toolbar', 'ReportTemplate', 'LeftPanel', 'CubeCombo', 'IndicatorSearchCombo', 'Accordion',
-			'DimensionTree', 'MeasureTree', 'ElementPanel', 'DataPanel', 'InnerToolbar' ],
-	models : [ 'CubeName', 'Indicator' ],
-	stores : [ 'CubeNames', 'Indicators' ],
+	views : [ 'Toolbar', 'ReportTemplate', 'LeftPanel', 'IndicatorSearchCombo', 'Accordion', 'ElementPanel',
+			'DataPanel', 'InnerToolbar' ],
+	models : [ 'Indicator' ],
+	stores : [ 'Indicators' ],
 	init : function() {
 		this.control({
 			'viewport reporttemplate' : {},
