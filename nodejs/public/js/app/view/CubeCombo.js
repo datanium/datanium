@@ -1,3 +1,4 @@
+/* deprecated */
 Ext.define('Datanium.view.CubeCombo', {
 	extend : 'Ext.form.field.ComboBox',
 	alias : 'widget.cubecombo',

@@ -1,6 +1,6 @@
 Ext.define('Datanium.controller.FieldController', {
 	extend : 'Ext.app.Controller',
-	views : [ 'DimensionTree', 'MeasureTree', 'ElementPanel', 'FieldPanel', 'FieldToolBar', 'FilterBox' ],
+	views : [ 'ElementPanel', 'FieldPanel', 'FieldToolBar', 'FilterBox' ],
 	stores : [],
 	models : [],
 	init : function() {

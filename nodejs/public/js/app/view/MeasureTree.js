@@ -1,3 +1,4 @@
+/* deprecated */
 Ext.define('Datanium.view.MeasureTree', {
 	extend : 'Ext.tree.Panel',
 	xtype : 'check-tree',
