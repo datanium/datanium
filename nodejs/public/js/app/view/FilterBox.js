@@ -87,27 +87,13 @@ Ext.define('Datanium.view.FilterBox', {
 	submitFilter : function(buttonId, text, opt) {
 		if (buttonId == 'yes') {
 			if (popSelection.length > 0) {
-				var key = Datanium.GlobalData.popDimensionKey;
-				// time dimension no quotes
-				var popSelStr = '';
-				if (key == 'year') {
-					popSelStr = popSelection.join(",");
-				} else {
-					popSelStr = "'" + popSelection.join("','") + "'";
-				}
-				if (popSelStr.length > 0) {
-					eval('Datanium.GlobalData.queryParam.filters.' + key + '=[' + popSelStr + ']');
-					var splitObj = {
-						dimensions : key,
-						splitValue : popSelection
-					};
-					Datanium.GlobalData.queryParam.split = splitObj;
-					Datanium.GlobalData.queryParam.isSplit = true;
-				}
+				Datanium.util.CommonUtils.splitFilter(popSelection);
 			} else {
-				Datanium.GlobalData.queryParam.split = null;
+				// Datanium.GlobalData.queryParam.split = null;
+				var key = Datanium.GlobalData.popDimensionKey;
+				delete Datanium.GlobalData.queryParam.filters[key];
 				Datanium.GlobalData.queryParam.isSplit = false;
-				Datanium.util.CommonUtils.clearPopDimFilter();
+				// Datanium.util.CommonUtils.clearPopDimFilter();
 			}
 			Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('submitFilter');
 		} else if (buttonId == 'no') {

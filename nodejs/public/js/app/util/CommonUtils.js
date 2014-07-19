@@ -324,6 +324,27 @@ Ext.define('Datanium.util.CommonUtils', {
 			var key = Datanium.GlobalData.popDimensionKey;
 			var selections = eval('Datanium.GlobalData.queryParam.filters.' + key + '=[]');
 		},
+		splitFilter : function(popSelection) {
+			var key = Datanium.GlobalData.popDimensionKey;
+			// time dimension no quotes
+			var popSelStr = '';
+			if (key == 'year') {
+				popSelStr = popSelection.join(",");
+			} else {
+				popSelStr = "'" + popSelection.join("','") + "'";
+			}
+			if (popSelStr.length > 0) {
+				// console.log('Datanium.GlobalData.queryParam.filters.' + key +
+				// '=[' + popSelStr + ']');
+				eval('Datanium.GlobalData.queryParam.filters.' + key + '=[' + popSelStr + ']');
+				var splitObj = {
+					dimensions : key,
+					splitValue : popSelection
+				};
+				Datanium.GlobalData.queryParam.split = splitObj;
+				Datanium.GlobalData.queryParam.isSplit = true;
+			}
+		},
 		cleanData : function() {
 			Datanium.GlobalData.queryParam = {
 				dimensions : [],

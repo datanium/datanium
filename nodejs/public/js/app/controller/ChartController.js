@@ -67,5 +67,44 @@ Ext.define('Datanium.controller.ChartController', {
 				dimSwitch.menu.add(item);
 			});
 		}
+	},
+	reloadFilterSwitchMenu : function() {
+		console.log('reloadFilterSwitchMenu');
+		var filters = Object.keys(Datanium.GlobalData.queryParam.filters);
+		var primaryFilter = Datanium.GlobalData.queryParam.split.dimensions;
+		var dimensions = Datanium.GlobalData.queryParam.dimensions;
+		console.log(primaryFilter);
+		console.log(filters);
+		if (filters != null && filters.length > 0 && primaryFilter != null) {
+			var filterSwitch = Ext.getCmp('filterSwitch');
+			filterSwitch.menu.removeAll();
+			Ext.Array.each(filters, function(f) {
+				Ext.Array.each(dimensions, function(dim) {
+					if (f == dim.uniqueName) {
+						var iconClsTxt = '';
+						if (primaryFilter == dim.uniqueName) {
+							filterSwitch.setText(dim.text);
+							iconClsTxt = 'fa fa-star-o';
+						}
+						var item = new Ext.menu.Item({
+							iconCls : iconClsTxt,
+							text : dim.text,
+							handler : function() {
+								this.parentMenu.ownerButton.setText(dim.text);
+								Datanium.util.CommonUtils.markSelection(this);
+
+								var popSelection = [];
+								Datanium.GlobalData.popDimensionKey = f;
+								if (f in Datanium.GlobalData.queryParam.filters)
+									popSelection = eval('Datanium.GlobalData.queryParam.filters.' + f);
+								Datanium.util.CommonUtils.splitFilter(popSelection);
+								Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('submitFilter');
+							}
+						});
+						filterSwitch.menu.add(item);
+					}
+				});
+			});
+		}
 	}
 });
