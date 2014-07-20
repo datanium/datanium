@@ -79,8 +79,6 @@ Ext.define('Datanium.controller.ChartController', {
 		var filterKeys = Object.keys(Datanium.GlobalData.queryParam.filters);
 		var primaryFilter = Datanium.GlobalData.queryParam.split.dimensions;
 		var dimensions = Datanium.GlobalData.queryParam.dimensions;
-		console.log(primaryFilter);
-		console.log(filters);
 		var filterSwitch = Ext.getCmp('filterSwitch');
 		if (filters != null && filterKeys.length > 0 && primaryFilter != null) {
 			filterSwitch.menu.removeAll();
@@ -95,14 +93,15 @@ Ext.define('Datanium.controller.ChartController', {
 						var item = new Ext.menu.Item({
 							iconCls : iconClsTxt,
 							text : dim.text,
+							itemId : f,
 							handler : function() {
 								this.parentMenu.ownerButton.setText(dim.text);
 								Datanium.util.CommonUtils.markSelection(this);
 
 								var popSelection = [];
-								Datanium.GlobalData.popDimensionKey = f;
-								if (f in Datanium.GlobalData.queryParam.filters)
-									popSelection = eval('Datanium.GlobalData.queryParam.filters.' + f);
+								Datanium.GlobalData.popDimensionKey = this.itemId;
+								if (this.itemId in Datanium.GlobalData.queryParam.filters)
+									popSelection = eval('Datanium.GlobalData.queryParam.filters.' + this.itemId);
 								Datanium.util.CommonUtils.splitFilter(popSelection);
 								Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('submitFilter');
 							}
@@ -111,6 +110,7 @@ Ext.define('Datanium.controller.ChartController', {
 					}
 				});
 			}
+			console.log(filterSwitch.menu);
 			// enable filterSwitch
 			filterSwitch.enable();
 		} else {
