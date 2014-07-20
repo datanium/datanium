@@ -67,6 +67,7 @@ Ext.define('Datanium.view.charts.ChartToolbar', {
 		tooltip : 'Switch Dimension',
 		tooltipType : 'title',
 		text : 'Primary Dimension',
+		disabled : true,
 		handler : function() {
 			this.showMenu();
 		},
@@ -84,6 +85,7 @@ Ext.define('Datanium.view.charts.ChartToolbar', {
 		tooltip : 'Switch Filter',
 		tooltipType : 'title',
 		text : 'Primary Filter',
+		disabled : true,
 		handler : function() {
 			this.showMenu();
 		},

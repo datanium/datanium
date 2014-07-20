@@ -85,23 +85,15 @@ Ext.define('Datanium.view.FilterBox', {
 		popup.center();
 	},
 	submitFilter : function(buttonId, text, opt) {
-		if (buttonId == 'yes') {
-			if (popSelection.length > 0) {
-				Datanium.util.CommonUtils.splitFilter(popSelection);
-			} else {
-				// Datanium.GlobalData.queryParam.split = null;
-				var key = Datanium.GlobalData.popDimensionKey;
-				delete Datanium.GlobalData.queryParam.filters[key];
-				Datanium.GlobalData.queryParam.isSplit = false;
-				// Datanium.util.CommonUtils.clearPopDimFilter();
-			}
-			Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('submitFilter');
-		} else if (buttonId == 'no') {
-			popSelection = [];
-			Datanium.GlobalData.queryParam.split = null;
+		if (buttonId == 'yes' && popSelection.length > 0) {
+			Datanium.util.CommonUtils.splitFilter(popSelection);
+		} else {
+			// Datanium.GlobalData.queryParam.split = null;
+			var key = Datanium.GlobalData.popDimensionKey;
+			delete Datanium.GlobalData.queryParam.filters[key];
 			Datanium.GlobalData.queryParam.isSplit = false;
-			Datanium.util.CommonUtils.clearPopDimFilter();
-			Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('submitFilter');
+			// Datanium.util.CommonUtils.clearPopDimFilter();
 		}
+		Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('submitFilter');
 	}
 });

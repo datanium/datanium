@@ -34,6 +34,16 @@ Ext.define('Datanium.controller.Homepage', {
 					Datanium.util.CommonUtils.cleanData();
 				}
 			},
+			'inner-toolbar > button[action=show-fields]' : {
+				click : function(btn) {
+					var fieldpanel = Datanium.util.CommonUtils.getCmpInActiveTab('fieldpanel');
+					if (btn.pressed) {
+						fieldpanel.show();
+					} else {
+						fieldpanel.hide();
+					}
+				}
+			},
 			'inner-toolbar > button[action=auto-run]' : {
 				click : function(btn) {
 					if (btn.pressed) {
