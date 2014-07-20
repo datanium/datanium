@@ -74,7 +74,7 @@
 		to(#8DD28B));
 }
 
-.fieldBtn-f {
+/* .fieldBtn-f {
 	border: solid 1px #D25057;
 	background: -webkit-gradient(linear, 0 bottom, 0 0, from(#FFDFE1),
 		to(#FFF7F7));
@@ -90,6 +90,23 @@
 	border: solid 1px #D25057;
 	background: -webkit-gradient(linear, 0 bottom, 0 0, from(#F1B3B7),
 		to(#F0A6AB));
+} */
+.fieldBtn-f {
+	border: solid 1px #CBAB37;
+	background: -webkit-gradient(linear, 0 bottom, 0 0, from(#FFF6D3),
+		to(#FFFDF3));
+}
+
+.fieldBtn-f:hover {
+	border: solid 1px #CBAB37;
+	background: -webkit-gradient(linear, 0 bottom, 0 0, from(#FCE68C),
+		to(#FFF6D2));
+}
+
+.fieldBtn-f:active {
+	border: solid 1px #CBAB37;
+	background: -webkit-gradient(linear, 0 bottom, 0 0, from(#FCE68C),
+		to(#E3CB6C));
 }
 
 .x-grid-cell-inner-right {
@@ -125,6 +142,6 @@
 }
 
 .x-btn-default-toolbar-small {
-  padding: 1px;
-  background-color: transparent;
+	padding: 1px;
+	background-color: transparent;
 }
