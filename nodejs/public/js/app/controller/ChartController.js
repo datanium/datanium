@@ -110,7 +110,6 @@ Ext.define('Datanium.controller.ChartController', {
 					}
 				});
 			}
-			console.log(filterSwitch.menu);
 			// enable filterSwitch
 			filterSwitch.enable();
 		} else {

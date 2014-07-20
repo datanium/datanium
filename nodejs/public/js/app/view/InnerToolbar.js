@@ -36,7 +36,7 @@ Ext.define('Datanium.view.InnerToolbar', {
 		scale : 'medium',
 		tooltip : 'Show Field Panel',
 		tooltipType : 'title',
-		html : '<i class="fa fa-list fa-2x"></i>',
+		html : '<i class="fa fa-bars fa-2x"></i>',
 		action : 'show-fields',
 		enableToggle : true,
 		pressed : true
