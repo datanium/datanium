@@ -142,6 +142,27 @@ Ext.define('Datanium.util.CommonUtils', {
 			// console.log(meaField);
 			// console.log(Datanium.GlobalData.queryParam);
 		},
+		updateFilterFields : function() {
+			var fltField = Datanium.util.CommonUtils.getCmpInActiveTab(Datanium.util.CommonUtils
+					.getCmpSearchKey('fltField'));
+			fltField.removeAll();
+			var queryParam = Datanium.GlobalData.queryParam;
+			var dimensions = queryParam.dimensions;
+			if ('filters' in queryParam) {
+				for (key in queryParam.filters) {
+					Ext.Array.each(dimensions, function(dim) {
+						if (key == dim.uniqueName) {
+							var field = {
+								uniqueName : key,
+								text : dim.text,
+								cls : 'fieldBtn-f'
+							};
+							fltField.add(field);
+						}
+					});
+				}
+			}
+		},
 		pushElements2Array : function(items, array) {
 			Ext.Array.each(items, function(item) {
 				var dupFlag = false;

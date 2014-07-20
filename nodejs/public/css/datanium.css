@@ -74,6 +74,24 @@
 		to(#8DD28B));
 }
 
+.fieldBtn-f {
+	border: solid 1px #D25057;
+	background: -webkit-gradient(linear, 0 bottom, 0 0, from(#FFDFE1),
+		to(#FFF7F7));
+}
+
+.fieldBtn-f:hover {
+	border: solid 1px #D25057;
+	background: -webkit-gradient(linear, 0 bottom, 0 0, from(#F1B3B7),
+		to(#FFE9E9));
+}
+
+.fieldBtn-f:active {
+	border: solid 1px #D25057;
+	background: -webkit-gradient(linear, 0 bottom, 0 0, from(#F1B3B7),
+		to(#F0A6AB));
+}
+
 .x-grid-cell-inner-right {
 	text-align: right !important;
 }
@@ -104,4 +122,9 @@
 
 .x-btn-default-toolbar-medium-icon-text-left .x-btn-button {
 	height: 15px;
+}
+
+.x-btn-default-toolbar-small {
+  padding: 1px;
+  background-color: transparent;
 }
