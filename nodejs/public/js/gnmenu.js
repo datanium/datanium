@@ -43,8 +43,9 @@
 
 			if( !mobilecheck() ) {
 				this.trigger.addEventListener( 'mouseover', function(ev) { self._openIconMenu(); } );
-				this.trigger.addEventListener( 'mouseout', function(ev) { self._closeIconMenu(); } );
-			
+				if(navigator.appVersion.indexOf("MSIE") < 0){
+					this.trigger.addEventListener( 'mouseout', function(ev) { self._closeIconMenu(); } );
+				}
 				this.menu.addEventListener( 'mouseover', function(ev) {
 					self._openMenu(); 
 					document.addEventListener( self.eventtype, self.bodyClickFn ); 
