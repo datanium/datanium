@@ -26,6 +26,15 @@ Ext.define('Datanium.controller.Homepage', {
 					}
 				}
 			},
+			'inner-toolbar > button[action=analysis-mode]' : {
+				click : function(btn) {
+					if (Datanium.GlobalData.rptMode != 'analysis') {
+						Datanium.GlobalData.rptMode = 'analysis';
+						Datanium.util.CommonUtils.getCmpInActiveTab('datapanel').getLayout().setActiveItem(2);
+						Datanium.util.CommonUtils.getCmpInActiveTab('basic-analysis').fireEvent('analysisInit');
+					}
+				}
+			},
 			'inner-toolbar > button[action=clear]' : {
 				click : function(btn) {
 					Datanium.util.CommonUtils.cleanData();
