@@ -39,8 +39,8 @@ Ext.define('Datanium.view.ReportTemplate', {
 			bodyBorder : false,
 			border : false,
 			defaults : {
-				collapsible : true,
-				split : true
+				collapsible : false,
+				split : false
 			},
 			items : [ {
 				title : 'My Analysis',
@@ -68,7 +68,6 @@ Ext.define('Datanium.view.ReportTemplate', {
 				xtype : 'datapanel',
 				region : 'center',
 				floatable : false,
-				collapsible : false,
 				layout : 'fit',
 				header : false,
 				minWidth : 400
