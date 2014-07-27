@@ -18,6 +18,9 @@ Ext.define('Datanium.view.DataPanel', {
 			}, {
 				xtype : 'datachartview',
 				itemId : Datanium.util.CommonUtils.genItemId('dataChartView')
+			}, {
+				xtype : 'dataanalysisview',
+				itemId : Datanium.util.CommonUtils.genItemId('dataAnalysisView')
 			} ]
 		});
 		this.callParent();

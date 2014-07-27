@@ -71,7 +71,7 @@ Ext.define('Datanium.view.InnerToolbar', {
 		enableToggle : true,
 		pressed : false,
 		toggleGroup : 'rptMode',
-		disabled : true
+		disabled : false
 	}, {
 		xtype : 'tbseparator',
 		height : 14,
