@@ -31,7 +31,7 @@ Ext.define('Datanium.controller.Homepage', {
 					if (Datanium.GlobalData.rptMode != 'analysis') {
 						Datanium.GlobalData.rptMode = 'analysis';
 						Datanium.util.CommonUtils.getCmpInActiveTab('datapanel').getLayout().setActiveItem(2);
-						Datanium.util.CommonUtils.getCmpInActiveTab('basic-analysis').fireEvent('analysisInit');
+						Datanium.util.CommonUtils.getCmpInActiveTab('demo-analysis').fireEvent('analysisInit');
 					}
 				}
 			},

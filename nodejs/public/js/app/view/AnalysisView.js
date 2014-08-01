@@ -5,7 +5,7 @@ Ext.define('Datanium.view.AnalysisView', {
 		Ext.apply(this, {
 			layout : 'border',
 			items : [ {
-				xtype : 'basic-analysis',
+				xtype : 'demo-analysis',
 				width : '100%'
 			} ]
 		});
