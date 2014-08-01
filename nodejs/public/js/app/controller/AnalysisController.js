@@ -1,17 +1,17 @@
 Ext.define('Datanium.controller.AnalysisController', {
 	extend : 'Ext.app.Controller',
-	views : [ 'AnalysisView', 'analysis.BasicAnalysis' ],
-	stores : [],
-	models : [],
+	views : [ 'AnalysisView', 'analysis.DemoAnalysis' ],
+	stores : [ 'DemoAnalysisStats' ],
+	models : [ 'DemoAnalysisStat' ],
 	init : function() {
 		this.control({
-			'basic-analysis' : {
-				analysisInit : this.onBasicAnalysisReady
+			'demo-analysis' : {
+				analysisInit : this.onDemoAnalysisReady
 			}
 		});
 	},
-	onBasicAnalysisReady : function() {
-		console.log('onBasicAnalysisReady');
-		Ext.Msg.alert('Notification', 'This is a Sample of Basic Analysis.');
+	onDemoAnalysisReady : function() {
+		console.log('onDemoAnalysisReady');
+		Ext.Msg.alert('Notification', 'This is just a Demo of Analysis View with dummy data.');
 	}
 });

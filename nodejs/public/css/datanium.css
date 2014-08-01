@@ -132,6 +132,10 @@
 	padding: 4px 3px 4px 0px;
 }
 
+.analysisIndicatorBtn {
+	padding: 0px 5px;
+}
+
 .x-btn-default-toolbar-medium-icon-text-left .x-btn-inner {
 	line-height: 15px;
 	padding-left: 28px;
@@ -144,4 +148,8 @@
 .x-btn-default-toolbar-small {
 	padding: 1px;
 	background-color: transparent;
+}
+
+legend {
+	margin-bottom: 0px;
 }

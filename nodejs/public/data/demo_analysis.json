@@ -1,0 +1,47 @@
+{
+	"root":[
+		{
+			"year": 2005,
+			"min":1,
+			"max":10,
+			"mean":5,
+			"median":3,
+			"std":1.5
+		},{
+			"year": 2006,
+			"min":1,
+			"max":11,
+			"mean":5,
+			"median":3,
+			"std":1.5
+		},{
+			"year": 2007,
+			"min":2,
+			"max":15,
+			"mean":6,
+			"median":4,
+			"std":1.1
+		},{
+			"year": 2008,
+			"min":2,
+			"max":10,
+			"mean":6,
+			"median":2,
+			"std":1.2
+		},{
+			"year": 2009,
+			"min":1,
+			"max":15,
+			"mean":4,
+			"median":6,
+			"std":1.6
+		},{
+			"year": 2010,
+			"min":1,
+			"max":20,
+			"mean":3,
+			"median":2,
+			"std":2.5
+		}
+	]
+}
