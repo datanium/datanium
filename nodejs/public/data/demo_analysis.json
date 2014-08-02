@@ -42,6 +42,27 @@
 			"mean":3,
 			"median":2,
 			"std":2.5
+		},{
+			"year": 2011,
+			"min":2,
+			"max":17,
+			"mean":8,
+			"median":4,
+			"std":3
+		},{
+			"year": 2012,
+			"min":6,
+			"max":28,
+			"mean":12,
+			"median":21,
+			"std":1.8
+		},{
+			"year": 2013,
+			"min":2,
+			"max":21,
+			"mean":8,
+			"median":12,
+			"std":2.4
 		}
 	]
 }

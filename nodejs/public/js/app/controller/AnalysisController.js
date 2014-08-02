@@ -1,8 +1,8 @@
 Ext.define('Datanium.controller.AnalysisController', {
 	extend : 'Ext.app.Controller',
 	views : [ 'AnalysisView', 'analysis.DemoAnalysis' ],
-	stores : [ 'DemoAnalysisStats' ],
-	models : [ 'DemoAnalysisStat' ],
+	stores : [ 'DemoAnalysisStats', 'DemoAnalysisTimes' ],
+	models : [ 'DemoAnalysisStat', 'DemoAnalysisTime' ],
 	init : function() {
 		this.control({
 			'demo-analysis' : {

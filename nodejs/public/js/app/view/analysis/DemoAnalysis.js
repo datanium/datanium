@@ -1,12 +1,6 @@
 Ext.define('Datanium.view.analysis.DemoAnalysis', {
 	extend : 'Ext.form.Panel',
 	alias : 'widget.demo-analysis',
-	fieldDefaults : {
-		labelAlign : 'right',
-		labelWidth : 115,
-		msgTarget : 'side'
-	},
-
 	initComponent : function() {
 		Ext.apply(this, {
 			region : 'center',
@@ -75,17 +69,46 @@ Ext.define('Datanium.view.analysis.DemoAnalysis', {
 		}, {
 			xtype : 'fieldset',
 			title : 'Time Series Analysis',
-			defaultType : 'textfield',
-			defaults : {
-				columnLines : true,
-				autoHeight : true,
-				autoWidth : true,
-				forceFit : true,
-				viewConfig : {
-					stripeRows : true
-				}
-			},
-			items : []
+			defaultType : 'panel',
+			items : [ {
+				layout : 'border',
+				border : false,
+				height : 220,
+				items : [ {
+					xtype : 'chart',
+					layout : 'fit',
+					style : 'background:#fff',
+					animate : true,
+					insetPadding : 20,
+					shadow : true,
+					legend : {
+						position : 'right'
+					},
+					store : 'DemoAnalysisTimes',
+					axes : [ {
+						type : 'Numeric',
+						position : 'left',
+						fields : [ 'data' ],
+						grid : true,
+						minimum : 0
+					}, {
+						type : 'Category',
+						position : 'bottom',
+						fields : [ 'year' ]
+					} ],
+					series : [ {
+						type : 'line',
+						smooth : true,
+						highlight : {
+							size : 3,
+							radius : 3
+						},
+						axis : 'left',
+						xField : 'year',
+						yField : 'data'
+					} ]
+				} ]
+			} ]
 		}, {
 			xtype : 'fieldset',
 			title : 'Correlation Analysis',
@@ -103,7 +126,7 @@ Ext.define('Datanium.view.analysis.DemoAnalysis', {
 				xtype : 'splitbutton',
 				margin : '6 5 14 5',
 				scale : 'medium',
-				text : 'Select Another Indicator',
+				text : 'Sample Indicator B',
 				handler : function() {
 					this.showMenu();
 				},
