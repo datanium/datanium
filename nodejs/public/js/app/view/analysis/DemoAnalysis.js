@@ -4,7 +4,6 @@ Ext.define('Datanium.view.analysis.DemoAnalysis', {
 	initComponent : function() {
 		Ext.apply(this, {
 			region : 'center',
-			margin : '5 0 0 0',
 			style : 'background:#fff',
 			title : 'Analysis Mode',
 			header : false,
