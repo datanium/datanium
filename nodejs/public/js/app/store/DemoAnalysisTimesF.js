@@ -1,4 +1,4 @@
-Ext.define('Datanium.store.DemoAnalysisTimes', {
+Ext.define('Datanium.store.DemoAnalysisTimesF', {
 	extend : 'Ext.data.Store',
 	model : 'Datanium.model.DemoAnalysisTime',
 	data : [ {
@@ -31,5 +31,11 @@ Ext.define('Datanium.store.DemoAnalysisTimes', {
 	}, {
 		"year" : 2013,
 		"data" : 4
+	}, {
+		"year" : 2014,
+		"data" : 6
+	}, {
+		"year" : 2015,
+		"data" : 8
 	} ]
 });
