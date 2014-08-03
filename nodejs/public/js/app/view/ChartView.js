@@ -7,7 +7,6 @@ Ext.define('Datanium.view.ChartView', {
 			items : [ {
 				region : 'south',
 				xtype : 'chart-toolbar',
-				itemId : Datanium.util.CommonUtils.genItemId('chart-toolbar'),
 				width : '100%',
 				border : false
 			} ]
