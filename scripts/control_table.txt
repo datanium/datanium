@@ -4,7 +4,6 @@ d_region={"dimension_key":"region", "dimension_text":"Region"};
 d_country={"dimension_key":"country", "dimension_text":"Country"}; 
 d_year={"dimension_key":"year", "dimension_text":"Year"}; 
 d_month={"dimension_key":"month", "dimension_text":"Month"}; 
-d_day={"dimension_key":"day", "dimension_text":"Day"}; 
 d_stock_symbol={"dimension_key":"stock_symbol", "dimension_text":"Symbol(Stock)"};
 d_stock_name={"dimension_key":"stock_name", "dimension_text":"Name(Stock)"};
 d_stock_ipoyear={"dimension_key":"stock_ipoyear", "dimension_text":"IPO Year(Stock)"};
