@@ -23,7 +23,7 @@ newlines.append('db.indicator.insert({"indicator_key":"stock_high", "indicator_t
 newlines.append('db.indicator.insert({"indicator_key":"stock_low", "indicator_text":"Low (Stock)", "data_source":"Yahoo Finance", "data_type":"number", "dimension":[d_year, d_month, d_stock_symbol, d_stock_name, d_stock_ipoyear, d_stock_sector, d_stock_industry]});')
 newlines.append('db.indicator.insert({"indicator_key":"stock_volume", "indicator_text":"Volume (Stock)", "data_source":"Yahoo Finance", "data_type":"number", "dimension":[d_year, d_month, d_stock_symbol, d_stock_name, d_stock_ipoyear, d_stock_sector, d_stock_industry]});')
 
-with open('stock_indicators.txt','w') as f:
+with open('control_stock.js','w') as f:
     f.write("\n".join(newlines))
 f.close()
 
