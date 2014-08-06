@@ -10,18 +10,18 @@ newlines = []
 newlines.append('d_year={"dimension_key":"year", "dimension_text":"Year"};')
 newlines.append('d_month={"dimension_key":"month", "dimension_text":"Month"};')
 ##newlines.append('d_day={"dimension_key":"day", "dimension_text":"Day"};')
-newlines.append('d_stock_symbol={"dimension_key":"stock_symbol", "dimension_text":"Symbol(Stock)"};')
-newlines.append('d_stock_name={"dimension_key":"stock_name", "dimension_text":"Name(Stock)"};')
-newlines.append('d_stock_ipoyear={"dimension_key":"stock_ipoyear", "dimension_text":"IPO Year(Stock)"};')
-newlines.append('d_stock_sector={"dimension_key":"stock_sector", "dimension_text":"Sector(Stock)"};')
-newlines.append('d_stock_industry={"dimension_key":"stock_industry", "dimension_text":"Industry(Stock)"};')
+newlines.append('d_stock_symbol={"dimension_key":"stock_symbol", "dimension_text":"Symbol (Stock)"};')
+newlines.append('d_stock_name={"dimension_key":"stock_name", "dimension_text":"Name (Stock)"};')
+newlines.append('d_stock_ipoyear={"dimension_key":"stock_ipoyear", "dimension_text":"IPO Year (Stock)"};')
+newlines.append('d_stock_sector={"dimension_key":"stock_sector", "dimension_text":"Sector (Stock)"};')
+newlines.append('d_stock_industry={"dimension_key":"stock_industry", "dimension_text":"Industry (Stock)"};')
 
-newlines.append('db.indicator.insert({"indicator_key":"stock_open", "indicator_text":"Open(Stock)", "data_source":"Yahoo Finance", "data_type":"number", "dimension":[d_year, d_month, d_stock_symbol, d_stock_name, d_stock_ipoyear, d_stock_sector, d_stock_industry]});')
-newlines.append('db.indicator.insert({"indicator_key":"stock_close", "indicator_text":"Close(Stock)", "data_source":"Yahoo Finance", "data_type":"number", "dimension":[d_year, d_month, d_stock_symbol, d_stock_name, d_stock_ipoyear, d_stock_sector, d_stock_industry]});')
-##newlines.append('db.indicator.insert({"indicator_key":"stock_adj_close", "indicator_text":"Adjust Close(Stock)", "data_source":"Yahoo Finance", "data_type":"number", "dimension":[d_year, d_month, d_stock_symbol, d_stock_name, d_stock_ipoyear, d_stock_sector, d_stock_industry]});')
-newlines.append('db.indicator.insert({"indicator_key":"stock_high", "indicator_text":"High(Stock)", "data_source":"Yahoo Finance", "data_type":"number", "dimension":[d_year, d_month, d_stock_symbol, d_stock_name, d_stock_ipoyear, d_stock_sector, d_stock_industry]});')
-newlines.append('db.indicator.insert({"indicator_key":"stock_low", "indicator_text":"Low(Stock)", "data_source":"Yahoo Finance", "data_type":"number", "dimension":[d_year, d_month, d_stock_symbol, d_stock_name, d_stock_ipoyear, d_stock_sector, d_stock_industry]});')
-newlines.append('db.indicator.insert({"indicator_key":"stock_volume", "indicator_text":"Volume(Stock)", "data_source":"Yahoo Finance", "data_type":"number", "dimension":[d_year, d_month, d_stock_symbol, d_stock_name, d_stock_ipoyear, d_stock_sector, d_stock_industry]});')
+newlines.append('db.indicator.insert({"indicator_key":"stock_open", "indicator_text":"Open (Stock)", "data_source":"Yahoo Finance", "data_type":"number", "dimension":[d_year, d_month, d_stock_symbol, d_stock_name, d_stock_ipoyear, d_stock_sector, d_stock_industry]});')
+newlines.append('db.indicator.insert({"indicator_key":"stock_close", "indicator_text":"Close (Stock)", "data_source":"Yahoo Finance", "data_type":"number", "dimension":[d_year, d_month, d_stock_symbol, d_stock_name, d_stock_ipoyear, d_stock_sector, d_stock_industry]});')
+##newlines.append('db.indicator.insert({"indicator_key":"stock_adj_close", "indicator_text":"Adjust Close (Stock)", "data_source":"Yahoo Finance", "data_type":"number", "dimension":[d_year, d_month, d_stock_symbol, d_stock_name, d_stock_ipoyear, d_stock_sector, d_stock_industry]});')
+newlines.append('db.indicator.insert({"indicator_key":"stock_high", "indicator_text":"High (Stock)", "data_source":"Yahoo Finance", "data_type":"number", "dimension":[d_year, d_month, d_stock_symbol, d_stock_name, d_stock_ipoyear, d_stock_sector, d_stock_industry]});')
+newlines.append('db.indicator.insert({"indicator_key":"stock_low", "indicator_text":"Low (Stock)", "data_source":"Yahoo Finance", "data_type":"number", "dimension":[d_year, d_month, d_stock_symbol, d_stock_name, d_stock_ipoyear, d_stock_sector, d_stock_industry]});')
+newlines.append('db.indicator.insert({"indicator_key":"stock_volume", "indicator_text":"Volume (Stock)", "data_source":"Yahoo Finance", "data_type":"number", "dimension":[d_year, d_month, d_stock_symbol, d_stock_name, d_stock_ipoyear, d_stock_sector, d_stock_industry]});')
 
 with open('stock_indicators.txt','w') as f:
     f.write("\n".join(newlines))
@@ -30,7 +30,7 @@ f.close()
 print("generating indicator script file is complete.")
 print("block/all cost: " + str(round(timeit.default_timer() - start)) + 's /' + str(round(timeit.default_timer() - all_start)) + 's')
 start = timeit.default_timer()
-print("start loading Nasdaq company info...")
+print("start loading NYSE company info...")
 
 stock_dim = ['stock_symbol','stock_name','LastSale','MarketCap','ADR TSO','stock_ipoyear','stock_sector','stock_industry','Summary Quote']
 stock_list = []
@@ -76,11 +76,11 @@ for idx, stock in enumerate(stock_list):
 ##            print(line_array)
             if len(line_array[0].strip()) > 0:
                 date_array = line_array[0].split('-')
-            newline = date_array[0] + ',' + date_array[1] + ',' + stock['stock_symbol'] + ',' + stock['stock_name'] + ',' + stock['stock_ipoyear'] + ',' + stock['stock_sector'] + ',' + stock['stock_industry'] + ',' + line_array[1] + ',' + line_array[4] + ',' + line_array[2] + ',' + line_array[3] + ',' + line_array[5]
+            newline = date_array[0] + ',' + date_array[0] + '-' + date_array[1] + ',' + stock['stock_symbol'] + ',' + stock['stock_name'] + ',' + stock['stock_ipoyear'] + ',' + stock['stock_sector'] + ',' + stock['stock_industry'] + ',' + line_array[1] + ',' + line_array[4] + ',' + line_array[2] + ',' + line_array[3] + ',' + line_array[5]
             newlines.append(newline)
     print("output size: " + str(len(newlines)))
 
-print("loading Nasdaq company info is complete.")
+print("loading NYSE company info is complete.")
 print("block/all cost: " + str(round(timeit.default_timer() - start)) + 's /' + str(round(timeit.default_timer() - all_start)) + 's')
 start = timeit.default_timer()
 print("start writing output csv...")
