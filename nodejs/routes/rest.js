@@ -482,10 +482,12 @@ exports.dimensionValueSearch = function(req, res) {
 			if (err)
 				console.log('Exception: ' + err);
 			doc.forEach(function(item, index) {
-				var tempJson = {
-					"name" : item._id
-				};
-				results.push(tempJson);
+				if (item._id != null) {
+					var tempJson = {
+						"name" : item._id
+					};
+					results.push(tempJson);
+				}
 			});
 			dimensionValueResultJSON = {
 				"dimensionValues" : results
