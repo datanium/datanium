@@ -369,6 +369,8 @@ function convertResult(doc, isChart) {
 	if (isChart) {
 		if (results.length > 0 && 'year' in results[0])
 			bubbleSort(results, 'year');
+		if (results.length > 0 && 'month' in results[0])
+			bubbleSort(results, 'month');
 	}
 	return results;
 }

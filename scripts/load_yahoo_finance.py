@@ -8,7 +8,7 @@ print("start generating indicator script file...")
 
 newlines = []
 newlines.append('d_year={"dimension_key":"year", "dimension_text":"Year"};')
-newlines.append('d_month={"dimension_key":"month", "dimension_text":"Month"};')
+newlines.append('d_month={"dimension_key":"month", "dimension_text":"Year/Month"};')
 ##newlines.append('d_day={"dimension_key":"day", "dimension_text":"Day"};')
 newlines.append('d_stock_symbol={"dimension_key":"stock_symbol", "dimension_text":"Symbol (Stock)"};')
 newlines.append('d_stock_name={"dimension_key":"stock_name", "dimension_text":"Name (Stock)"};')
