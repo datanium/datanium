@@ -85,7 +85,7 @@ print("block/all cost: " + str(round(timeit.default_timer() - start)) + 's /' + 
 start = timeit.default_timer()
 print("start writing output csv...")
 
-with open('stock_output.csv','w') as output_file:
+with open('dataset_stock.csv','w') as output_file:
     output_file.write("\n".join(newlines))
 output_file.close()
 
