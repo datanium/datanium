@@ -331,7 +331,7 @@ Ext.define('Datanium.util.CommonUtils', {
 			return returnArray;
 		},
 		convertSplitValue : function(str) {
-			var returnStr = str.trim().replace(/ |-|&/g, '');
+			var returnStr = str.trim().replace(/ |-|&|\(|\)|\,|\./g, '');
 			return returnStr;
 		},
 		markSelection : function(selectedItem) {

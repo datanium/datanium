@@ -389,7 +389,7 @@ function bubbleSort(a, par) {
 }
 
 function convertSplitValue(str) {
-	var returnStr = str.trim().replace(/ |-|&|\(|\)/g, '');
+	var returnStr = str.trim().replace(/ |-|&|\(|\)|\,|\./g, '');
 	return returnStr;
 }
 
