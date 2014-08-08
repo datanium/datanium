@@ -79,14 +79,40 @@
 		</div>
 	</div>
 
-	<div class="modal fade" id="comingsoon" style="z-index: 1000000" >
+	<div class="modal fade" id="comingsoon" style="z-index: 1000000">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" >&times;</button>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h5 class="modal-title">&nbsp;</h5>
 				</div>
-				<div class="modal-body"><h4>Coming Soon...</h4></div>
+				<div class="modal-body">
+					<h4>Coming Soon...</h4>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="ieversion" style="z-index: 1000000">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h5 class="modal-title">BROWSER SUPPORT</h5>
+				</div>
+				<div class="modal-body">
+					<h4>You are using an old version browser.</h4>
+					<span>This site has been developed and optimized for the following browsers:<br /></span> <span><a
+						href="http://www.google.com/intl/en-US/chrome/browser/" target="_blank">Google Chrome 3+</a><br /></span>
+					<span><a href="http://www.mozilla.com/en-US/firefox/" target="_blank">Mozilla
+							Firefox 4+</a><br /></span> <span><a
+						href="http://www.microsoft.com/en-us/download/internet-explorer.aspx" target="_blank">Internet
+							Explorer 9+</a><br /></span> <span><a href="http://www.apple.com/safari/download/"
+						target="_blank">Apple Safari 4+</a><br /></span> <span>If you are using an older version or
+						different browser that is having difficulty rendering this site, download and install the
+						latest version of your browser using the link above.</span>
+					<p />
+				</div>
 			</div>
 		</div>
 	</div>
@@ -95,11 +121,14 @@
 	<script src="./js/gnmenu.js"></script>
 	<script>
 		new gnMenu(document.getElementById('gn-menu'));
-		var heightOffset = 125;
-		var appCon = document.getElementById('appContainer');
-		appCon.style.height = (window.innerHeight - heightOffset) + 'px';
-		window.onresize = function() {
+
+		function adjustScreenHeight() {
+			var heightOffset = 125;
+			var appCon = document.getElementById('appContainer');
 			appCon.style.height = (window.innerHeight - heightOffset) + 'px';
+			window.onresize = function() {
+				appCon.style.height = (window.innerHeight - heightOffset) + 'px';
+			}
 		}
 
 		function showModal() {
@@ -121,6 +150,23 @@
 		function comingSoon() {
 			$('#comingsoon').modal('show');
 		}
+
+		function ieVersionPop() {
+			$('#ieversion').modal('show');
+		}
+
+		function getIEVersion() {
+			var ua = window.navigator.userAgent;
+			var ie = ua.indexOf("MSIE ");
+			return ((ie > 0) ? parseInt(ua.substring(ie + 5, ua.indexOf(".", ie))) : 0);
+		}
+
+		$(document).ready(function() {
+			adjustScreenHeight();
+			var ieVersion = getIEVersion();
+			if (ieVersion > 0 && ieVersion < 9)
+				window.setTimeout(ieVersionPop, 1000);
+		});
 	</script>
 </body>
 </html>
