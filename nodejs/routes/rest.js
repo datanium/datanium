@@ -2,10 +2,12 @@ var data = require('../data/sampleData');
 var mongodb = require('../data/mongodb');
 var indicator = require('../data/indicator');
 var dataset = require('../data/dataset');
+var analysis = require('../data/analysis');
 var async = require('../lib/async');
 var hashids = require('../lib/hashids');
 var IndicatorSchema = indicator.Indicator;
 var datasetSchema = dataset.Dataset;
+var analysisSchema = analysis.Analysis;
 
 exports.cubeList = function(req, res) {
 	res.send(data.cubeListJSON);
@@ -507,9 +509,46 @@ exports.dimensionValueSearch = function(req, res) {
 }
 
 exports.save = function(req, res) {
-	var queryParam = req.body;
-	console.log(queryParam);
+	var analysisObj = req.body;
+	var userip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+	var hashid = null;
+	var date = new Date();
+
+	if (analysisObj.hashid !== null && analysisObj.hashid !== '') {
+		console.log('Update Analysis ' + analysisObj.hashid);
+		// update analysis
+		analysisSchema.findOneAndUpdate({
+			hashid : analysisObj.hashid
+		}, {
+			qubeInfo : analysisObj.qubeInfo,
+			queryParam : analysisObj.queryParam,
+			user_ip : userip,
+			modification_date : date
+		}, function(err, doc) {
+			if (err)
+				throw err;
+			console.log(doc);
+			hashid = doc.hashid;
+		})
+	} else {
+		console.log('Save New Analysis');
+		// encrypt hashid
+		var key = date.getTime() * 10 + Math.round(Math.random() * 10);
+		var hashs = new hashids("datanium salt", 4);
+		hashid = hashs.encrypt(key);
+		// save analysis
+		var newAnalysis = new analysisSchema({
+			hashid : hashid,
+			qubeInfo : analysisObj.qubeInfo,
+			queryParam : analysisObj.queryParam,
+			user_id : 'anonymous user',
+			user_ip : userip,
+			creation_date : date,
+			modification_date : date
+		});
+		newAnalysis.save();
+	}
 	res.send({
-		hashid : 'aaa'
+		hashid : hashid
 	});
 }

@@ -29,7 +29,7 @@ if ('development' == app.get('env')) {
 	app.use(express.errorHandler());
 }
 
-app.get('/', routes.index);
+app.get('/:hashid', routes.index);
 app.get('/helloworld', routes.helloworld);
 app.get('/rest/cube/list', rest.cubeList);
 app.get('/rest/cube/info', rest.cubeInfo);

@@ -172,7 +172,9 @@
 					qubeInfo : Datanium.GlobalData.qubeInfo
 				},
 				success : function(data) {
-					console.log(data);
+					if (Datanium.GlobalData.hashid === null || Datanium.GlobalData.hashid === '')
+						window.location.href = window.location.protocol + "//" + window.location.host + '/'
+								+ data.hashid
 				},
 				error : function() {
 				},

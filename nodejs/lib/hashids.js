@@ -1,18 +1,17 @@
-
 /*
 
-	hashids
-	http://www.hashids.org/js/
-	(c) 2013 Ivan Akimov
+ hashids
+ http://www.hashids.org/js/
+ (c) 2013 Ivan Akimov
 
-	https://github.com/ivanakimov/hashids.js
-	hashids may be freely distributed under the MIT license.
+ https://github.com/ivanakimov/hashids.js
+ hashids may be freely distributed under the MIT license.
 
-*/
+ */
 
 /*jslint plusplus: true */
 
-var Hashids = (function () {
+var Hashids = (function() {
 
 	"use strict";
 
@@ -60,7 +59,10 @@ var Hashids = (function () {
 			throw this.errorAlphabetSpace;
 		}
 
-		/* seps should contain only characters present in alphabet; alphabet should not contains seps */
+		/*
+		 * seps should contain only characters present in alphabet; alphabet
+		 * should not contains seps
+		 */
 
 		for (i = 0, len = this.seps.length; i !== len; i++) {
 
@@ -111,10 +113,9 @@ var Hashids = (function () {
 
 	}
 
-	Hashids.prototype.encrypt = function () {
+	Hashids.prototype.encrypt = function() {
 
-		var ret = "", i, len,
-			numbers = Array.prototype.slice.call(arguments);
+		var ret = "", i, len, numbers = Array.prototype.slice.call(arguments);
 
 		if (!numbers.length) {
 			return ret;
@@ -134,7 +135,7 @@ var Hashids = (function () {
 
 	};
 
-	Hashids.prototype.decrypt = function (hash) {
+	Hashids.prototype.decrypt = function(hash) {
 
 		var ret = [];
 
@@ -146,7 +147,7 @@ var Hashids = (function () {
 
 	};
 
-	Hashids.prototype.encryptHex = function (str) {
+	Hashids.prototype.encryptHex = function(str) {
 
 		var i, len, numbers;
 
@@ -164,10 +165,9 @@ var Hashids = (function () {
 
 	};
 
-	Hashids.prototype.decryptHex = function (hash) {
+	Hashids.prototype.decryptHex = function(hash) {
 
-		var ret = [], i, len,
-			numbers = this.decrypt(hash);
+		var ret = [], i, len, numbers = this.decrypt(hash);
 
 		for (i = 0, len = numbers.length; i !== len; i++) {
 			ret += (numbers[i]).toString(16).substr(1);
@@ -177,12 +177,9 @@ var Hashids = (function () {
 
 	};
 
-	Hashids.prototype.encode = function (numbers) {
+	Hashids.prototype.encode = function(numbers) {
 
-		var ret, lottery, i, len, number, buffer, last, sepsIndex, guardIndex, guard, halfLength, excess,
-			alphabet = this.alphabet,
-			numbersSize = numbers.length,
-			numbersHashInt = 0;
+		var ret, lottery, i, len, number, buffer, last, sepsIndex, guardIndex, guard, halfLength, excess, alphabet = this.alphabet, numbersSize = numbers.length, numbersHashInt = 0;
 
 		for (i = 0, len = numbers.length; i !== len; i++) {
 			numbersHashInt += (numbers[i] % (i + 100));
@@ -242,13 +239,10 @@ var Hashids = (function () {
 
 	};
 
-	Hashids.prototype.decode = function (hash, alphabet) {
+	Hashids.prototype.decode = function(hash, alphabet) {
 
-		var ret = [], i = 0,
-			lottery, len, subHash, buffer,
-			r = new RegExp("[" + this.guards + "]", "g"),
-			hashBreakdown = hash.replace(r, " "),
-			hashArray = hashBreakdown.split(" ");
+		var ret = [], i = 0, lottery, len, subHash, buffer, r = new RegExp("[" + this.guards + "]", "g"), hashBreakdown = hash
+				.replace(r, " "), hashArray = hashBreakdown.split(" ");
 
 		if (hashArray.length === 3 || hashArray.length === 2) {
 			i = 1;
@@ -284,7 +278,7 @@ var Hashids = (function () {
 
 	};
 
-	Hashids.prototype.consistentShuffle = function (alphabet, salt) {
+	Hashids.prototype.consistentShuffle = function(alphabet, salt) {
 
 		var integer, j, temp, i, v, p;
 
@@ -308,10 +302,9 @@ var Hashids = (function () {
 
 	};
 
-	Hashids.prototype.hash = function (input, alphabet) {
+	Hashids.prototype.hash = function(input, alphabet) {
 
-		var hash = "",
-			alphabetLength = alphabet.length;
+		var hash = "", alphabetLength = alphabet.length;
 
 		do {
 			hash = alphabet[input % alphabetLength] + hash;
@@ -322,7 +315,7 @@ var Hashids = (function () {
 
 	};
 
-	Hashids.prototype.unhash = function (input, alphabet) {
+	Hashids.prototype.unhash = function(input, alphabet) {
 
 		var number = 0, pos, i;
 
@@ -338,3 +331,8 @@ var Hashids = (function () {
 	return Hashids;
 
 }());
+
+// Node.js
+if (typeof module !== 'undefined' && module.exports) {
+	module.exports = Hashids;
+}
