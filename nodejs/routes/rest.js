@@ -36,7 +36,7 @@ exports.topicSearch = function(req, res) {
 		if (err)
 			console.log('Exception: ' + err);
 		doc.forEach(function(item, index) {
-			if (item.topic === null)
+			if (item.topic == null)
 				return;
 			var topicArray = item.topic.split(':');
 			var mainTopicStr = topicArray[0].trim();
