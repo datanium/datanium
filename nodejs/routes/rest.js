@@ -3,6 +3,7 @@ var mongodb = require('../data/mongodb');
 var indicator = require('../data/indicator');
 var dataset = require('../data/dataset');
 var async = require('../lib/async');
+var hashids = require('../lib/hashids');
 var IndicatorSchema = indicator.Indicator;
 var datasetSchema = dataset.Dataset;
 
@@ -32,6 +33,8 @@ exports.topicSearch = function(req, res) {
 		if (err)
 			console.log('Exception: ' + err);
 		doc.forEach(function(item, index) {
+			if (item.topic === null)
+				return;
 			var topicArray = item.topic.split(':');
 			var mainTopicStr = topicArray[0].trim();
 			var subTopicStr = topicArray[topicArray.length - 1].trim();
@@ -501,4 +504,12 @@ exports.dimensionValueSearch = function(req, res) {
 		};
 		res.send(dimensionValueResultJSON);
 	}
+}
+
+exports.save = function(req, res) {
+	var queryParam = req.body;
+	console.log(queryParam);
+	res.send({
+		hashid : 'aaa'
+	});
 }
