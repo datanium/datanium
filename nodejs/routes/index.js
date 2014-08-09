@@ -3,7 +3,11 @@
  */
 
 exports.index = function(req, res) {
-	res.render('index');
+	var hashid = req.url.substr(1);
+	console.log(hashid);
+	res.render('index', {
+		hashid : hashid
+	});
 };
 
 exports.helloworld = function(req, res) {
