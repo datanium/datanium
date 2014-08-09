@@ -50,5 +50,11 @@ Ext.application({
 			Ext.getCmp("appPanel").setHeight(Ext.get("appContainer").getHeight());
 			Ext.getCmp("appPanel").doLayout();
 		});
+
+		// call report generate when existed report is loaded
+		if (Datanium.GlobalData.hashid != null && Datanium.GlobalData.hashid !== '') {
+			Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('refreshElementPanel');
+			Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('selectionChange');
+		}
 	}
 });

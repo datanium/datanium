@@ -1,4 +1,3 @@
-var data = require('../data/sampleData');
 var mongodb = require('../data/mongodb');
 var indicator = require('../data/indicator');
 var dataset = require('../data/dataset');
@@ -8,14 +7,6 @@ var hashids = require('../lib/hashids');
 var IndicatorSchema = indicator.Indicator;
 var datasetSchema = dataset.Dataset;
 var analysisSchema = analysis.Analysis;
-
-exports.cubeList = function(req, res) {
-	res.send(data.cubeListJSON);
-};
-
-exports.cubeInfo = function(req, res) {
-	res.send(data.cubeInfoJSON);
-};
 
 exports.topicSearch = function(req, res) {
 	var resultJSON = [];
