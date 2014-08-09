@@ -33,6 +33,14 @@ Ext.define('Datanium.view.InnerToolbar', {
 		html : '<i class="fa fa-times-circle-o fa-2x"></i>',
 		action : 'clear'
 	}, {
+		scale : 'medium',
+		tooltip : 'Show Field Panel',
+		tooltipType : 'title',
+		html : '<i class="fa fa-list-alt fa-2x"></i>',
+		action : 'show-fields',
+		enableToggle : true,
+		pressed : true
+	}, {
 		xtype : 'tbseparator',
 		height : 14,
 		margins : '0 0 0 1'
@@ -63,7 +71,7 @@ Ext.define('Datanium.view.InnerToolbar', {
 		enableToggle : true,
 		pressed : false,
 		toggleGroup : 'rptMode',
-		disabled : true
+		disabled : false
 	}, {
 		xtype : 'tbseparator',
 		height : 14,

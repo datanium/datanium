@@ -285,7 +285,7 @@ select,
 textarea {
   font-family: inherit;
   font-size: inherit;
-  line-height: inherit;
+  /*line-height: inherit;*/
 }
 a {
   color: #34495e;
@@ -1634,16 +1634,17 @@ fieldset {
   margin: 0;
   border: 0;
 }
+/**change this for fix conflict with extjs form panel**/
 legend {
   display: block;
-  width: 100%;
+  /* width: 100%; */
   padding: 0;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
   font-size: 21px;
   line-height: inherit;
-  color: #333;
+  /* color: #333; */
   border: 0;
-  border-bottom: 1px solid #e5e5e5;
+  /* border-bottom: 1px solid #e5e5e5; */
 }
 label {
   display: inline-block;
@@ -5178,8 +5179,8 @@ button.close {
 }
 @media (min-width: 768px) {
   .modal-dialog {
-    width: 600px;
-    margin: 30px auto;
+    width: 640px;
+    margin: 50px auto;
   }
   .modal-content {
     -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, .5);

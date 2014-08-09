@@ -3,6 +3,7 @@ var mongodb = require('../data/mongodb');
 var indicator = require('../data/indicator');
 var dataset = require('../data/dataset');
 var async = require('../lib/async');
+var hashids = require('../lib/hashids');
 var IndicatorSchema = indicator.Indicator;
 var datasetSchema = dataset.Dataset;
 
@@ -14,47 +15,57 @@ exports.cubeInfo = function(req, res) {
 	res.send(data.cubeInfoJSON);
 };
 
-exports.topicSearch = function(req,res){
-	var resultJSON=[];
+exports.topicSearch = function(req, res) {
+	var resultJSON = [];
 	var mainTopic = '';
 	var subTopic = [];
-	IndicatorSchema.aggregate().group({'_id':'$topic'}).project({'topic' : '$_id'}).sort({'topic': 1}).exec(function(err, doc){
-		//.match({'topic' : 'Education: Efficiency'})
-	//IndicatorSchema.find().select({'topic' : 1, '_id' : 0}).sort({'topic':1}).exec(function(err, doc) { 
-		//IndicatorSchema.distinct('topic').sort().exec(function(err, doc) {
+	IndicatorSchema.aggregate().group({
+		'_id' : '$topic'
+	}).project({
+		'topic' : '$_id'
+	}).sort({
+		'topic' : 1
+	}).exec(function(err, doc) {
+		// .match({'topic' : 'Education: Efficiency'})
+		// IndicatorSchema.find().select({'topic' : 1, '_id' :
+		// 0}).sort({'topic':1}).exec(function(err, doc) {
+		// IndicatorSchema.distinct('topic').sort().exec(function(err, doc) {
 		if (err)
 			console.log('Exception: ' + err);
 		doc.forEach(function(item, index) {
+			if (item.topic === null)
+				return;
 			var topicArray = item.topic.split(':');
 			var mainTopicStr = topicArray[0].trim();
-			var subTopicStr = topicArray[topicArray.length-1].trim();
+			var subTopicStr = topicArray[topicArray.length - 1].trim();
 			console.log(mainTopicStr);
 			console.log(subTopicStr);
-			if(index == 0){
+			if (index == 0) {
 				mainTopic = mainTopicStr;
 				subTopic.push(subTopicStr);
-			}
-			else if(mainTopicStr==mainTopic){
+			} else if (mainTopicStr == mainTopic) {
 				subTopic.push(subTopicStr);
-			}else{
-				var topic = {'topic' : mainTopic,
-							 'subTopic' : subTopic
-							}
+			} else {
+				var topic = {
+					'topic' : mainTopic,
+					'subTopic' : subTopic
+				}
 				resultJSON.push(topic);
 				mainTopic = mainTopicStr;
 				subTopic = [];
 				subTopic.push(subTopicStr);
 			}
-			//resultJSON.push(item.topic);
+			// resultJSON.push(item.topic);
 		});
-		//deal with the last topic
-		var topic = {'topic' : mainTopic,
-					 'subTopic' : subTopic
-					}
+		// deal with the last topic
+		var topic = {
+			'topic' : mainTopic,
+			'subTopic' : subTopic
+		}
 		resultJSON.push(topic);
 		res.send(resultJSON);
 	});
-	
+
 };
 
 exports.querySplit = function(req, res) {
@@ -361,6 +372,8 @@ function convertResult(doc, isChart) {
 	if (isChart) {
 		if (results.length > 0 && 'year' in results[0])
 			bubbleSort(results, 'year');
+		if (results.length > 0 && 'month' in results[0])
+			bubbleSort(results, 'month');
 	}
 	return results;
 }
@@ -381,7 +394,7 @@ function bubbleSort(a, par) {
 }
 
 function convertSplitValue(str) {
-	var returnStr = str.trim().replace(/ |-|&|\(|\)/g, '');
+	var returnStr = str.trim().replace(/ |-|&|\(|\)|\,|\./g, '');
 	return returnStr;
 }
 
@@ -466,18 +479,23 @@ exports.dimensionValueSearch = function(req, res) {
 		// exclude blank record
 		var matchStr = '{ ' + key + ' : { $ne : \'\' } }';
 		var matchObj = eval("(" + matchStr + ")");
-		datasetSchema.distinct(key, matchObj, function(err, doc) {
+		datasetSchema.aggregate().match(matchObj).group({
+			'_id' : '$' + key
+		}).sort('field _id').exec(function(err, doc) {
 			if (err)
 				console.log('Exception: ' + err);
 			doc.forEach(function(item, index) {
-				var tempJson = {
-					"name" : item
-				};
-				results.push(tempJson);
+				if (item._id != null) {
+					var tempJson = {
+						"name" : item._id
+					};
+					results.push(tempJson);
+				}
 			});
 			dimensionValueResultJSON = {
 				"dimensionValues" : results
 			};
+			// put send here cause callback func is async
 			res.send(dimensionValueResultJSON);
 		});
 	} else {
@@ -486,4 +504,12 @@ exports.dimensionValueSearch = function(req, res) {
 		};
 		res.send(dimensionValueResultJSON);
 	}
+}
+
+exports.save = function(req, res) {
+	var queryParam = req.body;
+	console.log(queryParam);
+	res.send({
+		hashid : 'aaa'
+	});
 }

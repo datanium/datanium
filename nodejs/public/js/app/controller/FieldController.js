@@ -47,6 +47,8 @@ Ext.define('Datanium.controller.FieldController', {
 	},
 	submitFilter : function() {
 		console.log('submitFilter');
+		Datanium.util.CommonUtils.updateFilterFields();
 		this.getController('GridController').generateRpt(true);
+		this.getController('ChartController').reloadFilterSwitchMenu();
 	}
 });

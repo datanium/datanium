@@ -24,6 +24,7 @@ Ext.define('Datanium.view.charts.ChartToolbar', {
 			text : 'Column Chart',
 			handler : function() {
 				this.parentMenu.ownerButton.setText('Column Chart');
+				this.parentMenu.ownerButton.setTooltip('Column Chart');
 				Datanium.util.CommonUtils.markSelection(this);
 				if (Datanium.GlobalData.chartMode != 'columnchart') {
 					Datanium.GlobalData.chartMode = 'columnchart';
@@ -34,6 +35,7 @@ Ext.define('Datanium.view.charts.ChartToolbar', {
 			text : 'Stack Chart',
 			handler : function() {
 				this.parentMenu.ownerButton.setText('Stack Chart');
+				this.parentMenu.ownerButton.setTooltip('Stack Chart');
 				Datanium.util.CommonUtils.markSelection(this);
 				if (Datanium.GlobalData.chartMode != 'stackchart') {
 					Datanium.GlobalData.chartMode = 'stackchart';
@@ -44,6 +46,7 @@ Ext.define('Datanium.view.charts.ChartToolbar', {
 			text : 'Line Chart',
 			handler : function() {
 				this.parentMenu.ownerButton.setText('Line Chart');
+				this.parentMenu.ownerButton.setTooltip('Line Chart');
 				Datanium.util.CommonUtils.markSelection(this);
 				if (Datanium.GlobalData.chartMode != 'linechart') {
 					Datanium.GlobalData.chartMode = 'linechart';
@@ -61,9 +64,28 @@ Ext.define('Datanium.view.charts.ChartToolbar', {
 		iconCls : 'fa fa-cube',
 		cls : 'chartTypeBtn',
 		scale : 'medium',
-		tooltip : 'Column Chart',
+		tooltip : 'Switch Dimension',
 		tooltipType : 'title',
 		text : 'Primary Dimension',
+		disabled : true,
+		handler : function() {
+			this.showMenu();
+		},
+		menu : []
+	}, {
+		xtype : 'tbseparator',
+		height : 14,
+		margins : '0 0 0 1'
+	}, {
+		id : 'filterSwitch',
+		xtype : 'splitbutton',
+		iconCls : 'fa fa-filter',
+		cls : 'chartTypeBtn',
+		scale : 'medium',
+		tooltip : 'Switch Filter',
+		tooltipType : 'title',
+		text : 'Primary Filter',
+		disabled : true,
 		handler : function() {
 			this.showMenu();
 		},

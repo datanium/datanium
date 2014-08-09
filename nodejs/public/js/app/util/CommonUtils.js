@@ -142,6 +142,27 @@ Ext.define('Datanium.util.CommonUtils', {
 			// console.log(meaField);
 			// console.log(Datanium.GlobalData.queryParam);
 		},
+		updateFilterFields : function() {
+			var fltField = Datanium.util.CommonUtils.getCmpInActiveTab(Datanium.util.CommonUtils
+					.getCmpSearchKey('fltField'));
+			fltField.removeAll();
+			var queryParam = Datanium.GlobalData.queryParam;
+			var dimensions = queryParam.dimensions;
+			if ('filters' in queryParam) {
+				for (key in queryParam.filters) {
+					Ext.Array.each(dimensions, function(dim) {
+						if (key == dim.uniqueName) {
+							var field = {
+								uniqueName : key,
+								text : dim.text,
+								cls : 'fieldBtn-f'
+							};
+							fltField.add(field);
+						}
+					});
+				}
+			}
+		},
 		pushElements2Array : function(items, array) {
 			Ext.Array.each(items, function(item) {
 				var dupFlag = false;
@@ -310,7 +331,7 @@ Ext.define('Datanium.util.CommonUtils', {
 			return returnArray;
 		},
 		convertSplitValue : function(str) {
-			var returnStr = str.trim().replace(/ |-|&/g, '');
+			var returnStr = str.trim().replace(/ |-|&|\(|\)|\,|\./g, '');
 			return returnStr;
 		},
 		markSelection : function(selectedItem) {
@@ -323,6 +344,27 @@ Ext.define('Datanium.util.CommonUtils', {
 		clearPopDimFilter : function() {
 			var key = Datanium.GlobalData.popDimensionKey;
 			var selections = eval('Datanium.GlobalData.queryParam.filters.' + key + '=[]');
+		},
+		splitFilter : function(popSelection) {
+			var key = Datanium.GlobalData.popDimensionKey;
+			// time dimension no quotes
+			var popSelStr = '';
+			if (key == 'year') {
+				popSelStr = popSelection.join(",");
+			} else {
+				popSelStr = "'" + popSelection.join("','") + "'";
+			}
+			if (popSelStr.length > 0) {
+				// console.log('Datanium.GlobalData.queryParam.filters.' + key +
+				// '=[' + popSelStr + ']');
+				eval('Datanium.GlobalData.queryParam.filters.' + key + '=[' + popSelStr + ']');
+				var splitObj = {
+					dimensions : key,
+					splitValue : popSelection
+				};
+				Datanium.GlobalData.queryParam.split = splitObj;
+				Datanium.GlobalData.queryParam.isSplit = true;
+			}
 		},
 		cleanData : function() {
 			Datanium.GlobalData.queryParam = {

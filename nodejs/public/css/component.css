@@ -108,6 +108,7 @@
 	-webkit-transition: -webkit-transform 0.3s, width 0.3s;
 	-moz-transition: -moz-transform 0.3s, width 0.3s;
 	transition: transform 0.3s, width 0.3s;
+	display: none \9; /*IE*/
 }
 
 .gn-scroller {
@@ -306,6 +307,7 @@ input.gn-search:focus {
 	-webkit-transform: translateX(0px);
 	-moz-transform: translateX(0px);
 	transform: translateX(0px);
+	display: block \9; /*IE*/
 }
 
 .gn-menu-wrapper.gn-open-all {
