@@ -47,7 +47,7 @@
 					</div>
 					<!-- /gn-scroller -->
 				</nav></li>
-			<li><a href="#" onclick="comingSoon();"><span><i class="fa fa-pencil-square-o"></i>&nbsp;Save</span></a></li>
+			<li><a href="#" onclick="save();"><span><i class="fa fa-pencil-square-o"></i>&nbsp;Save</span></a></li>
 			<li><a href="#" onclick="comingSoon();"><span><i class="fa fa-laptop"></i>&nbsp;Space</span></a></li>
 			<li><a href="#" onclick="comingSoon();"><span><i class="fa fa-comment-o"></i>&nbsp;Feeback</span></a></li>
 			<li><a href="#" onclick="comingSoon();"><span><i class="fa fa-smile-o"></i>&nbsp;About</span></a></li>
@@ -131,7 +131,7 @@
 			}
 		}
 
-		function showModal() {
+		var showModal = function() {
 			var link = '/rest/query/topicSearch';
 			$.ajax({
 				url : link,
@@ -151,14 +151,33 @@
 			$('#comingsoon').modal('show');
 		}
 
-		function ieVersionPop() {
+		var ieVersionPop = function() {
 			$('#ieversion').modal('show');
 		}
 
-		function getIEVersion() {
+		var getIEVersion = function() {
 			var ua = window.navigator.userAgent;
 			var ie = ua.indexOf("MSIE ");
 			return ((ie > 0) ? parseInt(ua.substring(ie + 5, ua.indexOf(".", ie))) : 0);
+		}
+
+		var save = function() {
+			var url = '/rest/save';
+			$.ajax({
+				type : 'POST',
+				url : url,
+				data : {
+					hashid : Datanium.GlobalData.hashid,
+					queryParam : Datanium.GlobalData.queryParam,
+					qubeInfo : Datanium.GlobalData.qubeInfo
+				},
+				success : function(data) {
+					console.log(data);
+				},
+				error : function() {
+				},
+				dataType : 'json'
+			});
 		}
 
 		$(document).ready(function() {
