@@ -1,12 +1,24 @@
-/*
- * GET home page.
- */
+var mongodb = require('../data/mongodb');
+var analysis = require('../data/analysis');
+var analysisSchema = analysis.Analysis;
 
 exports.index = function(req, res) {
 	var hashid = req.url.substr(1);
-	console.log(hashid);
-	res.render('index', {
+	analysisSchema.findOne({
 		hashid : hashid
+	}, function(err, doc) {
+		if (err)
+			throw err;
+		if (doc === null) {
+			res.send('404 Sorry, no such page...');
+		} else {
+			console.log(JSON.stringify(doc.queryParam));
+			res.render('index', {
+				hashid : doc.hashid,
+				qubeInfo : JSON.stringify(doc.qubeInfo),
+				queryParam : JSON.stringify(doc.queryParam)
+			});
+		}
 	});
 };
 
