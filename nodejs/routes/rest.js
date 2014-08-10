@@ -18,11 +18,12 @@ exports.cubeInfo = function(req, res) {
 exports.topicSearch = function(req, res) {
 	var resultJSON = [];
 	var mainTopic = '';
-	var subTopic = [];
-	IndicatorSchema.aggregate().group({
+	var indicatorText = [];
+	/*IndicatorSchema.aggregate().group({
 		'_id' : '$topic'
 	}).project({
-		'topic' : '$_id'
+		'topic' : '$_id'*/
+		IndicatorSchema.find({},{_id:0,topic:1,indicator_text:1
 	}).sort({
 		'topic' : 1
 	}).exec(function(err, doc) {
@@ -37,30 +38,31 @@ exports.topicSearch = function(req, res) {
 				return;
 			var topicArray = item.topic.split(':');
 			var mainTopicStr = topicArray[0].trim();
-			var subTopicStr = topicArray[topicArray.length - 1].trim();
-			console.log(mainTopicStr);
-			console.log(subTopicStr);
+			//var subTopicStr = topicArray[topicArray.length - 1].trim();
+			var indicatorTextStr = item.indicator_text.trim();
+			//console.log(mainTopicStr);
+			//console.log(indicatorTextStr);
 			if (index == 0) {
 				mainTopic = mainTopicStr;
-				subTopic.push(subTopicStr);
+				indicatorText.push(indicatorTextStr);
 			} else if (mainTopicStr == mainTopic) {
-				subTopic.push(subTopicStr);
+				indicatorText.push(indicatorTextStr);
 			} else {
 				var topic = {
 					'topic' : mainTopic,
-					'subTopic' : subTopic
+					'indicatorText' : indicatorText
 				}
 				resultJSON.push(topic);
 				mainTopic = mainTopicStr;
-				subTopic = [];
-				subTopic.push(subTopicStr);
+				indicatorText = [];
+				indicatorText.push(indicatorTextStr);
 			}
 			// resultJSON.push(item.topic);
 		});
 		// deal with the last topic
 		var topic = {
 			'topic' : mainTopic,
-			'subTopic' : subTopic
+			'indicatorText' : indicatorText
 		}
 		resultJSON.push(topic);
 		res.send(resultJSON);
