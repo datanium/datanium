@@ -84,7 +84,8 @@ Ext.define('Datanium.controller.Homepage', {
 						Datanium.GlobalData.qubeInfo.measures);
 				// clean up the query param/result when adding indicator.
 				// should enhance this to keeping param in the future.
-				Datanium.util.CommonUtils.cleanData();
+				// Datanium.util.CommonUtils.cleanData();
+				Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('refreshElementPanel');
 			},
 			failure : function() {
 				mask.destroy();
