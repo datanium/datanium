@@ -75,7 +75,7 @@ Ext.define('Datanium.view.charts.StackChart', {
 					}
 				}
 				for ( var i = 0; i < fields_json.measures.length; i++) {
-					if (fields_json.isSplit) {
+					if (fields_json.isSplit && fields_json.isSplit !== 'false') {
 						var splitMeasures = Datanium.util.CommonUtils.getSplitMeasures(fields_json.measures[i],
 								fields_json.split.splitValue);
 						for ( var j = 0; j < splitMeasures.length; j++) {
