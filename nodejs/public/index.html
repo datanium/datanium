@@ -93,6 +93,20 @@
 		</div>
 	</div>
 
+	<div class="modal fade" id="savesuccess" style="z-index: 1000000">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h5 class="modal-title">&nbsp;</h5>
+				</div>
+				<div class="modal-body">
+					<h4>Save Successful.</h4>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<div class="modal fade" id="ieversion" style="z-index: 1000000">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -187,8 +201,8 @@
 		    html += '</div>';
 		    return html;
 		}
-
-		function comingSoon() {
+		
+		var comingSoon = function() {
 			$('#comingsoon').modal('show');
 		}
 
@@ -200,6 +214,9 @@
 			var ua = window.navigator.userAgent;
 			var ie = ua.indexOf("MSIE ");
 			return ((ie > 0) ? parseInt(ua.substring(ie + 5, ua.indexOf(".", ie))) : 0);
+		}
+		var saveSuccess = function() {
+			$('#savesuccess').modal('show');
 		}
 
 		var save = function() {
@@ -215,7 +232,9 @@
 				success : function(data) {
 					if (Datanium.GlobalData.hashid === null || Datanium.GlobalData.hashid === '')
 						window.location.href = window.location.protocol + "//" + window.location.host + '/'
-								+ data.hashid
+								+ data.hashid;
+					else
+						saveSuccess();
 				},
 				error : function() {
 				},

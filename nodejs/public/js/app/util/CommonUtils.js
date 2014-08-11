@@ -108,6 +108,28 @@ Ext.define('Datanium.util.CommonUtils', {
 			Datanium.GlobalData.QueryResult = null;
 			Datanium.util.CommonUtils.updateFields();
 		},
+		updateEPSelection : function() {
+			var epItems = Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').items;
+			var queryParam = Datanium.GlobalData.queryParam;
+			var dimNodes = queryParam.dimensions;
+			var meaNodes = queryParam.measures;
+			var autoRun = Datanium.GlobalData.autoRun;
+			Datanium.GlobalData.autoRun = false;
+			Ext.Array.each(epItems.items, function(rec, idx) {
+				var id = rec.uniqueName;
+				Ext.Array.each(dimNodes, function(d) {
+					if (id === d.uniqueName) {
+						epItems.items[idx].toggle();
+					}
+				});
+				Ext.Array.each(meaNodes, function(m) {
+					if (id === m.uniqueName) {
+						epItems.items[idx].toggle();
+					}
+				});
+			});
+			Datanium.GlobalData.autoRun = autoRun;
+		},
 		updateFields : function() {
 			var dimField = Datanium.util.CommonUtils.getCmpInActiveTab(Datanium.util.CommonUtils
 					.getCmpSearchKey('dimField'));

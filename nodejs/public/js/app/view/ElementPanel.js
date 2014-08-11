@@ -92,9 +92,9 @@ Ext.define('Datanium.view.ElementPanel', {
 					ep.add(btn);
 				});
 				ep.doLayout();
-				Datanium.util.CommonUtils.updateQueryParamByEP();
-				Datanium.util.CommonUtils.refreshAll();
-				Datanium.GlobalData.queryParam.primaryDimension = null;
+				Datanium.util.CommonUtils.updateEPSelection();
+				//Datanium.util.CommonUtils.refreshAll();
+				//Datanium.GlobalData.queryParam.primaryDimension = null;
 			}
 		});
 	}

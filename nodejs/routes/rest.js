@@ -12,11 +12,14 @@ exports.topicSearch = function(req, res) {
 	var resultJSON = [];
 	var mainTopic = '';
 	var indicatorText = [];
-	/*IndicatorSchema.aggregate().group({
-		'_id' : '$topic'
-	}).project({
-		'topic' : '$_id'*/
-		IndicatorSchema.find({},{_id:0,topic:1,indicator_text:1
+	/*
+	 * IndicatorSchema.aggregate().group({ '_id' : '$topic' }).project({ 'topic' :
+	 * '$_id'
+	 */
+	IndicatorSchema.find({}, {
+		_id : 0,
+		topic : 1,
+		indicator_text : 1
 	}).sort({
 		'topic' : 1
 	}).exec(function(err, doc) {
@@ -31,10 +34,10 @@ exports.topicSearch = function(req, res) {
 				return;
 			var topicArray = item.topic.split(':');
 			var mainTopicStr = topicArray[0].trim();
-			//var subTopicStr = topicArray[topicArray.length - 1].trim();
+			// var subTopicStr = topicArray[topicArray.length - 1].trim();
 			var indicatorTextStr = item.indicator_text.trim();
-			//console.log(mainTopicStr);
-			//console.log(indicatorTextStr);
+			// console.log(mainTopicStr);
+			// console.log(indicatorTextStr);
 			if (index == 0) {
 				mainTopic = mainTopicStr;
 				indicatorText.push(indicatorTextStr);
@@ -319,7 +322,7 @@ function generateGroupObj(queryParam, isChart) {
 
 function generateMatchObj(queryParam) {
 	var dimensions = queryParam.dimensions;
-	var filters = queryParam.filters;
+	var filters = queryParam.filters == null ? [] : queryParam.filters;
 	var filterArray = [];
 	dimensions.forEach(function(item, index) {
 		if (item.uniqueName in filters) {
@@ -506,42 +509,45 @@ exports.save = function(req, res) {
 	var userip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 	var hashid = null;
 	var date = new Date();
-
-	if (analysisObj.hashid !== null && analysisObj.hashid !== '') {
-		console.log('Update Analysis ' + analysisObj.hashid);
-		// update analysis
-		analysisSchema.findOneAndUpdate({
-			hashid : analysisObj.hashid
-		}, {
-			qubeInfo : analysisObj.qubeInfo,
-			queryParam : analysisObj.queryParam,
-			user_ip : userip,
-			modification_date : date
-		}, function(err, doc) {
-			if (err)
-				throw err;
-			console.log(doc);
-			hashid = doc.hashid;
-		})
-	} else {
-		console.log('Save New Analysis');
-		// encrypt hashid
-		var key = date.getTime() * 10 + Math.round(Math.random() * 10);
-		var hashs = new hashids("datanium salt", 4);
-		hashid = hashs.encrypt(key);
-		// save analysis
-		var newAnalysis = new analysisSchema({
-			hashid : hashid,
-			qubeInfo : analysisObj.qubeInfo,
-			queryParam : analysisObj.queryParam,
-			user_id : 'anonymous user',
-			user_ip : userip,
-			creation_date : date,
-			modification_date : date
+	async.parallel([ function(callback) {
+		if (analysisObj.hashid !== null && analysisObj.hashid !== '') {
+			console.log('Update Analysis ' + analysisObj.hashid);
+			// update analysis
+			analysisSchema.findOneAndUpdate({
+				hashid : analysisObj.hashid
+			}, {
+				qubeInfo : analysisObj.qubeInfo,
+				queryParam : analysisObj.queryParam,
+				user_ip : userip,
+				modification_date : date
+			}, function(err, doc) {
+				if (err)
+					throw err;
+				hashid = doc.hashid;
+				callback();
+			})
+		} else {
+			console.log('Save New Analysis');
+			// encrypt hashid
+			var key = date.getTime() * 10 + Math.round(Math.random() * 10);
+			var hashs = new hashids("datanium salt", 4);
+			hashid = hashs.encrypt(key);
+			// save analysis
+			var newAnalysis = new analysisSchema({
+				hashid : hashid,
+				qubeInfo : analysisObj.qubeInfo,
+				queryParam : analysisObj.queryParam,
+				user_id : 'anonymous user',
+				user_ip : userip,
+				creation_date : date,
+				modification_date : date
+			});
+			newAnalysis.save();
+			callback();
+		}
+	} ], function() {
+		res.send({
+			hashid : hashid
 		});
-		newAnalysis.save();
-	}
-	res.send({
-		hashid : hashid
 	});
 }
