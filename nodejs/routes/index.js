@@ -17,6 +17,8 @@ exports.index = function(req, res) {
 					dimensions : [],
 					measures : []
 				};
+			if (doc.queryParam.filters == null)
+				doc.queryParam.filters = {};
 			res.render('index', {
 				hashid : doc.hashid,
 				qubeInfo : JSON.stringify(doc.qubeInfo),
