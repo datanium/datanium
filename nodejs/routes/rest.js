@@ -310,7 +310,7 @@ function generateGroupObj(queryParam, isChart) {
 	var res = "{" + idStr + indicatorStr + "}";
 	var returnObj = eval("(" + res + ")");
 	projectStr += "_id:0}";
-	console.log(projectStr);
+	// console.log(projectStr);
 	var projectObj = eval("(" + projectStr + ")");
 	returnJSON = {
 		"returnObj" : returnObj,
@@ -339,7 +339,7 @@ function generateMatchObj(queryParam) {
 		}
 	});
 	var matchStr = '{ ' + filterArray.join(",") + ' }';
-	console.log(matchStr);
+	// console.log(matchStr);
 	var returnObj = eval("(" + matchStr + ")");
 	return returnObj;
 }
