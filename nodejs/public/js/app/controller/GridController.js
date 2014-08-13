@@ -70,6 +70,8 @@ Ext.define('Datanium.controller.GridController', {
 	},
 	checkCount : function(fields) {
 		var count = 0;
+		if (fields == null)
+			return count;
 		Ext.Array.forEach(fields, function(field) {
 			count += 1;
 		});

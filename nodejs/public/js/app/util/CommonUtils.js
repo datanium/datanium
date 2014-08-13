@@ -90,9 +90,12 @@ Ext.define('Datanium.util.CommonUtils', {
 							displayOrder : 0,
 							display : true
 						}
-						if (toggleDimension == id && Datanium.GlobalData.queryParam.primaryDimension == null) {
-							// dimItem.is_primary = true;
-							Datanium.GlobalData.queryParam.primaryDimension = id;
+						if (toggleDimension == id) {
+							if (Datanium.GlobalData.queryParam.primaryDimension == null
+									|| Datanium.GlobalData.queryParam.primaryDimension == '') {
+								// dimItem.is_primary = true;
+								Datanium.GlobalData.queryParam.primaryDimension = id;
+							}
 						}
 						dimNodes.push(dimItem);
 					}

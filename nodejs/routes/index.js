@@ -12,7 +12,11 @@ exports.index = function(req, res) {
 		if (doc === null) {
 			res.send('404 Sorry, no such page...');
 		} else {
-			console.log(JSON.stringify(doc.queryParam));
+			if (doc.qubeInfo == null)
+				doc.qubeInfo = {
+					dimensions : [],
+					measures : []
+				};
 			res.render('index', {
 				hashid : doc.hashid,
 				qubeInfo : JSON.stringify(doc.qubeInfo),
