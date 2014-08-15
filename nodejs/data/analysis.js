@@ -4,6 +4,8 @@ var DatasetSchema = new Schema({
 	hashid : String,
 	qubeInfo : Object,
 	queryParam : Object,
+	rptMode : String,
+	chartMode : String,
 	user_id : String,
 	user_ip : String,
 	creation_date : Date,

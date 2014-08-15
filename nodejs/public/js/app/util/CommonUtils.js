@@ -235,7 +235,8 @@ Ext.define('Datanium.util.CommonUtils', {
 		},
 		generateChart : function() {
 			Datanium.util.CommonUtils.destroyChart();
-			var classname = 'widget.' + Datanium.GlobalData.chartMode;
+			var classname = 'widget.'
+					+ (Datanium.GlobalData.chartMode == '' ? 'columnchart' : Datanium.GlobalData.chartMode);
 			var chart = Ext.create(classname, {
 				itemId : Datanium.util.CommonUtils.genItemId(Datanium.GlobalData.chartMode),
 				region : 'center',

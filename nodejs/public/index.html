@@ -152,16 +152,16 @@
 				type : 'get',
 				dataType : 'json',
 				success : function(map) {
-					var html='';
-					if(map.length>0){
+					var html = '';
+					if (map.length > 0) {
 						//alert(1);
 						html = '<div class="panel-group" id="accordion">';
-						$.each(map,function(index,item){
-							html+=createCollapse(index,item);
+						$.each(map, function(index, item) {
+							html += createCollapse(index, item);
 							//html+='<p></p>';
 						});
-						html+='</div>';
-					}					
+						html += '</div>';
+					}
 					$('#myModal').find('.modal-body').html(html);
 					$('#myModal').find('.modal-body #accordion').find('div[id^="collapse"]').collapse('hide');
 					$('#myModal').modal('show');
@@ -170,38 +170,38 @@
 
 				}
 			});
-			
+
 		}
-		
-		function createCollapse(index,item){
+
+		function createCollapse(index, item) {
 			var topic = item.topic;
 			var indicator = item.indicatorText;
 			//alert(topic);
 			//alert(indicator.length);
 			var html = '';
 			html = '<div class="panel panel-default">';
-		    html += '<div class="panel-heading">';
-		    html += '<h4 class="panel-title">';
-		    html += '<a data-toggle="collapse" data-parent="#accordion" href="#collapse'+index+'">';
-		    html += topic;
-		    html += '</a>';
-		    html += '</h4>';
-		    html += '</div>';
-		    html += '<div id="collapse'+index+'" class="panel-collapse collapse in">';
-		    html += '<div class="panel-body">';
-		    if(indicator.length>0){
-		    	$.each(indicator,function(index1,item1){
-		    		html+='<div><a href="#">';
-		    		html+=item1;
-		    		html+='</a></div>';
-		    	});
-		    }
-		    html += '</div>';
-		    html += '</div>';
-		    html += '</div>';
-		    return html;
+			html += '<div class="panel-heading">';
+			html += '<h4 class="panel-title">';
+			html += '<a data-toggle="collapse" data-parent="#accordion" href="#collapse'+index+'">';
+			html += topic;
+			html += '</a>';
+			html += '</h4>';
+			html += '</div>';
+			html += '<div id="collapse'+index+'" class="panel-collapse collapse in">';
+			html += '<div class="panel-body">';
+			if (indicator.length > 0) {
+				$.each(indicator, function(index1, item1) {
+					html += '<div><a href="#">';
+					html += item1;
+					html += '</a></div>';
+				});
+			}
+			html += '</div>';
+			html += '</div>';
+			html += '</div>';
+			return html;
 		}
-		
+
 		var comingSoon = function() {
 			$('#comingsoon').modal('show');
 		}
@@ -227,7 +227,9 @@
 				data : {
 					hashid : Datanium.GlobalData.hashid,
 					queryParam : Datanium.GlobalData.queryParam,
-					qubeInfo : Datanium.GlobalData.qubeInfo
+					qubeInfo : Datanium.GlobalData.qubeInfo,
+					rptMode : Datanium.GlobalData.rptMode,
+					chartMode : Datanium.GlobalData.chartMode
 				},
 				success : function(data) {
 					if (Datanium.GlobalData.hashid === null || Datanium.GlobalData.hashid === '')

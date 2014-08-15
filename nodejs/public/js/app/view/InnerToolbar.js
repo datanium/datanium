@@ -45,6 +45,7 @@ Ext.define('Datanium.view.InnerToolbar', {
 		height : 14,
 		margins : '0 0 0 1'
 	}, {
+		id : 'gridViewBtn',
 		scale : 'medium',
 		tooltip : 'Grid View',
 		tooltipType : 'title',
@@ -54,6 +55,7 @@ Ext.define('Datanium.view.InnerToolbar', {
 		pressed : true,
 		toggleGroup : 'rptMode'
 	}, {
+		id : 'chartViewBtn',
 		scale : 'medium',
 		tooltip : 'Chart View',
 		tooltipType : 'title',
@@ -63,6 +65,7 @@ Ext.define('Datanium.view.InnerToolbar', {
 		pressed : false,
 		toggleGroup : 'rptMode'
 	}, {
+		id : 'analysisViewBtn',
 		scale : 'medium',
 		tooltip : 'Analysis View',
 		tooltipType : 'title',
