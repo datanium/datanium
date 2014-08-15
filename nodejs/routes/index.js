@@ -7,6 +7,7 @@ exports.index = function(req, res) {
 	analysisSchema.findOne({
 		hashid : hashid
 	}, function(err, doc) {
+		console.log(doc);
 		if (err)
 			throw err;
 		if (doc === null) {
@@ -22,7 +23,9 @@ exports.index = function(req, res) {
 			res.render('index', {
 				hashid : doc.hashid,
 				qubeInfo : JSON.stringify(doc.qubeInfo),
-				queryParam : JSON.stringify(doc.queryParam)
+				queryParam : JSON.stringify(doc.queryParam),
+				rptMode : doc.rptMode,
+				chartMode : doc.chartMode
 			});
 		}
 	});

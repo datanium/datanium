@@ -518,6 +518,8 @@ exports.save = function(req, res) {
 			}, {
 				qubeInfo : analysisObj.qubeInfo,
 				queryParam : analysisObj.queryParam,
+				rptMode : analysisObj.rptMode,
+				chartMode : analysisObj.chartMode,
 				user_ip : userip,
 				modification_date : date
 			}, function(err, doc) {
@@ -537,6 +539,8 @@ exports.save = function(req, res) {
 				hashid : hashid,
 				qubeInfo : analysisObj.qubeInfo,
 				queryParam : analysisObj.queryParam,
+				rptMode : analysisObj.rptMode,
+				chartMode : analysisObj.chartMode,
 				user_id : 'anonymous user',
 				user_ip : userip,
 				creation_date : date,

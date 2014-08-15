@@ -56,6 +56,18 @@ Ext.application({
 			Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('refreshElementPanel');
 			Datanium.util.CommonUtils.updateFilterFields();
 			Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('selectionChange');
+			if (Datanium.GlobalData.rptMode === 'grid') {
+				Ext.getCmp('gridViewBtn').toggle();
+				Datanium.util.CommonUtils.getCmpInActiveTab('datapanel').getLayout().setActiveItem(0);
+			}
+			if (Datanium.GlobalData.rptMode === 'chart') {
+				Ext.getCmp('chartViewBtn').toggle();
+				Datanium.util.CommonUtils.getCmpInActiveTab('datapanel').getLayout().setActiveItem(1);
+			}
+			if (Datanium.GlobalData.rptMode === 'analysis') {
+				Ext.getCmp('analysisViewBtn').toggle();
+				Datanium.util.CommonUtils.getCmpInActiveTab('datapanel').getLayout().setActiveItem(2);
+			}
 		}
 	}
 });
