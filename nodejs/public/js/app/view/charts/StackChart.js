@@ -49,6 +49,7 @@ Ext.define('Datanium.view.charts.StackChart', {
 		fields = [];
 		xFields = [];
 		yFields = [];
+		yFieldsTxt = [];
 		xFieldsLabel = "";
 		var fields_json = null;
 		if (Datanium.GlobalData.enableQuery) {
