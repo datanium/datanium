@@ -80,7 +80,7 @@
 	</div>
 
 	<div class="modal fade" id="comingsoon" style="z-index: 1000000">
-		<div class="modal-dialog">
+		<div class="modal-dialog modal-sm">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -94,7 +94,7 @@
 	</div>
 
 	<div class="modal fade" id="savesuccess" style="z-index: 1000000">
-		<div class="modal-dialog">
+		<div class="modal-dialog modal-sm">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -134,6 +134,13 @@
 	<script src="./js/classie.js"></script>
 	<script src="./js/gnmenu.js"></script>
 	<script>
+		$(document).ready(function() {
+			adjustScreenHeight();
+			var ieVersion = getIEVersion();
+			if (ieVersion > 0 && ieVersion < 9)
+				window.setTimeout(ieVersionPop, 1000);
+		});
+
 		new gnMenu(document.getElementById('gn-menu'));
 
 		function adjustScreenHeight() {
@@ -243,13 +250,6 @@
 				dataType : 'json'
 			});
 		}
-
-		$(document).ready(function() {
-			adjustScreenHeight();
-			var ieVersion = getIEVersion();
-			if (ieVersion > 0 && ieVersion < 9)
-				window.setTimeout(ieVersionPop, 1000);
-		});
 	</script>
 </body>
 </html>
