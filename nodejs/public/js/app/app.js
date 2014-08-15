@@ -54,6 +54,7 @@ Ext.application({
 		// call report generate when existed report is loaded
 		if (Datanium.GlobalData.hashid != null && Datanium.GlobalData.hashid !== '') {
 			Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('refreshElementPanel');
+			Datanium.util.CommonUtils.updateFilterFields();
 			Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('selectionChange');
 		}
 	}
