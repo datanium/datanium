@@ -99,7 +99,7 @@ Ext.define('Datanium.controller.ChartController', {
 								Datanium.util.CommonUtils.markSelection(this);
 
 								var popSelection = [];
-								Datanium.GlobalData.popDimensionKey = this.itemId;
+								Datanium.GlobalData.queryParam.primaryFilter = this.itemId;
 								if (this.itemId in Datanium.GlobalData.queryParam.filters)
 									popSelection = eval('Datanium.GlobalData.queryParam.filters.' + this.itemId);
 								Datanium.util.CommonUtils.splitFilter(popSelection);
