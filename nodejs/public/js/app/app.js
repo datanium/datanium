@@ -56,6 +56,7 @@ Ext.application({
 			Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('refreshElementPanel');
 			Datanium.util.CommonUtils.updateFilterFields();
 			Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('selectionChange');
+			this.getController('ChartController').reloadFilterSwitchMenu();
 			if (Datanium.GlobalData.rptMode === 'grid') {
 				Ext.getCmp('gridViewBtn').toggle();
 				Datanium.util.CommonUtils.getCmpInActiveTab('datapanel').getLayout().setActiveItem(0);

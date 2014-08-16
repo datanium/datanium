@@ -79,29 +79,15 @@
 		</div>
 	</div>
 
-	<div class="modal fade" id="comingsoon" style="z-index: 1000000">
-		<div class="modal-dialog">
+	<div class="modal fade" id="txtmodal" style="z-index: 1000000">
+		<div class="modal-dialog" id="txtmodaldialog">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h5 class="modal-title">&nbsp;</h5>
+					<h5 class="modal-title" id="txtmodaltitle"></h5>
 				</div>
 				<div class="modal-body">
-					<h4>Coming Soon...</h4>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="modal fade" id="savesuccess" style="z-index: 1000000">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h5 class="modal-title">&nbsp;</h5>
-				</div>
-				<div class="modal-body">
-					<h4>Save Successful.</h4>
+					<h4 id="txtmodalbody"></h4>
 				</div>
 			</div>
 		</div>
@@ -134,6 +120,13 @@
 	<script src="./js/classie.js"></script>
 	<script src="./js/gnmenu.js"></script>
 	<script>
+		$(document).ready(function() {
+			adjustScreenHeight();
+			var ieVersion = getIEVersion();
+			if (ieVersion > 0 && ieVersion < 9)
+				window.setTimeout(ieVersionPop, 1000);
+		});
+
 		new gnMenu(document.getElementById('gn-menu'));
 
 		function adjustScreenHeight() {
@@ -203,7 +196,7 @@
 		}
 
 		var comingSoon = function() {
-			$('#comingsoon').modal('show');
+			showTxtModal('&nbsp;', 'Coming Soon...', 'small');
 		}
 
 		var ieVersionPop = function() {
@@ -215,8 +208,19 @@
 			var ie = ua.indexOf("MSIE ");
 			return ((ie > 0) ? parseInt(ua.substring(ie + 5, ua.indexOf(".", ie))) : 0);
 		}
+
 		var saveSuccess = function() {
-			$('#savesuccess').modal('show');
+			showTxtModal('&nbsp;', 'Save Successful.', 'small');
+		}
+
+		var showTxtModal = function(title, content, size) {
+			if (size === 'small')
+				$('#txtmodaldialog').attr('class', 'modal-dialog modal-sm');
+			else if (size === 'large')
+				$('#txtmodaldialog').attr('class', 'modal-dialog modal-lg');
+			$('#txtmodaltitle').html(title);
+			$('#txtmodalbody').html(content);
+			$('#txtmodal').modal('show');
 		}
 
 		var save = function() {
@@ -243,13 +247,6 @@
 				dataType : 'json'
 			});
 		}
-
-		$(document).ready(function() {
-			adjustScreenHeight();
-			var ieVersion = getIEVersion();
-			if (ieVersion > 0 && ieVersion < 9)
-				window.setTimeout(ieVersionPop, 1000);
-		});
 	</script>
 </body>
 </html>
