@@ -372,7 +372,7 @@ Ext.define('Datanium.util.CommonUtils', {
 			var selections = eval('Datanium.GlobalData.queryParam.filters.' + key + '=[]');
 		},
 		splitFilter : function(popSelection) {
-			var key = Datanium.GlobalData.popDimensionKey;
+			var key = Datanium.GlobalData.queryParam.primaryFilter;
 			// time dimension no quotes
 			var popSelStr = '';
 			if (key == 'year') {

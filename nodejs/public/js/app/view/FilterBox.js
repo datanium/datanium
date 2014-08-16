@@ -86,12 +86,14 @@ Ext.define('Datanium.view.FilterBox', {
 	},
 	submitFilter : function(buttonId, text, opt) {
 		if (buttonId == 'yes' && popSelection.length > 0) {
+			Datanium.GlobalData.queryParam.primaryFilter = Datanium.GlobalData.popDimensionKey;
 			Datanium.util.CommonUtils.splitFilter(popSelection);
 		} else {
 			// Datanium.GlobalData.queryParam.split = null;
 			var key = Datanium.GlobalData.popDimensionKey;
 			delete Datanium.GlobalData.queryParam.filters[key];
-			Datanium.GlobalData.queryParam.isSplit = false;
+			if (key == Datanium.GlobalData.queryParam.primaryFilter)
+				Datanium.GlobalData.queryParam.isSplit = false;
 			// Datanium.util.CommonUtils.clearPopDimFilter();
 		}
 		Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('submitFilter');

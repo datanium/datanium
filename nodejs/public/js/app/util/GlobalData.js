@@ -8,6 +8,7 @@ Ext.define('Datanium.GlobalData', {
 		groups : [],
 		filters : {},
 		primaryDimension : null,
+		primaryFilter : null,
 		split : {
 			dimensions : null,
 			splitValue : []
