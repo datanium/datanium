@@ -215,6 +215,9 @@
 		}
 
 		var showTxtModal = function(title, content, size, html) {
+			$('#txtmodaltitle').html('');
+			$('#txtmodalbody').html('');
+			$('#txtmodalhtmlbody').html('');
 			if (size === 'small')
 				$('#txtmodaldialog').attr('class', 'modal-dialog modal-sm');
 			else if (size === 'large')
@@ -223,6 +226,15 @@
 			$('#txtmodalbody').html(content);
 			$('#txtmodalhtmlbody').html(html);
 			$('#txtmodal').modal('show');
+		}
+
+		var updateTxtModal = function(title, content, html) {
+			if (title !== null)
+				$('#txtmodaltitle').html(title);
+			if (content !== null)
+				$('#txtmodalbody').html(content);
+			if (html !== null)
+				$('#txtmodalhtmlbody').html(html);
 		}
 
 		var save = function() {
@@ -256,6 +268,7 @@
 		}
 
 		$('#gnsearch').bind("enterKey", function(e) {
+			showTxtModal('Data Indicator Search', 'Processing...', 'large');
 			var searchKey = $('#gnsearch').val();
 			var url = '/rest/indicator/search';
 			$.ajax({
@@ -273,7 +286,7 @@
 							html += rec.text;
 							html += '</a></p>';
 						});
-						showTxtModal('Data Indicator Search', '', 'large', html);
+						updateTxtModal(null, null, html);
 					}
 				},
 				error : function() {
