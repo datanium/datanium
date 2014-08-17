@@ -66,14 +66,19 @@ Ext.define('Datanium.controller.Homepage', {
 			}
 		});
 	},
-	addIndicator : function(combobox, newValue, oldValue, eOpts) {
+	addIndicator : function(combobox) {
+		var key = '';
+		if (typeof combobox === 'object') // from extjs combobox
+			key = combobox.getValue();
+		if (typeof combobox === 'string') // from outside page search box
+			key = combobox
 		var leftpanel = Datanium.util.CommonUtils.getCmpInActiveTab('leftpanel');
 		var mask = new Ext.LoadMask(leftpanel, {
 			msg : "Loading..."
 		});
 		mask.show();
 		var requestConfig = {
-			url : '/rest/indicator/map?idc=' + combobox.getValue(),
+			url : '/rest/indicator/map?idc=' + key,
 			timeout : 300000,
 			success : function(response) {
 				mask.destroy();
