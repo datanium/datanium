@@ -26,7 +26,7 @@ Ext.define('Datanium.controller.GridController', {
 			Datanium.GlobalData.QueryResult = null;
 			if (this.isQueryValid()) {
 				var queryUrl = '/rest/query/result';
-				if (Datanium.GlobalData.queryParam.isSplit) {
+				if (Datanium.GlobalData.queryParam.isSplit && Datanium.GlobalData.queryParam.isSplit !== 'false') {
 					queryUrl = '/rest/query/split';
 				}
 				var queryParam = Datanium.GlobalData.queryParam;
@@ -70,6 +70,8 @@ Ext.define('Datanium.controller.GridController', {
 	},
 	checkCount : function(fields) {
 		var count = 0;
+		if (fields == null)
+			return count;
 		Ext.Array.forEach(fields, function(field) {
 			count += 1;
 		});

@@ -184,9 +184,9 @@ Ext.define('Datanium.view.DynamicDataGrid', {
 					if (f.display)
 						fields.push(f);
 				}
-				for ( var i = 0; i < fields_json.groups.length; i++) {
-					groups.push(fields_json.groups[i]);
-				}
+				// for ( var i = 0; i < fields_json.groups.length; i++) {
+				// groups.push(fields_json.groups[i]);
+				//				}
 			}
 		}
 		// console.log(fields);

@@ -50,5 +50,25 @@ Ext.application({
 			Ext.getCmp("appPanel").setHeight(Ext.get("appContainer").getHeight());
 			Ext.getCmp("appPanel").doLayout();
 		});
+
+		// call report generate when existed report is loaded
+		if (Datanium.GlobalData.hashid != null && Datanium.GlobalData.hashid !== '') {
+			Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('refreshElementPanel');
+			Datanium.util.CommonUtils.updateFilterFields();
+			Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('selectionChange');
+			this.getController('ChartController').reloadFilterSwitchMenu();
+			if (Datanium.GlobalData.rptMode === 'grid') {
+				Ext.getCmp('gridViewBtn').toggle();
+				Datanium.util.CommonUtils.getCmpInActiveTab('datapanel').getLayout().setActiveItem(0);
+			}
+			if (Datanium.GlobalData.rptMode === 'chart') {
+				Ext.getCmp('chartViewBtn').toggle();
+				Datanium.util.CommonUtils.getCmpInActiveTab('datapanel').getLayout().setActiveItem(1);
+			}
+			if (Datanium.GlobalData.rptMode === 'analysis') {
+				Ext.getCmp('analysisViewBtn').toggle();
+				Datanium.util.CommonUtils.getCmpInActiveTab('datapanel').getLayout().setActiveItem(2);
+			}
+		}
 	}
 });

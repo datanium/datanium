@@ -1,29 +1,25 @@
-var data = require('../data/sampleData');
 var mongodb = require('../data/mongodb');
 var indicator = require('../data/indicator');
 var dataset = require('../data/dataset');
+var analysis = require('../data/analysis');
 var async = require('../lib/async');
 var hashids = require('../lib/hashids');
 var IndicatorSchema = indicator.Indicator;
 var datasetSchema = dataset.Dataset;
-
-exports.cubeList = function(req, res) {
-	res.send(data.cubeListJSON);
-};
-
-exports.cubeInfo = function(req, res) {
-	res.send(data.cubeInfoJSON);
-};
+var analysisSchema = analysis.Analysis;
 
 exports.topicSearch = function(req, res) {
 	var resultJSON = [];
 	var mainTopic = '';
 	var indicatorText = [];
-	/*IndicatorSchema.aggregate().group({
-		'_id' : '$topic'
-	}).project({
-		'topic' : '$_id'*/
-		IndicatorSchema.find({},{_id:0,topic:1,indicator_text:1
+	/*
+	 * IndicatorSchema.aggregate().group({ '_id' : '$topic' }).project({ 'topic' :
+	 * '$_id'
+	 */
+	IndicatorSchema.find({}, {
+		_id : 0,
+		topic : 1,
+		indicator_text : 1
 	}).sort({
 		'topic' : 1
 	}).exec(function(err, doc) {
@@ -34,14 +30,14 @@ exports.topicSearch = function(req, res) {
 		if (err)
 			console.log('Exception: ' + err);
 		doc.forEach(function(item, index) {
-			if (item.topic === null)
+			if (item.topic == null)
 				return;
 			var topicArray = item.topic.split(':');
 			var mainTopicStr = topicArray[0].trim();
-			//var subTopicStr = topicArray[topicArray.length - 1].trim();
+			// var subTopicStr = topicArray[topicArray.length - 1].trim();
 			var indicatorTextStr = item.indicator_text.trim();
-			//console.log(mainTopicStr);
-			//console.log(indicatorTextStr);
+			// console.log(mainTopicStr);
+			// console.log(indicatorTextStr);
 			if (index == 0) {
 				mainTopic = mainTopicStr;
 				indicatorText.push(indicatorTextStr);
@@ -314,7 +310,7 @@ function generateGroupObj(queryParam, isChart) {
 	var res = "{" + idStr + indicatorStr + "}";
 	var returnObj = eval("(" + res + ")");
 	projectStr += "_id:0}";
-	console.log(projectStr);
+	// console.log(projectStr);
 	var projectObj = eval("(" + projectStr + ")");
 	returnJSON = {
 		"returnObj" : returnObj,
@@ -326,7 +322,7 @@ function generateGroupObj(queryParam, isChart) {
 
 function generateMatchObj(queryParam) {
 	var dimensions = queryParam.dimensions;
-	var filters = queryParam.filters;
+	var filters = queryParam.filters == null ? [] : queryParam.filters;
 	var filterArray = [];
 	dimensions.forEach(function(item, index) {
 		if (item.uniqueName in filters) {
@@ -343,7 +339,7 @@ function generateMatchObj(queryParam) {
 		}
 	});
 	var matchStr = '{ ' + filterArray.join(",") + ' }';
-	console.log(matchStr);
+	// console.log(matchStr);
 	var returnObj = eval("(" + matchStr + ")");
 	return returnObj;
 }
@@ -509,9 +505,53 @@ exports.dimensionValueSearch = function(req, res) {
 }
 
 exports.save = function(req, res) {
-	var queryParam = req.body;
-	console.log(queryParam);
-	res.send({
-		hashid : 'aaa'
+	var analysisObj = req.body;
+	var userip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+	var hashid = null;
+	var date = new Date();
+	async.parallel([ function(callback) {
+		if (analysisObj.hashid !== null && analysisObj.hashid !== '') {
+			console.log('Update Analysis ' + analysisObj.hashid);
+			// update analysis
+			analysisSchema.findOneAndUpdate({
+				hashid : analysisObj.hashid
+			}, {
+				qubeInfo : analysisObj.qubeInfo,
+				queryParam : analysisObj.queryParam,
+				rptMode : analysisObj.rptMode,
+				chartMode : analysisObj.chartMode,
+				user_ip : userip,
+				modification_date : date
+			}, function(err, doc) {
+				if (err)
+					throw err;
+				hashid = doc.hashid;
+				callback();
+			})
+		} else {
+			console.log('Save New Analysis');
+			// encrypt hashid
+			var key = date.getTime() * 10 + Math.round(Math.random() * 10);
+			var hashs = new hashids("datanium salt", 4);
+			hashid = hashs.encrypt(key);
+			// save analysis
+			var newAnalysis = new analysisSchema({
+				hashid : hashid,
+				qubeInfo : analysisObj.qubeInfo,
+				queryParam : analysisObj.queryParam,
+				rptMode : analysisObj.rptMode,
+				chartMode : analysisObj.chartMode,
+				user_id : 'anonymous user',
+				user_ip : userip,
+				creation_date : date,
+				modification_date : date
+			});
+			newAnalysis.save();
+			callback();
+		}
+	} ], function() {
+		res.send({
+			hashid : hashid
+		});
 	});
 }

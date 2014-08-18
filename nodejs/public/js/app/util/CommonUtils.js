@@ -90,9 +90,12 @@ Ext.define('Datanium.util.CommonUtils', {
 							displayOrder : 0,
 							display : true
 						}
-						if (toggleDimension == id && Datanium.GlobalData.queryParam.primaryDimension == null) {
-							// dimItem.is_primary = true;
-							Datanium.GlobalData.queryParam.primaryDimension = id;
+						if (toggleDimension == id) {
+							if (Datanium.GlobalData.queryParam.primaryDimension == null
+									|| Datanium.GlobalData.queryParam.primaryDimension == '') {
+								// dimItem.is_primary = true;
+								Datanium.GlobalData.queryParam.primaryDimension = id;
+							}
 						}
 						dimNodes.push(dimItem);
 					}
@@ -107,6 +110,28 @@ Ext.define('Datanium.util.CommonUtils', {
 			queryParam.measures = meaNodes;
 			Datanium.GlobalData.QueryResult = null;
 			Datanium.util.CommonUtils.updateFields();
+		},
+		updateEPSelection : function() {
+			var epItems = Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').items;
+			var queryParam = Datanium.GlobalData.queryParam;
+			var dimNodes = queryParam.dimensions;
+			var meaNodes = queryParam.measures;
+			var autoRun = Datanium.GlobalData.autoRun;
+			Datanium.GlobalData.autoRun = false;
+			Ext.Array.each(epItems.items, function(rec, idx) {
+				var id = rec.uniqueName;
+				Ext.Array.each(dimNodes, function(d) {
+					if (id === d.uniqueName) {
+						epItems.items[idx].toggle();
+					}
+				});
+				Ext.Array.each(meaNodes, function(m) {
+					if (id === m.uniqueName) {
+						epItems.items[idx].toggle();
+					}
+				});
+			});
+			Datanium.GlobalData.autoRun = autoRun;
 		},
 		updateFields : function() {
 			var dimField = Datanium.util.CommonUtils.getCmpInActiveTab(Datanium.util.CommonUtils
@@ -210,7 +235,8 @@ Ext.define('Datanium.util.CommonUtils', {
 		},
 		generateChart : function() {
 			Datanium.util.CommonUtils.destroyChart();
-			var classname = 'widget.' + Datanium.GlobalData.chartMode;
+			var classname = 'widget.'
+					+ (Datanium.GlobalData.chartMode == '' ? 'columnchart' : Datanium.GlobalData.chartMode);
 			var chart = Ext.create(classname, {
 				itemId : Datanium.util.CommonUtils.genItemId(Datanium.GlobalData.chartMode),
 				region : 'center',
@@ -346,7 +372,7 @@ Ext.define('Datanium.util.CommonUtils', {
 			var selections = eval('Datanium.GlobalData.queryParam.filters.' + key + '=[]');
 		},
 		splitFilter : function(popSelection) {
-			var key = Datanium.GlobalData.popDimensionKey;
+			var key = Datanium.GlobalData.queryParam.primaryFilter;
 			// time dimension no quotes
 			var popSelStr = '';
 			if (key == 'year') {

@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Datanium</title>
 <meta name="author" content="Codrops" />
-<link rel="shortcut icon" href="./img/favicon.ico">
+<link rel="shortcut icon" href="./img/favicon32.ico">
 <link rel="stylesheet" type="text/css" href="./css/normalize.css">
 <link rel="stylesheet" type="text/css" href="./css/demo.css" />
 <link rel="stylesheet" type="text/css" href="./css/component.css" />
@@ -36,8 +36,8 @@
 				<nav class="gn-menu-wrapper">
 					<div class="gn-scroller">
 						<ul class="gn-menu">
-							<li class="gn-search-item"><input placeholder="Search" type="search" class="gn-search">
-								<a class="gn-icon gn-icon-search"><span>Search</span></a></li>
+							<li class="gn-search-item"><input placeholder="Search" type="search" class="gn-search"
+								id="gnsearch"> <a class="gn-icon gn-icon-search"><span>Search</span></a></li>
 							<li><a href="#" class="gn-icon gn-icon-article" data-toggle="modal"
 								onclick="showModal();">By Topic</a>
 							<li><a class="gn-icon gn-icon-earth" onclick="comingSoon();">By Country</a></li>
@@ -79,15 +79,16 @@
 		</div>
 	</div>
 
-	<div class="modal fade" id="comingsoon" style="z-index: 1000000">
-		<div class="modal-dialog">
+	<div class="modal fade" id="txtmodal" style="z-index: 1000000">
+		<div class="modal-dialog" id="txtmodaldialog">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h5 class="modal-title">&nbsp;</h5>
+					<h5 class="modal-title" id="txtmodaltitle"></h5>
 				</div>
 				<div class="modal-body">
-					<h4>Coming Soon...</h4>
+					<h4 id="txtmodalbody"></h4>
+					<div id="txtmodalhtmlbody"></div>
 				</div>
 			</div>
 		</div>
@@ -120,6 +121,13 @@
 	<script src="./js/classie.js"></script>
 	<script src="./js/gnmenu.js"></script>
 	<script>
+		$(document).ready(function() {
+			adjustScreenHeight();
+			var ieVersion = getIEVersion();
+			if (ieVersion > 0 && ieVersion < 9)
+				window.setTimeout(ieVersionPop, 1000);
+		});
+
 		new gnMenu(document.getElementById('gn-menu'));
 
 		function adjustScreenHeight() {
@@ -138,16 +146,16 @@
 				type : 'get',
 				dataType : 'json',
 				success : function(map) {
-					var html='';
-					if(map.length>0){
+					var html = '';
+					if (map.length > 0) {
 						//alert(1);
 						html = '<div class="panel-group" id="accordion">';
-						$.each(map,function(index,item){
-							html+=createCollapse(index,item);
+						$.each(map, function(index, item) {
+							html += createCollapse(index, item);
 							//html+='<p></p>';
 						});
-						html+='</div>';
-					}					
+						html += '</div>';
+					}
 					$('#myModal').find('.modal-body').html(html);
 					$('#myModal').find('.modal-body #accordion').find('div[id^="collapse"]').collapse('hide');
 					$('#myModal').modal('show');
@@ -156,40 +164,40 @@
 
 				}
 			});
-			
+
 		}
-		
-		function createCollapse(index,item){
+
+		function createCollapse(index, item) {
 			var topic = item.topic;
 			var indicator = item.indicatorText;
 			//alert(topic);
 			//alert(indicator.length);
 			var html = '';
 			html = '<div class="panel panel-default">';
-		    html += '<div class="panel-heading">';
-		    html += '<h4 class="panel-title">';
-		    html += '<a data-toggle="collapse" data-parent="#accordion" href="#collapse'+index+'">';
-		    html += topic;
-		    html += '</a>';
-		    html += '</h4>';
-		    html += '</div>';
-		    html += '<div id="collapse'+index+'" class="panel-collapse collapse in">';
-		    html += '<div class="panel-body">';
-		    if(indicator.length>0){
-		    	$.each(indicator,function(index1,item1){
-		    		html+='<div><a href="#">';
-		    		html+=item1;
-		    		html+='</a></div>';
-		    	});
-		    }
-		    html += '</div>';
-		    html += '</div>';
-		    html += '</div>';
-		    return html;
+			html += '<div class="panel-heading">';
+			html += '<h4 class="panel-title">';
+			html += '<a data-toggle="collapse" data-parent="#accordion" href="#collapse'+index+'">';
+			html += topic;
+			html += '</a>';
+			html += '</h4>';
+			html += '</div>';
+			html += '<div id="collapse'+index+'" class="panel-collapse collapse in">';
+			html += '<div class="panel-body">';
+			if (indicator.length > 0) {
+				$.each(indicator, function(index1, item1) {
+					html += '<div><a href="#">';
+					html += item1;
+					html += '</a></div>';
+				});
+			}
+			html += '</div>';
+			html += '</div>';
+			html += '</div>';
+			return html;
 		}
 
-		function comingSoon() {
-			$('#comingsoon').modal('show');
+		var comingSoon = function() {
+			showTxtModal('&nbsp;', 'Coming Soon...', 'small');
 		}
 
 		var ieVersionPop = function() {
@@ -202,6 +210,33 @@
 			return ((ie > 0) ? parseInt(ua.substring(ie + 5, ua.indexOf(".", ie))) : 0);
 		}
 
+		var saveSuccess = function() {
+			showTxtModal('&nbsp;', 'Save Successful.', 'small');
+		}
+
+		var showTxtModal = function(title, content, size, html) {
+			$('#txtmodaltitle').html('');
+			$('#txtmodalbody').html('');
+			$('#txtmodalhtmlbody').html('');
+			if (size === 'small')
+				$('#txtmodaldialog').attr('class', 'modal-dialog modal-sm');
+			else if (size === 'large')
+				$('#txtmodaldialog').attr('class', 'modal-dialog modal-lg');
+			$('#txtmodaltitle').html(title);
+			$('#txtmodalbody').html(content);
+			$('#txtmodalhtmlbody').html(html);
+			$('#txtmodal').modal('show');
+		}
+
+		var updateTxtModal = function(title, content, html) {
+			if (title !== null)
+				$('#txtmodaltitle').html(title);
+			if (content !== null)
+				$('#txtmodalbody').html(content);
+			if (html !== null)
+				$('#txtmodalhtmlbody').html(html);
+		}
+
 		var save = function() {
 			var url = '/rest/save';
 			$.ajax({
@@ -210,10 +245,16 @@
 				data : {
 					hashid : Datanium.GlobalData.hashid,
 					queryParam : Datanium.GlobalData.queryParam,
-					qubeInfo : Datanium.GlobalData.qubeInfo
+					qubeInfo : Datanium.GlobalData.qubeInfo,
+					rptMode : Datanium.GlobalData.rptMode,
+					chartMode : Datanium.GlobalData.chartMode
 				},
 				success : function(data) {
-					console.log(data);
+					if (Datanium.GlobalData.hashid === null || Datanium.GlobalData.hashid === '')
+						window.location.href = window.location.protocol + "//" + window.location.host + '/'
+								+ data.hashid;
+					else
+						saveSuccess();
 				},
 				error : function() {
 				},
@@ -221,11 +262,43 @@
 			});
 		}
 
-		$(document).ready(function() {
-			adjustScreenHeight();
-			var ieVersion = getIEVersion();
-			if (ieVersion > 0 && ieVersion < 9)
-				window.setTimeout(ieVersionPop, 1000);
+		var addIndicator = function(key) {
+			Datanium.controller.Homepage.prototype.addIndicator(key);
+			$('#txtmodal').modal('hide');
+		}
+
+		$('#gnsearch').bind("enterKey", function(e) {
+			showTxtModal('Data Indicator Search', 'Processing...', 'large');
+			var searchKey = $('#gnsearch').val();
+			var url = '/rest/indicator/search';
+			$.ajax({
+				type : 'GET',
+				url : url,
+				data : {
+					query : searchKey
+				},
+				success : function(data) {
+					var html = '';
+					var indicators = data.indicators;
+					if (indicators != null) {
+						indicators.forEach(function(rec) {
+							html += '<p><a href="#" onclick="addIndicator(\'' + rec.uniqueName + '\');">';
+							html += rec.text;
+							html += '</a></p>';
+						});
+						updateTxtModal(null, '', html);
+					}
+				},
+				error : function() {
+				},
+				dataType : 'json'
+			});
+		});
+
+		$('#gnsearch').keyup(function(e) {
+			if (e.keyCode == 13) {
+				$(this).trigger("enterKey");
+			}
 		});
 	</script>
 </body>
