@@ -10,7 +10,6 @@
 <link rel="stylesheet" type="text/css" href="./css/normalize.css">
 <link rel="stylesheet" type="text/css" href="./css/demo.css" />
 <link rel="stylesheet" type="text/css" href="./css/component.css" />
-<script src="./js/modernizr.custom.js"></script>
 <link rel="stylesheet" href="./js/extjs/resources/css/ext-all-gray-debug.css">
 <link rel="stylesheet" href="./css/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="./css/datanium.css">
@@ -71,10 +70,9 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="myModalLabel">Search Indicator by Topic</h4>
+					<h5 class="modal-title" id="myModalLabel">Search Indicator by Topic</h5>
 				</div>
 				<div class="modal-body">...</div>
-				<div class="modal-footer"></div>
 			</div>
 		</div>
 	</div>
@@ -99,7 +97,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h5 class="modal-title">BROWSER SUPPORT</h5>
+					<h5 class="modal-title">Browser Support</h5>
 				</div>
 				<div class="modal-body">
 					<h4>You are using an old version browser.</h4>
@@ -112,7 +110,7 @@
 						target="_blank">Apple Safari 4+</a><br /></span> <span>If you are using an older version or
 						different browser that is having difficulty rendering this site, download and install the
 						latest version of your browser using the link above.</span>
-					<p />
+					<p></p>
 				</div>
 			</div>
 		</div>
@@ -122,10 +120,10 @@
 	<script src="./js/gnmenu.js"></script>
 	<script>
 		$(document).ready(function() {
-			adjustScreenHeight();
 			var ieVersion = getIEVersion();
 			if (ieVersion > 0 && ieVersion < 9)
 				window.setTimeout(ieVersionPop, 1000);
+			adjustScreenHeight();
 		});
 
 		new gnMenu(document.getElementById('gn-menu'));
@@ -169,6 +167,8 @@
 
 		function createCollapse(index, item) {
 			var topic = item.topic;
+			if (topic === '')
+				return '';
 			var indicator = item.indicatorText;
 			var indicatorKey = item.indicatorKey;
 			//alert(topic);
@@ -188,16 +188,16 @@
 				$.each(indicator, function(index1, item1) {
 					var key = '';
 					$.each(indicatorKey, function(index2, item2) {
-						if(index1==index2){
-							key=item2;
+						if (index1 == index2) {
+							key = item2;
 							return false;
-						}else{
+						} else {
 							return;
 						}
 					});
-					html += '<div><a href="#" onclick="addIndicator(\'myModal\',\'' + key + '\');">';
+					html += '<p><a href="#" onclick="addIndicator(\'myModal\',\'' + key + '\');">';
 					html += item1;
-					html += '</a></div>';
+					html += '</a></p>';
 				});
 			}
 			html += '</div>';
@@ -228,6 +228,7 @@
 			$('#txtmodaltitle').html('');
 			$('#txtmodalbody').html('');
 			$('#txtmodalhtmlbody').html('');
+			$('#txtmodaldialog').attr('class', 'modal-dialog');
 			if (size === 'small')
 				$('#txtmodaldialog').attr('class', 'modal-dialog modal-sm');
 			else if (size === 'large')
@@ -272,14 +273,13 @@
 			});
 		}
 
-		var addIndicator = function(id,key) {
+		var addIndicator = function(id, key) {
 			Datanium.controller.Homepage.prototype.addIndicator(key);
-			$('#'+id+'').modal('hide');
+			$('#' + id + '').modal('hide');
 		}
-		
 
 		$('#gnsearch').bind("enterKey", function(e) {
-			showTxtModal('Data Indicator Search', 'Processing...', 'large');
+			showTxtModal('Data Indicator Search', 'Processing...');
 			var searchKey = $('#gnsearch').val();
 			var url = '/rest/indicator/search';
 			$.ajax({
