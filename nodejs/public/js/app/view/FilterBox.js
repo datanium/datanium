@@ -48,6 +48,7 @@ Ext.define('Datanium.view.FilterBox', {
 							Ext.MessageBox.alert("Alert", "Sorry, you cannot select more than 10 filter values.");
 							me.toggle();
 						} else {
+							console.log(me.uniqueName);
 							popSelection.push(me.uniqueName);
 						}
 					} else {
