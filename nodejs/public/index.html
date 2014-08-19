@@ -170,6 +170,7 @@
 		function createCollapse(index, item) {
 			var topic = item.topic;
 			var indicator = item.indicatorText;
+			var indicatorKey = item.indicatorKey;
 			//alert(topic);
 			//alert(indicator.length);
 			var html = '';
@@ -185,7 +186,16 @@
 			html += '<div class="panel-body">';
 			if (indicator.length > 0) {
 				$.each(indicator, function(index1, item1) {
-					html += '<div><a href="#">';
+					var key = '';
+					$.each(indicatorKey, function(index2, item2) {
+						if(index1==index2){
+							key=item2;
+							return false;
+						}else{
+							return;
+						}
+					});
+					html += '<div><a href="#" onclick="addIndicator(\'myModal\',\'' + key + '\');">';
 					html += item1;
 					html += '</a></div>';
 				});
@@ -262,10 +272,11 @@
 			});
 		}
 
-		var addIndicator = function(key) {
+		var addIndicator = function(id,key) {
 			Datanium.controller.Homepage.prototype.addIndicator(key);
-			$('#txtmodal').modal('hide');
+			$('#'+id+'').modal('hide');
 		}
+		
 
 		$('#gnsearch').bind("enterKey", function(e) {
 			showTxtModal('Data Indicator Search', 'Processing...', 'large');
@@ -282,7 +293,7 @@
 					var indicators = data.indicators;
 					if (indicators != null) {
 						indicators.forEach(function(rec) {
-							html += '<p><a href="#" onclick="addIndicator(\'' + rec.uniqueName + '\');">';
+							html += '<p><a href="#" onclick="addIndicator(\'txtmodal\',\'' + rec.uniqueName + '\');">';
 							html += rec.text;
 							html += '</a></p>';
 						});

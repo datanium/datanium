@@ -12,6 +12,7 @@ exports.topicSearch = function(req, res) {
 	var resultJSON = [];
 	var mainTopic = '';
 	var indicatorText = [];
+	var indicatorKey = [];
 	/*
 	 * IndicatorSchema.aggregate().group({ '_id' : '$topic' }).project({ 'topic' :
 	 * '$_id'
@@ -19,7 +20,8 @@ exports.topicSearch = function(req, res) {
 	IndicatorSchema.find({}, {
 		_id : 0,
 		topic : 1,
-		indicator_text : 1
+		indicator_text : 1,
+		indicator_key : 1
 	}).sort({
 		'topic' : 1
 	}).exec(function(err, doc) {
@@ -34,31 +36,41 @@ exports.topicSearch = function(req, res) {
 				return;
 			var topicArray = item.topic.split(':');
 			var mainTopicStr = topicArray[0].trim();
+			if(mainTopicStr == '')
+				return;
 			// var subTopicStr = topicArray[topicArray.length - 1].trim();
 			var indicatorTextStr = item.indicator_text.trim();
-			// console.log(mainTopicStr);
-			// console.log(indicatorTextStr);
+			var indicatorKeyStr = item.indicator_key.trim();
+			 //console.log(mainTopicStr);
+			 //console.log(indicatorTextStr);
 			if (index == 0) {
 				mainTopic = mainTopicStr;
 				indicatorText.push(indicatorTextStr);
+				indicatorKey.push(indicatorKeyStr);
 			} else if (mainTopicStr == mainTopic) {
 				indicatorText.push(indicatorTextStr);
+				indicatorKey.push(indicatorKeyStr);
 			} else {
 				var topic = {
 					'topic' : mainTopic,
-					'indicatorText' : indicatorText
+					'indicatorText' : indicatorText,
+					'indicatorKey' : indicatorKey
 				}
 				resultJSON.push(topic);
 				mainTopic = mainTopicStr;
 				indicatorText = [];
+				indicatorKey = [];
 				indicatorText.push(indicatorTextStr);
+				indicatorKey.push(indicatorKeyStr);
+				
 			}
 			// resultJSON.push(item.topic);
 		});
 		// deal with the last topic
 		var topic = {
 			'topic' : mainTopic,
-			'indicatorText' : indicatorText
+			'indicatorText' : indicatorText,
+			'indicatorKey' : indicatorKey
 		}
 		resultJSON.push(topic);
 		res.send(resultJSON);
