@@ -33,7 +33,7 @@ Ext.define('Datanium.view.FilterBox', {
 				text : Datanium.util.CommonUtils.limitLabelLength(rec.name, 23),
 				tooltip : rec.name,
 				tooltipType : 'title',
-				iconCls : 'fa fa-check-square-o',
+				iconCls : 'fa fa-square-o',
 				enableToggle : true,
 				textAlign : 'left',
 				width : 180,
@@ -50,11 +50,13 @@ Ext.define('Datanium.view.FilterBox', {
 						} else {
 							console.log(me.uniqueName);
 							popSelection.push(me.uniqueName);
+							me.setIconCls('fa fa-check-square-o');
 						}
 					} else {
 						Ext.Array.each(popSelection, function(rec, index) {
 							if (rec == me.uniqueName) {
 								popSelection.splice(index, 1);
+								me.setIconCls('fa fa-square-o');
 							}
 						});
 					}
@@ -66,6 +68,7 @@ Ext.define('Datanium.view.FilterBox', {
 			Ext.Array.each(selections, function(sel, index) {
 				if (btn.uniqueName == sel) {
 					btn.pressed = true;
+					btn.iconCls = 'fa fa-check-square-o';
 				}
 			});
 			buttons.push(btn);
