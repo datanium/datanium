@@ -147,8 +147,13 @@ Ext.define('Datanium.util.CommonUtils', {
 					var field = {
 						uniqueName : dim.uniqueName,
 						text : dim.text,
-						cls : 'fieldBtn-d'
+						cls : 'fieldBtn-d',
+						handler : function(me) {
+							Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('popFilter',
+									me.uniqueName, me.text);
+						}
 					};
+					console.log(field);
 					dimField.add(field);
 				});
 			}
@@ -180,7 +185,11 @@ Ext.define('Datanium.util.CommonUtils', {
 							var field = {
 								uniqueName : key,
 								text : dim.text,
-								cls : 'fieldBtn-f'
+								cls : 'fieldBtn-f',
+								handler : function(me) {
+									Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('popFilter',
+											me.uniqueName, me.text);
+								}
 							};
 							fltField.add(field);
 						}
