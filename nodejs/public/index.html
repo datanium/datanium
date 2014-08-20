@@ -138,6 +138,7 @@
 		}
 
 		var showModal = function() {
+			showTxtModal('Search Indicator by Topic', 'Processing...');
 			var link = '/rest/query/topicSearch';
 			$.ajax({
 				url : link,
@@ -154,9 +155,11 @@
 						});
 						html += '</div>';
 					}
-					$('#myModal').find('.modal-body').html(html);
+					updateTxtModal(null, '', html);
+					$('#txtmodal').find('.modal-body #accordion').find('div[id^="collapse"]').collapse('hide');
+					/*$('#myModal').find('.modal-body').html(html);
 					$('#myModal').find('.modal-body #accordion').find('div[id^="collapse"]').collapse('hide');
-					$('#myModal').modal('show');
+					$('#myModal').modal('show');*/
 				},
 				error : function() {
 
@@ -185,18 +188,18 @@
 			html += '<div id="collapse'+index+'" class="panel-collapse collapse in">';
 			html += '<div class="panel-body">';
 			if (indicator.length > 0) {
-				$.each(indicator, function(index1, item1) {
+				$.each(indicator, function(indicatorTextIndex, indicatorTextStr) {
 					var key = '';
-					$.each(indicatorKey, function(index2, item2) {
-						if (index1 == index2) {
-							key = item2;
+					$.each(indicatorKey, function(indicatorKeyIndex, indicatorKeyStr) {
+						if (indicatorTextIndex == indicatorKeyIndex) {
+							key = indicatorKeyStr;
 							return false;
 						} else {
 							return;
 						}
 					});
-					html += '<p><a href="#" onclick="addIndicator(\'myModal\',\'' + key + '\');">';
-					html += item1;
+					html += '<p><a href="#" onclick="addIndicator(\'' + key + '\');">';
+					html += indicatorTextStr;
 					html += '</a></p>';
 				});
 			}
@@ -273,9 +276,9 @@
 			});
 		}
 
-		var addIndicator = function(id, key) {
+		var addIndicator = function(key) {
 			Datanium.controller.Homepage.prototype.addIndicator(key);
-			$('#' + id + '').modal('hide');
+			$('#txtmodal').modal('hide');
 		}
 
 		$('#gnsearch').bind("enterKey", function(e) {
@@ -293,7 +296,7 @@
 					var indicators = data.indicators;
 					if (indicators != null) {
 						indicators.forEach(function(rec) {
-							html += '<p><a href="#" onclick="addIndicator(\'txtmodal\',\'' + rec.uniqueName + '\');">';
+							html += '<p><a href="#" onclick="addIndicator(\'' + rec.uniqueName + '\');">';
 							html += rec.text;
 							html += '</a></p>';
 						});
