@@ -92,6 +92,13 @@ Ext.define('Datanium.view.FilterBox', {
 		if (buttonId == 'yes' && popSelection.length > 0) {
 			Datanium.GlobalData.queryParam.primaryFilter = Datanium.GlobalData.popDimensionKey;
 			Datanium.util.CommonUtils.splitFilter(popSelection);
+			var epBtns = Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').items.items;
+			Ext.Array.each(epBtns, function(rec, idx) {
+				if (rec.uniqueName == Datanium.GlobalData.queryParam.primaryFilter) {
+					if (!rec.pressed)
+						epBtns[idx].toggle();
+				}
+			});
 		} else if (buttonId == 'no') {
 			// Datanium.GlobalData.queryParam.split = null;
 			var key = Datanium.GlobalData.popDimensionKey;
