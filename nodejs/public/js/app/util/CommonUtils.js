@@ -153,7 +153,6 @@ Ext.define('Datanium.util.CommonUtils', {
 									me.uniqueName, me.text);
 						}
 					};
-					console.log(field);
 					dimField.add(field);
 				});
 			}
