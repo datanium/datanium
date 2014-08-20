@@ -45,6 +45,7 @@ function generateSeries(yFields, yFieldsTxt, xFieldsLabel) {
 			axis : false,
 			highlight : true,
 			smooth : true,
+			showMarkers : false,
 			fill : true,
 			xField : xFieldsLabel,
 			yField : yfld,
