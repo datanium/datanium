@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Datanium</title>
+<title>Datanium - Play with Data</title>
 <meta name="author" content="Codrops" />
 <link rel="shortcut icon" href="./img/favicon32.ico">
 <link rel="stylesheet" type="text/css" href="./css/normalize.css">
@@ -49,7 +49,7 @@
 			<li><a href="#" onclick="save();"><span><i class="fa fa-pencil-square-o"></i>&nbsp;Save</span></a></li>
 			<li><a href="#" onclick="comingSoon();"><span><i class="fa fa-laptop"></i>&nbsp;Space</span></a></li>
 			<li><a href="#" onclick="comingSoon();"><span><i class="fa fa-comment-o"></i>&nbsp;Feedback</span></a></li>
-			<li><a href="#" onclick="comingSoon();"><span><i class="fa fa-smile-o"></i>&nbsp;About</span></a></li>
+			<li><a href="#" onclick="about();"><span><i class="fa fa-smile-o"></i>&nbsp;About</span></a></li>
 
 			<li><a href="#" onclick="comingSoon();"><span><i class="fa fa-user"></i>&nbsp;Login/Sign
 						up</span></a></li>
@@ -102,17 +102,45 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<div class="modal fade" id="signinModal" style="z-index: 1000000">
-		<div class="modal-dialog" id="txtmodaldialog">
+		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h5 class="modal-title" id="txtmodaltitle"></h5>
+					<h5 class="modal-title"></h5>
 				</div>
 				<div class="modal-body">
-					<h4 id="txtmodalbody"></h4>
-					<div id="txtmodalhtmlbody"></div>
+					<h4></h4>
+					<div></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="aboutModal" style="z-index: 1000000">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h5 class="modal-title">About Datanium</h5>
+				</div>
+				<div class="modal-body">
+
+					<div class="about_desc">
+						<div class="about_logo">
+							<img src="./img/favicon32.ico"></img>
+						</div>
+						<div>
+							<h5>Datanium - Version 0.1.334</h5>
+							<h5>A platform that help you find, present, share and play with data.</h5>
+						</div>
+					</div>
+					<div class="about_foot">
+						Fork us on <a href="https://github.com/datanium/datanium">Github</a> or Contact us directly -
+						<a href="mailto:admin@dtnium.com">dtnium@gmail.com</a>
+					</div>
+
 				</div>
 			</div>
 		</div>
@@ -227,6 +255,10 @@
 
 		var saveSuccess = function() {
 			showTxtModal('&nbsp;', 'Save Successful.', 'small');
+		}
+
+		var about = function() {
+			$('#aboutModal').modal('show');
 		}
 
 		var showTxtModal = function(title, content, size, html) {
