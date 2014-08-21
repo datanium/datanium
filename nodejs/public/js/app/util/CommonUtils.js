@@ -418,6 +418,8 @@ Ext.define('Datanium.util.CommonUtils', {
 			Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('refreshElementPanel');
 			Datanium.util.CommonUtils.refreshAll();
 			Datanium.GlobalData.queryParam.primaryDimension = null;
+			Datanium.util.CommonUtils.updateFilterFields();
+			Datanium.util.CommonUtils.updateFields();
 		}
 	}
 });
