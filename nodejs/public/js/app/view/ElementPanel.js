@@ -52,7 +52,7 @@ Ext.define('Datanium.view.ElementPanel', {
 									iconCls : 'fa fa-times-circle-o',
 									text : 'Remove',
 									handler : function() {
-										Datanium.util.CommonUtils.removeElement(this.parentMenu.ownerButton.itemId);
+										Datanium.util.CommonUtils.removeElement(this.parentMenu.ownerButton.uniqueName);
 										this.parentMenu.ownerButton.destroy();
 										Datanium.util.CommonUtils.updateQueryParamByEP();
 										Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent(
@@ -125,7 +125,7 @@ Ext.define('Datanium.view.ElementPanel', {
 									iconCls : 'fa fa-times-circle-o',
 									text : 'Remove',
 									handler : function() {
-										Datanium.util.CommonUtils.removeElement(this.parentMenu.ownerButton.itemId);
+										Datanium.util.CommonUtils.removeElement(this.parentMenu.ownerButton.uniqueName);
 										this.parentMenu.ownerButton.destroy();
 										Datanium.util.CommonUtils.updateQueryParamByEP();
 										Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent(
