@@ -51,7 +51,7 @@
 			<li><a href="#" onclick="comingSoon();"><span><i class="fa fa-comment-o"></i>&nbsp;Feedback</span></a></li>
 			<li><a href="#" onclick="about();"><span><i class="fa fa-smile-o"></i>&nbsp;About</span></a></li>
 
-			<li><a href="#" onclick="comingSoon();"><span><i class="fa fa-user"></i>&nbsp;Login/Sign
+			<li><a href="#" onclick="login();"><span><i class="fa fa-user"></i>&nbsp;Login/Sign
 						up</span></a></li>
 		</ul>
 		<header>
@@ -103,16 +103,80 @@
 		</div>
 	</div>
 
-	<div class="modal fade" id="signinModal" style="z-index: 1000000">
-		<div class="modal-dialog">
+	<div class="modal fade" id="loginModal" style="z-index: 1000000">
+		<div class="modal-dialog modal-sm">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h5 class="modal-title"></h5>
+					<h4 class="modal-title">Login</h4>
 				</div>
 				<div class="modal-body">
-					<h4></h4>
-					<div></div>
+					<form class="form-horizontal" role="form">
+						<div class="form-group">
+							<div class="col-sm-offset-1 col-sm-10">
+								<input type="email" class="form-control" id="inputEmail" placeholder="Email">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-offset-1 col-sm-10">
+								<input type="password" class="form-control" id="inputPassword" placeholder="Password">
+							</div>
+						</div>
+						<div class="col-sm-offset-1 col-sm-10">
+							<div class="login_foot">
+								<label> <a href="#" onclick="signup();">Sign up</a>
+								</label>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary">Login</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="signupModal" style="z-index: 1000000">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Sign up</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal" role="form">
+						<div class="form-group">
+							<div class="col-sm-offset-1 col-sm-10">
+								<input type="email" class="form-control" id="inputEmail2" placeholder="Email">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-offset-1 col-sm-10">
+								<input type="text" class="form-control" id="inputUsername2" placeholder="Username">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-offset-1 col-sm-10">
+								<input type="password" class="form-control" id="inputPassword2" placeholder="Password">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-offset-1 col-sm-10">
+								<input type="password" class="form-control" id="inputConfirmPassword2"
+									placeholder="Confirm Password">
+							</div>
+						</div>
+						<div class="col-sm-offset-1 col-sm-10">
+							<div class="login_foot">
+								<label> <a href="#" onclick="login();">Login</a>
+								</label>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary">Create Account</button>
 				</div>
 			</div>
 		</div>
@@ -259,6 +323,16 @@
 
 		var about = function() {
 			$('#aboutModal').modal('show');
+		}
+
+		var login = function() {
+			$('#signupModal').modal('hide');
+			$('#loginModal').modal('show');
+		}
+
+		var signup = function() {
+			$('#loginModal').modal('hide');
+			$('#signupModal').modal('show');
 		}
 
 		var showTxtModal = function(title, content, size, html) {

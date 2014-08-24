@@ -181,3 +181,13 @@ legend {
 .about_foot a:hover {
 	color: #297FCF;
 }
+
+.login_foot a {
+	color: #4f7bab;
+	text-decoration: none;
+	outline: none;
+}
+
+.login_foot a:hover {
+	color: #297FCF;
+}
