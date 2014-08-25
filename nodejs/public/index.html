@@ -176,7 +176,7 @@
 					</form>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary">Create Account</button>
+					<button type="button" onclick="createAccount();" class="btn btn-primary">Create Account</button>
 				</div>
 			</div>
 		</div>
@@ -231,6 +231,41 @@
 			}
 		}
 
+		var createAccount = function(){
+			var password = $('#inputPassword2').val();
+			var confirmPassword = $('#inputConfirmPassword2').val();
+			if(password != confirmPassword){
+				alert("two password should be the same");
+				$('#inputPassword2').val('');
+				$('#inputConfirmPassword2').val('');
+				return;
+			}
+			var link ='/userManagement/saveUser';
+			$.ajax({
+				url : link,
+				type : 'POST',
+				dataType : 'json',
+				data : {username : $('#inputUsername2').val(),
+						password : password,
+						email : $('#inputEmail2').val()},
+				success: function(map){
+					if(map.status == 'success'){
+						alert(map.message);
+						$('#signupModal').modal('hide');
+					}
+					else{
+						alert(map.message);
+						$('#inputPassword2').val('');
+						$('#inputConfirmPassword2').val('');
+					}
+					
+				},
+				error : function(){
+					
+				}
+			});
+		}
+		
 		var showModal = function() {
 			showTxtModal('Search Indicator by Topic', 'Processing...');
 			var link = '/rest/query/topicSearch';
