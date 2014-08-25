@@ -33,7 +33,7 @@ Ext.define('Datanium.view.FilterBox', {
 				text : Datanium.util.CommonUtils.limitLabelLength(rec.name, 23),
 				tooltip : rec.name,
 				tooltipType : 'title',
-				iconCls : 'fa fa-check-square-o',
+				iconCls : 'fa fa-square-o',
 				enableToggle : true,
 				textAlign : 'left',
 				width : 180,
@@ -50,11 +50,13 @@ Ext.define('Datanium.view.FilterBox', {
 						} else {
 							console.log(me.uniqueName);
 							popSelection.push(me.uniqueName);
+							me.setIconCls('fa fa-check-square-o');
 						}
 					} else {
 						Ext.Array.each(popSelection, function(rec, index) {
 							if (rec == me.uniqueName) {
 								popSelection.splice(index, 1);
+								me.setIconCls('fa fa-square-o');
 							}
 						});
 					}
@@ -66,6 +68,7 @@ Ext.define('Datanium.view.FilterBox', {
 			Ext.Array.each(selections, function(sel, index) {
 				if (btn.uniqueName == sel) {
 					btn.pressed = true;
+					btn.iconCls = 'fa fa-check-square-o';
 				}
 			});
 			buttons.push(btn);
@@ -89,13 +92,22 @@ Ext.define('Datanium.view.FilterBox', {
 		if (buttonId == 'yes' && popSelection.length > 0) {
 			Datanium.GlobalData.queryParam.primaryFilter = Datanium.GlobalData.popDimensionKey;
 			Datanium.util.CommonUtils.splitFilter(popSelection);
-		} else {
+			var epBtns = Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').items.items;
+			Ext.Array.each(epBtns, function(rec, idx) {
+				if (rec.uniqueName == Datanium.GlobalData.queryParam.primaryFilter) {
+					if (!rec.pressed)
+						epBtns[idx].toggle();
+				}
+			});
+		} else if (buttonId == 'no') {
 			// Datanium.GlobalData.queryParam.split = null;
 			var key = Datanium.GlobalData.popDimensionKey;
 			delete Datanium.GlobalData.queryParam.filters[key];
 			if (key == Datanium.GlobalData.queryParam.primaryFilter)
 				Datanium.GlobalData.queryParam.isSplit = false;
 			// Datanium.util.CommonUtils.clearPopDimFilter();
+		} else if (buttonId == 'cancel') {
+			return;
 		}
 		Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('submitFilter');
 	}

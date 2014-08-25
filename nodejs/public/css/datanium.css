@@ -153,3 +153,41 @@
 legend {
 	margin-bottom: 0px;
 }
+
+.about_logo {
+	float: left;
+}
+
+.about_logo img {
+	width: 39px;
+	margin: 1px 15px 0px 1px;
+}
+
+.about_desc {
+	margin: 5px;
+	height: 50px;
+}
+
+.about_foot {
+	margin: 5px 0px 20px 10px;
+}
+
+.about_foot a {
+	color: #4f7bab;
+	text-decoration: none;
+	outline: none;
+}
+
+.about_foot a:hover {
+	color: #297FCF;
+}
+
+.login_foot a {
+	color: #4f7bab;
+	text-decoration: none;
+	outline: none;
+}
+
+.login_foot a:hover {
+	color: #297FCF;
+}

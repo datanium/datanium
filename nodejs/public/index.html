@@ -4,8 +4,8 @@
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Datanium</title>
-<meta name="author" content="Codrops" />
+<title>Datanium - Play with Data</title>
+<meta name="author" content="Datanium" />
 <link rel="shortcut icon" href="./img/favicon32.ico">
 <link rel="stylesheet" type="text/css" href="./css/normalize.css">
 <link rel="stylesheet" type="text/css" href="./css/demo.css" />
@@ -48,10 +48,10 @@
 				</nav></li>
 			<li><a href="#" onclick="save();"><span><i class="fa fa-pencil-square-o"></i>&nbsp;Save</span></a></li>
 			<li><a href="#" onclick="comingSoon();"><span><i class="fa fa-laptop"></i>&nbsp;Space</span></a></li>
-			<li><a href="#" onclick="comingSoon();"><span><i class="fa fa-comment-o"></i>&nbsp;Feeback</span></a></li>
-			<li><a href="#" onclick="comingSoon();"><span><i class="fa fa-smile-o"></i>&nbsp;About</span></a></li>
+			<li><a href="#" onclick="comingSoon();"><span><i class="fa fa-comment-o"></i>&nbsp;Feedback</span></a></li>
+			<li><a href="#" onclick="about();"><span><i class="fa fa-smile-o"></i>&nbsp;About</span></a></li>
 
-			<li><a href="#" onclick="comingSoon();"><span><i class="fa fa-user"></i>&nbsp;Login/Sign
+			<li><a href="#" onclick="login();"><span><i class="fa fa-user"></i>&nbsp;Login/Sign
 						up</span></a></li>
 		</ul>
 		<header>
@@ -62,19 +62,6 @@
 			</h1>
 		</header>
 		<div id="appContainer"></div>
-	</div>
-
-	<div class="modal fade" id="myModal" style="z-index: 1000000" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h5 class="modal-title" id="myModalLabel">Search Indicator by Topic</h5>
-				</div>
-				<div class="modal-body">...</div>
-			</div>
-		</div>
 	</div>
 
 	<div class="modal fade" id="txtmodal" style="z-index: 1000000">
@@ -111,6 +98,113 @@
 						different browser that is having difficulty rendering this site, download and install the
 						latest version of your browser using the link above.</span>
 					<p></p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="loginModal" style="z-index: 1000000">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Login</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal" role="form">
+						<div class="form-group">
+							<div class="col-sm-offset-1 col-sm-10">
+								<input type="email" class="form-control" id="inputEmail" placeholder="Email">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-offset-1 col-sm-10">
+								<input type="password" class="form-control" id="inputPassword" placeholder="Password">
+							</div>
+						</div>
+						<div class="col-sm-offset-1 col-sm-10">
+							<div class="login_foot">
+								<label> <a href="#" onclick="signup();">Sign up</a>
+								</label>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary">Login</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="signupModal" style="z-index: 1000000">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Sign up</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal" role="form">
+						<div class="form-group">
+							<div class="col-sm-offset-1 col-sm-10">
+								<input type="email" class="form-control" id="inputEmail2" placeholder="Email">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-offset-1 col-sm-10">
+								<input type="text" class="form-control" id="inputUsername2" placeholder="Username">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-offset-1 col-sm-10">
+								<input type="password" class="form-control" id="inputPassword2" placeholder="Password">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-offset-1 col-sm-10">
+								<input type="password" class="form-control" id="inputConfirmPassword2"
+									placeholder="Confirm Password">
+							</div>
+						</div>
+						<div class="col-sm-offset-1 col-sm-10">
+							<div class="login_foot">
+								<label> <a href="#" onclick="login();">Login</a>
+								</label>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary">Create Account</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="aboutModal" style="z-index: 1000000">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h5 class="modal-title">About Datanium</h5>
+				</div>
+				<div class="modal-body">
+
+					<div class="about_desc">
+						<div class="about_logo">
+							<img src="./img/favicon32.ico"></img>
+						</div>
+						<div>
+							<h5>Datanium - Version 0.1.334</h5>
+							<h5>A platform that help you find, present, share and play with data.</h5>
+						</div>
+					</div>
+					<div class="about_foot">
+						Fork us on <a href="https://github.com/datanium/datanium">Github</a> or Contact us directly -
+						<a href="mailto:admin@dtnium.com">dtnium@gmail.com</a>
+					</div>
+
 				</div>
 			</div>
 		</div>
@@ -227,6 +321,20 @@
 			showTxtModal('&nbsp;', 'Save Successful.', 'small');
 		}
 
+		var about = function() {
+			$('#aboutModal').modal('show');
+		}
+
+		var login = function() {
+			$('#signupModal').modal('hide');
+			$('#loginModal').modal('show');
+		}
+
+		var signup = function() {
+			$('#loginModal').modal('hide');
+			$('#signupModal').modal('show');
+		}
+
 		var showTxtModal = function(title, content, size, html) {
 			$('#txtmodaltitle').html('');
 			$('#txtmodalbody').html('');
@@ -314,6 +422,21 @@
 				$(this).trigger("enterKey");
 			}
 		});
+	</script>
+	<script>
+		/* Google Analytics Tracking Code*/
+		(function(i, s, o, g, r, a, m) {
+			i['GoogleAnalyticsObject'] = r;
+			i[r] = i[r] || function() {
+				(i[r].q = i[r].q || []).push(arguments)
+			}, i[r].l = 1 * new Date();
+			a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+			a.async = 1;
+			a.src = g;
+			m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+		ga('create', 'UA-54110354-1', 'auto');
+		ga('send', 'pageview');
 	</script>
 </body>
 </html>
