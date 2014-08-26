@@ -12,7 +12,27 @@ exports.saveUser = function(req, res) {
 	var status = '';
 	var message = '';
 	var userExistFlag = checkUserExist(username);
-	if(userExistFlag == true){
+	console.log(userExistFlag);
+	var emailExistFlag = checkEmailExist(email);
+	console.log(emailExistFlag);
+	if(userExistFlag == false){
+		status = 'Username Exist';
+        message='Username already exists.';
+        returnJSON = {
+		'status' : status,
+		'message' : message
+	}
+	res.send(returnJSON);
+}
+if(emailExistFlag == false){
+		status = 'Email Exist';
+        message='Email already exists.';
+        returnJSON = {
+		'status' : status,
+		'message' : message
+	}
+	res.send(returnJSON);
+}
 	var currentDate = getCurrentDate();
 	var oneUser = {'username' : username,
 				   'password' : password,
@@ -32,17 +52,7 @@ exports.saveUser = function(req, res) {
 		'message' : message
 		};
           res.send(returnJSON);
-      });
-	}else{
-		status = 'failed';
-        message='user '+username+' already exists.';
-        returnJSON = {
-		'status' : status,
-		'message' : message
-	};
-	res.send(returnJSON);
-	}
-	
+      });	
 
 };
 
@@ -51,7 +61,46 @@ function getCurrentDate(){
 	return currentDate;
 };
 
-function checkUserExist(username){
-	return true;
+function checkUserExist(user){
+	var flag = true;
+	/*async.series({
+		one : function (callback){
+		UserSchema.find({
+		username : user
+		}, function(err, doc) {
+		if (err)
+			console.log('Exception: ' + err);
+		if(doc.length > 0){
+			flag = false;
+		}
+		callback();
+	});
+		},
+	two : function (callback){
+		return flag;
+	}
+});*/
+		UserSchema.find({
+		username : user
+		}, function(err, doc) {
+		if (err)
+			console.log('Exception: ' + err);
+		if(doc.length > 0){
+			flag = false;
+		}
+	});
+	return flag;
+};
+
+function checkEmailExist(emailAddr){
+	UserSchema.find({
+		email : emailAddr
+	}, function(err, doc) {
+		if (err)
+			console.log('Exception: ' + err);
+		if(doc.length > 0){
+			return false;
+		}
+	});
 };
 

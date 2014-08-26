@@ -148,21 +148,25 @@
 					<form class="form-horizontal" role="form">
 						<div class="form-group">
 							<div class="col-sm-offset-1 col-sm-10">
+							<label id="emailLabel" for="inputEmail2" style="display:none; color:red;"></label>
 								<input type="email" class="form-control" id="inputEmail2" placeholder="Email">
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="col-sm-offset-1 col-sm-10">
+							<label id="usernameLabel" for="inputUsername2"  style="display:none; color:red;"></label>
 								<input type="text" class="form-control" id="inputUsername2" placeholder="Username">
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="col-sm-offset-1 col-sm-10">
+							<label id="passwordLabel" for="inputPassword2" style="display:none; color:red;"></label>
 								<input type="password" class="form-control" id="inputPassword2" placeholder="Password">
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="col-sm-offset-1 col-sm-10">
+							<label id="confirmLabel" for="inputConfirmPassword2" style="display:none; color:red;"></label>
 								<input type="password" class="form-control" id="inputConfirmPassword2"
 									placeholder="Confirm Password">
 							</div>
@@ -232,21 +236,19 @@
 		}
 
 		var createAccount = function(){
-			var password = $('#inputPassword2').val();
-			var confirmPassword = $('#inputConfirmPassword2').val();
-			if(password != confirmPassword){
-				alert("two password should be the same");
-				$('#inputPassword2').val('');
-				$('#inputConfirmPassword2').val('');
+			var validate = validateSignUp();
+			alert
+			if(validate!=true){
+				alert(1);
 				return;
-			}
+			}				
 			var link ='/userManagement/saveUser';
 			$.ajax({
 				url : link,
 				type : 'POST',
 				dataType : 'json',
 				data : {username : $('#inputUsername2').val(),
-						password : password,
+						password : $('#inputPassword2').val(),
 						email : $('#inputEmail2').val()},
 				success: function(map){
 					if(map.status == 'success'){
@@ -254,7 +256,18 @@
 						$('#signupModal').modal('hide');
 					}
 					else{
-						alert(map.message);
+						if(map.status =='Email Exist'){
+							$('#emailLabel').text(map.message);
+							$('#emailLabel').show();
+						}else{
+							$('#emailLabel').hide();
+						}
+						if(map.status =='Username Exist'){
+							$('#usernameLabel').text(map.message);
+							$('#usernameLabel').show();
+						}else{
+							$('#usernameLabel').hide();
+						}
 						$('#inputPassword2').val('');
 						$('#inputConfirmPassword2').val('');
 					}
@@ -264,6 +277,56 @@
 					
 				}
 			});
+		}
+		
+		var validateSignUp = function (){
+			var email = $('#inputEmail2').val();
+			var username = $('#inputUsername2').val();
+			var password = $('#inputPassword2').val();
+			var confirmPassword = $('#inputConfirmPassword2').val();
+			var count = 0;
+			if(email == null ||email == ''){
+				$('#emailLabel').text("This field is required.");
+				$('#emailLabel').show();
+				count++;
+			}else{
+				$('#emailLabel').hide();
+			}if(username == null ||username == ''){
+				$('#usernameLabel').text("This field is required.");
+				$('#usernameLabel').show();
+				count++;
+			}else{
+				$('#usernameLabel').hide();
+			}if(password == null ||password == ''){
+				$('#passwordLabel').text("This field is required.");
+				$('#passwordLabel').show();
+				count++;
+			}else{
+				$('#passwordLabel').hide();
+			}if(confirmPassword == null ||confirmPassword == ''){
+				$('#confirmLabel').text("This field is required.");
+				$('#confirmLabel').show();
+				count++;
+			}else{
+				$('#confirmLabel').hide();
+			}if(password!=null && password.length < 4){
+				$('#passwordLabel').text("Ensure this value has at least 4 characters (it has "+password.length+").");
+				$('#passwordLabel').show();
+			}
+			if(password!=null && password!='' && confirmPassword!= null 
+				&& confirmPassword!='' && password != confirmPassword){
+				$('#confirmLabel').text("The two password fields didn't match.");
+				$('#confirmLabel').show();
+				$('#inputPassword2').val('');
+				$('#inputConfirmPassword2').val('');
+				count++;
+			}
+			if(count!=0){
+				$('#inputPassword2').val('');
+				$('#inputConfirmPassword2').val('');
+				return false;
+			}
+			return true;
 		}
 		
 		var showModal = function() {
@@ -368,8 +431,24 @@
 		var signup = function() {
 			$('#loginModal').modal('hide');
 			$('#signupModal').modal('show');
+			clearValues();
+			clearLabels();
 		}
 
+		var clearValues = function(){
+			$('#inputEmail2').val('');
+			$('#inputUsername2').val('');
+			$('#inputPassword2').val('');
+			$('#inputConfirmPassword2').val('');
+		}
+		
+		var clearLabels = function(){
+			$('#emailLabel').hide();
+			$('#usernameLabel').hide();
+			$('#passwordLabel').hide();
+			$('#confirmLabel').hide();
+		}
+		
 		var showTxtModal = function(title, content, size, html) {
 			$('#txtmodaltitle').html('');
 			$('#txtmodalbody').html('');
