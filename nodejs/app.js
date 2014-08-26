@@ -30,6 +30,7 @@ if ('development' == app.get('env')) {
 	app.use(express.errorHandler());
 }
 
+app.get('/', routes.index);
 app.get('/:hashid', routes.index);
 app.get('/helloworld', routes.helloworld);
 app.post('/rest/query/result', rest.queryResult);
