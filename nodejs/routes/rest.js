@@ -36,13 +36,13 @@ exports.topicSearch = function(req, res) {
 				return;
 			var topicArray = item.topic.split(':');
 			var mainTopicStr = topicArray[0].trim();
-			if(mainTopicStr == '')
+			if (mainTopicStr == '')
 				return;
 			// var subTopicStr = topicArray[topicArray.length - 1].trim();
 			var indicatorTextStr = item.indicator_text.trim();
 			var indicatorKeyStr = item.indicator_key.trim();
-			 //console.log(mainTopicStr);
-			 //console.log(indicatorTextStr);
+			// console.log(mainTopicStr);
+			// console.log(indicatorTextStr);
 			if (index == 0) {
 				mainTopic = mainTopicStr;
 				indicatorText.push(indicatorTextStr);
@@ -62,7 +62,7 @@ exports.topicSearch = function(req, res) {
 				indicatorKey = [];
 				indicatorText.push(indicatorTextStr);
 				indicatorKey.push(indicatorKeyStr);
-				
+
 			}
 			// resultJSON.push(item.topic);
 		});
@@ -447,6 +447,7 @@ exports.indicatorMapping = function(req, res) {
 }
 
 exports.indicatorSearch = function(req, res) {
+	console.log('login User: ' + req.session.user.email);
 	var query = require('url').parse(req.url, true).query;
 	var indicatorResultJSON = {};
 	if (query.query != null) {
