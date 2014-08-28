@@ -5,6 +5,7 @@ var UserSchema = new Schema({
 	password : String,
 	email : String,
 	signup_date : Date,
-	last_signin_date : Date
+	last_login_date : Date,
+	last_login_ip : String
 });
 exports.User = mongodb.mongoose.model('User', UserSchema, 'user');

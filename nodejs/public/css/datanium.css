@@ -191,3 +191,8 @@ legend {
 .login_foot a:hover {
 	color: #297FCF;
 }
+
+.val_error_label {
+	display: none;
+	color: #F78181;
+}

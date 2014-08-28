@@ -1,5 +1,7 @@
 include ../public/index.html
-var loginUserEmail = '#{userEmail}';
+script(type='text/javascript').
+	var loginUserEmail = '#{userEmail}';
+	var loginUsername = '#{username}';
 if hasHashKey
 	script(type='text/javascript').
 		console.log('hashid:#{hashid}');

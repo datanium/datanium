@@ -1649,7 +1649,8 @@ legend {
 label {
   display: inline-block;
   margin-bottom: 5px;
-  font-weight: bold;
+/**change this for ui improvement**/
+  /* font-weight: bold; */
 }
 input[type="search"] {
   -webkit-box-sizing: border-box;
