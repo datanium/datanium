@@ -447,7 +447,6 @@ exports.indicatorMapping = function(req, res) {
 }
 
 exports.indicatorSearch = function(req, res) {
-	console.log('login User: ' + req.session.user.email);
 	var query = require('url').parse(req.url, true).query;
 	var indicatorResultJSON = {};
 	if (query.query != null) {
@@ -518,6 +517,9 @@ exports.dimensionValueSearch = function(req, res) {
 }
 
 exports.save = function(req, res) {
+	var userEmail = null;
+	if (req.session.user != null)
+		userEmail = req.session.user.email;
 	var analysisObj = req.body;
 	var userip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 	var hashid = null;
@@ -554,7 +556,7 @@ exports.save = function(req, res) {
 				queryParam : analysisObj.queryParam,
 				rptMode : analysisObj.rptMode,
 				chartMode : analysisObj.chartMode,
-				user_id : 'anonymous user',
+				user_id : userEmail != null ? userEmail : 'anonymous user',
 				user_ip : userip,
 				creation_date : date,
 				modification_date : date

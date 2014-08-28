@@ -3,15 +3,13 @@ var analysis = require('../data/analysis');
 var analysisSchema = analysis.Analysis;
 
 exports.index = function(req, res) {
-	// mock session
-	req.session.user = {
-		email : "nicepuffy@gmail.com"
-	};
+	console.log("user: " + req.session.user);
 	var hashid = req.url.substr(1);
 	if (hashid === '') {
 		res.render('index', {
 			hasHashKey : false,
-			userEmail : req.session.user ? req.session.user.email : null
+			userEmail : req.session.user ? req.session.user.email : null,
+			username : req.session.user ? req.session.user.username : null
 		});
 		return;
 	}
@@ -37,7 +35,8 @@ exports.index = function(req, res) {
 				queryParam : JSON.stringify(doc.queryParam),
 				rptMode : doc.rptMode,
 				chartMode : doc.chartMode,
-				userEmail : req.session.user ? req.session.user.email : null
+				userEmail : req.session.user ? req.session.user.email : null,
+				username : req.session.user ? req.session.user.username : null
 			});
 		}
 	});
