@@ -5,7 +5,7 @@
 var express = require('express');
 var routes = require('./routes');
 var rest = require('./routes/rest');
-var userManagement = require('./routes/userManagement');
+var user = require('./routes/userManagement');
 var http = require('http');
 var path = require('path');
 
@@ -32,7 +32,6 @@ if ('development' == app.get('env')) {
 
 app.get('/', routes.index);
 app.get('/:hashid', routes.index);
-app.get('/helloworld', routes.helloworld);
 app.post('/rest/query/result', rest.queryResult);
 app.get('/rest/indicator/search', rest.indicatorSearch);
 app.get('/rest/indicator/map', rest.indicatorMapping);
@@ -40,8 +39,9 @@ app.get('/rest/dimension/search', rest.dimensionValueSearch);
 app.post('/rest/query/split', rest.querySplit);
 app.get('/rest/query/topicSearch', rest.topicSearch);
 app.post('/rest/save', rest.save);
-app.post('/signup', userManagement.saveUser);
-app.post('/login', userManagement.login);
+app.post('/signup', user.saveUser);
+app.post('/login', user.login);
+app.get('/user/space', user.space);
 
 http.createServer(app).listen(app.get('port'), function() {
 	console.log('Express server listening on port ' + app.get('port'));

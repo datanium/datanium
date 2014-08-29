@@ -156,6 +156,20 @@ exports.login = function(req, res) {
 	});
 };
 
+exports.space = function(req, res) {
+	if (req.session.user == null) {
+		res.redirect('/');
+		return;
+	}
+	var username = req.session.user.username;
+	var email = req.session.user.email;
+	res.render('space', {
+		host : req.protocol + '://' + req.get('host'),
+		username : username,
+		userEmail : email
+	});
+}
+
 function getCurrentDate() {
 	var currentDate = new Date();
 	return currentDate;
