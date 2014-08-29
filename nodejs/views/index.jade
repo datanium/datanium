@@ -1,9 +1,13 @@
-include ../public/header.html
-include ./head.jade
-include ./head-app.jade
-include ../public/index.html
-include ../public/common.html
-include ../public/foot.html
+doctype html
+html(lang="en")
+	head
+		include ../public/header.html
+		include ./header.jade
+		include ./header-app.jade
+	body
+		include ../public/index.html
+		include ../public/common.html
+		include ../public/foot.html
 script(type='text/javascript').
 	var loginUserEmail = '#{userEmail}';
 	var loginUsername = '#{username}';
