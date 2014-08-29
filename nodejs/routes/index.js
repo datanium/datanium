@@ -3,11 +3,12 @@ var analysis = require('../data/analysis');
 var analysisSchema = analysis.Analysis;
 
 exports.index = function(req, res) {
-	console.log("user: " + req.session.user);
+	console.log(req.app.settings);
 	var hashid = req.url.substr(1);
 	if (hashid === '') {
 		res.render('index', {
 			hasHashKey : false,
+			host : req.protocol + '://' + req.get('host'),
 			userEmail : req.session.user ? req.session.user.email : null,
 			username : req.session.user ? req.session.user.username : null
 		});
@@ -30,6 +31,7 @@ exports.index = function(req, res) {
 				doc.queryParam.filters = {};
 			res.render('index', {
 				hasHashKey : true,
+				host : req.protocol + '://' + req.get('host'),
 				hashid : doc.hashid,
 				qubeInfo : JSON.stringify(doc.qubeInfo),
 				queryParam : JSON.stringify(doc.queryParam),

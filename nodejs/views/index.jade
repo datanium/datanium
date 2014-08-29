@@ -1,4 +1,9 @@
+include ../public/header.html
+include ./head.jade
+include ./head-app.jade
 include ../public/index.html
+include ../public/common.html
+include ../public/foot.html
 script(type='text/javascript').
 	var loginUserEmail = '#{userEmail}';
 	var loginUsername = '#{username}';
@@ -10,3 +15,4 @@ if hasHashKey
 		Datanium.GlobalData.queryParam = !{queryParam};
 		Datanium.GlobalData.rptMode = '#{rptMode}';
 		Datanium.GlobalData.chartMode = '#{chartMode}';
+		
