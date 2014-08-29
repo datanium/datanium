@@ -1,7 +1,11 @@
-include ../public/header.html
-include ./head.jade
-include ../public/space.html
-include ../public/foot.html
+doctype html
+html(lang="en")
+	head
+		include ../public/header.html
+		include ./header.jade
+	body
+		include ../public/space.html
+		include ../public/foot.html
 script(type='text/javascript').
 	var loginUserEmail = '#{userEmail}';
 	var loginUsername = '#{username}';
