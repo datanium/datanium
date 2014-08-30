@@ -196,3 +196,24 @@ legend {
 	display: none;
 	color: #F78181;
 }
+
+.user_space_menu {
+	margin: 0px 10px;
+}
+
+.user_space_menu_sel {
+	margin: 0px 10px;
+	font-weight: bold;
+}
+
+#user_space a {
+	font-weight: normal;
+}
+
+#user_info {
+	margin: 10px;
+}
+
+.user_space_note {
+	color: #AAA;
+}

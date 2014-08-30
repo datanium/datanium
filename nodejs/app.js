@@ -31,7 +31,6 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
-app.get('/:hashid', routes.index);
 app.post('/rest/query/result', rest.queryResult);
 app.get('/rest/indicator/search', rest.indicatorSearch);
 app.get('/rest/indicator/map', rest.indicatorMapping);
@@ -41,7 +40,9 @@ app.get('/rest/query/topicSearch', rest.topicSearch);
 app.post('/rest/save', rest.save);
 app.post('/signup', user.saveUser);
 app.post('/login', user.login);
+app.get('/signout', user.signout);
 app.get('/user/space', user.space);
+app.get('/:hashid', routes.index);
 
 http.createServer(app).listen(app.get('port'), function() {
 	console.log('Express server listening on port ' + app.get('port'));
