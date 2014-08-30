@@ -3,7 +3,6 @@ var analysis = require('../data/analysis');
 var analysisSchema = analysis.Analysis;
 
 exports.index = function(req, res) {
-	console.log(req.app.settings);
 	var hashid = req.url.substr(1);
 	if (hashid === '') {
 		res.render('index', {

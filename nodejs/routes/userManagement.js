@@ -43,8 +43,6 @@ exports.saveUser = function(req, res) {
 			callback();
 		});
 	} ], function() {
-		console.log(userExistFlag);
-		console.log(emailExistFlag);
 		if (userExistFlag) {
 			status = 'username_exists';
 			message = 'Username already exists.';
@@ -155,6 +153,11 @@ exports.login = function(req, res) {
 		}
 	});
 };
+
+exports.signout = function(req, res) {
+	req.session.user = null;
+	res.redirect('/');
+}
 
 exports.space = function(req, res) {
 	if (req.session.user == null) {

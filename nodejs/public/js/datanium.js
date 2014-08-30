@@ -400,3 +400,5 @@ $('#gnsearch').keyup(function(e) {
 		$(this).trigger("enterKey");
 	}
 });
+
+$('#copy_url_btn').tooltip();
