@@ -4,6 +4,11 @@ $(document).ready(function() {
 		window.setTimeout(ieVersionPop, 1000);
 	if (loginUsername != null && loginUsername != '')
 		showUser(loginUsername, loginUserEmail);
+	$(function() {
+		$("[rel='tooltip']").tooltip({
+			container : 'body'
+		});
+	});
 });
 
 var showUser = function(username, email) {
@@ -400,5 +405,3 @@ $('#gnsearch').keyup(function(e) {
 		$(this).trigger("enterKey");
 	}
 });
-
-$('#copy_url_btn').tooltip();
