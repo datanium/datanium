@@ -1,7 +1,12 @@
 var mongodb = require('../data/mongodb');
 var user = require('../data/user');
+var analysis = require('../data/analysis');
 var UserSchema = user.User;
+var AnalysisSchema = analysis.Analysis;
 var async = require('../lib/async');
+var ejs = require('ejs');
+ejs.open = '$[';
+ejs.close = ']';
 
 exports.saveUser = function(req, res) {
 	var userip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
@@ -165,11 +170,29 @@ exports.space = function(req, res) {
 		return;
 	}
 	var username = req.session.user.username;
-	var email = req.session.user.email;
-	res.render('space', {
-		host : req.protocol + '://' + req.get('host'),
-		username : username,
-		userEmail : email
+	UserSchema.findOne({
+		username : username
+	}, function(err, user) {
+		if (err)
+			console.log('Exception: ' + err);
+		else {
+			AnalysisSchema.find({
+				user_id : user.email
+			}, function(err, analysises) {
+				console.log(analysises);
+				if (err)
+					console.log('Exception: ' + err);
+				else {
+					res.render('space.ejs', {
+						host : req.protocol + '://' + req.get('host'),
+						username : user.username,
+						userEmail : user.email,
+						signup_date : dateFormat(user.signup_date),
+						reports : analysises
+					});
+				}
+			})
+		}
 	});
 }
 
@@ -178,3 +201,6 @@ function getCurrentDate() {
 	return currentDate;
 };
 
+function dateFormat(date) {
+	return date.toISOString().replace(/T/, ' ').replace(/\..+/, '');
+}
