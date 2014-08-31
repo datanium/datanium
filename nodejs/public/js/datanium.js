@@ -269,7 +269,7 @@ var space = function() {
 	if (loginUsername != null && loginUsername != '') {
 		window.location.href = '/user/space/';
 	} else {
-		showTxtModal('&nbsp;', 'Please login first.', 'small');
+		loginpop();
 	}
 }
 

@@ -217,3 +217,7 @@ legend {
 .user_space_note {
 	color: #AAA;
 }
+
+.user_space_reports {
+	line-height: 50px;
+}
