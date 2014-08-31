@@ -48,14 +48,14 @@
 					<span>Updated: $[=report.modification_date]</span>
 					<p></p>
 					<div class="user_space_reports">
-						$[if (reports.qubeInfo != null && report.qubeInfo.dimensions != null) {]
+						$[if (report.qubeInfo != null && report.qubeInfo.dimensions != null) {]
 							$[report.qubeInfo.dimensions.forEach(function(dim){ ]
 							<button type="button" class="btn btn-default">
 								<span class="fa fa-bars"></span> $[=dim.text]
 							</button>
 							$[ }); ]
 						$[}]
-						$[if (reports.qubeInfo != null && report.qubeInfo.measures != null) {]
+						$[if (report.qubeInfo != null && report.qubeInfo.measures != null) {]
 							 $[report.qubeInfo.measures.forEach(function(mea){ ]
 							<button type="button" class="btn btn-default">
 								<span class="fa fa-bar-chart-o"></span> $[=mea.text]
