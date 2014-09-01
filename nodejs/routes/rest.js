@@ -517,32 +517,44 @@ exports.dimensionValueSearch = function(req, res) {
 }
 
 exports.save = function(req, res) {
-	var userEmail = null;
+	var userEmail = 'anonymous user';
 	if (req.session.user != null)
 		userEmail = req.session.user.email;
 	var analysisObj = req.body;
 	var userip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 	var hashid = null;
+	var status = 'success';
 	var date = new Date();
 	async.parallel([ function(callback) {
 		if (analysisObj.hashid !== null && analysisObj.hashid !== '') {
 			console.log('Update Analysis ' + analysisObj.hashid);
 			// update analysis
-			analysisSchema.findOneAndUpdate({
+			analysisSchema.findOne({
 				hashid : analysisObj.hashid
-			}, {
-				qubeInfo : analysisObj.qubeInfo,
-				queryParam : analysisObj.queryParam,
-				rptMode : analysisObj.rptMode,
-				chartMode : analysisObj.chartMode,
-				user_ip : userip,
-				modification_date : date
-			}, function(err, doc) {
+			}, function(err, rpt) {
 				if (err)
 					throw err;
-				hashid = doc.hashid;
-				callback();
-			})
+				hashid = rpt.hashid;
+				if (rpt.user_id == userEmail) {
+					analysisSchema.update({
+						hashid : analysisObj.hashid
+					}, {
+						qubeInfo : analysisObj.qubeInfo,
+						queryParam : analysisObj.queryParam,
+						rptMode : analysisObj.rptMode,
+						chartMode : analysisObj.chartMode,
+						user_ip : userip,
+						modification_date : date
+					}, function(err, doc) {
+						if (err)
+							throw err;
+						callback();
+					});
+				} else {
+					status = 'userid_not_match';
+					callback();
+				}
+			});
 		} else {
 			console.log('Save New Analysis');
 			// encrypt hashid
@@ -556,7 +568,7 @@ exports.save = function(req, res) {
 				queryParam : analysisObj.queryParam,
 				rptMode : analysisObj.rptMode,
 				chartMode : analysisObj.chartMode,
-				user_id : userEmail != null ? userEmail : 'anonymous user',
+				user_id : userEmail,
 				user_ip : userip,
 				creation_date : date,
 				modification_date : date
@@ -566,7 +578,8 @@ exports.save = function(req, res) {
 		}
 	} ], function() {
 		res.send({
-			hashid : hashid
+			hashid : hashid,
+			status : status
 		});
 	});
 }
