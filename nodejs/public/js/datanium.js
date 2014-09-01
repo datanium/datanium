@@ -371,37 +371,3 @@ var addIndicator = function(key) {
 	Datanium.controller.Homepage.prototype.addIndicator(key);
 	$('#txtmodal').modal('hide');
 }
-
-$('#gnsearch').bind("enterKey", function(e) {
-	showTxtModal('Data Indicator Search', 'Processing...');
-	var searchKey = $('#gnsearch').val();
-	var url = '/rest/indicator/search';
-	$.ajax({
-		type : 'GET',
-		url : url,
-		data : {
-			query : searchKey
-		},
-		success : function(data) {
-			var html = '';
-			var indicators = data.indicators;
-			if (indicators != null) {
-				indicators.forEach(function(rec) {
-					html += '<p><a href="#" onclick="addIndicator(\'' + rec.uniqueName + '\');">';
-					html += rec.text;
-					html += '</a></p>';
-				});
-				updateTxtModal(null, '', html);
-			}
-		},
-		error : function() {
-		},
-		dataType : 'json'
-	});
-});
-
-$('#gnsearch').keyup(function(e) {
-	if (e.keyCode == 13) {
-		$(this).trigger("enterKey");
-	}
-});

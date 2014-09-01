@@ -33,6 +33,7 @@ Ext.define('Datanium.view.InnerToolbar', {
 		html : '<i class="fa fa-times-circle-o fa-2x"></i>',
 		action : 'clear'
 	}, {
+		id : 'show_field_panel_btn',
 		scale : 'medium',
 		tooltip : 'Show Field Panel',
 		tooltipType : 'title',

@@ -41,7 +41,7 @@ Ext.define('Datanium.controller.Homepage', {
 				}
 			},
 			'inner-toolbar > button[action=show-fields]' : {
-				click : function(btn) {
+				toggle : function(btn) {
 					var fieldpanel = Datanium.util.CommonUtils.getCmpInActiveTab('fieldpanel');
 					if (btn.pressed) {
 						fieldpanel.show();
@@ -90,7 +90,8 @@ Ext.define('Datanium.controller.Homepage', {
 				// clean up the query param/result when adding indicator.
 				// should enhance this to keeping param in the future.
 				// Datanium.util.CommonUtils.cleanData();
-				Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('refreshElementPanel');
+				Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('refreshElementPanel',
+						result.measures);
 			},
 			failure : function() {
 				mask.destroy();
