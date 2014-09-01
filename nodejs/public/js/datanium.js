@@ -265,6 +265,10 @@ var saveSuccess = function() {
 	showTxtModal('&nbsp;', 'Save Successful.', 'small');
 }
 
+var saveAnother = function() {
+	$('#saveAnotherModal').modal('show');
+}
+
 var space = function() {
 	if (loginUsername != null && loginUsername != '') {
 		window.location.href = '/user/space/';
@@ -343,21 +347,23 @@ var updateTxtModal = function(title, content, html) {
 		$('#txtmodalhtmlbody').html(html);
 }
 
-var save = function() {
+var save = function(isNew) {
 	var url = '/rest/save';
 	$.ajax({
 		type : 'POST',
 		url : url,
 		data : {
-			hashid : Datanium.GlobalData.hashid,
+			hashid : isNew ? null : Datanium.GlobalData.hashid,
 			queryParam : Datanium.GlobalData.queryParam,
 			qubeInfo : Datanium.GlobalData.qubeInfo,
 			rptMode : Datanium.GlobalData.rptMode,
 			chartMode : Datanium.GlobalData.chartMode
 		},
 		success : function(data) {
-			if (Datanium.GlobalData.hashid === null || Datanium.GlobalData.hashid === '')
+			if (Datanium.GlobalData.hashid === null || Datanium.GlobalData.hashid === '' || isNew)
 				window.location.href = window.location.protocol + "//" + window.location.host + '/' + data.hashid;
+			else if (data.status === 'userid_not_match')
+				saveAnother();
 			else
 				saveSuccess();
 		},

@@ -11,7 +11,7 @@ Ext.define('Datanium.controller.Homepage', {
 				select : this.addIndicator
 			},
 			'inner-toolbar > button[action=grid-mode]' : {
-				click : function(btn) {
+				toggle : function(btn) {
 					if (Datanium.GlobalData.rptMode != 'grid') {
 						Datanium.GlobalData.rptMode = 'grid';
 						Datanium.util.CommonUtils.getCmpInActiveTab('datapanel').getLayout().setActiveItem(0);
@@ -19,7 +19,7 @@ Ext.define('Datanium.controller.Homepage', {
 				}
 			},
 			'inner-toolbar > button[action=chart-mode]' : {
-				click : function(btn) {
+				toggle : function(btn) {
 					if (Datanium.GlobalData.rptMode != 'chart') {
 						Datanium.GlobalData.rptMode = 'chart';
 						Datanium.util.CommonUtils.getCmpInActiveTab('datapanel').getLayout().setActiveItem(1);
@@ -27,7 +27,7 @@ Ext.define('Datanium.controller.Homepage', {
 				}
 			},
 			'inner-toolbar > button[action=analysis-mode]' : {
-				click : function(btn) {
+				toggle : function(btn) {
 					if (Datanium.GlobalData.rptMode != 'analysis') {
 						Datanium.GlobalData.rptMode = 'analysis';
 						Datanium.util.CommonUtils.getCmpInActiveTab('datapanel').getLayout().setActiveItem(2);
@@ -51,7 +51,7 @@ Ext.define('Datanium.controller.Homepage', {
 				}
 			},
 			'inner-toolbar > button[action=auto-run]' : {
-				click : function(btn) {
+				toggle : function(btn) {
 					if (btn.pressed) {
 						Datanium.GlobalData.autoRun = true;
 					} else {
