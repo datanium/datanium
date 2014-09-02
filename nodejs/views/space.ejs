@@ -39,9 +39,11 @@
 				$[reports.forEach(function(report){ ]
 				<div class="jumbotron">
 					<div class="input-group">
-						<input class="form-control" type="text" value="$[=host]/$[=report.hashid]" />
-						<div class="input-group-addon" rel="tooltip" title="Copy to clipboard">
-							<a href=""><span class="glyphicon glyphicon-link"></span></a>
+						<input class="form-control" id="rpt_link_$[=report.hashid]" type="text"
+							value="$[=host]/$[=report.hashid]" />
+						<div class="input-group-addon" rel="tooltip" title="Select url to copy">
+							<a href="#" onclick="sel2copy('rpt_link_$[=report.hashid]');"><span
+								class="glyphicon glyphicon-link"></span></a>
 						</div>
 					</div>
 					<p></p>
@@ -49,19 +51,16 @@
 					<p></p>
 					<div class="user_space_reports">
 						$[if (report.qubeInfo != null && report.qubeInfo.dimensions != null) {]
-							$[report.qubeInfo.dimensions.forEach(function(dim){ ]
-							<button type="button" class="btn btn-default">
-								<span class="fa fa-bars"></span> $[=dim.text]
-							</button>
-							$[ }); ]
-						$[}]
-						$[if (report.qubeInfo != null && report.qubeInfo.measures != null) {]
-							 $[report.qubeInfo.measures.forEach(function(mea){ ]
-							<button type="button" class="btn btn-default">
-								<span class="fa fa-bar-chart-o"></span> $[=mea.text]
-							</button>
-							$[ }); ]
-						$[}]
+						$[report.qubeInfo.dimensions.forEach(function(dim){ ]
+						<button type="button" class="btn btn-default">
+							<span class="fa fa-bars"></span> $[=dim.text]
+						</button>
+						$[ }); ] $[}] $[if (report.qubeInfo != null && report.qubeInfo.measures != null) {]
+						$[report.qubeInfo.measures.forEach(function(mea){ ]
+						<button type="button" class="btn btn-default">
+							<span class="fa fa-bar-chart-o"></span> $[=mea.text]
+						</button>
+						$[ }); ] $[}]
 					</div>
 					<p></p>
 					<div class="text-right">

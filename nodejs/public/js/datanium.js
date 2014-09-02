@@ -377,3 +377,7 @@ var addIndicator = function(key) {
 	Datanium.controller.Homepage.prototype.addIndicator(key);
 	$('#txtmodal').modal('hide');
 }
+
+var sel2copy = function(key) {
+	$('#' + key).select();
+}
