@@ -149,7 +149,6 @@ Ext.define('Datanium.view.ElementPanel', {
 				// toggle indicator button when it is added
 				if (indicators != null) {
 					var indicator = indicators[0];
-					console.log(ep.items.items);
 					Ext.Array.each(ep.items.items, function(rec, idx) {
 						if (indicator.uniqueName === rec.uniqueName) {
 							ep.items.items[idx].toggle();

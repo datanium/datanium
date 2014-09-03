@@ -1,13 +1,13 @@
 Ext.define('Datanium.controller.Homepage', {
 	extend : 'Ext.app.Controller',
 	views : [ 'Toolbar', 'ReportTemplate', 'LeftPanel', 'IndicatorSearchCombo', 'Accordion', 'ElementPanel',
-			'DataPanel', 'InnerToolbar' ],
+			'DataPanel', 'InnerToolbar', 'SearchBox' ],
 	models : [ 'Indicator' ],
 	stores : [ 'Indicators' ],
 	init : function() {
 		this.control({
 			'viewport reporttemplate' : {},
-			'leftpanel > searchcombo' : {
+			'searchcombo' : {
 				select : this.addIndicator
 			},
 			'inner-toolbar > button[action=grid-mode]' : {
@@ -67,6 +67,7 @@ Ext.define('Datanium.controller.Homepage', {
 		});
 	},
 	addIndicator : function(combobox) {
+		console.log(1);
 		var key = '';
 		if (typeof combobox === 'object') // from extjs combobox
 			key = combobox.getValue();
