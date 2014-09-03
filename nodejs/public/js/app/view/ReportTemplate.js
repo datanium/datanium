@@ -10,7 +10,15 @@ Ext.define('Datanium.view.ReportTemplate', {
 		split : true
 	},
 	items : [ {
-		title : 'Data Cubes',
+		region : 'north',
+		header : false,
+		border : false,
+		collapsible : false,
+		split : false,
+		xtype : 'searchbox',
+		width : '100%',
+		cls : 'searchbox'
+	}, {
 		region : 'west',
 		floatable : false,
 		header : false,
@@ -70,7 +78,8 @@ Ext.define('Datanium.view.ReportTemplate', {
 				floatable : false,
 				layout : 'fit',
 				header : false,
-				minWidth : 400
+				minWidth : 400,
+				margin : '5 0 0 0'
 			} ]
 
 		} ]

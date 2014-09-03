@@ -1,9 +1,9 @@
-Ext.define('Datanium.view.LeftPanel', {
+Ext.define('Datanium.view.SearchBox', {
 	extend : 'Ext.panel.Panel',
-	alias : 'widget.leftpanel',
+	alias : 'widget.searchbox',
 	border : false,
 	layout : {
-		type : 'vbox',
+		type : 'hbox',
 		align : 'stretch'
 	},
 	initComponent : function() {
@@ -12,8 +12,9 @@ Ext.define('Datanium.view.LeftPanel', {
 				border : false
 			},
 			items : [ {
-				xtype : 'accordion',
-				flex : 1
+				xtype : 'searchcombo',
+				width : '100%',
+				itemId : Datanium.util.CommonUtils.genItemId('searchcombo')
 			} ]
 		});
 		this.callParent();

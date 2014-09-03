@@ -1648,8 +1648,8 @@ legend {
 }
 label {
   display: inline-block;
-  margin-bottom: 5px;
 /**change this for ui improvement**/
+  /* margin-bottom: 5px; */
   /* font-weight: bold; */
 }
 input[type="search"] {
