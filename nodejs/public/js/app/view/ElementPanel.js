@@ -51,7 +51,7 @@ Ext.define('Datanium.view.ElementPanel', {
 											}
 										},
 										{
-											iconCls : 'fa fa-times-circle-o',
+											iconCls : 'fa fa-trash-o',
 											text : 'Remove',
 											handler : function() {
 												Datanium.util.CommonUtils
@@ -72,7 +72,7 @@ Ext.define('Datanium.view.ElementPanel', {
 											}
 										},
 										{
-											iconCls : 'fa fa-trash-o',
+											iconCls : 'fa fa-times-circle-o',
 											text : 'Clear Filter',
 											handler : function() {
 												var btn = this.parentMenu.ownerButton;
@@ -127,7 +127,7 @@ Ext.define('Datanium.view.ElementPanel', {
 											}
 										},
 										{
-											iconCls : 'fa fa-times-circle-o',
+											iconCls : 'fa fa-trash-o',
 											text : 'Remove',
 											handler : function() {
 												Datanium.util.CommonUtils
