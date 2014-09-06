@@ -225,3 +225,9 @@ legend {
 .user_space_reports {
 	line-height: 50px;
 }
+
+.x-toolbar {
+	font-size: 11px;
+	border-style: solid;
+	padding: 2px 2px 2px 2px;
+}

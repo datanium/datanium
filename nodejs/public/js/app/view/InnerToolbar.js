@@ -42,6 +42,18 @@ Ext.define('Datanium.view.InnerToolbar', {
 		enableToggle : true,
 		pressed : true
 	}, {
+		id : 'apply_filter_btn',
+		xtype : 'splitbutton',
+		scale : 'medium',
+		tooltip : 'Apply Data Filter',
+		tooltipType : 'title',
+		html : '<i class="fa fa-filter fa-2x"></i>',
+		handler : function() {
+			this.showMenu();
+		},
+		menu : [],
+		disabled : true
+	}, {
 		xtype : 'tbseparator',
 		height : 14,
 		margins : '0 0 0 1'
