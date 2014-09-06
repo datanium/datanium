@@ -93,6 +93,7 @@ Ext.define('Datanium.controller.Homepage', {
 				// Datanium.util.CommonUtils.cleanData();
 				Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('refreshElementPanel',
 						result.measures);
+				Datanium.util.CommonUtils.checkEnableFilter();
 			},
 			failure : function() {
 				mask.destroy();

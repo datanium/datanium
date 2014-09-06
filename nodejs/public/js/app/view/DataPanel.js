@@ -4,7 +4,7 @@ Ext.define('Datanium.view.DataPanel', {
 	initComponent : function() {
 		Ext.apply(this, {
 			defaults : {
-				border : false,
+				border : true,
 				floatable : false,
 				collapsible : false,
 				header : false

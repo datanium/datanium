@@ -243,6 +243,7 @@ Ext
 									Datanium.GlobalData.qubeInfo.measures.splice(i, 1);
 								}
 							}
+							Datanium.util.CommonUtils.checkEnableFilter();
 						},
 						destroyChart : function() {
 							if (Datanium.util.CommonUtils.getCmpInActiveTab('columnchart') != null) {
@@ -437,6 +438,32 @@ Ext
 							Datanium.GlobalData.queryParam.primaryDimension = null;
 							Datanium.util.CommonUtils.updateFilterFields();
 							Datanium.util.CommonUtils.updateFields();
+						},
+						checkEnableFilter : function() {
+							var dims = Datanium.GlobalData.qubeInfo.dimensions;
+							if (dims != null && dims.length > 0) {
+								Datanium.util.CommonUtils.reloadApplyFilterMenu(dims);
+								Ext.getCmp('apply_filter_btn').enable();
+							} else
+								Ext.getCmp('apply_filter_btn').disable();
+						},
+						reloadApplyFilterMenu : function(dims) {
+							console.log('reloadApplyFilterMenu');
+							var appFilterBtn = Ext.getCmp('apply_filter_btn');
+							if (dims != null && dims.length > 0) {
+								appFilterBtn.menu.removeAll();
+								Ext.Array.each(dims, function(dim) {
+									var item = new Ext.menu.Item({
+										iconCls : 'fa fa-bars',
+										text : dim.text,
+										handler : function() {
+											Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent(
+													'popFilter', dim.uniqueName, dim.text);
+										}
+									});
+									appFilterBtn.menu.add(item);
+								});
+							}
 						}
 					}
 				});

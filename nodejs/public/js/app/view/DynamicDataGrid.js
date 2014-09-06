@@ -149,6 +149,7 @@ Ext.define('Datanium.view.DynamicDataGrid', {
 			autoHeight : true,
 			autoWidth : true,
 			forceFit : false,
+			border : false,
 			viewConfig : {
 				stripeRows : true
 			}

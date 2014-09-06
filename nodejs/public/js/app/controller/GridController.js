@@ -51,6 +51,7 @@ Ext.define('Datanium.controller.GridController', {
 				this.cleanRpt();
 			}
 		}
+		Datanium.util.CommonUtils.checkEnableFilter();
 	},
 	cleanRpt : function() {
 		Datanium.util.CommonUtils.refreshAll();
