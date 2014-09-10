@@ -17,8 +17,8 @@ var fields = [];
 var columns = [];
 var groups = [];
 
-function generateDynamicModel(fields, results_json) {
-	var dataFields = getResultHeader(results_json);
+function generateDynamicModel(field) {
+	var dataFields = getResultHeader(fields);
 	columns = columnFactory(fields);
 	modelFactory('DynamicGridModel', dataFields);
 	storeFactory('DynamicGridStore', store_template, 'DynamicGridModel');
@@ -41,28 +41,28 @@ function modelFactory(name, fields) {
 	eval("Ext.define('" + name + "'," + Ext.encode(model) + ");");
 }
 
-function columnFactory(fields_json) {
+function columnFactory(fields) {
 	var temp_columns = [];
 	// add column dimension
 
 	// add other columns
-	for ( var i = 0; i < fields_json.length; i++) {
-		if ("group" in fields_json[i] == false || fields_json[i].group == null) {
-			if (fields_json[i].data_type != 'dimension' || fields_json[i].field_type != 'column') {
-				if ('is_parent' in fields_json[i]) {
-					temp_columns.push(fields_json[i]);
+	for ( var i = 0; i < fields.length; i++) {
+		if ("group" in fields[i] == false || fields[i].group == null) {
+			if (fields[i].data_type != 'dimension' || fields[i].field_type != 'column') {
+				if ('is_parent' in fields[i]) {
+					temp_columns.push(fields[i]);
 				} else {
 					var column = {
-						text : "<strong>" + fields_json[i].text + "</strong>",
-						uniqueName : fields_json[i].uniqueName,
-						name : fields_json[i].text,
+						text : "<strong>" + fields[i].text + "</strong>",
+						uniqueName : fields[i].uniqueName,
+						name : fields[i].text,
 						sortable : true,
-						dataIndex : fields_json[i].uniqueName,
-						data_type : fields_json[i].data_type,
-						displayOrder : fields_json[i].displayOrder,
+						dataIndex : fields[i].uniqueName,
+						data_type : fields[i].data_type,
+						displayOrder : fields[i].displayOrder,
 						align : "auto"
 					};
-					columnCellStyle(column, fields_json[i]);
+					columnCellStyle(column, fields[i]);
 
 					temp_columns.push(column);
 				}
@@ -127,13 +127,13 @@ function columnWidthGen(labelLength) {
 	return width;
 }
 
-function getResultHeader(results_json) {
+// deprecated for column difference in results issue
+function getResultHeader(fields_json) {
 	var headers = [];
-	if (results_json != null && results_json.result.length > 0) {
-		for ( var obj in results_json.result[0]) {
-			if (results_json.result[0].hasOwnProperty(obj)) {
-				headers.push(obj);
-			}
+	console.log(fields_json);
+	if (fields_json != null && fields_json.length > 0) {
+		for ( var i = 0; i < fields_json.length; i++) {
+			headers.push(fields_json[i].uniqueName);
 		}
 	}
 	return headers;
@@ -193,7 +193,7 @@ Ext.define('Datanium.view.DynamicDataGrid', {
 		// console.log(fields);
 		// console.log(fields_json);
 		// console.log(results_json);
-		var store = generateDynamicModel(fields, results_json);
+		var store = generateDynamicModel(fields);
 		this.dockedItems = [ {
 			xtype : 'pagingtoolbar',
 			store : store,
