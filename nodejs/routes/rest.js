@@ -232,7 +232,6 @@ exports.queryResult = function(req, res) {
 	var groupObj = group.returnObj;
 	var groupObjProject = group.returnProject;
 	var sortStr = group.returnSort;
-	console.log(sortStr);
 	// for chart
 	var chartGroup = generateGroupObj(queryParam, true);
 	var groupObj4Chart = chartGroup.returnObj;
