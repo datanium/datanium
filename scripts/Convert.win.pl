@@ -228,7 +228,7 @@ close $fh or die "$opt_dataOutput: $!";
 print "Start writing control data to $opt_controlOutput\n";
 open CONTROL_OUT, ">", "$opt_controlOutput" or die "$opt_controlOutput: $!";
 
-print CONTROL_OUT "d_year={\"dimension_key\":\"year\", \"dimension_text\":\"Year\"};\n";
+print CONTROL_OUT "d_year={\"dimension_key\":\"year\", \"dimension_text\":\"Year\", \"dimension_type\":\"time\"};\n";
 print CONTROL_OUT "d_region={\"dimension_key\":\"region\", \"dimension_text\":\"Region\"};\n"; 
 print CONTROL_OUT "d_country={\"dimension_key\":\"country\", \"dimension_text\":\"Country\"};\n";
 

@@ -59,44 +59,19 @@ Ext.define('Datanium.view.analysis.DemoAnalysis', {
 					sortable : true,
 					dataIndex : 'std'
 				} ]
-			}, {
-				layout : 'border',
-				border : false,
-				height : 220,
-				items : [ {
-					xtype : 'chart',
-					layout : 'fit',
-					style : 'background:#fff',
-					animate : true,
-					insetPadding : 20,
-					shadow : true,
-					legend : {
-						position : 'right'
-					},
-					store : 'DemoAnalysisBoxes',
-					axes : [ {
-						type : 'Numeric',
-						position : 'left',
-						fields : [ 'data' ],
-						grid : true
-					}, {
-						type : 'Category',
-						position : 'bottom',
-						fields : [ 'indicator' ]
-					} ],
-					series : [ {
-						type : 'column',
-						highlight : {
-							size : 3,
-							radius : 3
-						},
-						axis : 'left',
-						xField : 'indicator',
-						yField : 'data',
-						title : 'boxplot'
-					} ]
-				} ]
-			} ]
+			}
+			/*
+			 * , { layout : 'border', border : false, height : 220, items : [ {
+			 * xtype : 'chart', layout : 'fit', style : 'background:#fff',
+			 * animate : true, insetPadding : 20, shadow : true, legend : {
+			 * position : 'right' }, store : 'DemoAnalysisBoxes', axes : [ {
+			 * type : 'Numeric', position : 'left', fields : [ 'data' ], grid :
+			 * true }, { type : 'Category', position : 'bottom', fields : [
+			 * 'indicator' ] } ], series : [ { type : 'column', highlight : {
+			 * size : 3, radius : 3 }, axis : 'left', xField : 'indicator',
+			 * yField : 'data', title : 'boxplot' } ] } ] }
+			 */
+			]
 		},
 		// time series
 		{
