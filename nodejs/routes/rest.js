@@ -232,6 +232,7 @@ exports.queryResult = function(req, res) {
 	var groupObj = group.returnObj;
 	var groupObjProject = group.returnProject;
 	var sortStr = group.returnSort;
+	console.log(sortStr);
 	// for chart
 	var chartGroup = generateGroupObj(queryParam, true);
 	var groupObj4Chart = chartGroup.returnObj;
@@ -241,7 +242,7 @@ exports.queryResult = function(req, res) {
 			function(callback) {
 				// query for grid
 				datasetSchema.aggregate().match(matchObj).group(groupObj).project(groupObjProject).sort(sortStr).limit(
-						500).exec(function(err, doc) {
+						1000).exec(function(err, doc) {
 					if (err)
 						console.log('Exception: ' + err);
 					resultJSON.grid.result = convertResult(doc, false);
@@ -252,7 +253,7 @@ exports.queryResult = function(req, res) {
 			function(callback) {
 				// query for chart
 				datasetSchema.aggregate().match(matchObj).group(groupObj4Chart).project(groupObjProject).sort(sortStr)
-						.limit(500).exec(function(err, doc) {
+						.limit(1000).exec(function(err, doc) {
 							if (err)
 								console.log('Exception: ' + err);
 							resultJSON.chart.result = convertResult(doc, true);
@@ -324,10 +325,11 @@ function generateGroupObj(queryParam, isChart) {
 	projectStr += "_id:0}";
 	// console.log(projectStr);
 	var projectObj = eval("(" + projectStr + ")");
+	var sortStr = generateSortStr(dimensions);
 	returnJSON = {
 		"returnObj" : returnObj,
 		"returnProject" : projectObj,
-		"returnSort" : generateSortStr(measures)
+		"returnSort" : sortStr
 	}
 	return returnJSON;
 }
@@ -356,10 +358,20 @@ function generateMatchObj(queryParam) {
 	return returnObj;
 }
 
-function generateSortStr(measures) {
+function generateSortStr(dimensons) {
 	var sortStr = 'field -';
-	if (measures != null && measures.length > 0) {
-		sortStr += measures[0].uniqueName;
+	var timeFlag = false;
+	if (dimensons != null && dimensons.length > 0) {
+		dimensons.forEach(function(item, index) {
+			if (item.uniqueName == 'year' || item.uniqueName == 'month') {
+				sortStr += item.uniqueName;
+				timeFlag = true;
+				return;
+			}
+		});
+		if (!timeFlag) {
+			sortStr += dimensons[0].uniqueName;
+		}
 		return sortStr;
 	} else {
 		return null;
