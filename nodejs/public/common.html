@@ -8,7 +8,7 @@
 					<h6 class="modal-title" id="txtmodaltitle"></h6>
 				</div>
 				<div class="modal-body">
-					<h4 id="txtmodalbody"></h4>
+					<h5 id="txtmodalbody"></h5>
 					<div id="txtmodalhtmlbody"></div>
 				</div>
 			</div>
@@ -168,6 +168,35 @@
 						Fork us on <a href="https://github.com/datanium/datanium">Github</a> or Contact us directly -
 						<a href="mailto:admin@dtnium.com">dtnium@gmail.com</a>
 					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="feedbackModal" style="z-index: 1000000">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Feedback</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal" role="form">
+						<div class="form-group">
+							<div class="col-sm-12">
+								<textarea class="form-control" id="feedbackContent" rows="5"></textarea>
+							</div>
+						</div>
+						<!-- div class="col-sm-12">
+							<div class="login_foot">
+								<label> <a href="#">Survey</a>
+								</label>
+							</div>
+						</div -->
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" onclick="sendFeedback();">Send Out</button>
 				</div>
 			</div>
 		</div>

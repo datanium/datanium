@@ -6,6 +6,7 @@ var express = require('express');
 var routes = require('./routes');
 var rest = require('./routes/rest');
 var user = require('./routes/userManagement');
+var others = require('./routes/others');
 var http = require('http');
 var path = require('path');
 
@@ -42,6 +43,7 @@ app.post('/signup', user.saveUser);
 app.post('/login', user.login);
 app.get('/signout', user.signout);
 app.get('/user/space', user.space);
+app.post('/feedback/save', others.feedbacksave);
 app.get('/:hashid', routes.index);
 
 http.createServer(app).listen(app.get('port'), function() {

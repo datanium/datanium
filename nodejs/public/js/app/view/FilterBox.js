@@ -85,6 +85,8 @@ Ext.define('Datanium.view.FilterBox', {
 			items : buttons
 		});
 		popup.add(btnPanel);
+		if (key == 'year' || key == 'month')
+			console.log('time series filter');
 		popup.setWidth(850);
 		popup.center();
 	},

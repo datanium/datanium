@@ -381,3 +381,39 @@ var addIndicator = function(key) {
 var sel2copy = function(key) {
 	$('#' + key).select();
 }
+
+var feedbackpop = function() {
+	setTimeout(function() {
+		$('#feedbackContent').focus();
+	}, 500);
+	$('#feedbackModal').modal('show');
+}
+
+var sendFeedback = function() {
+	console.log('save feedback');
+	var content = $('#feedbackContent').val();
+	if (content != null && content.length > 0) {
+		var link = '/feedback/save';
+		$
+				.ajax({
+					url : link,
+					type : 'POST',
+					dataType : 'json',
+					data : {
+						feedbackContent : content
+					},
+					success : function(map) {
+						if (map.status == 'success') {
+							$('#feedbackModal').modal('hide');
+							showTxtModal('&nbsp;', null, 'small',
+									'<h5>We have received your feedback.</h5><h5>Thank you!</h5>');
+						} else {
+
+						}
+					},
+					error : function() {
+						console.log(error);
+					}
+				});
+	}
+}
