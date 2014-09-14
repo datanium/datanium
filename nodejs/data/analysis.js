@@ -1,6 +1,6 @@
 var mongodb = require('./mongodb');
 var Schema = mongodb.mongoose.Schema;
-var DatasetSchema = new Schema({
+var AnalysisSchema = new Schema({
 	hashid : String,
 	qubeInfo : Object,
 	queryParam : Object,
@@ -11,4 +11,4 @@ var DatasetSchema = new Schema({
 	creation_date : Date,
 	modification_date : Date
 });
-exports.Analysis = mongodb.mongoose.model('Analysis', DatasetSchema, 'analysis');
+exports.Analysis = mongodb.mongoose.model('Analysis', AnalysisSchema, 'analysis');

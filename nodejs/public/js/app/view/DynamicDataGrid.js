@@ -130,7 +130,6 @@ function columnWidthGen(labelLength) {
 // deprecated for column difference in results issue
 function getResultHeader(fields_json) {
 	var headers = [];
-	console.log(fields_json);
 	if (fields_json != null && fields_json.length > 0) {
 		for ( var i = 0; i < fields_json.length; i++) {
 			headers.push(fields_json[i].uniqueName);
