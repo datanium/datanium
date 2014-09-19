@@ -84,7 +84,7 @@ Ext.define('Datanium.controller.ChartController', {
 			filterSwitch.menu.removeAll();
 			for (f in filters) {
 				Ext.Array.each(dimensions, function(dim) {
-					if (f == dim.uniqueName) {
+					if (f == dim.uniqueName && !Datanium.util.CommonUtils.checkTimeDim(f)) {
 						var iconClsTxt = '';
 						if (primaryFilter == dim.uniqueName) {
 							filterSwitch.setText(dim.text);

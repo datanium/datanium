@@ -339,15 +339,27 @@ function generateMatchObj(queryParam) {
 	var filterArray = [];
 	dimensions.forEach(function(item, index) {
 		if (item.uniqueName in filters) {
-			var array = eval('filters.' + item.uniqueName);
-			if (array != null && array.length > 0) {
-				var str = '';
-				if (item.uniqueName == 'year') {
-					str = array.join(",");
-				} else {
-					str = "'" + array.join("','") + "'";
+			if (item.uniqueName == 'year' || item.uniqueName == 'month') {
+				var timeObj = eval('filters.' + item.uniqueName);
+				var time_start = timeObj.time_start;
+				var time_end = timeObj.time_end;
+				if (time_start != null && time_end != null)
+					filterArray.push(item.uniqueName + ': {$gte : ' + time_start + ', $lte : ' + time_end + '}');
+				else if (time_start != null)
+					filterArray.push(item.uniqueName + ': {$gte : ' + time_start + '}');
+				else if (time_end != null)
+					filterArray.push(item.uniqueName + ': {$lte : ' + time_end + '}');
+			} else {
+				var array = eval('filters.' + item.uniqueName);
+				if (array != null && array.length > 0) {
+					var str = '';
+					if (item.uniqueName == 'year') {
+						str = array.join(",");
+					} else {
+						str = "'" + array.join("','") + "'";
+					}
+					filterArray.push(item.uniqueName + ': {$in:[' + str + ']}');
 				}
-				filterArray.push(item.uniqueName + ': {$in:[' + str + ']}');
 			}
 		}
 	});
