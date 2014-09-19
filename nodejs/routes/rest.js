@@ -343,6 +343,8 @@ function generateMatchObj(queryParam) {
 				var timeObj = eval('filters.' + item.uniqueName);
 				var time_start = timeObj.time_start;
 				var time_end = timeObj.time_end;
+				time_start = time_start == '' ? null : time_start;
+				time_end = time_end == '' ? null : time_end;
 				if (time_start != null && time_end != null)
 					filterArray.push(item.uniqueName + ': {$gte : ' + time_start + ', $lte : ' + time_end + '}');
 				else if (time_start != null)
