@@ -464,6 +464,12 @@ Ext
 									appFilterBtn.menu.add(item);
 								});
 							}
+						},
+						checkTimeDim : function(dim) {
+							if (dim == 'year' || dim == 'month')
+								return true;
+							else
+								return false;
 						}
 					}
 				});
