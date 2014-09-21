@@ -1,14 +1,15 @@
 /**
  * Module dependencies.
  */
-
 var express = require('express');
 var routes = require('./routes');
 var rest = require('./routes/rest');
-var user = require('./routes/userManagement');
+var user = require('./routes/userController');
+var indicator = require('./routes/indicatorController');
 var others = require('./routes/others');
 var http = require('http');
 var path = require('path');
+var cache = require('./utils/cacheUtil');
 
 var app = express();
 
@@ -31,9 +32,12 @@ if ('development' == app.get('env')) {
 	app.use(express.errorHandler());
 }
 
+// init server cache
+cache.init();
+
 app.get('/', routes.index);
 app.post('/rest/query/result', rest.queryResult);
-app.get('/rest/indicator/search', rest.indicatorSearch);
+app.get('/rest/indicator/search', indicator.searchIndicator);
 app.get('/rest/indicator/map', rest.indicatorMapping);
 app.get('/rest/dimension/search', rest.dimensionValueSearch);
 app.post('/rest/query/split', rest.querySplit);
