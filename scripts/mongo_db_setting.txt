@@ -2,4 +2,7 @@
 db.indicator.ensureIndex( {indicator_text: "text"} );
 db.indicator.find( { $text: { $search: "gdp" } } ); //2.6
 db.indicator.runCommand( "text", { search: "gdp" } ); //2.4
-db.indicator.find( { indicator_text: { $regex: 'gdp', $options: 'i' } } );
+db.indicator.find( { indicator_text: { $regex: 'gdp', $options: 'i' } } ); //tokumx
+mongoimport --db datanium --collection dataset --type csv --headerline --file ~/datafile/dataset.csv
+mongoimport --db datanium --collection dataset --type csv --headerline --file ~/datafile/dataset_stock.csv
+load('/opt/datanium/datafile/control.js')
