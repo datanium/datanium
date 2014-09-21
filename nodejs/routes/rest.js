@@ -105,7 +105,7 @@ exports.querySplit = function(req, res) {
 			function(callback) {
 				// query for grid
 				datasetSchema.aggregate().match(matchObj).group(groupObj).project(groupObjProject).sort(sortStr).limit(
-						500).exec(function(err, doc) {
+						1000).exec(function(err, doc) {
 					if (err)
 						throw err;
 					resultJSON.grid.result = doc;
@@ -116,7 +116,7 @@ exports.querySplit = function(req, res) {
 			function(callback) {
 				// query for chart
 				datasetSchema.aggregate().match(matchObj).group(groupObj4Chart).project(groupObj4ChartProject).sort(
-						sortStr4Chart).limit(500).exec(function(err, doc) {
+						sortStr4Chart).limit(1000).exec(function(err, doc) {
 					if (err)
 						throw err;
 					// console.log(doc);
