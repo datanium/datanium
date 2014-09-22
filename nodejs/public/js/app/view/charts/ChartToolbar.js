@@ -95,6 +95,7 @@ Ext.define('Datanium.view.charts.ChartToolbar', {
 		height : 14,
 		margins : '0 0 0 1'
 	}, {
+		id : 'auto_scale_btn',
 		iconCls : 'fa fa-arrows fa',
 		cls : 'chartTypeBtn',
 		scale : 'medium',
@@ -103,7 +104,8 @@ Ext.define('Datanium.view.charts.ChartToolbar', {
 		text : 'Auto Scale',
 		action : 'auto-scale',
 		enableToggle : true,
-		pressed : false
+		pressed : false,
+		disabled : true
 	}, {
 		xtype : 'tbseparator',
 		height : 14,

@@ -10,7 +10,7 @@ Ext.define('Datanium.controller.ChartController', {
 				beforeshow : this.onChartPanelShow
 			},
 			'chart-toolbar > button[action=auto-scale]' : {
-				click : function(btn) {
+				toggle : function(btn) {
 					if (btn.pressed) {
 						Datanium.GlobalData.autoScale = true;
 					} else {
@@ -20,7 +20,7 @@ Ext.define('Datanium.controller.ChartController', {
 				}
 			},
 			'chart-toolbar > button[action=hide-legend]' : {
-				click : function(btn) {
+				toggle : function(btn) {
 					if (btn.pressed) {
 						Datanium.GlobalData.showLegend = false;
 					} else {
