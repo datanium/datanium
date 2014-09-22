@@ -220,11 +220,20 @@ Ext
 						refreshAll : function() {
 							var isEmpty = (Datanium.GlobalData.queryParam.dimensions == null || Datanium.GlobalData.queryParam.dimensions.length == 0)
 									&& (Datanium.GlobalData.queryParam.measures == null || Datanium.GlobalData.queryParam.measures.length == 0);
-							var btn = Ext.getCmp('show_field_panel_btn');
+							var showFieldBtn = Ext.getCmp('show_field_panel_btn');
 							if (isEmpty) {
-								btn.toggle(false);
+								showFieldBtn.toggle(false);
 							} else {
-								btn.toggle(true);
+								showFieldBtn.toggle(true);
+							}
+							var autoScaleBtn = Ext.getCmp('auto_scale_btn');
+							if (Datanium.GlobalData.queryParam.measures != null
+									&& Datanium.GlobalData.queryParam.measures.length > 1
+									|| Datanium.GlobalData.queryParam.isSplit == true) {
+								autoScaleBtn.enable();
+							} else {
+								autoScaleBtn.toggle(false);
+								autoScaleBtn.disable();
 							}
 							Datanium.util.CommonUtils.generateGrid();
 							Datanium.util.CommonUtils.generateChart();

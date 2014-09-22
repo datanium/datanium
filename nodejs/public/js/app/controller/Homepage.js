@@ -67,7 +67,6 @@ Ext.define('Datanium.controller.Homepage', {
 		});
 	},
 	addIndicator : function(combobox) {
-		console.log(1);
 		var key = '';
 		if (typeof combobox === 'object') // from extjs combobox
 			key = combobox.getValue();
