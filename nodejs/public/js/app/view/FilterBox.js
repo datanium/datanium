@@ -144,29 +144,30 @@ Ext.define('Datanium.view.FilterBox', {
 		popup.center();
 	},
 	submitFilter : function(buttonId, text) {
-		if (buttonId == 'yes' && popSelection.length > 0) {
-			Datanium.GlobalData.queryParam.primaryFilter = Datanium.GlobalData.popDimensionKey;
-			Datanium.util.CommonUtils.splitFilter(popSelection);
+		if (buttonId == 'yes') {
+			if (popSelection.length > 0) {
+				Datanium.GlobalData.queryParam.primaryFilter = Datanium.GlobalData.popDimensionKey;
+				Datanium.util.CommonUtils.splitFilter(popSelection);
+			} else if (isTimeDim) {
+				var startVal = Ext.getCmp('time_start_picker').getValue();
+				var endVal = Ext.getCmp('time_end_picker').getValue();
+				if (startVal != null || endVal != null) {
+					eval('Datanium.GlobalData.queryParam.filters.' + Datanium.GlobalData.popDimensionKey
+							+ '={time_start:' + startVal + ',time_end:' + endVal + '}');
+				} else {
+					console.log('time is not selected');
+					if (isTimeDim)
+						Ext.getCmp('timeSelPanel').destroy();
+					return;
+				}
+			}
 			var epBtns = Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').items.items;
 			Ext.Array.each(epBtns, function(rec, idx) {
-				if (rec.uniqueName == Datanium.GlobalData.queryParam.primaryFilter) {
+				if (rec.uniqueName == Datanium.GlobalData.popDimensionKey) {
 					if (!rec.pressed)
 						epBtns[idx].toggle();
 				}
 			});
-		} else if (buttonId == 'yes' && isTimeDim) {
-			var startVal = Ext.getCmp('time_start_picker').getValue();
-			var endVal = Ext.getCmp('time_end_picker').getValue();
-			if (startVal != null || endVal != null) {
-				eval('Datanium.GlobalData.queryParam.filters.' + Datanium.GlobalData.popDimensionKey + '={time_start:'
-						+ startVal + ',time_end:' + endVal + '}');
-			} else {
-				console.log('time is not selected');
-				if (isTimeDim)
-					Ext.getCmp('timeSelPanel').destroy();
-				return;
-			}
-
 		} else if (buttonId == 'no') {
 			// Datanium.GlobalData.queryParam.split = null;
 			var key = Datanium.GlobalData.popDimensionKey;
