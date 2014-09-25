@@ -67,9 +67,18 @@ Ext.define('Datanium.controller.Homepage', {
 		});
 	},
 	addIndicator : function(combobox) {
-		var key = '';
-		if (typeof combobox === 'object') // from extjs combobox
+		var key = null;
+		var dim_key = null;
+		var dim_value = null;
+		if (typeof combobox === 'object') {// from extjs combobox
+		// var keys = combobox.getValue().split('///');
+		// if (keys.length > 1) {
+		// dim_key = keys[1];
+		// dim_value = keys[2];
+		// }
+		// key = keys[0];
 			key = combobox.getValue();
+		}
 		if (typeof combobox === 'string') // from outside page search box
 			key = combobox
 		var leftpanel = Datanium.util.CommonUtils.getCmpInActiveTab('leftpanel');
@@ -77,6 +86,9 @@ Ext.define('Datanium.controller.Homepage', {
 			msg : "Loading..."
 		});
 		mask.show();
+		if (dim_key !== null) {
+			// to be added: apply filter directly base on keyword
+		}
 		var requestConfig = {
 			url : '/rest/indicator/map?idc=' + key,
 			timeout : 300000,
@@ -104,7 +116,6 @@ Ext.define('Datanium.controller.Homepage', {
 			Ext.MessageBox.alert("Alert", "Sorry, you cannot add more than 10 measures.");
 			mask.destroy();
 		}
-
 	},
 	isValidMeasures : function() {
 		var measures = Datanium.GlobalData.qubeInfo.measures;
