@@ -15,25 +15,27 @@ exports.init = function() {
 		if (err)
 			console.log('Exception: ' + err);
 		doc.forEach(function(dim, index) {
-			async.parallel([ function(callback) {
-				datasetSchema.distinct(dim.dimension_key).exec(function(err, doc) {
-					doc.forEach(function(dimVal) {
-						// console.log(dim.dimension_key + ' : ' + dimVal);
-						var dimObj = {
-							'dimension_key' : dim.dimension_key,
-							'dimension_value' : dimVal
-						};
-						dimensionObjs.push(dimObj);
+			if (dim.dimension_key != 'year' && dim.dimension_key != 'month') {
+				async.parallel([ function(callback) {
+					datasetSchema.distinct(dim.dimension_key).exec(function(err, doc) {
+						doc.forEach(function(dimVal) {
+							// console.log(dim.dimension_key + ' : ' + dimVal);
+							var dimObj = {
+								'dimension_key' : dim.dimension_key,
+								'dimension_value' : dimVal
+							};
+							dimensionObjs.push(dimObj);
+						});
+						callback();
 					});
-					callback();
+				} ], function() {
+					if (doc.length - 1 == index) {
+						cache.put('dimensions', dimensionObjs);
+						console.log('dimension size: ' + dimensionObjs.length);
+						console.log('cost ' + (Date.now() - currentTime) + ' ms.');
+					}
 				});
-			} ], function() {
-				if (doc.length - 1 == index) {
-					cache.put('dimensions', dimensionObjs);
-					console.log('dimension size: ' + dimensionObjs.length);
-					console.log('cost ' + (Date.now() - currentTime) + ' ms.');
-				}
-			});
+			}
 		});
 	});
 	IndicatorSchema.find({}, function(err, doc) {
