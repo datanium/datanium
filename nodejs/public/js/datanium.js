@@ -13,7 +13,9 @@ $(document).ready(function() {
 
 var showUser = function(username, email) {
 	$('#userLabel').text(' ' + username);
-	$('#userLink').attr('onclick', 'space();');
+	$('#userLink').attr('class', 'dropdown-toggle');
+	$('#userLink').attr('data-toggle', 'dropdown');
+	$('#userLink').attr('onclick', 'void(0);');
 	if (loginUserEmail == null || loginUserEmail == '')
 		loginUserEmail = email;
 	if (loginUsername == null || loginUsername == '')

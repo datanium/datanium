@@ -1,5 +1,13 @@
 @CHARSET "UTF-8";
 
+body {
+}
+
+.x-body {
+	color: #34495e;
+	background: #34495e;
+}
+
 .leftpanel .x-box-inner {
 	background: #EFEFEF;
 }
@@ -230,4 +238,60 @@ legend {
 	font-size: 11px;
 	border-style: solid;
 	padding: 2px 2px 2px 2px;
+}
+
+.index-container>header {
+	color: #fff;
+	font-family: 'Lato', Arial, sans-serif;
+}
+
+.index-container>header {
+	margin: 0 auto;
+	padding-top: 61px;
+	padding-left: 20px;
+	background: rgba(0, 0, 0, 0.05);
+}
+
+.index-container>header a {
+	color: #566473;
+	text-decoration: none;
+	outline: none;
+}
+
+.index-container>header a:hover {
+	color: #4f7bab;
+}
+
+.index-container>header h1 {
+	font-size: 19px;
+	line-height: 24px;
+	margin: 0;
+	font-weight: 300;
+}
+
+.index-container>header span {
+	display: block;
+	font-size: 55%;
+	color: #74818e;
+	padding: 0 0 5px 1px;
+}
+
+.index-container #appContainer {
+	height: 100vh;
+}
+
+.navbar-header {
+	border-right: 1px solid #c6d0da;
+}
+
+.navbar-header img {
+	width: 26px;
+}
+
+.navbar-nav>li {
+	border-right: 1px solid #c6d0da;
+}
+
+.navbar-right>li {
+	border-left: 1px solid #c6d0da;
 }

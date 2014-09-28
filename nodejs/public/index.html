@@ -1,33 +1,50 @@
-<html lang="en" class="no-js">
+<html>
 <head>
 <title>Datanium - Play with Data</title>
 </head>
 <body>
-	<div class="custom-container">
-		<ul id="gn-menu" class="gn-menu-main">
-			<li class="gn-trigger"><a class="gn-icon gn-icon-menu"><span>Menu</span></a>
-				<nav class="gn-menu-wrapper">
-					<div class="gn-scroller">
-						<ul class="gn-menu">
-							<li class="gn-search-item"><input placeholder="Search" type="search" class="gn-search"
-								id="gnsearch"> <a class="gn-icon gn-icon-search"><span>Search</span></a></li>
-							<li><a href="#" class="gn-icon gn-icon-article" data-toggle="modal"
-								onclick="showModal();">By Topic</a>
-							<li><a class="gn-icon gn-icon-earth" onclick="comingSoon();">By Country</a></li>
-							<li><a class="gn-icon gn-icon-archive" onclick="comingSoon();">By Data Source</a></li>
-							<li><a class="gn-icon gn-icon-help" onclick="comingSoon();">About Data</a></li>
-						</ul>
-					</div>
-					<!-- /gn-scroller -->
-				</nav></li>
-			<li><a href="#" onclick="save(false);"><span><i class="fa fa-pencil-square-o"></i>&nbsp;Save</span></a></li>
-			<li><a href="#" onclick="space();"><span><i class="fa fa-laptop"></i>&nbsp;Space</span></a></li>
-			<li><a href="#" onclick="feedbackpop();"><span><i class="fa fa-comment-o"></i>&nbsp;Feedback</span></a></li>
-			<li><a href="#" onclick="about();"><span><i class="fa fa-smile-o"></i>&nbsp;About</span></a></li>
-
-			<li><a id="userLink" href="#" onclick="loginpop();"><span><i class="fa fa-user"></i><span
-						id="userLabel">&nbsp;Login/Sign up</span></span></a></li>
-		</ul>
+	<div class="index-container">
+		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+			<div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+						data-target="#bs-example-navbar-collapse-1">
+						<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="./"><img src="./img/favicon32.ico"></img></a>
+				</div>
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<!--li class="active"><a href="#"><i class="fa fa-pencil-square-o"></i>&nbsp;Editor</a></li-->
+						<li><a href="#" onclick="save(false);"><i class="fa fa-save"></i>&nbsp;Save</a></li>
+						<li><a href="#" onclick="space();"><i class="fa fa-laptop"></i>&nbsp;Space</a></li>
+						<li><a href="#" onclick="feedbackpop();"><i class="fa fa-comment-o"></i>&nbsp;Feedback</a></li>
+						<li><a href="#" onclick="about();"><i class="fa fa-smile-o"></i>&nbsp;About</a></li>
+					</ul>
+					<!-- form class="navbar-form navbar-left" role="search">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Search">
+						</div>
+						<button type="submit" class="btn btn-default">Submit</button>
+					</form -->
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown"><a id="userLink" href="#" onclick="loginpop();"><span><i
+									class="fa fa-user"></i><span id="userLabel">&nbsp;Login/Sign up</span></span></a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="#" onclick="space();"><i class="fa fa-laptop"></i>&nbsp;My Space</a></li>
+								<li><a href="#"><i class="fa fa-cog"></i>&nbsp;Settings</a></li>
+								<li class="divider"></li>
+								<li><a href="#"><i class="fa fa-power-off"></i>&nbsp;Sign out</a></li>
+							</ul></li>
+					</ul>
+				</div>
+				<!-- /.navbar-collapse -->
+			</div>
+			<!-- /.container-fluid -->
+		</nav>
 		<header>
 			<h1>
 				Datanium Prototype <span>An online public data analysis tool as seen on the <a
@@ -37,52 +54,13 @@
 		</header>
 		<div id="appContainer"></div>
 	</div>
-
-	<script src="./js/classie.js"></script>
-	<script src="./js/gnmenu.js"></script>
 	<script>
 		$(document).ready(function() {
 			adjustScreenHeight();
 		});
 
-		new gnMenu(document.getElementById('gn-menu'));
-
-		$('#gnsearch').keyup(function(e) {
-			if (e.keyCode == 13) {
-				$(this).trigger("enterKey");
-			}
-		});
-
-		$('#gnsearch').bind("enterKey", function(e) {
-			showTxtModal('Data Indicator Search', 'Processing...');
-			var searchKey = $('#gnsearch').val();
-			var url = '/rest/indicator/search';
-			$.ajax({
-				type : 'GET',
-				url : url,
-				data : {
-					query : searchKey
-				},
-				success : function(data) {
-					var html = '';
-					var indicators = data.indicators;
-					if (indicators != null) {
-						indicators.forEach(function(rec) {
-							html += '<p><a href="#" onclick="addIndicator(\'' + rec.uniqueName + '\');">';
-							html += rec.text;
-							html += '</a></p>';
-						});
-						updateTxtModal(null, '', html);
-					}
-				},
-				error : function() {
-				},
-				dataType : 'json'
-			});
-		});
-
 		function adjustScreenHeight() {
-			var heightOffset = 125;
+			var heightOffset = 114;
 			var appCon = document.getElementById('appContainer');
 			appCon.style.height = (window.innerHeight - heightOffset) + 'px';
 			window.onresize = function() {
