@@ -109,7 +109,6 @@ exports.login = function(req, res) {
 	var returnJSON = {};
 	var status = '';
 	var message = '';
-	console.log('get user ' + email);
 	UserSchema.findOneAndUpdate({
 		email : email
 	}, {
@@ -160,11 +159,13 @@ exports.login = function(req, res) {
 };
 
 exports.signout = function(req, res) {
+	console.log('logout...');
 	req.session.user = null;
 	res.redirect('/');
 }
 
 exports.space = function(req, res) {
+	console.log('user/space: ' + req.session.user);
 	if (req.session.user == null) {
 		res.redirect('/');
 		return;

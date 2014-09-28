@@ -5661,8 +5661,8 @@ svg, vml {
 /* line 1, ../../../ext-theme-neutral/sass/src/Component.scss */
 .x-body {
   color: #34495e;
-  font-size: 12px;
-  font-family: tahoma, arial, verdana, sans-serif;
+  font-size: 13px;
+  /* font-family: tahoma, arial, verdana, sans-serif;*/
 }
 
 /* line 13, ../../../ext-theme-neutral/sass/src/Component.scss */

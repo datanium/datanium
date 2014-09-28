@@ -1,77 +1,68 @@
 <html lang="en" class="no-js">
 <head>
-<title>Space - Datanium - Play with Data</title>
-<meta charset="UTF-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="author" content="Datanium" />
-<link rel="shortcut icon" href="../../img/favicon32.ico">
-<link rel="stylesheet" href="../../css/font-awesome/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css" href="../../css/datanium.css">
-<link rel="stylesheet" type="text/css" href="../../js/bootstrap/css/bootstrap.css">
+<title>Space - Datanium - Play with Data</title> $[ include header ]
 <script>
 	var console = console || {
 		"log" : function() {
 		}
 	};
 </script>
-<script type="text/javascript" src="../../js/jquery/jquery-1.9.1.min.js"></script>
-<script type="text/javascript" src="../../js/bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="../../js/datanium.js"></script>
 </head>
 <body>
-	<div class="container-fluid">
-		<div id="user_space" class="row">
-			<div class="col-md-2 col-md-offset-2">
-				<div class="page-header">
-					<span class="user_space_menu"><a href="../../signout">Sign out</a></span>
+	<div class="index-container">
+		<div class="container-fluid">
+			<div id="user_space" class="row">
+				<div class="col-md-2 col-md-offset-2">
+					<div class="page-header">
+						<span class="user_space_menu"><a href="$[=host]/signout">Sign out</a></span>
+					</div>
+					<div id="user_info">
+						<h4>$[=username]</h4>
+						<span class="user_space_note">$[=userEmail]</span> <br /> <span class="user_space_note">$[=signup_date]</span>
+					</div>
 				</div>
-				<div id="user_info">
-					<h4>$[=username]</h4>
-					<span class="user_space_note">$[=userEmail]</span> <br /> <span class="user_space_note">$[=signup_date]</span>
-				</div>
-			</div>
-			<div class="col-md-6">
-				<div class="page-header">
-					<span class="user_space_menu"><a href="../../">Editor</a></span><span
-						class="user_space_menu_sel">All your reports</span>
-				</div>
-				$[reports.forEach(function(report){ ]
-				<div class="jumbotron">
-					<div class="input-group">
-						<input class="form-control" id="rpt_link_$[=report.hashid]" type="text"
-							value="$[=host]/$[=report.hashid]" />
-						<div class="input-group-addon" rel="tooltip" title="Select url to copy">
-							<a href="#" onclick="sel2copy('rpt_link_$[=report.hashid]');"><span
-								class="glyphicon glyphicon-link"></span></a>
+				<div class="col-md-6">
+					<div class="page-header">
+						<span class="user_space_menu"><a href="../../">Editor</a></span><span
+							class="user_space_menu_sel">All your reports</span>
+					</div>
+					$[reports.forEach(function(report){ ]
+					<div class="jumbotron">
+						<div class="input-group">
+							<input class="form-control" id="rpt_link_$[=report.hashid]" type="text"
+								value="$[=host]/$[=report.hashid]" />
+							<div class="input-group-addon" rel="tooltip" title="Select url to copy">
+								<a href="#" onclick="sel2copy('rpt_link_$[=report.hashid]');"><span
+									class="glyphicon glyphicon-link"></span></a>
+							</div>
+						</div>
+						<p></p>
+						<span>Updated: $[=report.modification_date]</span>
+						<p></p>
+						<div class="user_space_reports">
+							$[if (report.qubeInfo != null && report.qubeInfo.dimensions != null) {]
+							$[report.qubeInfo.dimensions.forEach(function(dim){ ]
+							<button type="button" class="btn btn-default">
+								<span class="fa fa-bars"></span> $[=dim.text]
+							</button>
+							$[ }); ] $[}] $[if (report.qubeInfo != null && report.qubeInfo.measures != null) {]
+							$[report.qubeInfo.measures.forEach(function(mea){ ]
+							<button type="button" class="btn btn-default">
+								<span class="fa fa-bar-chart-o"></span> $[=mea.text]
+							</button>
+							$[ }); ] $[}]
+						</div>
+						<p></p>
+						<div class="text-right">
+							<a class="btn btn-primary" href="$[=host]/$[=report.hashid]" role="button" rel="tooltip"
+								title="Edit report"><span class="glyphicon glyphicon-pencil"></span></a> <a href="#"
+								class="btn btn-primary" role="button" rel="tooltip" title="Delete report"><span
+								class="glyphicon glyphicon-trash"></span></a>
 						</div>
 					</div>
-					<p></p>
-					<span>Updated: $[=report.modification_date]</span>
-					<p></p>
-					<div class="user_space_reports">
-						$[if (report.qubeInfo != null && report.qubeInfo.dimensions != null) {]
-						$[report.qubeInfo.dimensions.forEach(function(dim){ ]
-						<button type="button" class="btn btn-default">
-							<span class="fa fa-bars"></span> $[=dim.text]
-						</button>
-						$[ }); ] $[}] $[if (report.qubeInfo != null && report.qubeInfo.measures != null) {]
-						$[report.qubeInfo.measures.forEach(function(mea){ ]
-						<button type="button" class="btn btn-default">
-							<span class="fa fa-bar-chart-o"></span> $[=mea.text]
-						</button>
-						$[ }); ] $[}]
-					</div>
-					<p></p>
-					<div class="text-right">
-						<a class="btn btn-primary" href="$[=host]/$[=report.hashid]" role="button" rel="tooltip"
-							title="Edit report"><span class="glyphicon glyphicon-pencil"></span></a> <a href="#"
-							class="btn btn-primary" role="button" rel="tooltip" title="Delete report"><span
-							class="glyphicon glyphicon-trash"></span></a>
-					</div>
-				</div>
-				$[ }); ]
+					$[ }); ]
 
+				</div>
 			</div>
 		</div>
 	</div>

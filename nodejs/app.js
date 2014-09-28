@@ -11,6 +11,13 @@ var http = require('http');
 var path = require('path');
 var cache = require('./utils/cacheUtil');
 
+var nocache = function(req, res, next) {
+	res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+	res.header('Expires', '-1');
+	res.header('Pragma', 'no-cache');
+	next();
+}
+
 var app = express();
 
 // all environments
@@ -45,8 +52,8 @@ app.get('/rest/query/topicSearch', rest.topicSearch);
 app.post('/rest/save', rest.save);
 app.post('/signup', user.saveUser);
 app.post('/login', user.login);
-app.get('/signout', user.signout);
-app.get('/user/space', user.space);
+app.get('/signout', nocache, user.signout);
+app.get('/user/space', nocache, user.space);
 app.post('/feedback/save', others.feedbacksave);
 app.get('/:hashid', routes.index);
 
