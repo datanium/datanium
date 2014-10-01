@@ -1,0 +1,67 @@
+<html lang="en" class="no-js">
+<head>
+<title>Release notes - Datanium - Play with Data</title>
+$[ include header ]
+$[ include header-nav ]
+</head>
+<body>
+	<div class="index-container">
+		$[ include navbar ]
+		<div class="container-fluid">
+			<div id="release_note_div" class="row">
+				<div class="col-md-8 col-md-offset-2">
+					<div class="page-header">
+						<h4>Datanium release notes</h4>
+					</div>
+					<div class="panel panel-default">
+					  <div class="panel-heading">0.1.432&nbsp;&nbsp;&nbsp;10/1/2014</div>
+					  <div class="panel-body">
+						  <ul>
+							  <li>Quick search enhancement.</li>
+							  <li>Navigation bar enhancement.</li>
+							  <li>Mobile device support.</li>
+							  <li>User sign up/login.</li>
+							  <li>User space.</li>
+							  <li>UI improvements.</li>
+							  <li>Inner search box improvements.</li>
+							  <li>Release notes page.</li>
+						  </ul>
+					  </div>
+					</div>
+					<div class="panel panel-default">
+					  <div class="panel-heading">0.1.334&nbsp;&nbsp;&nbsp;8/19/2014</div>
+					  <div class="panel-body">
+						  <ul>
+							  <li>Import World Development Indicator data from World Bank.</li>
+							  <li>Import NYSE stock data from Yahoo Finance.</li>
+							  <li>Search indicators</li>
+							  <li>Explore indicators by topics</li>
+							  <li>Dataset grid view</li>
+							  <li>Dataset chart view (column chart/stack chart/line chart)</li>
+							  <li>Analysis view mockup</li>
+							  <li>Dimension filter</li>
+							  <li>Switch primary dimension</li>
+							  <li>Switch primary filter</li>
+							  <li>Auto scale</li>
+							  <li>Hide/show legend</li>
+							  <li>Clear report</li>
+							  <li>Save report</li>
+						  </ul>
+					  </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	$[ include common ]
+	<script>
+		var loginUserEmail = null;
+		var loginUsername = null;
+		$[if(userEmail!=null){]
+			loginUserEmail = '$[=userEmail]';
+			loginUsername = '$[=username]';
+		$[}]
+	</script>
+	$[ include foot_google ]
+</body>
+</html>

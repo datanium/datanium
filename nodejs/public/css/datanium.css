@@ -300,3 +300,7 @@ legend {
 .navbar-right>li {
 	border-left: 1px solid #c6d0da;
 }
+
+.index-container #release_note_div {
+	padding-top: 30px;
+}

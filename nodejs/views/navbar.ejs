@@ -14,12 +14,10 @@
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li $[if(currPage== 'editor'){]class="active"$[}]>
+				<li $[if(currPage=='editor'){]class="active"$[}]>
 					<a href="$[=host]"><i class="fa fa-pencil-square-o"></i>&nbsp;Editor</a>
 				</li>
-				<li $[if(currPage== 'space'){]class="active"$[}]>
-					<a href="#" onclick="space();"><i class="fa fa-laptop"></i>&nbsp;Space</a>
-				</li>
+				$[if(currPage== 'editor'){]
 				<li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-search"></i>&nbsp;Data Explore</a>
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="#" onclick="popIndicatorsByTopic();"><i class="fa fa-comments"></i>&nbsp;By Topic</a></li>
@@ -27,13 +25,18 @@
 						<li><a href="#" onclick="comingSoon();"><i class="fa fa-database"></i>&nbsp;By Data Source</a></li>
 					</ul>
 				</li>
-				$[if(currPage== 'editor'){]
+				$[}]
+				$[if(currPage=='editor'){]
 				<li><a href="#" onclick="save(false);"><i class="fa fa-save"></i>&nbsp;Save</a></li>
 				$[}]
-				<li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-smile-o"></i>&nbsp;About</a>
+				<li $[if(currPage=='space'){]class="active"$[}]>
+					<a href="#" onclick="space();"><i class="fa fa-laptop"></i>&nbsp;Space</a>
+				</li>
+				<li $[if(currPage=='release_notes'){]class="active"$[}]>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-smile-o"></i>&nbsp;About</a>
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="#" onclick="feedbackpop();"><i class="fa fa-comment-o"></i>&nbsp;Feedback</a></li>
-						<li><a href="#" onclick="comingSoon();"><i class="fa fa-file-text-o"></i>&nbsp;Release Notes</a></li>
+						<li><a href="$[=host]/release_notes"><i class="fa fa-file-text-o"></i>&nbsp;Release Notes</a></li>
 						<li><a href="#" onclick="about();"><i class="fa fa-users"></i>&nbsp;About us</a></li>
 					</ul>
 				</li>
@@ -55,7 +58,7 @@
 						<li><a href="#" onclick="space();"><i class="fa fa-laptop"></i>&nbsp;Space</a></li>
 						<li><a href="#"><i class="fa fa-cog"></i>&nbsp;Settings</a></li>
 						<li class="divider"></li>
-						<li><a href="#"><i class="fa fa-power-off"></i>&nbsp;Sign out</a></li>
+						<li><a href="$[=host]/signout"><i class="fa fa-power-off"></i>&nbsp;Sign out</a></li>
 					</ul>
 				</li>
 			</ul>

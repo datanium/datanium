@@ -55,6 +55,7 @@ app.post('/login', user.login);
 app.get('/signout', nocache, user.signout);
 app.get('/user/space', nocache, user.space);
 app.post('/feedback/save', others.feedbacksave);
+app.get('/release_notes', others.release_notes);
 app.get('/:hashid', routes.index);
 
 http.createServer(app).listen(app.get('port'), function() {

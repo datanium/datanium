@@ -1,14 +1,8 @@
 <html lang="en" class="no-js">
 <head>
-<title>Space - Datanium - Play with Data</title> 
+<title>Space - Datanium - Play with Data</title>
 $[ include header ]
 $[ include header-nav ]
-<script>
-	var console = console || {
-		"log" : function() {
-		}
-	};
-</script>
 </head>
 <body>
 	<div class="index-container">
@@ -26,7 +20,7 @@ $[ include header-nav ]
 				</div>
 				<div class="col-md-6">
 					<div class="page-header">
-						<span class="user_space_menu"><a href="../../">Editor</a></span><span
+						<span class="user_space_menu"><a href="$[=host]">Editor</a></span><span
 							class="user_space_menu_sel">All your reports</span>
 					</div>
 					$[reports.forEach(function(report){ ]
@@ -69,9 +63,11 @@ $[ include header-nav ]
 			</div>
 		</div>
 	</div>
+	$[ include common ]
 	<script>
 		var loginUserEmail = '$[=userEmail]';
 		var loginUsername = '$[=username]';
 	</script>
+	$[ include foot_google ]
 </body>
 </html>
