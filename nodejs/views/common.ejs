@@ -1,0 +1,201 @@
+
+<div class="modal fade" id="txtmodal" style="z-index: 1000000">
+	<div class="modal-dialog" id="txtmodaldialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h6 class="modal-title" id="txtmodaltitle"></h6>
+			</div>
+			<div class="modal-body">
+				<h5 id="txtmodalbody"></h5>
+				<div id="txtmodalhtmlbody"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="saveAnotherModal" style="z-index: 1000000">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h6 class="modal-title">&nbsp;</h6>
+			</div>
+			<div class="modal-body">
+				<div>
+					<p>This is not your analysis.</p>
+					<p>Do you want to save a copy for yourself?</p>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+				<button type="button" class="btn btn-primary" onclick="save(true);">Yes</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="ieversion" style="z-index: 1000000">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h5 class="modal-title">Browser Support</h5>
+			</div>
+			<div class="modal-body">
+				<h4>You are using an old version browser.</h4>
+				<span>This site has been developed and optimized for the following browsers:<br /></span> <span><a
+					href="http://www.google.com/intl/en-US/chrome/browser/" target="_blank">Google Chrome 3+</a><br /></span>
+				<span><a href="http://www.mozilla.com/en-US/firefox/" target="_blank">Mozilla Firefox
+						4+</a><br /></span> <span><a
+					href="http://www.microsoft.com/en-us/download/internet-explorer.aspx" target="_blank">Internet
+						Explorer 9+</a><br /></span> <span><a href="http://www.apple.com/safari/download/"
+					target="_blank">Apple Safari 4+</a><br /></span> <span>If you are using an older version or
+					different browser that is having difficulty rendering this site, download and install the
+					latest version of your browser using the link above.</span>
+				<p></p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="loginModal" style="z-index: 1000000">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Login</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" role="form">
+					<div class="form-group">
+						<div class="col-sm-offset-1 col-sm-10">
+							<label id="emailLabel" for="inputEmail" class="val_error_label"></label> <input type="email"
+								class="form-control" id="inputEmail" placeholder="Email" />
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-1 col-sm-10">
+							<label id="passwordLabel" for="inputPassword" class="val_error_label"></label> <input
+								type="password" class="form-control" id="inputPassword" placeholder="Password" />
+						</div>
+					</div>
+					<div class="col-sm-offset-1 col-sm-10">
+						<div class="login_foot">
+							<label> <a href="#" onclick="signuppop();">Sign up</a>
+							</label>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" onclick="login();">Login</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="signupModal" style="z-index: 1000000">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Sign up</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" role="form">
+					<div class="form-group">
+						<div class="col-sm-offset-1 col-sm-10">
+							<label id="emailLabel2" for="inputEmail2" class="val_error_label"></label> <input
+								type="email" class="form-control" id="inputEmail2" placeholder="Email" />
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-1 col-sm-10">
+							<label id="usernameLabel" for="inputUsername2" class="val_error_label"></label> <input
+								type="text" class="form-control" id="inputUsername2" placeholder="Username" />
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-1 col-sm-10">
+							<label id="passwordLabel2" for="inputPassword2" class="val_error_label"></label> <input
+								type="password" class="form-control" id="inputPassword2" placeholder="Password" />
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-1 col-sm-10">
+							<label id="confirmLabel" for="inputConfirmPassword2" class="val_error_label"></label> <input
+								type="password" class="form-control" id="inputConfirmPassword2"
+								placeholder="Confirm Password" />
+						</div>
+					</div>
+					<div class="col-sm-offset-1 col-sm-10">
+						<div class="login_foot">
+							<label> <a href="#" onclick="loginpop();">Login</a>
+							</label>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" onclick="createAccount();" class="btn btn-primary">Create Account</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="aboutModal" style="z-index: 1000000">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h5 class="modal-title">About Datanium</h5>
+			</div>
+			<div class="modal-body">
+
+				<div class="about_desc">
+					<div class="about_logo">
+						<img src="$[=host]/img/favicon32.ico"></img>
+					</div>
+					<div>
+						<h5>Datanium - Version 0.1.427</h5>
+						<h5>A platform that helps you to find, present, share and play with data.</h5>
+					</div>
+				</div>
+				<div class="about_foot">
+					Fork us on <a href="https://github.com/datanium/datanium">Github</a> or contact us directly - <a
+						href="mailto:admin@dtnium.com">dtnium@gmail.com</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="feedbackModal" style="z-index: 1000000">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Feedback</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" role="form">
+					<div class="form-group">
+						<div class="col-sm-12">
+							<textarea class="form-control" id="feedbackContent" rows="5"></textarea>
+						</div>
+					</div>
+					<!-- div class="col-sm-12">
+							<div class="login_foot">
+								<label> <a href="#">Survey</a>
+								</label>
+							</div>
+						</div -->
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" onclick="sendFeedback();">Send Out</button>
+			</div>
+		</div>
+	</div>
+</div>

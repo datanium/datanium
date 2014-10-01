@@ -4,19 +4,39 @@
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
 				data-target="#bs-example-navbar-collapse-1">
-				<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span> <span class="icon-bar"></span>
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="./"><img src="$[=host]/img/favicon32.ico"></img></a>
+			<a class="navbar-brand" href="$[=host]"><img src="$[=host]/img/favicon32.ico"></img></a>
 		</div>
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<!--li class="active"><a href="#"><i class="fa fa-pencil-square-o"></i>&nbsp;Editor</a></li-->
+				<li $[if(currPage== 'editor'){]class="active"$[}]>
+					<a href="$[=host]"><i class="fa fa-pencil-square-o"></i>&nbsp;Editor</a>
+				</li>
+				<li $[if(currPage== 'space'){]class="active"$[}]>
+					<a href="#" onclick="space();"><i class="fa fa-laptop"></i>&nbsp;Space</a>
+				</li>
+				<li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-search"></i>&nbsp;Data Explore</a>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="#" onclick="popIndicatorsByTopic();"><i class="fa fa-comments"></i>&nbsp;By Topic</a></li>
+						<li><a href="#" onclick="comingSoon();"><i class="fa fa-globe"></i>&nbsp;By Country</a></li>
+						<li><a href="#" onclick="comingSoon();"><i class="fa fa-database"></i>&nbsp;By Data Source</a></li>
+					</ul>
+				</li>
+				$[if(currPage== 'editor'){]
 				<li><a href="#" onclick="save(false);"><i class="fa fa-save"></i>&nbsp;Save</a></li>
-				<li><a href="#" onclick="space();"><i class="fa fa-laptop"></i>&nbsp;Space</a></li>
-				<li><a href="#" onclick="feedbackpop();"><i class="fa fa-comment-o"></i>&nbsp;Feedback</a></li>
-				<li><a href="#" onclick="about();"><i class="fa fa-smile-o"></i>&nbsp;About</a></li>
+				$[}]
+				<li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-smile-o"></i>&nbsp;About</a>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="#" onclick="feedbackpop();"><i class="fa fa-comment-o"></i>&nbsp;Feedback</a></li>
+						<li><a href="#" onclick="comingSoon();"><i class="fa fa-file-text-o"></i>&nbsp;Release Notes</a></li>
+						<li><a href="#" onclick="about();"><i class="fa fa-users"></i>&nbsp;About us</a></li>
+					</ul>
+				</li>
 			</ul>
 			<!-- form class="navbar-form navbar-left" role="search">
 						<div class="form-group">
@@ -25,14 +45,19 @@
 						<button type="submit" class="btn btn-default">Submit</button>
 					</form -->
 			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown"><a id="userLink" href="#" onclick="loginpop();"><span><i
-							class="fa fa-user"></i><span id="userLabel">&nbsp;Login/Sign up</span></span></a>
+				<li class="dropdown">
+					<a id="userLink" href="#" onclick="loginpop();">
+						<span><i class="fa fa-user"></i>
+							<span id="userLabel">&nbsp;Login/Sign up</span>
+						</span>
+					</a>
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="#" onclick="space();"><i class="fa fa-laptop"></i>&nbsp;Space</a></li>
 						<li><a href="#"><i class="fa fa-cog"></i>&nbsp;Settings</a></li>
 						<li class="divider"></li>
 						<li><a href="#"><i class="fa fa-power-off"></i>&nbsp;Sign out</a></li>
-					</ul></li>
+					</ul>
+				</li>
 			</ul>
 		</div>
 		<!-- /.navbar-collapse -->

@@ -40,7 +40,7 @@ if ('development' == app.get('env')) {
 }
 
 // init server cache
-cache.init();
+// cache.init();
 
 app.get('/', routes.index);
 app.post('/rest/query/result', rest.queryResult);

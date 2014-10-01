@@ -1,6 +1,7 @@
 @CHARSET "UTF-8";
 
 body {
+	
 }
 
 .x-body {
@@ -216,6 +217,10 @@ legend {
 .user_space_menu_sel {
 	margin: 0px 10px;
 	font-weight: bold;
+}
+
+.index-container #user_space {
+	padding-top: 30px;
 }
 
 #user_space a {
