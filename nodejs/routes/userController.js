@@ -185,6 +185,7 @@ exports.space = function(req, res) {
 					console.log('Exception: ' + err);
 				else {
 					res.render('space.ejs', {
+						currPage : 'space',
 						host : req.protocol + '://' + req.get('host'),
 						username : user.username,
 						userEmail : user.email,

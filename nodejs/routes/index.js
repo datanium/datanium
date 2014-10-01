@@ -6,7 +6,8 @@ exports.index = function(req, res) {
 	console.log('user/index: ' + req.session.user);
 	var hashid = req.url.substr(1);
 	if (hashid === '') {
-		res.render('index', {
+		res.render('index.ejs', {
+			currPage : 'editor',
 			hasHashKey : false,
 			host : req.protocol + '://' + req.get('host'),
 			userEmail : req.session.user ? req.session.user.email : null,
@@ -29,7 +30,8 @@ exports.index = function(req, res) {
 				};
 			if (doc.queryParam.filters == null)
 				doc.queryParam.filters = {};
-			res.render('index', {
+			res.render('index.ejs', {
+				currPage : 'editor',
 				hasHashKey : true,
 				host : req.protocol + '://' + req.get('host'),
 				hashid : doc.hashid,

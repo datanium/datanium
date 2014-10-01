@@ -1,0 +1,53 @@
+<html>
+<head>
+<title>Datanium - Play with Data</title>
+$[ include header ] 
+$[ include header-app ]
+$[ include header-nav ]
+</head>
+<body>
+	<div class="index-container">
+		$[ include navbar ]
+		<header>
+			<h1>
+				Datanium Prototype <span>An online public data analysis tool as seen on the <a
+					href="https://github.com/datanium/datanium">Github</a> page
+				</span>
+			</h1>
+		</header>
+		<div id="appContainer"></div>
+	</div>
+	<script>
+		$(document).ready(function() {
+			adjustScreenHeight();
+		});
+
+		function adjustScreenHeight() {
+			var heightOffset = 114;
+			var appCon = document.getElementById('appContainer');
+			appCon.style.height = (window.innerHeight - heightOffset) + 'px';
+			window.onresize = function() {
+				appCon.style.height = (window.innerHeight - heightOffset) + 'px';
+			}
+		}
+	</script>
+	$[ include common ]
+	<script type="text/javascript">
+		var loginUserEmail = null;
+		var loginUsername = null;
+		$[if(userEmail!=null){]
+			loginUserEmail = '$[=userEmail]';
+			loginUsername = '$[=username]';
+		$[}]
+		$[if(hasHashKey){]
+			console.log('hashid:$[=hashid]');
+			Datanium.GlobalData.hashid = '$[=hashid]';
+			Datanium.GlobalData.qubeInfo = $[-qubeInfo];
+			Datanium.GlobalData.queryParam = $[-queryParam];
+			Datanium.GlobalData.rptMode = '$[=rptMode]';
+			Datanium.GlobalData.chartMode = '$[=chartMode]';
+		$[}]
+	</script>
+	$[ include foot_google ]
+</body>
+</html>

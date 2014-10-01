@@ -182,8 +182,8 @@ var validateLogin = function() {
 	return true;
 }
 
-var showModal = function() {
-	showTxtModal('Search Indicator by Topic', 'Processing...');
+var popIndicatorsByTopic = function() {
+	showTxtModal('Indicators by Topic', 'Processing...');
 	var link = '/rest/query/topicSearch';
 	$.ajax({
 		url : link,
