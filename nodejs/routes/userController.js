@@ -180,7 +180,7 @@ exports.space = function(req, res) {
 			AnalysisSchema.find({
 				user_id : user.email
 			}, function(err, analysises) {
-				console.log(analysises);
+				// console.log(analysises);
 				if (err)
 					console.log('Exception: ' + err);
 				else {

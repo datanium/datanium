@@ -26,3 +26,18 @@ exports.feedbacksave = function(req, res) {
 		res.send(returnJSON);
 	});
 }
+
+exports.release_notes = function(req, res) {
+	var username = null;
+	var userEmail = null;
+	if (req.session.user != null) {
+		username = req.session.user.username;
+		userEmail = req.session.user.email;
+	}
+	res.render('release_notes.ejs', {
+		currPage : 'release_notes',
+		host : req.protocol + '://' + req.get('host'),
+		username : username,
+		userEmail : userEmail
+	});
+};
