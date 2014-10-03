@@ -6,6 +6,7 @@ var routes = require('./routes');
 var rest = require('./routes/rest');
 var user = require('./routes/userController');
 var indicator = require('./routes/indicatorController');
+var report = require('./routes/reportController');
 var others = require('./routes/others');
 var http = require('http');
 var path = require('path');
@@ -54,6 +55,7 @@ app.post('/signup', user.saveUser);
 app.post('/login', user.login);
 app.get('/signout', nocache, user.signout);
 app.get('/user/space', nocache, user.space);
+app.get('/user/report/remove/:rptId', report.remove)
 app.post('/feedback/save', others.feedbacksave);
 app.get('/release_notes', others.release_notes);
 app.get('/:hashid', routes.index);

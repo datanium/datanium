@@ -1,12 +1,12 @@
 var mongodb = require('../data/mongodb');
 var indicator = require('../data/indicator');
 var dataset = require('../data/dataset');
-var analysis = require('../data/analysis');
+var report = require('../data/report');
 var async = require('../lib/async');
 var hashids = require('../lib/hashids');
 var IndicatorSchema = indicator.Indicator;
 var datasetSchema = dataset.Dataset;
-var analysisSchema = analysis.Analysis;
+var reportSchema = report.Report;
 
 exports.topicSearch = function(req, res) {
 	var resultJSON = [];
@@ -511,29 +511,29 @@ exports.save = function(req, res) {
 	var userEmail = 'anonymous user';
 	if (req.session.user != null)
 		userEmail = req.session.user.email;
-	var analysisObj = req.body;
+	var reportObj = req.body;
 	var userip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 	var hashid = null;
 	var status = 'success';
 	var date = new Date();
 	async.parallel([ function(callback) {
-		if (analysisObj.hashid !== null && analysisObj.hashid !== '') {
-			console.log('Update Analysis ' + analysisObj.hashid);
+		if (reportObj.hashid !== null && reportObj.hashid !== '') {
+			console.log('Update Report ' + reportObj.hashid);
 			// update analysis
-			analysisSchema.findOne({
-				hashid : analysisObj.hashid
+			reportSchema.findOne({
+				hashid : reportObj.hashid
 			}, function(err, rpt) {
 				if (err)
 					throw err;
 				hashid = rpt.hashid;
 				if (rpt.user_id == userEmail) {
-					analysisSchema.update({
-						hashid : analysisObj.hashid
+					reportSchema.update({
+						hashid : reportObj.hashid
 					}, {
-						qubeInfo : analysisObj.qubeInfo,
-						queryParam : analysisObj.queryParam,
-						rptMode : analysisObj.rptMode,
-						chartMode : analysisObj.chartMode,
+						qubeInfo : reportObj.qubeInfo,
+						queryParam : reportObj.queryParam,
+						rptMode : reportObj.rptMode,
+						chartMode : reportObj.chartMode,
 						user_ip : userip,
 						modification_date : date
 					}, function(err, doc) {
@@ -547,24 +547,24 @@ exports.save = function(req, res) {
 				}
 			});
 		} else {
-			console.log('Save New Analysis');
+			console.log('Save New Report');
 			// encrypt hashid
 			var key = date.getTime() * 10 + Math.round(Math.random() * 10);
 			var hashs = new hashids("datanium salt", 4);
 			hashid = hashs.encrypt(key);
-			// save analysis
-			var newAnalysis = new analysisSchema({
+			// save report
+			var newReport = new reportSchema({
 				hashid : hashid,
-				qubeInfo : analysisObj.qubeInfo,
-				queryParam : analysisObj.queryParam,
-				rptMode : analysisObj.rptMode,
-				chartMode : analysisObj.chartMode,
+				qubeInfo : reportObj.qubeInfo,
+				queryParam : reportObj.queryParam,
+				rptMode : reportObj.rptMode,
+				chartMode : reportObj.chartMode,
 				user_id : userEmail,
 				user_ip : userip,
 				creation_date : date,
 				modification_date : date
 			});
-			newAnalysis.save();
+			newReport.save();
 			callback();
 		}
 	} ], function() {
