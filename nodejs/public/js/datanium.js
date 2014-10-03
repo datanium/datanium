@@ -349,7 +349,23 @@ var updateTxtModal = function(title, content, html) {
 		$('#txtmodalhtmlbody').html(html);
 }
 
+var saveConfirm = function() {
+	$('#saveConfirmModal').modal('show');
+}
+
+var removeConfirm = function(rptId) {
+	$('#removeConfirmYesBtn').attr('onclick', "removeRpt('" + rptId + "');");
+	$('#removeConfirmModal').modal('show');
+}
+
+var removeRpt = function(rptId) {
+	if (rptId != null) {
+		window.location.href = '../report/remove/' + rptId;
+	}
+}
+
 var save = function(isNew) {
+	$('#saveConfirmModal').modal('hide');
 	var url = '/rest/save';
 	$.ajax({
 		type : 'POST',

@@ -23,13 +23,51 @@
 			</div>
 			<div class="modal-body">
 				<div>
-					<p>This is not your analysis.</p>
+					<p>This is not your report.</p>
 					<p>Do you want to save a copy for yourself?</p>
 				</div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
 				<button type="button" class="btn btn-primary" onclick="save(true);">Yes</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="saveConfirmModal" style="z-index: 1000000">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h6 class="modal-title">&nbsp;</h6>
+			</div>
+			<div class="modal-body">
+				<p>Do you want to save this report?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+				<button type="button" class="btn btn-primary" onclick="save(false);">Yes</button>
+				<button type="button" class="btn btn-primary" onclick="save(true);">Save as a new
+					report</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="removeConfirmModal" style="z-index: 1000000">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h6 class="modal-title">&nbsp;</h6>
+			</div>
+			<div class="modal-body">
+				<p>Do you want to remove this report?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+				<button type="button" class="btn btn-primary" id="removeConfirmYesBtn" onclick="removeRpt();">Yes</button>
 			</div>
 		</div>
 	</div>

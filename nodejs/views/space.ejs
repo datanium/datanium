@@ -1,8 +1,6 @@
 <html lang="en" class="no-js">
 <head>
-<title>Space - Datanium - Play with Data</title>
-$[ include header ]
-$[ include header-nav ]
+<title>Space - Datanium - Play with Data</title> $[ include header ] $[ include header-nav ]
 </head>
 <body>
 	<div class="index-container">
@@ -53,8 +51,8 @@ $[ include header-nav ]
 						<div class="text-right">
 							<a class="btn btn-primary" href="$[=host]/$[=report.hashid]" role="button" rel="tooltip"
 								title="Edit report"><span class="glyphicon glyphicon-pencil"></span></a> <a href="#"
-								class="btn btn-primary" role="button" rel="tooltip" title="Delete report"><span
-								class="glyphicon glyphicon-trash"></span></a>
+								onclick="removeConfirm('$[=report.hashid]');" class="btn btn-primary" role="button"
+								rel="tooltip" title="Delete report"><span class="glyphicon glyphicon-trash"></span></a>
 						</div>
 					</div>
 					$[ }); ]

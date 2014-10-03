@@ -1,6 +1,6 @@
 var mongodb = require('../data/mongodb');
-var analysis = require('../data/analysis');
-var analysisSchema = analysis.Analysis;
+var report = require('../data/report');
+var reportSchema = report.Report;
 
 exports.index = function(req, res) {
 	console.log('user/index: ' + req.session.user);
@@ -15,7 +15,7 @@ exports.index = function(req, res) {
 		});
 		return;
 	}
-	analysisSchema.findOne({
+	reportSchema.findOne({
 		hashid : hashid
 	}, function(err, doc) {
 		if (err)

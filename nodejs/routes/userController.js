@@ -1,8 +1,8 @@
 var mongodb = require('../data/mongodb');
 var user = require('../data/user');
-var analysis = require('../data/analysis');
+var report = require('../data/report');
 var UserSchema = user.User;
-var AnalysisSchema = analysis.Analysis;
+var reportSchema = report.Report;
 var async = require('../lib/async');
 var ejs = require('ejs');
 ejs.open = '$[';
@@ -177,10 +177,10 @@ exports.space = function(req, res) {
 		if (err)
 			console.log('Exception: ' + err);
 		else {
-			AnalysisSchema.find({
+			reportSchema.find({
 				user_id : user.email
-			}, function(err, analysises) {
-				// console.log(analysises);
+			}, function(err, reports) {
+				// console.log(reports);
 				if (err)
 					console.log('Exception: ' + err);
 				else {
@@ -190,7 +190,7 @@ exports.space = function(req, res) {
 						username : user.username,
 						userEmail : user.email,
 						signup_date : dateFormat(user.signup_date),
-						reports : analysises
+						reports : reports
 					});
 				}
 			})

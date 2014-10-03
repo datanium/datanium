@@ -36,13 +36,13 @@ Ext.application({
 			 * tabBar : { display : false, height : 25, defaults : { height : 25 } },
 			 * items : [ { itemId : 'report-tab' + Datanium.GlobalData.tabindex,
 			 * closable : true, // icon : 'img/icons/report.png', title : 'My
-			 * Analysis', xtype : 'reporttemplate' } ] } ],
+			 * Reports', xtype : 'reporttemplate' } ] } ],
 			 */
 			items : [ {
 				region : 'center',
 				id : 'mainBox',
 				header : false,
-				title : 'My Analysis',
+				title : 'My Reports',
 				xtype : 'reporttemplate'
 			} ]
 		});
