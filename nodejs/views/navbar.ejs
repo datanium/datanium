@@ -15,29 +15,29 @@
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
 				<li $[if(currPage=='editor'){]class="active"$[}]>
-					<a href="$[=host]"><i class="fa fa-pencil-square-o"></i>&nbsp;Editor</a>
+					<a href="$[=host]"><i class="fa fa-pencil-square-o"></i>&nbsp;$[=__('Editor')]</a>
 				</li>
 				$[if(currPage== 'editor'){]
-				<li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-search"></i>&nbsp;Data Explore</a>
+				<li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-search"></i>&nbsp;$[=__('Data Explore')]</a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="#" onclick="popIndicatorsByTopic();"><i class="fa fa-comments"></i>&nbsp;By Topic</a></li>
-						<li><a href="#" onclick="comingSoon();"><i class="fa fa-globe"></i>&nbsp;By Country</a></li>
-						<li><a href="#" onclick="comingSoon();"><i class="fa fa-database"></i>&nbsp;By Data Source</a></li>
+						<li><a href="#" onclick="popIndicatorsByTopic();"><i class="fa fa-comments"></i>&nbsp;$[=__('By Topic')]</a></li>
+						<li><a href="#" onclick="comingSoon();"><i class="fa fa-globe"></i>&nbsp;$[=__('By Country')]</a></li>
+						<li><a href="#" onclick="comingSoon();"><i class="fa fa-database"></i>&nbsp;$[=__('By Data Source')]</a></li>
 					</ul>
 				</li>
 				$[}]
 				$[if(currPage=='editor'){]
-				<li><a href="#" onclick="saveConfirm();"><i class="fa fa-save"></i>&nbsp;Save</a></li>
+				<li><a href="#" onclick="saveConfirm();"><i class="fa fa-save"></i>&nbsp;$[=__('Save')]</a></li>
 				$[}]
 				<li $[if(currPage=='space'){]class="active"$[}]>
-					<a href="#" onclick="space();"><i class="fa fa-laptop"></i>&nbsp;Space</a>
+					<a href="#" onclick="space();"><i class="fa fa-laptop"></i>&nbsp;$[=__('Space')]</a>
 				</li>
 				<li $[if(currPage=='release_notes'){]class="active"$[}]>
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-smile-o"></i>&nbsp;About</a>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-smile-o"></i>&nbsp;$[=__('About')]</a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="#" onclick="feedbackpop();"><i class="fa fa-comment-o"></i>&nbsp;Feedback</a></li>
-						<li><a href="$[=host]/release_notes"><i class="fa fa-file-text-o"></i>&nbsp;Release Notes</a></li>
-						<li><a href="#" onclick="about();"><i class="fa fa-users"></i>&nbsp;About us</a></li>
+						<li><a href="#" onclick="feedbackpop();"><i class="fa fa-comment-o"></i>&nbsp;$[=__('Feedback')]</a></li>
+						<li><a href="$[=host]/release_notes"><i class="fa fa-file-text-o"></i>&nbsp;$[=__('Release Notes')]</a></li>
+						<li><a href="#" onclick="about();"><i class="fa fa-users"></i>&nbsp;$[=__('About us')]</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -51,14 +51,14 @@
 				<li class="dropdown">
 					<a id="userLink" href="#" onclick="loginpop();">
 						<span><i class="fa fa-user"></i>
-							<span id="userLabel">&nbsp;Login/Sign up</span>
+							<span id="userLabel">&nbsp;$[=__('Login/Sign up')]</span>
 						</span>
 					</a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="#" onclick="space();"><i class="fa fa-laptop"></i>&nbsp;Space</a></li>
-						<li><a href="#"><i class="fa fa-cog"></i>&nbsp;Settings</a></li>
+						<li><a href="#" onclick="space();"><i class="fa fa-laptop"></i>&nbsp;$[=__('Space')]</a></li>
+						<li><a href="#" onclick="comingSoon();"><i class="fa fa-cog"></i>&nbsp;$[=__('Settings')]</a></li>
 						<li class="divider"></li>
-						<li><a href="$[=host]/signout"><i class="fa fa-power-off"></i>&nbsp;Sign out</a></li>
+						<li><a href="$[=host]/signout"><i class="fa fa-power-off"></i>&nbsp;$[=__('Sign out')]</a></li>
 					</ul>
 				</li>
 			</ul>

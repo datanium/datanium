@@ -23,13 +23,13 @@
 			</div>
 			<div class="modal-body">
 				<div>
-					<p>This is not your report.</p>
-					<p>Do you want to save a copy for yourself?</p>
+					<p>$[=__('This is not your report.')]</p>
+					<p>$[=__('Do you want to save a copy for yourself?')]</p>
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-				<button type="button" class="btn btn-primary" onclick="save(true);">Yes</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">$[=__('No')]</button>
+				<button type="button" class="btn btn-primary" onclick="save(true);">$[=__('Yes')]</button>
 			</div>
 		</div>
 	</div>
@@ -43,13 +43,12 @@
 				<h6 class="modal-title">&nbsp;</h6>
 			</div>
 			<div class="modal-body">
-				<p>Do you want to save this report?</p>
+				<p>$[=__('Do you want to save this report?')]</p>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-				<button type="button" class="btn btn-primary" onclick="save(false);">Yes</button>
-				<button type="button" class="btn btn-primary" onclick="save(true);">Save as a new
-					report</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">$[=__('No')]</button>
+				<button type="button" class="btn btn-primary" onclick="save(false);">$[=__('Yes')]</button>
+				<button type="button" class="btn btn-primary" onclick="save(true);">$[=__('Save as a new report')]</button>
 			</div>
 		</div>
 	</div>
@@ -63,11 +62,11 @@
 				<h6 class="modal-title">&nbsp;</h6>
 			</div>
 			<div class="modal-body">
-				<p>Do you want to remove this report?</p>
+				<p>$[=__('Do you want to remove this report?')]</p>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-				<button type="button" class="btn btn-primary" id="removeConfirmYesBtn" onclick="removeRpt();">Yes</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">$[=__('No')]</button>
+				<button type="button" class="btn btn-primary" id="removeConfirmYesBtn" onclick="removeRpt();">$[=__('Yes')]</button>
 			</div>
 		</div>
 	</div>
@@ -78,19 +77,16 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h5 class="modal-title">Browser Support</h5>
+				<h5 class="modal-title">$[=__('Browser Support')]</h5>
 			</div>
 			<div class="modal-body">
-				<h4>You are using an old version browser.</h4>
-				<span>This site has been developed and optimized for the following browsers:<br /></span> <span><a
-					href="http://www.google.com/intl/en-US/chrome/browser/" target="_blank">Google Chrome 3+</a><br /></span>
-				<span><a href="http://www.mozilla.com/en-US/firefox/" target="_blank">Mozilla Firefox
-						4+</a><br /></span> <span><a
-					href="http://www.microsoft.com/en-us/download/internet-explorer.aspx" target="_blank">Internet
-						Explorer 9+</a><br /></span> <span><a href="http://www.apple.com/safari/download/"
-					target="_blank">Apple Safari 4+</a><br /></span> <span>If you are using an older version or
-					different browser that is having difficulty rendering this site, download and install the
-					latest version of your browser using the link above.</span>
+				<h4>$[=__('You are using an old version browser.')]</h4>
+				<span>$[=__('This site has been developed and optimized for the following browsers:')]<br /></span> 
+				<span><a href="http://www.google.com/intl/en-US/chrome/browser/" target="_blank">Google Chrome 3+</a><br /></span>
+				<span><a href="http://www.mozilla.com/en-US/firefox/" target="_blank">Mozilla Firefox 4+</a><br /></span> 
+				<span><a href="http://www.microsoft.com/en-us/download/internet-explorer.aspx" target="_blank">Internet Explorer 9+</a><br /></span> 
+				<span><a href="http://www.apple.com/safari/download/" target="_blank">Apple Safari 4+</a><br /></span> 
+				<span>$[=__('If you are using an older version or different browser that is having difficulty rendering this site, download and install the latest version of your browser using the link above.')]</span>
 				<p></p>
 			</div>
 		</div>
@@ -102,32 +98,32 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">Login</h4>
+				<h4 class="modal-title">$[=__('Login')]</h4>
 			</div>
 			<div class="modal-body">
 				<form class="form-horizontal" role="form">
 					<div class="form-group">
 						<div class="col-sm-offset-1 col-sm-10">
 							<label id="emailLabel" for="inputEmail" class="val_error_label"></label> <input type="email"
-								class="form-control" id="inputEmail" placeholder="Email" />
+								class="form-control" id="inputEmail" placeholder="$[=__('Email')]" />
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="col-sm-offset-1 col-sm-10">
 							<label id="passwordLabel" for="inputPassword" class="val_error_label"></label> <input
-								type="password" class="form-control" id="inputPassword" placeholder="Password" />
+								type="password" class="form-control" id="inputPassword" placeholder="$[=__('Password')]" />
 						</div>
 					</div>
 					<div class="col-sm-offset-1 col-sm-10">
 						<div class="login_foot">
-							<label> <a href="#" onclick="signuppop();">Sign up</a>
+							<label> <a href="#" onclick="signuppop();">$[=__('Sign up')]</a>
 							</label>
 						</div>
 					</div>
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" onclick="login();">Login</button>
+				<button type="button" class="btn btn-primary" onclick="login();">$[=__('Login')]</button>
 			</div>
 		</div>
 	</div>
@@ -138,45 +134,45 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">Sign up</h4>
+				<h4 class="modal-title">$[=__('Sign up')]</h4>
 			</div>
 			<div class="modal-body">
 				<form class="form-horizontal" role="form">
 					<div class="form-group">
 						<div class="col-sm-offset-1 col-sm-10">
 							<label id="emailLabel2" for="inputEmail2" class="val_error_label"></label> <input
-								type="email" class="form-control" id="inputEmail2" placeholder="Email" />
+								type="email" class="form-control" id="inputEmail2" placeholder="$[=__('Email')]" />
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="col-sm-offset-1 col-sm-10">
 							<label id="usernameLabel" for="inputUsername2" class="val_error_label"></label> <input
-								type="text" class="form-control" id="inputUsername2" placeholder="Username" />
+								type="text" class="form-control" id="inputUsername2" placeholder="$[=__('Username')]" />
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="col-sm-offset-1 col-sm-10">
 							<label id="passwordLabel2" for="inputPassword2" class="val_error_label"></label> <input
-								type="password" class="form-control" id="inputPassword2" placeholder="Password" />
+								type="password" class="form-control" id="inputPassword2" placeholder="$[=__('Password')]" />
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="col-sm-offset-1 col-sm-10">
 							<label id="confirmLabel" for="inputConfirmPassword2" class="val_error_label"></label> <input
 								type="password" class="form-control" id="inputConfirmPassword2"
-								placeholder="Confirm Password" />
+								placeholder="$[=__('Confirm Password')]" />
 						</div>
 					</div>
 					<div class="col-sm-offset-1 col-sm-10">
 						<div class="login_foot">
-							<label> <a href="#" onclick="loginpop();">Login</a>
+							<label> <a href="#" onclick="loginpop();">$[=__('Login')]</a>
 							</label>
 						</div>
 					</div>
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" onclick="createAccount();" class="btn btn-primary">Create Account</button>
+				<button type="button" onclick="createAccount();" class="btn btn-primary">$[=__('Create Account')]</button>
 			</div>
 		</div>
 	</div>
@@ -187,7 +183,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h5 class="modal-title">About Datanium</h5>
+				<h5 class="modal-title">$[=__('About Datanium')]</h5>
 			</div>
 			<div class="modal-body">
 
@@ -196,12 +192,12 @@
 						<img src="$[=host]/img/favicon32.ico"></img>
 					</div>
 					<div>
-						<h5>Datanium - Version 0.1.427</h5>
-						<h5>A platform that helps you to find, present, share and play with data.</h5>
+						<h5>Datanium - $[=__('Version')] 0.1.427</h5>
+						<h5>$[=__('A platform that helps you to find, present, share and play with data.')]</h5>
 					</div>
 				</div>
 				<div class="about_foot">
-					Fork us on <a href="https://github.com/datanium/datanium">Github</a> or contact us directly - <a
+					$[=__('Fork us on')] <a href="https://github.com/datanium/datanium">Github</a> $[=__('or contact us directly')] - <a
 						href="mailto:admin@dtnium.com">dtnium@gmail.com</a>
 				</div>
 			</div>
@@ -214,7 +210,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">Feedback</h4>
+				<h4 class="modal-title">$[=__('Feedback')]</h4>
 			</div>
 			<div class="modal-body">
 				<form class="form-horizontal" role="form">
@@ -232,7 +228,7 @@
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" onclick="sendFeedback();">Send Out</button>
+				<button type="button" class="btn btn-primary" onclick="sendFeedback();">$[=__('Send')]</button>
 			</div>
 		</div>
 	</div>

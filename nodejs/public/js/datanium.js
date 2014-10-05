@@ -110,41 +110,41 @@ var validateSignUp = function() {
 	var confirmPassword = $('#inputConfirmPassword2').val();
 	var count = 0;
 	if (email == null || email == '') {
-		$('#emailLabel2').text("This field is required.");
+		$('#emailLabel2').text(msg_field_req);
 		$('#emailLabel2').show();
 		count++;
 	} else {
 		$('#emailLabel2').hide();
 	}
 	if (username == null || username == '') {
-		$('#usernameLabel').text("This field is required.");
+		$('#usernameLabel').text(msg_field_req);
 		$('#usernameLabel').show();
 		count++;
 	} else {
 		$('#usernameLabel').hide();
 	}
 	if (password == null || password == '') {
-		$('#passwordLabel2').text("This field is required.");
+		$('#passwordLabel2').text(msg_field_req);
 		$('#passwordLabel2').show();
 		count++;
 	} else {
 		$('#passwordLabel2').hide();
 	}
 	if (confirmPassword == null || confirmPassword == '') {
-		$('#confirmLabel').text("This field is required.");
+		$('#confirmLabel').text(msg_field_req);
 		$('#confirmLabel').show();
 		count++;
 	} else {
 		$('#confirmLabel').hide();
 	}
 	if (password != null && password.length < 6) {
-		$('#passwordLabel2').text("Ensure this value has at least 6 characters (it has " + password.length + ").");
+		$('#passwordLabel2').text(msg_field_length);
 		$('#passwordLabel2').show();
 		count++;
 	}
 	if (password != null && password != '' && confirmPassword != null && confirmPassword != ''
 			&& password != confirmPassword) {
-		$('#confirmLabel').text("The two password fields didn't match.");
+		$('#confirmLabel').text(msg_field_pwd);
 		$('#confirmLabel').show();
 		$('#inputPassword2').val('');
 		$('#inputConfirmPassword2').val('');
@@ -163,14 +163,14 @@ var validateLogin = function() {
 	var password = $('#inputPassword').val();
 	var count = 0;
 	if (email == null || email == '') {
-		$('#emailLabel').text("This field is required.");
+		$('#emailLabel').text(msg_field_req);
 		$('#emailLabel').show();
 		count++;
 	} else {
 		$('#emailLabel').hide();
 	}
 	if (password == null || password == '') {
-		$('#passwordLabel').text("This field is required.");
+		$('#passwordLabel').text(msg_field_req);
 		$('#passwordLabel').show();
 		count++;
 	} else {
@@ -183,7 +183,7 @@ var validateLogin = function() {
 }
 
 var popIndicatorsByTopic = function() {
-	showTxtModal('Indicators by Topic', 'Processing...');
+	showTxtModal(msg_indi_by_topic, msg_processing);
 	var link = '/rest/query/topicSearch';
 	$.ajax({
 		url : link,
@@ -250,7 +250,7 @@ var createCollapse = function(index, item) {
 }
 
 var comingSoon = function() {
-	showTxtModal('&nbsp;', 'Coming Soon...', 'small');
+	showTxtModal('&nbsp;', msg_coming, 'small');
 }
 
 var ieVersionPop = function() {
@@ -264,7 +264,7 @@ var getIEVersion = function() {
 }
 
 var saveSuccess = function() {
-	showTxtModal('&nbsp;', 'Save Successful.', 'small');
+	showTxtModal('&nbsp;', msg_save_succ, 'small');
 }
 
 var saveAnother = function() {
@@ -412,26 +412,25 @@ var sendFeedback = function() {
 	var content = $('#feedbackContent').val();
 	if (content != null && content.length > 0) {
 		var link = '/feedback/save';
-		$
-				.ajax({
-					url : link,
-					type : 'POST',
-					dataType : 'json',
-					data : {
-						feedbackContent : content
-					},
-					success : function(map) {
-						if (map.status == 'success') {
-							$('#feedbackModal').modal('hide');
-							showTxtModal('&nbsp;', null, 'small',
-									'<h5>We have received your feedback.</h5><h5>Thank you!</h5>');
-						} else {
+		$.ajax({
+			url : link,
+			type : 'POST',
+			dataType : 'json',
+			data : {
+				feedbackContent : content
+			},
+			success : function(map) {
+				if (map.status == 'success') {
+					$('#feedbackModal').modal('hide');
+					showTxtModal('&nbsp;', null, 'small', '<h5>' + msg_feedback_succ + '</h5><h5>' + msg_thankyou
+							+ '</h5>');
+				} else {
 
-						}
-					},
-					error : function() {
-						console.log(error);
-					}
-				});
+				}
+			},
+			error : function() {
+				console.log(error);
+			}
+		});
 	}
 }
