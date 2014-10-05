@@ -1,6 +1,8 @@
 <html lang="en" class="no-js">
 <head>
-<title>Space - Datanium - Play with Data</title> $[ include header ] $[ include header-nav ]
+<title>$[=__('Space')] - Datanium - $[=__('Play with Data')]</title>
+$[ include header ]
+$[ include header-nav ]
 </head>
 <body>
 	<div class="index-container">
@@ -9,17 +11,21 @@
 			<div id="user_space" class="row">
 				<div class="col-md-2 col-md-offset-2">
 					<div class="page-header">
-						<span class="user_space_menu"><a href="$[=host]/signout">Sign out</a></span>
+						<span class="user_space_menu"><a href="$[=host]/signout">$[=__('Sign out')]</a></span>
 					</div>
 					<div id="user_info">
 						<h4>$[=username]</h4>
-						<span class="user_space_note">$[=userEmail]</span> <br /> <span class="user_space_note">$[=signup_date]</span>
+						<span class="user_space_note">$[=userEmail]</span>
+						<br />
+						<span class="user_space_note">$[=signup_date]</span>
 					</div>
 				</div>
 				<div class="col-md-6">
 					<div class="page-header">
-						<span class="user_space_menu"><a href="$[=host]">Editor</a></span><span
-							class="user_space_menu_sel">All your reports</span>
+						<span class="user_space_menu">
+							<a href="$[=host]">$[=__('Editor')]</a>
+						</span>
+						<span class="user_space_menu_sel">$[=__('All your reports')]</span>
 					</div>
 					$[reports.forEach(function(report){ ]
 					<div class="jumbotron">
@@ -27,12 +33,13 @@
 							<input class="form-control" id="rpt_link_$[=report.hashid]" type="text"
 								value="$[=host]/$[=report.hashid]" />
 							<div class="input-group-addon" rel="tooltip" title="Select url to copy">
-								<a href="#" onclick="sel2copy('rpt_link_$[=report.hashid]');"><span
-									class="glyphicon glyphicon-link"></span></a>
+								<a href="#" onclick="sel2copy('rpt_link_$[=report.hashid]');">
+									<span class="glyphicon glyphicon-link"></span>
+								</a>
 							</div>
 						</div>
 						<p></p>
-						<span>Updated: $[=report.modification_date]</span>
+						<span>$[=__('Updated')]: $[=report.modification_date]</span>
 						<p></p>
 						<div class="user_space_reports">
 							$[if (report.qubeInfo != null && report.qubeInfo.dimensions != null) {]
@@ -40,23 +47,31 @@
 							<button type="button" class="btn btn-default">
 								<span class="fa fa-bars"></span> $[=dim.text]
 							</button>
-							$[ }); ] $[}] $[if (report.qubeInfo != null && report.qubeInfo.measures != null) {]
+							$[ }); ] 
+							$[}]
+							
+							$[if (report.qubeInfo != null && report.qubeInfo.measures != null) {]
 							$[report.qubeInfo.measures.forEach(function(mea){ ]
 							<button type="button" class="btn btn-default">
 								<span class="fa fa-bar-chart-o"></span> $[=mea.text]
 							</button>
-							$[ }); ] $[}]
+							$[ }); ] 
+							$[}]
 						</div>
 						<p></p>
 						<div class="text-right">
 							<a class="btn btn-primary" href="$[=host]/$[=report.hashid]" role="button" rel="tooltip"
-								title="Edit report"><span class="glyphicon glyphicon-pencil"></span></a> <a href="#"
-								onclick="removeConfirm('$[=report.hashid]');" class="btn btn-primary" role="button"
-								rel="tooltip" title="Delete report"><span class="glyphicon glyphicon-trash"></span></a>
+								title="$[=__('Edit report')]">
+								<span class="glyphicon glyphicon-pencil"></span>
+							</a>
+							<a href="#"
+								onclick="removeConfirm('$[=report.hashid]');" class="btn btn-primary" role="button" rel="tooltip" 
+								title="$[=__('Delete report')]">
+								<span class="glyphicon glyphicon-trash"></span>
+							</a>
 						</div>
 					</div>
 					$[ }); ]
-
 				</div>
 			</div>
 		</div>

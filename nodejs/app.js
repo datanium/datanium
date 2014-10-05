@@ -1,23 +1,15 @@
-/**
- * Module dependencies.
- */
 var express = require('express');
+var http = require('http');
+var path = require('path');
 var routes = require('./routes');
+var cache = require('./utils/cacheUtil');
+
+// routes config
 var rest = require('./routes/rest');
 var user = require('./routes/userController');
 var indicator = require('./routes/indicatorController');
 var report = require('./routes/reportController');
 var others = require('./routes/others');
-var http = require('http');
-var path = require('path');
-var cache = require('./utils/cacheUtil');
-
-var nocache = function(req, res, next) {
-	res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
-	res.header('Expires', '-1');
-	res.header('Pragma', 'no-cache');
-	next();
-}
 
 var app = express();
 
@@ -32,6 +24,23 @@ app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(express.cookieParser('your secret here'));
 app.use(express.session());
+
+// i18n
+var i18n = require('i18n-2');
+i18n.expressBind(app, {
+	locales : [ 'zh', 'en' ],
+	defaultLocale : 'zh',
+	extension : ".json",
+	cookieName : 'locale',
+	directory : __dirname + '/locales'
+});
+
+app.use(function(req, res, next) {
+	req.i18n.setLocaleFromCookie();
+	req.i18n.setLocaleFromQuery();
+	next();
+});
+
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -39,6 +48,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 if ('development' == app.get('env')) {
 	app.use(express.errorHandler());
 }
+
+// for request disable cache
+var nocache = function(req, res, next) {
+	res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+	res.header('Expires', '-1');
+	res.header('Pragma', 'no-cache');
+	next();
+};
 
 // init server cache
 // cache.init();
