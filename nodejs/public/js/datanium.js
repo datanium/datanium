@@ -1,14 +1,27 @@
 $(document).ready(function() {
+	// detect browser version
 	var ieVersion = getIEVersion();
 	if (ieVersion > 0 && ieVersion < 9)
 		window.setTimeout(ieVersionPop, 1000);
+
+	// update user info on navi-bar
 	if (loginUsername != null && loginUsername != '')
 		showUser(loginUsername, loginUserEmail);
+
+	// bootstrap style tooltip
 	$(function() {
 		$("[rel='tooltip']").tooltip({
 			container : 'body'
 		});
 	});
+
+	// load i18n script for extjs
+	var locale = read_cookie('locale');
+	if (locale != null) {
+		$.getScript(host + "/js/extjs/locale/ext-lang-" + locale + ".js", function(data, textStatus, jqxhr) {
+			console.log('extjs locale script is loaded: ' + locale);
+		});
+	}
 });
 
 var showUser = function(username, email) {
@@ -438,4 +451,8 @@ var sendFeedback = function() {
 var changeLang = function(lang) {
 	document.cookie = "locale=" + lang;
 	window.location.reload();
+}
+
+var read_cookie = function(k, r) {
+	return (r = RegExp('(^|; )' + encodeURIComponent(k) + '=([^;]*)').exec(document.cookie)) ? r[2] : null;
 }
