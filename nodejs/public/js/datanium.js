@@ -434,3 +434,8 @@ var sendFeedback = function() {
 		});
 	}
 }
+
+var changeLang = function(lang) {
+	document.cookie = "locale=" + lang;
+	window.location.reload();
+}
