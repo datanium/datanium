@@ -21,7 +21,7 @@ Ext.define('Datanium.controller.FieldController', {
 		console.log('searchDimensionValue');
 		var tab = Datanium.util.CommonUtils.getCurrentTab();
 		var mask = new Ext.LoadMask(tab, {
-			msg : "Loading..."
+			msg : Datanium.GlobalStatic.label_loading
 		});
 		mask.show();
 		Datanium.GlobalData.dimensionValues = [];

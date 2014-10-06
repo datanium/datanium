@@ -83,7 +83,7 @@ Ext.define('Datanium.controller.Homepage', {
 			key = combobox
 		var leftpanel = Datanium.util.CommonUtils.getCmpInActiveTab('leftpanel');
 		var mask = new Ext.LoadMask(leftpanel, {
-			msg : "Loading..."
+			msg : Datanium.GlobalStatic.label_loading
 		});
 		mask.show();
 		if (dim_key !== null) {
