@@ -9,13 +9,13 @@ Ext.define('Datanium.view.InnerToolbar', {
 	padding : '0 5',
 	items : [ {
 		scale : 'medium',
-		tooltip : 'Run Query',
+		tooltip : Datanium.GlobalStatic.label_run_query,
 		tooltipType : 'title',
 		html : '<i class="fa fa-play-circle fa-2x"></i>',
 		action : 'manual-run'
 	}, {
 		scale : 'medium',
-		tooltip : 'Auto Run',
+		tooltip : Datanium.GlobalStatic.label_auto_query,
 		tooltipType : 'title',
 		html : '<i class="fa fa-play-circle-o fa-2x"></i>',
 		action : 'auto-run',
@@ -28,14 +28,14 @@ Ext.define('Datanium.view.InnerToolbar', {
 	 * disabled : true }
 	 */, {
 		scale : 'medium',
-		tooltip : 'Clear Selection',
+		tooltip : Datanium.GlobalStatic.label_clear_sel,
 		tooltipType : 'title',
 		html : '<i class="fa fa-times-circle-o fa-2x"></i>',
 		action : 'clear'
 	}, {
 		id : 'show_field_panel_btn',
 		scale : 'medium',
-		tooltip : 'Show Field Panel',
+		tooltip : Datanium.GlobalStatic.label_show_field_p,
 		tooltipType : 'title',
 		html : '<i class="fa fa-list-alt fa-2x"></i>',
 		action : 'show-fields',
@@ -45,7 +45,7 @@ Ext.define('Datanium.view.InnerToolbar', {
 		id : 'apply_filter_btn',
 		xtype : 'splitbutton',
 		scale : 'medium',
-		tooltip : 'Apply Data Filter',
+		tooltip : Datanium.GlobalStatic.label_apply_filter,
 		tooltipType : 'title',
 		html : '<i class="fa fa-filter fa-2x"></i>',
 		handler : function() {
@@ -60,7 +60,7 @@ Ext.define('Datanium.view.InnerToolbar', {
 	}, {
 		id : 'gridViewBtn',
 		scale : 'medium',
-		tooltip : 'Grid View',
+		tooltip : Datanium.GlobalStatic.label_grid_view,
 		tooltipType : 'title',
 		html : '<i class="fa fa-table fa-2x"></i>',
 		action : 'grid-mode',
@@ -70,7 +70,7 @@ Ext.define('Datanium.view.InnerToolbar', {
 	}, {
 		id : 'chartViewBtn',
 		scale : 'medium',
-		tooltip : 'Chart View',
+		tooltip : Datanium.GlobalStatic.label_chart_view,
 		tooltipType : 'title',
 		html : '<i class="fa fa-bar-chart-o fa-2x"></i>',
 		action : 'chart-mode',
@@ -80,7 +80,7 @@ Ext.define('Datanium.view.InnerToolbar', {
 	}, {
 		id : 'analysisViewBtn',
 		scale : 'medium',
-		tooltip : 'Analysis View',
+		tooltip : Datanium.GlobalStatic.label_analysis_view,
 		tooltipType : 'title',
 		html : '<i class="fa fa-puzzle-piece fa-2x"></i>',
 		action : 'analysis-mode',
@@ -94,21 +94,21 @@ Ext.define('Datanium.view.InnerToolbar', {
 		margins : '0 0 0 1'
 	}, {
 		scale : 'medium',
-		tooltip : 'Export to PDF',
+		tooltip : Datanium.GlobalStatic.label_exp_pdf,
 		tooltipType : 'title',
 		html : '<i class="fa fa-file-pdf-o fa-2x"></i>',
 		action : 'export-pdf',
 		disabled : true
 	}, {
 		scale : 'medium',
-		tooltip : 'Export to Twitter',
+		tooltip : Datanium.GlobalStatic.label_exp_twitter,
 		tooltipType : 'title',
 		html : '<i class="fa fa-twitter fa-2x"></i>',
 		action : 'export-twitter',
 		disabled : true
 	}, {
 		scale : 'medium',
-		tooltip : 'Export to Weibo',
+		tooltip : Datanium.GlobalStatic.label_exp_weibo,
 		tooltipType : 'title',
 		html : '<i class="fa fa-weibo fa-2x"></i>',
 		action : 'export-weibo',

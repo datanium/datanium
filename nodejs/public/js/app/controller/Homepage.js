@@ -1,6 +1,6 @@
 Ext.define('Datanium.controller.Homepage', {
 	extend : 'Ext.app.Controller',
-	views : [ 'Toolbar', 'ReportTemplate', 'LeftPanel', 'IndicatorSearchCombo', 'Accordion', 'ElementPanel',
+	views : [ 'ReportTemplate', 'LeftPanel', 'IndicatorSearchCombo', 'Accordion', 'ElementPanel',
 			'DataPanel', 'InnerToolbar', 'SearchBox' ],
 	models : [ 'Indicator' ],
 	stores : [ 'Indicators' ],

@@ -46,7 +46,7 @@ function generateSeries4Line(yFields, yFieldsTxt, xFieldsLabel) {
 			highlight : true,
 			smooth : true,
 			showMarkers : false,
-			fill : true,
+			// fill : true,
 			xField : xFieldsLabel,
 			yField : yfld,
 			title : yFieldsTxt[index]
