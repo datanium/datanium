@@ -29,5 +29,6 @@ Ext.define('Datanium.GlobalStatic', {
 	label_time_s_analysis : 'Time Series Analysis',
 	label_corr_analysis : 'Correlation Analysis',
 	label_notification : 'Notification',
-	label_analysis_view_tip : 'This is just a Demo of Analysis View with dummy data.'
+	label_analysis_view_tip : 'This is just a Demo of Analysis View with dummy data.',
+	label_loading :'Loading...'
 });

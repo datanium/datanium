@@ -8,11 +8,6 @@ Ext.define("Datanium.locale.zh_CN.view.IndicatorSearchCombo", {
 	emptyText : "输入关键词搜索数据。例如GDP, Consumer Price, Interest Rate等。"
 });
 
-Ext.define("Ext.locale.zh_CN.LoadMask", {
-	override : "Ext.LoadMask",
-	msg : "加载中..."
-});
-
 Ext.define("Datanium.locale.zh_CN.GlobalStatic", {
 	override : "Datanium.GlobalStatic",
 	label_column_chart : '柱状图',
@@ -44,5 +39,6 @@ Ext.define("Datanium.locale.zh_CN.GlobalStatic", {
 	label_time_s_analysis : '时间序列分析',
 	label_corr_analysis : '相关度分析',
 	label_notification : '提示',
-	label_analysis_view_tip : '这只是一个基于范例数据的功能演示。'
+	label_analysis_view_tip : '这只是一个基于范例数据的功能演示。',
+	label_loading :'加载中...'
 });
