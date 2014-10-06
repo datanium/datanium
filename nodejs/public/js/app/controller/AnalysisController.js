@@ -13,6 +13,6 @@ Ext.define('Datanium.controller.AnalysisController', {
 	},
 	onDemoAnalysisReady : function() {
 		console.log('onDemoAnalysisReady');
-		Ext.Msg.alert('Notification', 'This is just a Demo of Analysis View with dummy data.');
+		Ext.Msg.alert(Datanium.GlobalStatic.label_notification, Datanium.GlobalStatic.label_analysis_view_tip);
 	}
 });

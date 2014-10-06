@@ -69,7 +69,7 @@ Ext.define('Datanium.controller.ChartController', {
 			// enable dimSwitch
 			dimSwitch.enable();
 		} else {
-			dimSwitch.setText('Primary Dimension');
+			dimSwitch.setText(Datanium.GlobalStatic.label_primary_dim);
 			dimSwitch.disable();
 		}
 	},
@@ -113,7 +113,7 @@ Ext.define('Datanium.controller.ChartController', {
 			// enable filterSwitch
 			filterSwitch.enable();
 		} else {
-			filterSwitch.setText('Primary Filter');
+			filterSwitch.setText(Datanium.GlobalStatic.label_primary_filter);
 			filterSwitch.disable();
 		}
 	}

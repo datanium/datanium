@@ -13,18 +13,18 @@ Ext.define('Datanium.view.charts.ChartToolbar', {
 		iconCls : 'fa fa-bar-chart-o',
 		cls : 'chartTypeBtn',
 		scale : 'medium',
-		tooltip : 'Column Chart',
+		tooltip : Datanium.GlobalStatic.label_column_chart,
 		tooltipType : 'title',
-		text : 'Column Chart',
+		text : Datanium.GlobalStatic.label_column_chart,
 		handler : function() {
 			this.showMenu();
 		},
 		menu : [ {
 			iconCls : 'fa fa-star-o',
-			text : 'Column Chart',
+			text : Datanium.GlobalStatic.label_column_chart,
 			handler : function() {
-				this.parentMenu.ownerButton.setText('Column Chart');
-				this.parentMenu.ownerButton.setTooltip('Column Chart');
+				this.parentMenu.ownerButton.setText(Datanium.GlobalStatic.label_column_chart);
+				this.parentMenu.ownerButton.setTooltip(Datanium.GlobalStatic.label_column_chart);
 				Datanium.util.CommonUtils.markSelection(this);
 				if (Datanium.GlobalData.chartMode != 'columnchart') {
 					Datanium.GlobalData.chartMode = 'columnchart';
@@ -32,10 +32,10 @@ Ext.define('Datanium.view.charts.ChartToolbar', {
 				}
 			}
 		}, {
-			text : 'Stack Chart',
+			text : Datanium.GlobalStatic.label_stack_chart,
 			handler : function() {
-				this.parentMenu.ownerButton.setText('Stack Chart');
-				this.parentMenu.ownerButton.setTooltip('Stack Chart');
+				this.parentMenu.ownerButton.setText(Datanium.GlobalStatic.label_stack_chart);
+				this.parentMenu.ownerButton.setTooltip(Datanium.GlobalStatic.label_stack_chart);
 				Datanium.util.CommonUtils.markSelection(this);
 				if (Datanium.GlobalData.chartMode != 'stackchart') {
 					Datanium.GlobalData.chartMode = 'stackchart';
@@ -43,10 +43,10 @@ Ext.define('Datanium.view.charts.ChartToolbar', {
 				}
 			}
 		}, {
-			text : 'Line Chart',
+			text : Datanium.GlobalStatic.label_line_chart,
 			handler : function() {
-				this.parentMenu.ownerButton.setText('Line Chart');
-				this.parentMenu.ownerButton.setTooltip('Line Chart');
+				this.parentMenu.ownerButton.setText(Datanium.GlobalStatic.label_line_chart);
+				this.parentMenu.ownerButton.setTooltip(Datanium.GlobalStatic.label_line_chart);
 				Datanium.util.CommonUtils.markSelection(this);
 				if (Datanium.GlobalData.chartMode != 'linechart') {
 					Datanium.GlobalData.chartMode = 'linechart';
@@ -64,9 +64,9 @@ Ext.define('Datanium.view.charts.ChartToolbar', {
 		iconCls : 'fa fa-cube',
 		cls : 'chartTypeBtn',
 		scale : 'medium',
-		tooltip : 'Switch Dimension',
+		tooltip : Datanium.GlobalStatic.label_switch_dim,
 		tooltipType : 'title',
-		text : 'Primary Dimension',
+		text : Datanium.GlobalStatic.label_primary_dim,
 		disabled : true,
 		handler : function() {
 			this.showMenu();
@@ -82,9 +82,9 @@ Ext.define('Datanium.view.charts.ChartToolbar', {
 		iconCls : 'fa fa-filter',
 		cls : 'chartTypeBtn',
 		scale : 'medium',
-		tooltip : 'Switch Filter',
+		tooltip : Datanium.GlobalStatic.label_switch_filter,
 		tooltipType : 'title',
-		text : 'Primary Filter',
+		text : Datanium.GlobalStatic.label_primary_filter,
 		disabled : true,
 		handler : function() {
 			this.showMenu();
@@ -99,9 +99,9 @@ Ext.define('Datanium.view.charts.ChartToolbar', {
 		iconCls : 'fa fa-arrows fa',
 		cls : 'chartTypeBtn',
 		scale : 'medium',
-		tooltip : 'Auto Scale',
+		tooltip : Datanium.GlobalStatic.label_auto_scale,
 		tooltipType : 'title',
-		text : 'Auto Scale',
+		text : Datanium.GlobalStatic.label_auto_scale,
 		action : 'auto-scale',
 		enableToggle : true,
 		pressed : false,
@@ -114,9 +114,9 @@ Ext.define('Datanium.view.charts.ChartToolbar', {
 		iconCls : 'fa fa-eye-slash fa',
 		cls : 'chartTypeBtn',
 		scale : 'medium',
-		tooltip : 'Hide Legend Box',
+		tooltip : Datanium.GlobalStatic.label_hide_legend,
 		tooltipType : 'title',
-		text : 'Hide Legend',
+		text : Datanium.GlobalStatic.label_hide_legend,
 		action : 'hide-legend',
 		enableToggle : true,
 		pressed : false

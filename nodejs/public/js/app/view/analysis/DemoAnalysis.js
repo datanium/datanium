@@ -14,7 +14,7 @@ Ext.define('Datanium.view.analysis.DemoAnalysis', {
 		});
 		this.items = [ {
 			xtype : 'fieldset',
-			title : 'Basic Analysis',
+			title : Datanium.GlobalStatic.label_basic_analysis,
 			defaultType : 'panel',
 			defaults : {
 				columnLines : true,
@@ -76,7 +76,7 @@ Ext.define('Datanium.view.analysis.DemoAnalysis', {
 		// time series
 		{
 			xtype : 'fieldset',
-			title : 'Time Series Analysis',
+			title : Datanium.GlobalStatic.label_time_s_analysis,
 			defaultType : 'panel',
 			defaults : {
 				columnLines : true,
@@ -320,7 +320,7 @@ Ext.define('Datanium.view.analysis.DemoAnalysis', {
 		// correlation
 		{
 			xtype : 'fieldset',
-			title : 'Correlation Analysis',
+			title : Datanium.GlobalStatic.label_corr_analysis,
 			defaultType : 'panel',
 			defaults : {
 				columnLines : true,

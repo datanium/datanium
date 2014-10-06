@@ -13,7 +13,6 @@ Ext.define('Datanium.view.Accordion', {
 				itemId : Datanium.util.CommonUtils.genItemId('elementPanel'),
 				padding : '5',
 				flex : 1,
-				title : 'My Dataset',
 				autoScroll : true
 			} ]
 		});

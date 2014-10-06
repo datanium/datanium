@@ -3,6 +3,7 @@ Ext.define('Datanium.view.ElementPanel', {
 	alias : 'widget.elementPanel',
 	padding : 10,
 	defaults : {},
+	title : 'My Dataset',
 	initComponent : function() {
 		Ext.apply(this, {});
 		this.items = [];
@@ -31,10 +32,10 @@ Ext.define('Datanium.view.ElementPanel', {
 								toggleHandler : function(me) {
 									if (me.pressed) {
 										me.menu.items.items[0].setIconCls('fa fa-check-circle');
-										me.menu.items.items[0].setText('Un-apply');
+										me.menu.items.items[0].setText(Datanium.GlobalStatic.label_unapply);
 									} else {
 										me.menu.items.items[0].setIconCls('fa fa-check');
-										me.menu.items.items[0].setText('Apply');
+										me.menu.items.items[0].setText(Datanium.GlobalStatic.label_apply);
 									}
 									Datanium.util.CommonUtils.updateQueryParamByEP(me.uniqueName);
 									Datanium.util.CommonUtils.markPrimary();
@@ -44,7 +45,7 @@ Ext.define('Datanium.view.ElementPanel', {
 								menu : [
 										{
 											iconCls : 'fa fa-check',
-											text : 'Apply',
+											text : Datanium.GlobalStatic.label_apply,
 											handler : function() {
 												var btn = this.parentMenu.ownerButton;
 												btn.toggle();
@@ -52,7 +53,7 @@ Ext.define('Datanium.view.ElementPanel', {
 										},
 										{
 											iconCls : 'fa fa-trash-o',
-											text : 'Remove',
+											text : Datanium.GlobalStatic.label_remove,
 											handler : function() {
 												Datanium.util.CommonUtils
 														.removeElement(this.parentMenu.ownerButton.uniqueName);
@@ -64,7 +65,7 @@ Ext.define('Datanium.view.ElementPanel', {
 										},
 										{
 											iconCls : 'fa fa-filter',
-											text : 'Filter',
+											text : Datanium.GlobalStatic.label_filter,
 											handler : function() {
 												var btn = this.parentMenu.ownerButton;
 												Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent(
@@ -73,7 +74,7 @@ Ext.define('Datanium.view.ElementPanel', {
 										},
 										{
 											iconCls : 'fa fa-times-circle-o',
-											text : 'Clear Filter',
+											text : Datanium.GlobalStatic.label_clean_filter,
 											handler : function() {
 												var btn = this.parentMenu.ownerButton;
 												var key = btn.uniqueName;
@@ -107,10 +108,10 @@ Ext.define('Datanium.view.ElementPanel', {
 								toggleHandler : function(me) {
 									if (me.pressed) {
 										me.menu.items.items[0].setIconCls('fa fa-check-circle');
-										me.menu.items.items[0].setText('Un-apply');
+										me.menu.items.items[0].setText(Datanium.GlobalStatic.label_unapply);
 									} else {
 										me.menu.items.items[0].setIconCls('fa fa-check');
-										me.menu.items.items[0].setText('Apply');
+										me.menu.items.items[0].setText(Datanium.GlobalStatic.label_apply);
 									}
 									Datanium.util.CommonUtils.updateQueryParamByEP();
 									Datanium.util.CommonUtils.markPrimary();
@@ -120,7 +121,7 @@ Ext.define('Datanium.view.ElementPanel', {
 								menu : [
 										{
 											iconCls : 'fa fa-check',
-											text : 'Apply',
+											text : Datanium.GlobalStatic.label_apply,
 											handler : function() {
 												var btn = this.parentMenu.ownerButton;
 												btn.toggle();
@@ -128,7 +129,7 @@ Ext.define('Datanium.view.ElementPanel', {
 										},
 										{
 											iconCls : 'fa fa-trash-o',
-											text : 'Remove',
+											text : Datanium.GlobalStatic.label_remove,
 											handler : function() {
 												Datanium.util.CommonUtils
 														.removeElement(this.parentMenu.ownerButton.uniqueName);

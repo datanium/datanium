@@ -39,9 +39,9 @@ Ext.define('Datanium.view.analysis.AnalysisToolbar', {
 		iconCls : 'fa fa-clock-o fa',
 		cls : 'chartTypeBtn',
 		scale : 'medium',
-		tooltip : 'Time Series Analysis',
+		tooltip : Datanium.GlobalStatic.label_time_s_analysis,
 		tooltipType : 'title',
-		text : 'Time Series',
+		text : Datanium.GlobalStatic.label_time_s_analysis,
 		action : 'auto-scale',
 		enableToggle : true,
 		pressed : true
@@ -53,9 +53,9 @@ Ext.define('Datanium.view.analysis.AnalysisToolbar', {
 		iconCls : 'fa fa-random fa',
 		cls : 'chartTypeBtn',
 		scale : 'medium',
-		tooltip : 'Correlation Analysis',
+		tooltip : Datanium.GlobalStatic.label_corr_analysis,
 		tooltipType : 'title',
-		text : 'Correlation',
+		text : Datanium.GlobalStatic.label_corr_analysis,
 		action : 'hide-legend',
 		enableToggle : true,
 		pressed : true
