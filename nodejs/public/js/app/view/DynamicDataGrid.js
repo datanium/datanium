@@ -198,7 +198,6 @@ Ext.define('Datanium.view.DynamicDataGrid', {
 			store : store,
 			dock : 'bottom',
 			displayInfo : true,
-			displayMsg : 'Total {2} records',
 			listeners : {
 				afterrender : function() {
 					Ext.Array.each(this.items.items, function(item) {

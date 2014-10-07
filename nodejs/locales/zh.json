@@ -57,5 +57,9 @@
 	"Processing...": "加载中...",
 	"Language": "语言",
 	"English": "英文",
-	"Chinese": "中文"
+	"Chinese": "中文",
+	"Password does not match.": "密码不正确，请再次尝试",
+	"Account does not exist.": "账号不存在。",
+	"Username already exists.": "用户名已经存在。",
+	"Email already exists.": "邮件地址已经存在。"
 }

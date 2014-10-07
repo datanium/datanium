@@ -122,7 +122,8 @@ Ext.define("Ext.locale.en.toolbar.Paging", {
     nextText: "Next Page",
     lastText: "Last Page",
     refreshText: "Refresh",
-    displayMsg: "Displaying {0} - {1} of {2}",
+    //displayMsg: "Displaying {0} - {1} of {2}",
+	displayMsg : 'Total {2} records',
     emptyMsg: 'No data to display'
 });
 
