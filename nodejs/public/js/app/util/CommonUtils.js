@@ -229,7 +229,8 @@ Ext
 							var autoScaleBtn = Ext.getCmp('auto_scale_btn');
 							if (Datanium.GlobalData.queryParam.measures != null
 									&& Datanium.GlobalData.queryParam.measures.length > 1
-									|| Datanium.GlobalData.queryParam.isSplit == true) {
+									|| Datanium.GlobalData.queryParam.isSplit == true
+									|| Datanium.GlobalData.queryParam.isSplit == 'true') {
 								autoScaleBtn.enable();
 							} else {
 								autoScaleBtn.toggle(false);
