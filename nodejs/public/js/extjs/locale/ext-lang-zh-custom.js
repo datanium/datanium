@@ -8,11 +8,6 @@ Ext.define("Datanium.locale.zh_CN.view.IndicatorSearchCombo", {
 	emptyText : "输入关键词搜索数据。例如GDP, Consumer Price, Interest Rate等。"
 });
 
-Ext.define("Ext.locale.zh_CN.toolbar.PagingView", {
-	override : "Ext.toolbar.PagingView",
-	displayMsg : "一共{2}条数据"
-});
-
 Ext.define("Datanium.locale.zh_CN.GlobalStatic", {
 	override : "Datanium.GlobalStatic",
 	label_column_chart : '柱状图',

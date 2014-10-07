@@ -129,7 +129,8 @@ Ext.define("Ext.locale.zh_CN.toolbar.Paging", {
     nextText: "下一页",
     lastText: "最后页",
     refreshText: "刷新",
-    displayMsg: "显示 {0} - {1}条，共 {2} 条",
+    //displayMsg: "显示 {0} - {1}条，共 {2} 条",
+    displayMsg: "共{2}条数据",
     //update
     emptyMsg: '没有数据'
 });

@@ -100,10 +100,10 @@ var createAccount = function() {
 					$('#emailLabel2').hide();
 				}
 				if (map.status == 'username_exists') {
-					$('#usernameLabel2').text(map.message);
-					$('#usernameLabel2').show();
+					$('#usernameLabel').text(map.message);
+					$('#usernameLabel').show();
 				} else {
-					$('#usernameLabel2').hide();
+					$('#usernameLabel').hide();
 				}
 				if (map.status == 'create_user_fail') {
 					console.log('Server Error');

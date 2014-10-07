@@ -50,7 +50,7 @@ exports.saveUser = function(req, res) {
 	} ], function() {
 		if (userExistFlag) {
 			status = 'username_exists';
-			message = 'Username already exists.';
+			message = req.i18n.__('Username already exists.');
 			returnJSON = {
 				'status' : status,
 				'message' : message
@@ -60,7 +60,7 @@ exports.saveUser = function(req, res) {
 		}
 		if (emailExistFlag) {
 			status = 'email_exists';
-			message = 'Email already exists.';
+			message = req.i18n.__('Email already exists.');
 			returnJSON = {
 				'status' : status,
 				'message' : message
@@ -121,7 +121,7 @@ exports.login = function(req, res) {
 			var emailNotExistFlag = (user == null);
 			if (emailNotExistFlag == true) {
 				status = 'email_not_exist';
-				message = 'Account does not exist.';
+				message = req.i18n.__('Account does not exist.');
 				returnJSON = {
 					'status' : status,
 					'message' : message
@@ -132,7 +132,7 @@ exports.login = function(req, res) {
 			var passExistFlag = (user.password == password);
 			if (passExistFlag == false) {
 				status = 'password_not_match';
-				message = 'Password does not match.';
+				message = req.i18n.__('Password does not match.');
 				returnJSON = {
 					'status' : status,
 					'message' : message

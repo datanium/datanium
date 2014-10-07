@@ -37,7 +37,7 @@ i18n.expressBind(app, {
 
 app.use(function(req, res, next) {
 	req.i18n.setLocaleFromCookie();
-	req.i18n.setLocaleFromQuery();
+	//req.i18n.setLocaleFromQuery();
 	next();
 });
 

@@ -56,5 +56,9 @@
 	"All your reports": "All your reports",
 	"Updated": "Updated",
 	"Edit report": "Edit report",
-	"Delete report": "Delete report"
+	"Delete report": "Delete report",
+	"Account does not exist.": "Account does not exist.",
+	"Password does not match.": "Password does not match.",
+	"Email already exists.": "Email already exists.",
+	"Username already exists.": "Username already exists."
 }
