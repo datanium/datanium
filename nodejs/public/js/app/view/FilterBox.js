@@ -15,12 +15,12 @@ Ext.define('Datanium.view.FilterBox', {
 		});
 
 		popup.show({
-			msg : 'Select ' + Datanium.GlobalData.popDimension,
+			msg : Datanium.GlobalStatic.label_select + ' ' + Datanium.GlobalData.popDimension,
 			padding : 0,
 			buttons : Ext.Msg.YESNOCANCEL,
 			buttonText : {
-				yes : 'Submit',
-				no : 'Clear'
+				yes : Datanium.GlobalStatic.label_confirm,
+				no : Datanium.GlobalStatic.label_clear
 			},
 			fn : this.submitFilter
 		});
@@ -50,7 +50,7 @@ Ext.define('Datanium.view.FilterBox', {
 					id : 'time_start_picker',
 					xtype : 'combobox',
 					editable : false,
-					fieldLabel : 'From',
+					fieldLabel : Datanium.GlobalStatic.label_from,
 					store : timeStore,
 					valueField : 'name',
 					displayField : 'name',
@@ -63,7 +63,7 @@ Ext.define('Datanium.view.FilterBox', {
 					id : 'time_end_picker',
 					xtype : 'combobox',
 					editable : false,
-					fieldLabel : 'To',
+					fieldLabel : Datanium.GlobalStatic.label_to,
 					store : timeStore,
 					valueField : 'name',
 					displayField : 'name',
@@ -100,7 +100,7 @@ Ext.define('Datanium.view.FilterBox', {
 								}
 							});
 							if (popSelection.length >= 10) {
-								Ext.MessageBox.alert("Alert", "Sorry, you cannot select more than 10 filter values.");
+								Ext.MessageBox.alert("Alert", Datanium.GlobalStatic.label_select_filter_limit);
 								me.toggle();
 							} else {
 								popSelection.push(me.uniqueName);

@@ -30,5 +30,12 @@ Ext.define('Datanium.GlobalStatic', {
 	label_corr_analysis : 'Correlation Analysis',
 	label_notification : 'Notification',
 	label_analysis_view_tip : 'This is just a Demo of Analysis View with dummy data.',
-	label_loading :'Loading...'
+	label_loading : 'Loading...',
+	label_confirm : 'Confirm',
+	label_clear : 'Clear',
+	label_from : 'From',
+	label_to : 'To',
+	label_select : 'Select',
+	label_select_filter_limit : 'Sorry, you cannot select more than 10 filter values.',
+	label_select_mea_limit : 'Sorry, you cannot add more than 10 measures.'
 });
