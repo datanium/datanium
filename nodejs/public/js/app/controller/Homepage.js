@@ -1,7 +1,7 @@
 Ext.define('Datanium.controller.Homepage', {
 	extend : 'Ext.app.Controller',
-	views : [ 'ReportTemplate', 'LeftPanel', 'IndicatorSearchCombo', 'Accordion', 'ElementPanel',
-			'DataPanel', 'InnerToolbar', 'SearchBox' ],
+	views : [ 'ReportTemplate', 'LeftPanel', 'IndicatorSearchCombo', 'Accordion', 'ElementPanel', 'DataPanel',
+			'InnerToolbar', 'SearchBox' ],
 	models : [ 'Indicator' ],
 	stores : [ 'Indicators' ],
 	init : function() {
@@ -71,12 +71,12 @@ Ext.define('Datanium.controller.Homepage', {
 		var dim_key = null;
 		var dim_value = null;
 		if (typeof combobox === 'object') {// from extjs combobox
-		// var keys = combobox.getValue().split('///');
-		// if (keys.length > 1) {
-		// dim_key = keys[1];
-		// dim_value = keys[2];
-		// }
-		// key = keys[0];
+			// var keys = combobox.getValue().split('///');
+			// if (keys.length > 1) {
+			// dim_key = keys[1];
+			// dim_value = keys[2];
+			// }
+			// key = keys[0];
 			key = combobox.getValue();
 		}
 		if (typeof combobox === 'string') // from outside page search box
@@ -113,7 +113,7 @@ Ext.define('Datanium.controller.Homepage', {
 		if (this.isValidMeasures()) {
 			Ext.Ajax.request(requestConfig);
 		} else {
-			Ext.MessageBox.alert("Alert", "Sorry, you cannot add more than 10 measures.");
+			Ext.MessageBox.alert("Alert", Datanium.GlobalStatic.label_select_mea_limit);
 			mask.destroy();
 		}
 	},

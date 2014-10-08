@@ -40,5 +40,12 @@ Ext.define("Datanium.locale.zh_CN.GlobalStatic", {
 	label_corr_analysis : '相关度分析',
 	label_notification : '提示',
 	label_analysis_view_tip : '这只是一个基于范例数据的功能演示。',
-	label_loading :'加载中...'
+	label_loading : '加载中...',
+	label_confirm : '确认',
+	label_clear : '清除',
+	label_from : '从',
+	label_to : '至',
+	label_select : '选择',
+	label_select_limit : '抱歉，由于性能原因，目前你不能同时选择多于10个过滤项。',
+	label_select_mea_limit : '抱歉，由于性能原因，目前你不能同时选择多于10种数据。'
 });

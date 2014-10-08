@@ -24,6 +24,14 @@ $(document).ready(function() {
 		$.getScript(host + "/js/extjs/locale/ext-lang-" + locale + "-custom.js", function(data, textStatus, jqxhr) {
 			console.log('extjs custom locale script is loaded: ' + locale);
 		});
+	} else {
+		// default language zh-CN
+		$.getScript(host + "/js/extjs/locale/ext-lang-zh.js", function(data, textStatus, jqxhr) {
+			console.log('extjs default locale script is loaded: ' + locale);
+		});
+		$.getScript(host + "/js/extjs/locale/ext-lang-zh-custom.js", function(data, textStatus, jqxhr) {
+			console.log('extjs custom locale script is loaded: ' + locale);
+		});
 	}
 });
 
