@@ -42,7 +42,7 @@ Ext.define("Datanium.locale.zh_CN.GlobalStatic", {
 	label_analysis_view_tip : '这只是一个基于范例数据的功能演示。',
 	label_loading : '加载中...',
 	label_confirm : '确认',
-	label_clear : '清除',
+	label_clear : '清除选择',
 	label_from : '从',
 	label_to : '至',
 	label_select : '选择',
