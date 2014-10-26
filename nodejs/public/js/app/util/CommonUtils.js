@@ -391,7 +391,7 @@ Ext
 							return returnArray;
 						},
 						convertSplitValue : function(str) {
-							var returnStr = str.trim().replace(/ |-|&|\(|\)|\,|\.|\'/g, '');
+							var returnStr = str.trim().replace(/ |-|&|\(|\)|\,|\.|\'|\uFF08|\uFF09/g, '');
 							return returnStr;
 						},
 						markSelection : function(selectedItem) {

@@ -5,7 +5,7 @@ Ext.define("Datanium.locale.zh_CN.view.ElementPanel", {
 
 Ext.define("Datanium.locale.zh_CN.view.IndicatorSearchCombo", {
 	override : "Datanium.view.IndicatorSearchCombo",
-	emptyText : "输入关键词搜索数据。例如GDP, Consumer Price, Interest Rate等。"
+	emptyText : "输入关键词搜索数据。例如GDP, 人口, 消费等。"
 });
 
 Ext.define("Datanium.locale.zh_CN.GlobalStatic", {
