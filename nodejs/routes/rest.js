@@ -320,6 +320,7 @@ function generateGroupObj(queryParam, isChart) {
 		}
 	});
 	var res = "{" + idStr + indicatorStr + "}";
+	console.log(res);
 	var returnObj = eval("(" + res + ")");
 	projectStr += "_id:0}";
 	// console.log(projectStr);
@@ -429,7 +430,7 @@ function bubbleSort(a, par) {
 }
 
 function convertSplitValue(str) {
-	var returnStr = str.trim().replace(/ |-|&|\(|\)|\,|\.|\'/g, '');
+	var returnStr = str.trim().replace(/ |-|&|\(|\)|\,|\.|\'|\uFF08|\uFF09/g, '');
 	return returnStr;
 }
 
