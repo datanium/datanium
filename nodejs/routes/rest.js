@@ -320,7 +320,6 @@ function generateGroupObj(queryParam, isChart) {
 		}
 	});
 	var res = "{" + idStr + indicatorStr + "}";
-	console.log(res);
 	var returnObj = eval("(" + res + ")");
 	projectStr += "_id:0}";
 	// console.log(projectStr);
