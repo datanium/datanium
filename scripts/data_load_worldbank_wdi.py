@@ -4,6 +4,8 @@ import timeit
 import time
 import io
 from pymongo import MongoClient
+from multiprocessing.dummy import Pool as ThreadPool
+from functools import partial
 
 class Static:
     request_url_country_zh = 'http://api.worldbank.org/zh/countries'
@@ -92,38 +94,12 @@ def load_rowdata_to_mongo_zh(is_incremental):
         dataset_col.drop()
 
     dataset_array = []
-    for idx, ind in enumerate(indicator_array):
-        page_size = 20000
-        page_no = 1
-        r_params = {'format': 'json', 'per_page': 10, 'page': 1}
-        r = requests.get(static.request_url_rowdata_zh + ind['id'], params=r_params)
-        indicator_key = ind['id'].replace('.', '_') + '_ZH'
-        return_obj = json.loads(r.text)
-        page_info = return_obj[0]
-        total_size = page_info['total']
-        print(str(idx) + '>>>' + ind['name'] + ' total records: ' + str(total_size))
-        print('page size: ' + str(page_size))
-
-        while page_no <= round(total_size/page_size, 0):
-            print('loading page ' + str(page_no) + '...')
-            r_params = {'format': 'json', 'per_page': page_size, 'page': page_no}
-            r = requests.get(static.request_url_rowdata_zh + ind['id'], params=r_params)
-            if r.text is not None:
-                return_obj = json.loads(r.text)
-                results = return_obj[1]
-                for res in results:
-                    value = res['value']
-                    if res['country']['id'] in country_dict:
-                        region = country_dict[res['country']['id']]['region']
-                        if value is not None:
-                            value = float(res['value'])
-                        dataset_rec = {'country': res['country']['value'], 'region': region, 'year': int(res['date']), indicator_key : value}
-                        dataset_array.append(dataset_rec)
-                        pk = dataset_col.insert(dataset_rec)
-            page_no += 1
-        print(ind['name'] + " time cost: " + str(round(timeit.default_timer() - all_start)) + 's')
-        print("total record number: " + str(len(dataset_array))) 
-
+    mapfunc = partial(load_data_by_indicator, dataset_array=dataset_array, dataset_col=dataset_col, country_dict=country_dict, all_start=all_start)
+    pool = ThreadPool(9)
+    pool.map(mapfunc, indicator_array)
+    pool.close() 
+    pool.join()
+    print("All the threads are completed.\n")
     f = io.open(static.output_folder + '/worldbank_wdi_dataset_zh_' + str(time.strftime("%Y%m%d")) + '.json', 'w', encoding='utf8')
     json.dump(dataset_array, f, ensure_ascii=False)
     f.close()
@@ -131,6 +107,38 @@ def load_rowdata_to_mongo_zh(is_incremental):
     print("job is complete.")
     print("total time cost: " + str(round(timeit.default_timer() - all_start)) + 's')
 
+def load_data_by_indicator(indicator, dataset_array, dataset_col, country_dict, all_start):
+    static = Static()
+    page_size = 20000
+    page_no = 1
+    r_params = {'format': 'json', 'per_page': 10, 'page': 1}
+    r = requests.get(static.request_url_rowdata_zh + indicator['id'], params=r_params)
+    indicator_key = indicator['id'].replace('.', '_') + '_ZH'
+    return_obj = json.loads(r.text)
+    page_info = return_obj[0]
+    total_size = page_info['total']
+    print(">>>" + indicator['name'] + " total " + str(total_size) + "\n")
+    ## print('page size: ' + str(page_size))
+
+    while page_no <= round(total_size/page_size, 0):
+        ## print('loading page ' + str(page_no) + '...')
+        r_params = {'format': 'json', 'per_page': page_size, 'page': page_no}
+        r = requests.get(static.request_url_rowdata_zh + indicator['id'], params=r_params)
+        if r.text is not None:
+            return_obj = json.loads(r.text)
+            results = return_obj[1]
+            for res in results:
+                value = res['value']
+                if res['country']['id'] in country_dict:
+                    region = country_dict[res['country']['id']]['region']
+                    if value is not None:
+                        value = float(res['value'])
+                    dataset_rec = {'country': res['country']['value'], 'region': region, 'year': int(res['date']), indicator_key : value}
+                    dataset_array.append(dataset_rec)
+                    pk = dataset_col.insert(dataset_rec)
+        page_no += 1
+    print(indicator['name'] + " time cost: " + str(round(timeit.default_timer() - all_start)) + "s. " + "total record number: " + str(len(dataset_array)) + "\n")
+    
 def load_indicators_to_mongo_zh(is_incremental):
     print("start loading indicator data(zh) from JSON file to MongoDB...")
     all_start = timeit.default_timer()
@@ -160,7 +168,9 @@ def load_indicators_to_mongo_zh(is_incremental):
     print("total records: " + str(indicator_col.count()))
     print("total time cost: " + str(round(timeit.default_timer() - all_start)) + 's')
 
-##load_indicators_to_json_zh()
-##load_countries_to_json_zh()
-##load_indicators_to_mongo_zh(True)
-load_rowdata_to_mongo_zh(False)
+if __name__ == '__main__':
+    ##load_indicators_to_json_zh()
+    ##load_countries_to_json_zh()
+    ##load_indicators_to_mongo_zh(True)
+    load_rowdata_to_mongo_zh(False)
+    
