@@ -24,7 +24,6 @@ exports.searchIndicator = function(req, res) {
 					}, function(err, doc) {
 						if (err)
 							console.log('Exception: ' + err);
-						console.log(key + ':' + doc.length);
 						doc.forEach(function(item, index) {
 							var tempJson = {
 								"uniqueName" : item.indicator_key,

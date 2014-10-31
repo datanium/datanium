@@ -79,6 +79,7 @@ exports.topicSearch = function(req, res) {
 };
 
 exports.querySplit = function(req, res) {
+	var start = new Date().getTime();
 	var resultJSON = {
 		"grid" : {
 			"total" : 0,
@@ -124,6 +125,10 @@ exports.querySplit = function(req, res) {
 					callback();
 				});
 			} ], function() {
+		var end = new Date().getTime();
+		var time = end - start;
+		console.log('Query execution time: ' + time + ' ms');
+		resultJSON.execute_time = time;
 		res.send(resultJSON);
 	});
 };
@@ -216,6 +221,7 @@ function generateGroupSplitObj(queryParam) {
 }
 
 exports.queryResult = function(req, res) {
+	var start = new Date().getTime();
 	var queryParam = req.body;
 	var resultJSON = {
 		"grid" : {
@@ -259,6 +265,10 @@ exports.queryResult = function(req, res) {
 							callback();
 						});
 			} ], function() {
+		var end = new Date().getTime();
+		var time = end - start;
+		console.log('Query execution time: ' + time + ' ms');
+		resultJSON.execute_time = time;
 		res.send(resultJSON);
 	});
 };
@@ -472,6 +482,7 @@ exports.indicatorMapping = function(req, res) {
 }
 
 exports.dimensionValueSearch = function(req, res) {
+	var start = new Date().getTime();
 	var query = require('url').parse(req.url, true).query;
 	var dimensionValueResultJSON = {};
 	if (query.dim != null) {
@@ -497,6 +508,9 @@ exports.dimensionValueSearch = function(req, res) {
 				"dimensionValues" : results
 			};
 			// put send here cause callback func is async
+			var end = new Date().getTime();
+			var time = end - start;
+			console.log('Query execution time: ' + time + ' ms');
 			res.send(dimensionValueResultJSON);
 		});
 	} else {

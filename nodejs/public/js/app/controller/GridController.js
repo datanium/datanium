@@ -40,6 +40,7 @@ Ext.define('Datanium.controller.GridController', {
 						Datanium.GlobalData.QueryResult = result.grid;
 						Datanium.GlobalData.QueryResult4Chart = result.chart;
 						Datanium.util.CommonUtils.refreshAll();
+						console.log('Query execution time: ' + result.execute_time + ' ms.')
 					},
 					failure : function() {
 						mask.destroy();
