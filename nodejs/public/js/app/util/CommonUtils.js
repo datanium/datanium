@@ -168,7 +168,11 @@ Ext
 									var field = {
 										uniqueName : mea.uniqueName,
 										text : mea.text,
-										cls : 'fieldBtn-m'
+										cls : 'fieldBtn-m',
+										handler : function(me) {
+											Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent(
+													'popDesc', me.uniqueName, me.text);
+										}
 									};
 									meaField.add(field);
 								});
