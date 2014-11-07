@@ -11,6 +11,8 @@ Ext.define('Datanium.GlobalStatic', {
 	label_hide_legend : 'Hide Legend Box',
 	label_unapply : 'Un-apply',
 	label_apply : 'Apply',
+	label_desc : 'Description',
+	label_no_desc : 'Not available.',
 	label_remove : 'Remove',
 	label_filter : 'Filter',
 	label_clean_filter : 'Clear Filter',

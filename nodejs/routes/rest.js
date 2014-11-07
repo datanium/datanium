@@ -443,44 +443,6 @@ function convertSplitValue(str) {
 	return returnStr;
 }
 
-exports.indicatorMapping = function(req, res) {
-	var indicatorMappingJSON = {};
-	var query = require('url').parse(req.url, true).query;
-	var idc = query.idc;
-	var dimensions = [];
-	var measures = [];
-	IndicatorSchema.find({
-		indicator_key : idc
-	}, function(err, doc) {
-		if (err)
-			console.log('Exception: ' + err);
-		doc.forEach(function(item, index) {
-			var tempDimensions = item.dimension;
-			tempDimensions.forEach(function(dimension, index) {
-				var tempDimension = {
-					"uniqueName" : dimension.dimension_key,
-					"name" : dimension.dimension_key,
-					"text" : dimension.dimension_text
-				};
-				dimensions.push(tempDimension);
-			});
-			var tempMesureJson = {
-				"uniqueName" : item.indicator_key,
-				"name" : item.indicator_key,
-				"text" : item.indicator_text,
-				"data_source" : item.data_source,
-				"data_type" : item.data_type
-			};
-			measures.push(tempMesureJson);
-		});
-		indicatorMappingJSON = {
-			"dimensions" : dimensions,
-			"measures" : measures
-		};
-		res.send(indicatorMappingJSON);
-	});
-}
-
 exports.dimensionValueSearch = function(req, res) {
 	var start = new Date().getTime();
 	var query = require('url').parse(req.url, true).query;

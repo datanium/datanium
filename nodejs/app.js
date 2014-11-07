@@ -63,7 +63,7 @@ var nocache = function(req, res, next) {
 app.get('/', routes.index);
 app.post('/rest/query/result', rest.queryResult);
 app.get('/rest/indicator/search', indicator.searchIndicator);
-app.get('/rest/indicator/map', rest.indicatorMapping);
+app.get('/rest/indicator/map', indicator.indicatorMapping);
 app.get('/rest/dimension/search', rest.dimensionValueSearch);
 app.post('/rest/query/split', rest.querySplit);
 app.get('/rest/query/topicSearch', rest.topicSearch);
