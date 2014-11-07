@@ -21,6 +21,8 @@ Ext.define("Datanium.locale.zh_CN.GlobalStatic", {
 	label_hide_legend : '隐藏图例',
 	label_unapply : '取消选择',
 	label_apply : '选择',
+	label_desc : '详细说明',
+	label_no_desc : '暂无内容。',
 	label_remove : '移除',
 	label_filter : '查询过滤',
 	label_clean_filter : '清除过滤条件',
