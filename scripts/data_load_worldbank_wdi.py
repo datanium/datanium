@@ -13,12 +13,15 @@ class Static:
     request_url_country_zh = 'http://api.worldbank.org/zh/countries'
     request_url_indicator_zh = 'http://api.worldbank.org/zh/indicators'
     request_url_rowdata_zh = 'http://api.worldbank.org/zh/countries/all/indicators/'
-    output_folder = '/Users/Puffy/Works/data_output'
-    dataset_folder = '/20141106'
+    output_folder = '/Users/Puffy/Works/data_output/WDI/ZH'
+    dataset_folder = '/20141109'
+    dataset_bydim_folder = '/by_dim'
     database_name = 'datanium'
     indicator_col_name = 'indicator_new'
     dataset_col_name = 'dataset_new'
+    date_range = '1960:2013'
     mongo_url = 'localhost'
+    ## mongo_url = 'www.dtnium.com'
     mongo_port = 27017
 
 def load_countries_to_json_zh():
@@ -36,7 +39,7 @@ def load_countries_to_json_zh():
         if len(res['name']) > 0:
             print(res['name'])
             country_rec = {'id': res['id'], 'iso2Code': res['iso2Code'], 'name': res['name'], 'region': res['region']['value']}
-            country_dict[res['iso2Code']] = country_rec
+            country_dict[res['name']] = country_rec
 
     f = io.open(static.output_folder + '/worldbank_wdi_countries_zh.json', 'w', encoding='utf8')
     json.dump(country_dict, f, ensure_ascii=False)
@@ -105,7 +108,7 @@ def load_indicators_to_mongo_zh(is_incremental):
         topics = []
         for topic in ind['topics']:
             topics.append(topic['value'])
-        indicator_rec = {'indicator_key': indicator_key, 'original_id': ind['id'], 'indicator_text': ind['name'], 'data_type': data_type, 'sourceOrganization': ind['sourceOrganization'], 'sourceNote': ind['sourceNote'], 'topics': topics, 'data_source': '世界发展指标', 'dimension': [{'dimension_key': 'year', 'dimension_text': '年'}, {'dimension_key': 'region', 'dimension_text': '洲'}, {'dimension_key': 'country', 'dimension_text': '国家'}]}
+        indicator_rec = {'indicator_key': indicator_key, 'original_id': ind['id'], 'indicator_text': ind['name'], 'data_type': data_type, 'sourceOrganization': ind['sourceOrganization'], 'sourceNote': ind['sourceNote'], 'topics': topics, 'data_source': '世界发展指标', 'dimension': [{'dimension_key': 'year', 'dimension_text': '年'}, {'dimension_key': 'region', 'dimension_text': '区域'}, {'dimension_key': 'country', 'dimension_text': '国家'}]}
         pk = indicator_col.insert(indicator_rec)
         print(indicator_key + ' ' + ind['name'] + ' inserted.')
     print("job is complete.")
@@ -127,7 +130,7 @@ def load_rowdata_to_json_zh():
 
     counter = []
     mapfunc = partial(load_data_by_indicator, counter=counter, country_dict=country_dict, all_start=all_start)
-    pool = ThreadPool(20)
+    pool = ThreadPool(12)
     pool.map(mapfunc, indicator_array)
     pool.close() 
     pool.join()
@@ -140,7 +143,7 @@ def load_data_by_indicator(indicator, counter, country_dict, all_start):
     dataset_by_indicator = []
     page_size = 20000
     page_no = 1
-    r_params = {'date': '1960:2013', 'format': 'json', 'per_page': 10, 'page': 1}
+    r_params = {'date': static.date_range, 'format': 'json', 'per_page': 10, 'page': 1}
     r = requests.get(static.request_url_rowdata_zh + indicator['id'], params=r_params)
     indicator_key = indicator['id'].replace('.', '_') + '_ZH'
     return_obj = json.loads(r.text)
@@ -151,21 +154,24 @@ def load_data_by_indicator(indicator, counter, country_dict, all_start):
 
     while page_no <= round(total_size/page_size, 0):
         ## print('loading page ' + str(page_no) + '...')
-        r_params = {'date': '1960:2013', 'format': 'json', 'per_page': page_size, 'page': page_no}
+        r_params = {'date': static.date_range, 'format': 'json', 'per_page': page_size, 'page': page_no}
         r = requests.get(static.request_url_rowdata_zh + indicator['id'], params=r_params)
         if r.text is not None:
-            return_obj = json.loads(r.text)
-            results = return_obj[1]
-            for res in results:
-                value = res['value']
-                if res['country']['id'] in country_dict:
-                    region = country_dict[res['country']['id']]['region']
-                    if value is not None:
-                        value = float(res['value'])
-                    dataset_rec = {'country': res['country']['value'], 'region': region, 'year': int(res['date']), indicator_key: value, 'load_key': 'WDI_ZH' + str(time.strftime("%Y%m%d"))}
-                    dataset_by_indicator.append(dataset_rec)
-                    counter.append(1)
-                    ## pk = dataset_col.insert(dataset_rec)
+            try:
+                return_obj = json.loads(r.text)
+                results = return_obj[1]
+                for res in results:
+                    value = res['value']
+                    if res['country']['value'] in country_dict:
+                        region = country_dict[res['country']['value']]['region']
+                        if value is not None:
+                            value = float(res['value'])
+                        dataset_rec = {'country': res['country']['value'], 'region': region, 'year': int(res['date']), indicator_key: value, 'load_key': 'WDI_ZH' + str(time.strftime("%Y%m%d"))}
+                        dataset_by_indicator.append(dataset_rec)
+                        counter.append(1)
+                        ## pk = dataset_col.insert(dataset_rec)
+            except ValueError:
+                print("Value Error: " + indicator_key + " / " + indicator['name'])
         page_no += 1
 
     if len(dataset_by_indicator) > 0:
@@ -176,62 +182,109 @@ def load_data_by_indicator(indicator, counter, country_dict, all_start):
         json.dump(dataset_by_indicator, f, ensure_ascii=False)
         f.close()
     
-    print(time.strftime('%Y-%m-%d %H:%M:%S',time.localtime()) + " >>> " + indicator['id'] + '/' + indicator['name'] + " time cost: " + str(round(timeit.default_timer() - all_start)) + "s. " + "total record number: " + str(len(counter)) + "\n")
+    print(time.strftime('%Y-%m-%d %H:%M:%S',time.localtime()) + " >>> " + indicator_key + '/' + indicator['name'] + " time cost: " + str(round(timeit.default_timer() - all_start)) + "s. " + "total record number: " + str(len(counter)) + "\n")
+
+def convert_rowdata_to_dim_lvl():
+    print("start converting row data(zh) from to Dimension level...")
+    all_start = timeit.default_timer()
+    static = Static()
+    bydim_dir = static.output_folder + static.dataset_bydim_folder
+    dataset_dir = static.output_folder + static.dataset_folder
+    ## clean up folder
+    for file in os.listdir(bydim_dir):
+        file_path = os.path.join(bydim_dir, file)
+        try:
+            if os.path.isfile(file_path):
+                os.unlink(file_path)
+        except Exception as e:
+            print(e)
+
+    ## load data by indicator
+    for idx, file in enumerate(os.listdir(dataset_dir)):
+        file_path = os.path.join(dataset_dir, file)
+        print("loading " + str(file_path) + ".\n")
+        if os.path.isfile(file_path):
+            f = io.open(file_path, 'r', encoding='utf8')
+            json_str = f.readline()
+            dataset_array = json.loads(json_str)
+            f.close()
+            for rec in dataset_array:
+                indicator_key = os.path.splitext(file)[0][4:]
+                ## print(indicator_key)
+                if rec[indicator_key] is not None:
+                    year = str(rec['year'])
+                    region = rec['region'] if rec['region'] is not None and rec['region'] != '' else 'noregion'
+                    country = rec['country']
+                    data_key = year + '_' + region + '_' + country
+                    data_bydim_path = bydim_dir + '/' + data_key + '.json'
+                    if os.path.isfile(data_bydim_path):
+                        f = io.open(data_bydim_path, 'r+', encoding='utf8')
+                        json_data = json.load(f)
+                        json_data[indicator_key] = rec[indicator_key]
+                        f.seek(0)
+                        f.write(json.dumps(json_data, ensure_ascii=False))
+                        f.truncate()
+                    else:
+                        f = io.open(data_bydim_path, 'w', encoding='utf8')
+                        json.dump(rec, f, ensure_ascii=False)
+                    f.close()
+        print(time.strftime('%Y-%m-%d %H:%M:%S',time.localtime()) + " >>> " + str(idx) + '.' + str(file_path) + " time cost: " + str(round(timeit.default_timer() - all_start)) + "s.\n")
+    
+    ## print("All the threads are completed. Total number is " + str(len(counter)) + "\n")
+    print("total time cost: " + str(round(timeit.default_timer() - all_start)) + 's')
 
 def load_rowdata_to_mongo_zh(is_incremental):
     print("start loading row data(zh) from JSON file to MongoDB...")
     all_start = timeit.default_timer()
     static = Static()
+    bydim_dir = static.output_folder + static.dataset_bydim_folder
     
     client = MongoClient(static.mongo_url, static.mongo_port)
     db = client[static.database_name]
     dataset_col = db[static.dataset_col_name]
     if not is_incremental:
         dataset_col.drop()
-    
-    f = io.open(static.output_folder + '/worldbank_wdi_indicators_zh.json', 'r', encoding='utf8')
-    json_str = f.readline()
-    indicator_array = json.loads(json_str)
-    f.close()
 
-    ## dataset_array = []
+    file_path_array = []
+    for idx, file in enumerate(os.listdir(bydim_dir)):
+        file_path = os.path.join(bydim_dir, file)
+        if os.path.isfile(file_path):
+            file_path_array.append(file_path)
+    print(str(len(file_path_array)) + " files are loaded")
+
     counter = []
-    mapfunc = partial(insert_by_indicator, counter=counter, dataset_col=dataset_col, all_start=all_start)
-    pool = ThreadPool(10)
-    pool.map(mapfunc, indicator_array)
+    mapfunc = partial(insert_by_dim, counter=counter, dataset_col=dataset_col, all_start=all_start)
+    pool = ThreadPool(12)
+    pool.map(mapfunc, file_path_array)
     pool.close() 
     pool.join()
     
     print("All the threads are completed. Total number is " + str(len(counter)) + "\n")
     print("total time cost: " + str(round(timeit.default_timer() - all_start)) + 's')
 
-def insert_by_indicator(indicator, counter, dataset_col, all_start):
+def insert_by_dim(file_path, counter, dataset_col, all_start):
     static = Static()
-    print(time.strftime('%Y-%m-%d %H:%M:%S',time.localtime()) + " >>> " + indicator['name'] + "\n")
+    print(time.strftime('%Y-%m-%d %H:%M:%S',time.localtime()) + " >>> " + file_path + "\n")
     
-    indicator_key = indicator['id'].replace('.', '_') + '_ZH'
-    json_str = None
     try:
-        f = io.open(static.output_folder + static.dataset_folder + '/WDI_' + indicator_key + '.json', 'r', encoding='utf8')
-        json_str = f.readline()
+        f = io.open(file_path, 'r', encoding='utf8')
+        json_data = json.load(f)
     except FileNotFoundError:
-        print(indicator['name'] + ' has no data.')
-    if json_str is not None:
-        dataset_array = json.loads(json_str)
-        for dataset_rec in dataset_array:
-            doc = dataset_col.find_one({"year": dataset_rec['year'], "region": dataset_rec['region'], "country": dataset_rec['country']})
-            if doc is not None:
-                dataset_col.update({'_id': doc['_id']}, {'$set':{indicator_key: dataset_rec[indicator_key]}})
-            else:
-                pk = dataset_col.insert(dataset_rec)                
+        print(file_path + ' file not found.')
+    if json_data is not None:
+        try:
             counter.append(1)
+            pk = dataset_col.insert(json_data)
+        except ValueError:
+            print("Value Error: " + indicator_key + " / " + indicator['name'])
     
-    print(time.strftime('%Y-%m-%d %H:%M:%S',time.localtime()) + " >>> " + indicator['id'] + '/' + indicator['name'] + " time cost: " + str(round(timeit.default_timer() - all_start)) + "s. " + "total record number: " + str(len(counter)) + "\n")
+    print(time.strftime('%Y-%m-%d %H:%M:%S',time.localtime()) + " >>> " + file_path + " time cost: " + str(round(timeit.default_timer() - all_start)) + "s. " + "total record number: " + str(len(counter)) + "\n")
 
 if __name__ == '__main__':
-    ## load_countries_to_json_zh()
-    ## load_indicators_to_json_zh()
-    ## load_indicators_to_mongo_zh(False)
-    ## load_rowdata_to_json_zh()
+    load_countries_to_json_zh()
+    load_indicators_to_json_zh()
+    load_indicators_to_mongo_zh(False)
+    load_rowdata_to_json_zh()
+    convert_rowdata_to_dim_lvl()
     load_rowdata_to_mongo_zh(False)
     
