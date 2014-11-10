@@ -58,10 +58,11 @@ Ext.define('Datanium.controller.FieldController', {
 		Ext.Array.forEach(measures, function(m) {
 			if (m.uniqueName == key) {
 				var desc = m.source_note;
+				var title = m.data_source;
 				if (desc == null || desc.length == 0) {
 					desc = Datanium.GlobalStatic.label_no_desc;
 				}
-				Ext.Msg.alert(Datanium.GlobalStatic.label_desc, desc);
+				Ext.Msg.alert(title, desc);
 				return;
 			}
 		});
