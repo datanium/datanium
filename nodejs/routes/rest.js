@@ -525,7 +525,7 @@ exports.save = function(req, res) {
 		} else {
 			console.log('Save New Report');
 			// encrypt hashid
-			var key = date.getTime() * 10 + Math.round(Math.random() * 10);
+			var key = Math.round(date.getTime() + Math.random() * 10);
 			var hashs = new hashids("datanium salt", 4);
 			hashid = hashs.encrypt(key);
 			// save report
