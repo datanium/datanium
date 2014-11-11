@@ -281,10 +281,10 @@ def insert_by_dim(file_path, counter, dataset_col, all_start):
     print(time.strftime('%Y-%m-%d %H:%M:%S',time.localtime()) + " >>> " + file_path + " time cost: " + str(round(timeit.default_timer() - all_start)) + "s. " + "total record number: " + str(len(counter)) + "\n")
 
 if __name__ == '__main__':
-    load_countries_to_json_zh()
-    load_indicators_to_json_zh()
-    load_indicators_to_mongo_zh(False)
-    load_rowdata_to_json_zh()
-    convert_rowdata_to_dim_lvl()
-    load_rowdata_to_mongo_zh(False)
+    ## load_countries_to_json_zh()
+    ## load_indicators_to_json_zh()
+    ## load_indicators_to_mongo_zh(False)
+    ## load_rowdata_to_json_zh()
+    ## convert_rowdata_to_dim_lvl()
+    ## load_rowdata_to_mongo_zh(False)
     
