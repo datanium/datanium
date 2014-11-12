@@ -399,7 +399,9 @@ var save = function(isNew) {
 			queryParam : Datanium.GlobalData.queryParam,
 			qubeInfo : Datanium.GlobalData.qubeInfo,
 			rptMode : Datanium.GlobalData.rptMode,
-			chartMode : Datanium.GlobalData.chartMode
+			chartMode : Datanium.GlobalData.chartMode,
+			autoScale : Datanium.GlobalData.autoScale,
+			showLegend : Datanium.GlobalData.showLegend
 		},
 		success : function(data) {
 			if (Datanium.GlobalData.hashid === null || Datanium.GlobalData.hashid === '' || isNew)

@@ -104,7 +104,7 @@ Ext.define('Datanium.view.charts.ChartToolbar', {
 		text : Datanium.GlobalStatic.label_auto_scale,
 		action : 'auto-scale',
 		enableToggle : true,
-		pressed : false,
+		pressed : Datanium.GlobalData.autoScale,
 		disabled : true
 	}, {
 		xtype : 'tbseparator',
@@ -119,6 +119,6 @@ Ext.define('Datanium.view.charts.ChartToolbar', {
 		text : Datanium.GlobalStatic.label_hide_legend,
 		action : 'hide-legend',
 		enableToggle : true,
-		pressed : false
+		pressed : !Datanium.GlobalData.showLegend
 	} ]
 });

@@ -179,7 +179,9 @@ exports.space = function(req, res) {
 		else {
 			reportSchema.find({
 				user_id : user.email
-			}, function(err, reports) {
+			}).sort({
+				'modification_date' : -1
+			}).exec(function(err, reports) {
 				// console.log(reports);
 				if (err)
 					console.log('Exception: ' + err);
