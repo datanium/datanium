@@ -30,6 +30,10 @@ exports.index = function(req, res) {
 				};
 			if (doc.queryParam.filters == null)
 				doc.queryParam.filters = {};
+			if (doc.autoScale == null)
+				doc.autoScale = false;
+			if (doc.showLegend == null)
+				doc.showLegend = true;
 			res.render('index.ejs', {
 				currPage : 'editor',
 				hasHashKey : true,
