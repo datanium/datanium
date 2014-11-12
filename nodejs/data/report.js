@@ -6,6 +6,8 @@ var ReportSchema = new Schema({
 	queryParam : Object,
 	rptMode : String,
 	chartMode : String,
+	autoScale : Boolean,
+	showLegend : Boolean,
 	user_id : String,
 	user_ip : String,
 	creation_date : Date,

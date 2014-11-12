@@ -510,6 +510,8 @@ exports.save = function(req, res) {
 						queryParam : reportObj.queryParam,
 						rptMode : reportObj.rptMode,
 						chartMode : reportObj.chartMode,
+						autoScale : JSON.parse(reportObj.autoScale),
+						showLegend : JSON.parse(reportObj.showLegend),
 						user_ip : userip,
 						modification_date : date
 					}, function(err, doc) {
@@ -535,6 +537,8 @@ exports.save = function(req, res) {
 				queryParam : reportObj.queryParam,
 				rptMode : reportObj.rptMode,
 				chartMode : reportObj.chartMode,
+				autoScale : JSON.parse(reportObj.autoScale),
+				showLegend : JSON.parse(reportObj.showLegend),
 				user_id : userEmail,
 				user_ip : userip,
 				creation_date : date,
