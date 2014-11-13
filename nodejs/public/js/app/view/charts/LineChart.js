@@ -46,7 +46,7 @@ function generateSeries4Line(yFields, yFieldsTxt, xFieldsLabel) {
 			highlight : true,
 			smooth : true,
 			showMarkers : false,
-			// fill : true,
+			fill : true,
 			xField : xFieldsLabel,
 			yField : yfld,
 			title : yFieldsTxt[index]
@@ -56,10 +56,12 @@ function generateSeries4Line(yFields, yFieldsTxt, xFieldsLabel) {
 				style : 'background:#fff; text-align: center;',
 				trackMouse : true,
 				width : 140,
-				height : 28,
+				height : 42,
 				renderer : function(storeItem, item) {
-					this.setTitle(storeItem.get(yfld) + '');
-					this.width = this.title.length * 10;
+					var tooltipTitle = yFieldsTxt[index] + ' ' + storeItem.get(xFieldsLabel) + '<br>';
+					var tooltipValue = storeItem.get(yfld);
+					this.setTitle(tooltipTitle + tooltipValue);
+					this.width = tooltipTitle.length * 10;
 				}
 			};
 		}
