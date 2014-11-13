@@ -484,6 +484,24 @@ Ext
 								return true;
 							else
 								return false;
+						},
+						getChartModeStr : function() {
+							if (Datanium.GlobalData.chartMode == 'columnchart') {
+								return Datanium.GlobalStatic.label_column_chart;
+							}
+							if (Datanium.GlobalData.chartMode == 'stackchart') {
+								return Datanium.GlobalStatic.label_stack_chart;
+							}
+							if (Datanium.GlobalData.chartMode == 'linechart') {
+								return Datanium.GlobalStatic.label_line_chart;
+							}
+						},
+						getChartModeStar : function(chartMode) {
+							if (Datanium.GlobalData.chartMode == chartMode) {
+								return 'fa fa-star-o';
+							} else {
+								return '';
+							}
 						}
 					}
 				});

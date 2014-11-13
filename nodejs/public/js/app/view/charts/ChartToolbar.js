@@ -13,14 +13,14 @@ Ext.define('Datanium.view.charts.ChartToolbar', {
 		iconCls : 'fa fa-bar-chart-o',
 		cls : 'chartTypeBtn',
 		scale : 'medium',
-		tooltip : Datanium.GlobalStatic.label_column_chart,
+		tooltip : Datanium.util.CommonUtils.getChartModeStr(),
 		tooltipType : 'title',
-		text : Datanium.GlobalStatic.label_column_chart,
+		text : Datanium.util.CommonUtils.getChartModeStr(),
 		handler : function() {
 			this.showMenu();
 		},
 		menu : [ {
-			iconCls : 'fa fa-star-o',
+			iconCls : Datanium.util.CommonUtils.getChartModeStar('columnchart'),
 			text : Datanium.GlobalStatic.label_column_chart,
 			handler : function() {
 				this.parentMenu.ownerButton.setText(Datanium.GlobalStatic.label_column_chart);
@@ -32,6 +32,7 @@ Ext.define('Datanium.view.charts.ChartToolbar', {
 				}
 			}
 		}, {
+			iconCls : Datanium.util.CommonUtils.getChartModeStar('stackchart'),
 			text : Datanium.GlobalStatic.label_stack_chart,
 			handler : function() {
 				this.parentMenu.ownerButton.setText(Datanium.GlobalStatic.label_stack_chart);
@@ -43,6 +44,7 @@ Ext.define('Datanium.view.charts.ChartToolbar', {
 				}
 			}
 		}, {
+			iconCls : Datanium.util.CommonUtils.getChartModeStar('linechart'),
 			text : Datanium.GlobalStatic.label_line_chart,
 			handler : function() {
 				this.parentMenu.ownerButton.setText(Datanium.GlobalStatic.label_line_chart);
