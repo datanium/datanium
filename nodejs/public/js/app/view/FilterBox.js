@@ -151,6 +151,10 @@ Ext.define('Datanium.view.FilterBox', {
 			} else if (isTimeDim) {
 				var startVal = Ext.getCmp('time_start_picker').getValue();
 				var endVal = Ext.getCmp('time_end_picker').getValue();
+				if (startVal === '')
+					startVal = null;
+				if (endVal === '')
+					endVal = null;
 				if (startVal != null || endVal != null) {
 					eval('Datanium.GlobalData.queryParam.filters.' + Datanium.GlobalData.popDimensionKey
 							+ '={time_start:' + startVal + ',time_end:' + endVal + '}');

@@ -121,8 +121,7 @@ Ext.define('Datanium.view.charts.ColumnChart', {
 			label : {
 				renderer : yLabel
 			},
-			grid : true,
-			minimum : 0
+			grid : true
 		}, {
 			type : 'Category',
 			position : 'bottom',

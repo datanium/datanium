@@ -163,8 +163,7 @@ Ext.define('Datanium.view.charts.LineChart', {
 			label : {
 				renderer : yLabel
 			},
-			grid : true,
-			minimum : 0
+			grid : true
 		}, {
 			type : 'Category',
 			position : 'bottom',

@@ -115,8 +115,7 @@ Ext.define('Datanium.view.charts.StackChart', {
 			label : {
 				renderer : yLabel
 			},
-			grid : true,
-			minimum : 0
+			grid : true
 		}, {
 			type : 'Category',
 			position : 'bottom',
