@@ -172,6 +172,7 @@ Ext.define('Datanium.view.FilterBox', {
 						epBtns[idx].toggle();
 				}
 			});
+			popSelection = [];
 		} else if (buttonId == 'no') {
 			// Datanium.GlobalData.queryParam.split = null;
 			var key = Datanium.GlobalData.popDimensionKey;
@@ -179,9 +180,11 @@ Ext.define('Datanium.view.FilterBox', {
 			if (key == Datanium.GlobalData.queryParam.primaryFilter)
 				Datanium.GlobalData.queryParam.isSplit = false;
 			// Datanium.util.CommonUtils.clearPopDimFilter();
+			popSelection = [];
 		} else if (buttonId == 'cancel') {
 			if (isTimeDim)
 				Ext.getCmp('timeSelPanel').destroy();
+			popSelection = [];
 			return;
 		}
 		Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('submitFilter');
