@@ -120,7 +120,6 @@ exports.querySplit = function(req, res) {
 						sortStr4Chart).limit(1000).exec(function(err, doc) {
 					if (err)
 						throw err;
-					// console.log(doc);
 					resultJSON.chart.result = doc;
 					callback();
 				});
@@ -204,7 +203,7 @@ function generateGroupSplitObj(queryParam) {
 			}
 			indicatorStr += "\"$";
 			indicatorStr += item.uniqueName;
-			indicatorStr += "\",0]}}";
+			indicatorStr += "\",null]}}";
 		});
 	});
 	var res = "{" + idStr + indicatorStr + "}";

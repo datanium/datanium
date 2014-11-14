@@ -52,7 +52,10 @@ Ext.application({
 		});
 		// call report generate when existed report is loaded
 		if (Datanium.GlobalData.hashid != null && Datanium.GlobalData.hashid !== '') {
+			var primaryDim = Datanium.GlobalData.queryParam.primaryDimension;
 			Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('refreshElementPanel');
+			// set stored primary dimension back
+			Datanium.GlobalData.queryParam.primaryDimension = primaryDim;
 			Datanium.util.CommonUtils.updateFilterFields();
 			Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('selectionChange');
 			this.getController('ChartController').reloadFilterSwitchMenu();
