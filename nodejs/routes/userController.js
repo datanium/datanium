@@ -4,6 +4,7 @@ var report = require('../data/report');
 var UserSchema = user.User;
 var reportSchema = report.Report;
 var async = require('../lib/async');
+var crypto = require('crypto');
 var ejs = require('ejs');
 ejs.open = '$[';
 ejs.close = ']';
@@ -71,7 +72,7 @@ exports.saveUser = function(req, res) {
 		var currentDate = getCurrentDate();
 		var oneUser = {
 			'username' : username,
-			'password' : password,
+			'password' : md5(password),
 			'email' : email,
 			'signup_date' : currentDate,
 			'last_login_date' : currentDate,
@@ -105,7 +106,8 @@ exports.saveUser = function(req, res) {
 exports.login = function(req, res) {
 	var info = req.body;
 	var email = info.email;
-	var password = info.password;
+	var password = md5(info.password);
+	console.log(password);
 	var returnJSON = {};
 	var status = '';
 	var message = '';
@@ -207,4 +209,8 @@ function getCurrentDate() {
 
 function dateFormat(date) {
 	return date.toISOString().replace(/T/, ' ').replace(/\..+/, '');
+}
+
+function md5(text) {
+	return crypto.createHash('md5').update(text).digest('hex');
 }
