@@ -37,7 +37,7 @@ i18n.expressBind(app, {
 
 app.use(function(req, res, next) {
 	req.i18n.setLocaleFromCookie();
-	//req.i18n.setLocaleFromQuery();
+	// req.i18n.setLocaleFromQuery();
 	next();
 });
 
@@ -67,12 +67,12 @@ app.get('/rest/indicator/map', indicator.indicatorMapping);
 app.get('/rest/dimension/search', rest.dimensionValueSearch);
 app.post('/rest/query/split', rest.querySplit);
 app.get('/rest/query/topicSearch', rest.topicSearch);
-app.post('/rest/save', rest.save);
 app.post('/signup', user.saveUser);
 app.post('/login', user.login);
 app.get('/signout', nocache, user.signout);
 app.get('/user/space', nocache, user.space);
-app.get('/user/report/remove/:rptId', report.remove)
+app.post('/report/save', report.save);
+app.get('/report/remove/:rptId', report.remove)
 app.post('/feedback/save', others.feedbacksave);
 app.get('/release_notes', others.release_notes);
 app.get('/:hashid', routes.index);

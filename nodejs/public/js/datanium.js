@@ -378,19 +378,20 @@ var saveConfirm = function() {
 }
 
 var removeConfirm = function(rptId) {
+	console.log(rptId);
 	$('#removeConfirmYesBtn').attr('onclick', "removeRpt('" + rptId + "');");
 	$('#removeConfirmModal').modal('show');
 }
 
 var removeRpt = function(rptId) {
 	if (rptId != null) {
-		window.location.href = '../report/remove/' + rptId;
+		window.location.href = '../../report/remove/' + rptId;
 	}
 }
 
 var save = function(isNew) {
 	$('#saveConfirmModal').modal('hide');
-	var url = '/rest/save';
+	var url = '/report/save';
 	$.ajax({
 		type : 'POST',
 		url : url,
