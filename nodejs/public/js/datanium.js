@@ -208,7 +208,7 @@ var validateLogin = function() {
 
 var popIndicatorsByTopic = function() {
 	showTxtModal(msg_indi_by_topic, msg_processing);
-	var link = '/rest/query/topicSearch';
+	var link = '/indicator/topicSearch';
 	$.ajax({
 		url : link,
 		type : 'get',
@@ -216,16 +216,14 @@ var popIndicatorsByTopic = function() {
 		success : function(map) {
 			var html = '';
 			if (map.length > 0) {
-				// alert(1);
 				html = '<div class="panel-group" id="accordion">';
 				$.each(map, function(index, item) {
 					html += createCollapse(index, item);
-					// html+='<p></p>';
 				});
 				html += '</div>';
 			}
 			updateTxtModal(null, '', html);
-			$('#txtmodal').find('.modal-body #accordion').find('div[id^="collapse"]').collapse('hide');
+			$('#txtmodal').find('.modal-body #accordion').find('div[id^="topic_collapse"]').collapse('hide');
 		},
 		error : function() {
 
@@ -238,38 +236,27 @@ var createCollapse = function(index, item) {
 	var topic = item.topic;
 	if (topic === '')
 		return '';
-	var indicator = item.indicatorText;
-	var indicatorKey = item.indicatorKey;
+	var iTexts = item.indicatorText;
+	var iKeys = item.indicatorKey;
 	var html = '';
 	html = '<div class="panel panel-default">';
 	html += '<div class="panel-heading">';
 	html += '<h4 class="panel-title">';
-	html += '<a data-toggle="collapse" data-parent="#accordion" href="#collapse' + index + '">';
+	html += '<a data-toggle="collapse" data-parent="#accordion" href="#topic_collapse' + index + '">';
+	html += '<i class="fa fa-chevron-right"></i>&nbsp;';
 	html += topic;
-	html += '</a>';
-	html += '</h4>';
-	html += '</div>';
-	html += '<div id="collapse' + index + '" class="panel-collapse collapse in">';
+	html += '&nbsp;(' + iKeys.length + ')';
+	html += '</a></h4></div>';
+	html += '<div id="topic_collapse' + index + '" class="panel-collapse collapse in">';
 	html += '<div class="panel-body">';
-	if (indicator.length > 0) {
-		$.each(indicator, function(indicatorTextIndex, indicatorTextStr) {
-			var key = '';
-			$.each(indicatorKey, function(indicatorKeyIndex, indicatorKeyStr) {
-				if (indicatorTextIndex == indicatorKeyIndex) {
-					key = indicatorKeyStr;
-					return false;
-				} else {
-					return;
-				}
-			});
-			html += '<p><a href="#" onclick="addIndicator(\'' + key + '\');">';
-			html += indicatorTextStr;
+	if (iKeys.length > 0) {
+		$.each(iKeys, function(i, iKey) {
+			html += '<p><a href="#" onclick="addIndicator(\'' + iKey + '\');">';
+			html += iTexts[i];
 			html += '</a></p>';
 		});
 	}
-	html += '</div>';
-	html += '</div>';
-	html += '</div>';
+	html += '</div></div></div>';
 	return html;
 }
 

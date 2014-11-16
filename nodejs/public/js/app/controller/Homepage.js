@@ -90,7 +90,7 @@ Ext.define('Datanium.controller.Homepage', {
 			// to be added: apply filter directly base on keyword
 		}
 		var requestConfig = {
-			url : '/rest/indicator/map?idc=' + key,
+			url : '/indicator/map?idc=' + key,
 			timeout : 300000,
 			success : function(response) {
 				mask.destroy();

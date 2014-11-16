@@ -1,6 +1,8 @@
 var mongodb = require('../data/mongodb');
 var feedback = require('../data/feedback');
+var dataset = require('../data/dataset');
 var FeedbackSchema = feedback.Feedback;
+var datasetSchema = dataset.Dataset;
 var async = require('../lib/async');
 
 exports.feedbacksave = function(req, res) {
@@ -41,3 +43,43 @@ exports.release_notes = function(req, res) {
 		userEmail : userEmail
 	});
 };
+
+exports.dimensionValueSearch = function(req, res) {
+	var start = new Date().getTime();
+	var query = require('url').parse(req.url, true).query;
+	var dimensionValueResultJSON = {};
+	if (query.dim != null) {
+		var key = query.dim.toLowerCase();
+		var results = [];
+		// exclude blank record
+		var matchStr = '{ ' + key + ' : { $ne : \'\' } }';
+		var matchObj = eval("(" + matchStr + ")");
+		datasetSchema.aggregate().match(matchObj).group({
+			'_id' : '$' + key
+		}).sort('field _id').exec(function(err, doc) {
+			if (err)
+				console.log('Exception: ' + err);
+			doc.forEach(function(item, index) {
+				if (item._id != null) {
+					var tempJson = {
+						"name" : item._id
+					};
+					results.push(tempJson);
+				}
+			});
+			dimensionValueResultJSON = {
+				"dimensionValues" : results
+			};
+			// put send here cause callback func is async
+			var end = new Date().getTime();
+			var time = end - start;
+			console.log('Query execution time: ' + time + ' ms');
+			res.send(dimensionValueResultJSON);
+		});
+	} else {
+		dimensionValueResultJSON = {
+			"dimensionValues" : []
+		};
+		res.send(dimensionValueResultJSON);
+	}
+}

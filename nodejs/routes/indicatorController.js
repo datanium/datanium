@@ -122,3 +122,46 @@ exports.indicatorMapping = function(req, res) {
 		res.send(indicatorMappingJSON);
 	});
 }
+
+exports.topicSearch = function(req, res) {
+	IndicatorSchema.find({}, {
+		_id : 0,
+		topics : 1,
+		indicator_text : 1,
+		indicator_key : 1
+	}).sort({
+		'topics' : 1
+	}).exec(function(err, doc) {
+		if (err)
+			console.log('Exception: ' + err);
+		var topicArray = [];
+		var topicObjArray = [];
+		doc.forEach(function(item) {
+			if (item.topics !== null && item.topics.length > 0) {
+				item.topics.forEach(function(topic) {
+					if (topic !== null && topic !== '') {
+						if (topicArray.indexOf(topic) === -1) {
+							var topicObj = {
+								'topic' : topic,
+								'indicatorKey' : [],
+								'indicatorText' : []
+							};
+							topicArray.push(topic);
+							topicObjArray.push(topicObj);
+						}
+					}
+				});
+			}
+		});
+		topicObjArray.forEach(function(topicObj) {
+			doc.forEach(function(item) {
+				if (item.topics !== null && item.topics.indexOf(topicObj.topic) > -1) {
+					topicObj.indicatorKey.push(item.indicator_key);
+					topicObj.indicatorText.push(item.indicator_text);
+				}
+			});
+		});
+		// console.log(topicObjArray);
+		res.send(topicObjArray);
+	});
+};
