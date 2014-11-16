@@ -127,8 +127,9 @@ exports.topicSearch = function(req, res) {
 	IndicatorSchema.find({}, {
 		_id : 0,
 		topics : 1,
+		indicator_key : 1,
 		indicator_text : 1,
-		indicator_key : 1
+		data_source : 1
 	}).sort({
 		'topics' : 1
 	}).exec(function(err, doc) {
@@ -157,7 +158,7 @@ exports.topicSearch = function(req, res) {
 			doc.forEach(function(item) {
 				if (item.topics !== null && item.topics.indexOf(topicObj.topic) > -1) {
 					topicObj.indicatorKey.push(item.indicator_key);
-					topicObj.indicatorText.push(item.indicator_text);
+					topicObj.indicatorText.push(item.indicator_text + ' - ' + item.data_source);
 				}
 			});
 		});
