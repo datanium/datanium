@@ -5,7 +5,7 @@ var routes = require('./routes');
 var cache = require('./utils/cacheUtil');
 
 // routes config
-var rest = require('./routes/rest');
+var data = require('./routes/dataController');
 var user = require('./routes/userController');
 var indicator = require('./routes/indicatorController');
 var report = require('./routes/reportController');
@@ -61,12 +61,12 @@ var nocache = function(req, res, next) {
 // cache.init();
 
 app.get('/', routes.index);
-app.post('/rest/query/result', rest.queryResult);
-app.get('/rest/indicator/search', indicator.searchIndicator);
-app.get('/rest/indicator/map', indicator.indicatorMapping);
-app.get('/rest/dimension/search', rest.dimensionValueSearch);
-app.post('/rest/query/split', rest.querySplit);
-app.get('/rest/query/topicSearch', rest.topicSearch);
+app.get('/dimension/search', others.dimensionValueSearch);
+app.get('/indicator/search', indicator.searchIndicator);
+app.get('/indicator/map', indicator.indicatorMapping);
+app.get('/indicator/topicSearch', indicator.topicSearch);
+app.post('/data/result', data.queryResult);
+app.post('/data/split', data.querySplit);
 app.post('/signup', user.saveUser);
 app.post('/login', user.login);
 app.get('/signout', nocache, user.signout);

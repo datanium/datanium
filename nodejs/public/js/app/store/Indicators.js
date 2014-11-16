@@ -3,7 +3,7 @@ Ext.define('Datanium.store.Indicators', {
 	model : 'Datanium.model.Indicator',
 	proxy : {
 		type : 'ajax',
-		url : '/rest/indicator/search',
+		url : '/indicator/search',
 		reader : {
 			type : 'json',
 			idProperty : 'uniqueName',

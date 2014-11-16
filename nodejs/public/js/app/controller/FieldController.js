@@ -29,7 +29,7 @@ Ext.define('Datanium.controller.FieldController', {
 		Datanium.GlobalData.popDimensionKey = null;
 		Datanium.GlobalData.popDimension = null;
 		var requestConfig = {
-			url : '/rest/dimension/search?dim=' + key,
+			url : '/dimension/search?dim=' + key,
 			timeout : 300000,
 			success : function(response) {
 				mask.destroy();

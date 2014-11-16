@@ -25,9 +25,9 @@ Ext.define('Datanium.controller.GridController', {
 			});
 			Datanium.GlobalData.QueryResult = null;
 			if (this.isQueryValid()) {
-				var queryUrl = '/rest/query/result';
+				var queryUrl = '/data/result';
 				if (Datanium.GlobalData.queryParam.isSplit && Datanium.GlobalData.queryParam.isSplit !== 'false') {
-					queryUrl = '/rest/query/split';
+					queryUrl = '/data/split';
 				}
 				var queryParam = Datanium.GlobalData.queryParam;
 				var requestConfig = {
