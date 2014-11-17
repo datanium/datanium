@@ -65,6 +65,7 @@ app.get('/dimension/search', others.dimensionValueSearch);
 app.get('/indicator/search', indicator.searchIndicator);
 app.get('/indicator/map', indicator.indicatorMapping);
 app.get('/indicator/topicSearch', indicator.topicSearch);
+app.get('/indicator/countrySearch', indicator.countrySearch);
 app.post('/data/result', data.queryResult);
 app.post('/data/split', data.querySplit);
 app.post('/signup', user.saveUser);

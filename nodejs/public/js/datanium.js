@@ -206,9 +206,18 @@ var validateLogin = function() {
 	return true;
 }
 
-var popIndicatorsByTopic = function() {
-	showTxtModal(msg_indi_by_topic, msg_processing);
-	var link = '/indicator/topicSearch';
+var popDataExp = function(section) {
+	var titleTxt = null;
+	var link = null;
+	var collapseFunc = null;
+	if (section === 'topic') {
+		titleTxt = msg_indi_by_topic;
+		link = '/indicator/topicSearch';
+	} else if (section === 'country') {
+		titleTxt = msg_indi_by_country;
+		link = '/indicator/countrySearch';
+	}
+	showTxtModal(titleTxt, msg_processing);
 	$.ajax({
 		url : link,
 		type : 'get',
@@ -218,23 +227,26 @@ var popIndicatorsByTopic = function() {
 			if (map.length > 0) {
 				html = '<div class="panel-group" id="accordion">';
 				$.each(map, function(index, item) {
-					html += createCollapse(index, item);
+					if (section === 'country') {
+						html += createCollapseCountry(index, item);
+					} else {
+						html += createCollapse(index, item);
+					}
 				});
 				html += '</div>';
 			}
 			updateTxtModal(null, '', html);
-			$('#txtmodal').find('.modal-body #accordion').find('div[id^="topic_collapse"]').collapse('hide');
+			$('#txtmodal').find('.modal-body #accordion').find('div[id^="collapse"]').collapse('hide');
 		},
 		error : function() {
 
 		}
 	});
-
 }
 
 var createCollapse = function(index, item) {
-	var topic = item.topic;
-	if (topic === '')
+	var section = item.section;
+	if (section === '')
 		return '';
 	var iTexts = item.indicatorText;
 	var iKeys = item.indicatorKey;
@@ -242,12 +254,12 @@ var createCollapse = function(index, item) {
 	html = '<div class="panel panel-default">';
 	html += '<div class="panel-heading">';
 	html += '<h4 class="panel-title">';
-	html += '<a data-toggle="collapse" data-parent="#accordion" href="#topic_collapse' + index + '">';
+	html += '<a data-toggle="collapse" data-parent="#accordion" href="#collapse' + index + '">';
 	html += '<i class="fa fa-chevron-right"></i>&nbsp;';
-	html += topic;
+	html += section;
 	html += '&nbsp;(' + iKeys.length + ')';
 	html += '</a></h4></div>';
-	html += '<div id="topic_collapse' + index + '" class="panel-collapse collapse in">';
+	html += '<div id="collapse' + index + '" class="panel-collapse collapse in">';
 	html += '<div class="panel-body">';
 	if (iKeys.length > 0) {
 		$.each(iKeys, function(i, iKey) {
@@ -256,6 +268,26 @@ var createCollapse = function(index, item) {
 			html += '</a></p>';
 		});
 	}
+	html += '</div></div></div>';
+	return html;
+}
+
+var createCollapseCountry = function(index, item) {
+	var section = item.section;
+	if (section === '')
+		return '';
+	var count = item.count;
+	var html = '';
+	html = '<div class="panel panel-default">';
+	html += '<div class="panel-heading">';
+	html += '<h4 class="panel-title">';
+	html += '<a data-toggle="collapse" data-parent="#accordion" href="#collapse' + index + '">';
+	html += '<i class="fa fa-chevron-right"></i>&nbsp;';
+	html += section;
+	html += '&nbsp;(' + count + ')';
+	html += '</a></h4></div>';
+	html += '<div id="collapse' + index + '" class="panel-collapse collapse in">';
+	html += '<div class="panel-body">';
 	html += '</div></div></div>';
 	return html;
 }
