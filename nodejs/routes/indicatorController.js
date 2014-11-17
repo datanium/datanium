@@ -1,8 +1,10 @@
 var cache = require('memory-cache');
 var mongodb = require('../data/mongodb');
 var indicator = require('../data/indicator');
+var dataset = require('../data/dataset');
 var async = require('../lib/async');
 var IndicatorSchema = indicator.Indicator;
+var datasetSchema = dataset.Dataset;
 
 exports.searchIndicator = function(req, res) {
 	var query = require('url').parse(req.url, true).query;
@@ -143,7 +145,7 @@ exports.topicSearch = function(req, res) {
 					if (topic !== null && topic !== '') {
 						if (topicArray.indexOf(topic) === -1) {
 							var topicObj = {
-								'topic' : topic,
+								'section' : topic,
 								'indicatorKey' : [],
 								'indicatorText' : []
 							};
@@ -156,7 +158,7 @@ exports.topicSearch = function(req, res) {
 		});
 		topicObjArray.forEach(function(topicObj) {
 			doc.forEach(function(item) {
-				if (item.topics !== null && item.topics.indexOf(topicObj.topic) > -1) {
+				if (item.topics !== null && item.topics.indexOf(topicObj.section) > -1) {
 					topicObj.indicatorKey.push(item.indicator_key);
 					topicObj.indicatorText.push(item.indicator_text + ' - ' + item.data_source);
 				}
@@ -164,5 +166,43 @@ exports.topicSearch = function(req, res) {
 		});
 		// console.log(topicObjArray);
 		res.send(topicObjArray);
+	});
+};
+
+exports.countrySearch = function(req, res) {
+	var countries = [];
+	var indicators = [];
+	var countryObjArray = [];
+	async.parallel([ function(callback) {
+		datasetSchema.distinct('country').exec(function(err, doc) {
+			if (err)
+				console.log('Exception: ' + err);
+			countries = doc;
+			callback();
+		});
+	}, function(callback) {
+		IndicatorSchema.find({}, {
+			indicator_key : 1,
+			indicator_text : 1,
+			data_source : 1
+		}).exec(function(err, doc) {
+			if (err)
+				console.log('Exception: ' + err);
+			indicators = doc;
+			callback();
+		});
+	} ], function() {
+		countries.forEach(function(country) {
+			var countryObj = {
+				'section' : country,
+				'count' : 0
+			};
+			indicators.forEach(function(item, index) {
+				countryObj.count += 1;
+			});
+			countryObjArray.push(countryObj);
+		});
+		console.log('country total:' + countryObjArray.length);
+		res.send(countryObjArray);
 	});
 };

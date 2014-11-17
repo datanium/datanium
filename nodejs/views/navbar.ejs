@@ -20,8 +20,8 @@
 				$[if(currPage== 'editor'){]
 				<li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-search"></i>&nbsp;$[=__('Data Explore')]</a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="#" onclick="popIndicatorsByTopic();"><i class="fa fa-comments"></i>&nbsp;&nbsp;$[=__('By Topic')]</a></li>
-						<li><a href="#" onclick="comingSoon();"><i class="fa fa-globe"></i>&nbsp;&nbsp;$[=__('By Country')]</a></li>
+						<li><a href="#" onclick="popDataExp('topic');"><i class="fa fa-comments"></i>&nbsp;&nbsp;$[=__('By Topic')]</a></li>
+						<li><a href="#" onclick="popDataExp('country');"><i class="fa fa-globe"></i>&nbsp;&nbsp;$[=__('By Country')]</a></li>
 						<li><a href="#" onclick="comingSoon();"><i class="fa fa-database"></i>&nbsp;&nbsp;$[=__('By Data Source')]</a></li>
 					</ul>
 				</li>
