@@ -18,10 +18,11 @@ class Static:
     dataset_bydim_folder = '/by_dim'
     database_name = 'datanium'
     indicator_col_name = 'indicator_new'
+    country_col_name = 'country'
     dataset_col_name = 'dataset_new'
     date_range = '1960:2013'
-    mongo_url = 'localhost'
-    ## mongo_url = 'www.dtnium.com'
+    ## mongo_url = 'localhost'
+    mongo_url = 'www.dtnium.com'
     mongo_port = 27017
 
 def load_countries_to_json_zh():
@@ -280,6 +281,48 @@ def insert_by_dim(file_path, counter, dataset_col, all_start):
     
     print(time.strftime('%Y-%m-%d %H:%M:%S',time.localtime()) + " >>> " + file_path + " time cost: " + str(round(timeit.default_timer() - all_start)) + "s. " + "total record number: " + str(len(counter)) + "\n")
 
+def load_countries_to_mongo_zh(is_incremental):
+    print("start loading country data(zh) from JSON file to MongoDB...")
+    all_start = timeit.default_timer()
+    static = Static()
+    f = io.open(static.output_folder + '/worldbank_wdi_countries_zh.json', 'r', encoding='utf8')
+    json_str = f.readline()
+    country_array = json.loads(json_str)
+    f.close()
+    client = MongoClient(static.mongo_url, static.mongo_port)
+    db = client[static.database_name]
+    ## print(db.collection_names())
+    country_col = db[static.country_col_name]
+    indicator_col = db[static.indicator_col_name]
+    dataset_col = db[static.dataset_col_name]
+    if not is_incremental:
+        country_col.drop()
+
+    index = 0
+    for co in country_array:
+        if country_array[co]['region'] == '':
+            continue
+        index += 1
+        country_name = co
+        country_rec = {'country_name': country_name, 'indicators': []}
+        
+        pipeline = [{'$match':{'country': country_name}}, {'$group': {'_id': '$country'}}]
+        
+        for doc in indicator_col.find(None, ['indicator_key','indicator_text','data_source']):
+            pipeline[1]['$group'][doc['indicator_key']] = {'$sum': '$' + doc['indicator_key']}
+        ##print(pipeline)
+        res = dataset_col.aggregate(pipeline)
+        if len(res['result']) > 0:
+            for doc in indicator_col.find(None, ['indicator_key','indicator_text','data_source']):
+                if doc['indicator_key'] in res['result'][0]:
+                    if res['result'][0][doc['indicator_key']] > 0:
+                        country_rec['indicators'].append(doc)
+            pk = country_col.insert(country_rec)
+            print(str(index) + '. ' + country_name + '(' + str(len(country_rec['indicators'])) + ') inserted.')
+    print("job is complete.")
+    print("total records: " + str(country_col.count()))
+    print("total time cost: " + str(round(timeit.default_timer() - all_start)) + 's')
+
 if __name__ == '__main__':
     ## load_countries_to_json_zh()
     ## load_indicators_to_json_zh()
@@ -287,4 +330,5 @@ if __name__ == '__main__':
     ## load_rowdata_to_json_zh()
     ## convert_rowdata_to_dim_lvl()
     ## load_rowdata_to_mongo_zh(False)
+    load_countries_to_mongo_zh(False)
     

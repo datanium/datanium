@@ -2,9 +2,11 @@ var cache = require('memory-cache');
 var mongodb = require('../data/mongodb');
 var indicator = require('../data/indicator');
 var dataset = require('../data/dataset');
+var country = require('../data/country');
 var async = require('../lib/async');
-var IndicatorSchema = indicator.Indicator;
+var indicatorSchema = indicator.Indicator;
 var datasetSchema = dataset.Dataset;
+var countrySchema = country.Country;
 
 exports.searchIndicator = function(req, res) {
 	var query = require('url').parse(req.url, true).query;
@@ -18,7 +20,7 @@ exports.searchIndicator = function(req, res) {
 		keys.forEach(function(key, index) {
 			if (key.length > 0) {
 				var callbackFunc = function(callback) {
-					IndicatorSchema.find({
+					indicatorSchema.find({
 						indicator_text : {
 							$regex : key,
 							$options : 'i'
@@ -92,7 +94,7 @@ exports.indicatorMapping = function(req, res) {
 	var idc = query.idc;
 	var dimensions = [];
 	var measures = [];
-	IndicatorSchema.find({
+	indicatorSchema.find({
 		indicator_key : idc
 	}, function(err, doc) {
 		if (err)
@@ -126,7 +128,7 @@ exports.indicatorMapping = function(req, res) {
 }
 
 exports.topicSearch = function(req, res) {
-	IndicatorSchema.find({}, {
+	indicatorSchema.find({}, {
 		_id : 0,
 		topics : 1,
 		indicator_key : 1,
@@ -170,37 +172,26 @@ exports.topicSearch = function(req, res) {
 };
 
 exports.countrySearch = function(req, res) {
-	var countries = [];
-	var indicators = [];
 	var countryObjArray = [];
-	async.parallel([ function(callback) {
-		datasetSchema.distinct('country').exec(function(err, doc) {
-			if (err)
-				console.log('Exception: ' + err);
-			countries = doc;
-			callback();
-		});
-	}, function(callback) {
-		IndicatorSchema.find({}, {
-			indicator_key : 1,
-			indicator_text : 1,
-			data_source : 1
-		}).exec(function(err, doc) {
-			if (err)
-				console.log('Exception: ' + err);
-			indicators = doc;
-			callback();
-		});
-	} ], function() {
-		countries.forEach(function(country) {
+	countrySchema.find().exec(function(err, doc) {
+		if (err)
+			console.log('Exception: ' + err);
+		var countries = doc;
+		countries.forEach(function(co) {
 			var countryObj = {
-				'section' : country,
-				'count' : 0
+				'section' : co.country_name,
+				'count' : 0,
+				'indicatorKey' : [],
+				'indicatorText' : []
 			};
-			indicators.forEach(function(item, index) {
-				countryObj.count += 1;
-			});
-			countryObjArray.push(countryObj);
+			if (co.indicators !== null) {
+				co.indicators.forEach(function(indicator) {
+					countryObj.indicatorKey.push(indicator.indicator_key);
+					countryObj.indicatorText.push(indicator.indicator_text + ' - ' + indicator.data_source);
+					countryObj.count += 1;
+				});
+				countryObjArray.push(countryObj);
+			}
 		});
 		console.log('country total:' + countryObjArray.length);
 		res.send(countryObjArray);
