@@ -276,6 +276,8 @@ var createCollapseCountry = function(index, item) {
 	var section = item.section;
 	if (section === '')
 		return '';
+	var iTexts = item.indicatorText;
+	var iKeys = item.indicatorKey;
 	var count = item.count;
 	var html = '';
 	html = '<div class="panel panel-default">';
@@ -288,6 +290,13 @@ var createCollapseCountry = function(index, item) {
 	html += '</a></h4></div>';
 	html += '<div id="collapse' + index + '" class="panel-collapse collapse in">';
 	html += '<div class="panel-body">';
+//	if (iKeys.length > 0) {
+//		$.each(iKeys, function(i, iKey) {
+//			html += '<p><a href="#" onclick="addIndicator(\'' + iKey + '\');">';
+//			html += iTexts[i];
+//			html += '</a></p>';
+//		});
+//	}
 	html += '</div></div></div>';
 	return html;
 }
