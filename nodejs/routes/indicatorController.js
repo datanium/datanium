@@ -176,20 +176,13 @@ exports.countrySearch = function(req, res) {
 	countrySchema.find().exec(function(err, doc) {
 		if (err)
 			console.log('Exception: ' + err);
-		var countries = doc;
-		countries.forEach(function(co) {
+		doc.forEach(function(co) {
 			var countryObj = {
 				'section' : co.country_name,
-				'count' : 0,
-				'indicatorKey' : [],
-				'indicatorText' : []
+				'count' : 0
 			};
 			if (co.indicators !== null) {
-				co.indicators.forEach(function(indicator) {
-					countryObj.indicatorKey.push(indicator.indicator_key);
-					countryObj.indicatorText.push(indicator.indicator_text + ' - ' + indicator.data_source);
-					countryObj.count += 1;
-				});
+				countryObj.count = co.indicators.length;
 				countryObjArray.push(countryObj);
 			}
 		});
@@ -197,3 +190,31 @@ exports.countrySearch = function(req, res) {
 		res.send(countryObjArray);
 	});
 };
+
+exports.countryLoad = function(req, res) {
+	var query = require('url').parse(req.url, true).query;
+	if (query.country != null && query.country.length > 0) {
+		var countryName = query.country;
+		countrySchema.findOne({
+			'country_name' : countryName
+		}).exec(function(err, doc) {
+			if (err)
+				console.log('Exception: ' + err);
+			var co = doc;
+			var countryObj = {
+				'section' : co.country_name,
+				'indicatorKey' : [],
+				'indicatorText' : []
+			};
+			if (co.indicators !== null) {
+				co.indicators.forEach(function(indicator) {
+					countryObj.indicatorKey.push(indicator.indicator_key);
+					countryObj.indicatorText.push(indicator.indicator_text + ' - ' + indicator.data_source);
+				});
+			}
+			res.send(countryObj);
+		});
+	} else {
+		console.log('no country parameter...');
+	}
+}
