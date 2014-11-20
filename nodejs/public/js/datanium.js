@@ -237,6 +237,13 @@ var popDataExp = function(section) {
 			}
 			updateTxtModal(null, '', html);
 			$('#txtmodal').find('.modal-body #accordion').find('div[id^="collapse"]').collapse('hide');
+			if (section === 'country') {
+				$('.panel').on('shown.bs.collapse', function(e) {
+					var idx = e.currentTarget.id.substr(10);
+					var divId = '#inner' + e.currentTarget.id;
+					loadIndicatorsByCountry(map[idx].section, divId);
+				})
+			}
 		},
 		error : function() {
 
@@ -276,11 +283,9 @@ var createCollapseCountry = function(index, item) {
 	var section = item.section;
 	if (section === '')
 		return '';
-	var iTexts = item.indicatorText;
-	var iKeys = item.indicatorKey;
 	var count = item.count;
 	var html = '';
-	html = '<div class="panel panel-default">';
+	html = '<div id="countryDiv' + index + '" class="panel panel-default">';
 	html += '<div class="panel-heading">';
 	html += '<h4 class="panel-title">';
 	html += '<a data-toggle="collapse" data-parent="#accordion" href="#collapse' + index + '">';
@@ -289,16 +294,36 @@ var createCollapseCountry = function(index, item) {
 	html += '&nbsp;(' + count + ')';
 	html += '</a></h4></div>';
 	html += '<div id="collapse' + index + '" class="panel-collapse collapse in">';
-	html += '<div class="panel-body">';
-//	if (iKeys.length > 0) {
-//		$.each(iKeys, function(i, iKey) {
-//			html += '<p><a href="#" onclick="addIndicator(\'' + iKey + '\');">';
-//			html += iTexts[i];
-//			html += '</a></p>';
-//		});
-//	}
+	html += '<div id="innercountryDiv' + index + '" class="panel-body">';
+	html += '<span>' + msg_processing + '</span>';
+
 	html += '</div></div></div>';
 	return html;
+}
+
+var loadIndicatorsByCountry = function(countryName, divId) {
+	$.ajax({
+		url : '/indicator/countryLoad?country=' + countryName,
+		type : 'get',
+		dataType : 'json',
+		success : function(returnObj) {
+			var iTexts = returnObj.indicatorText;
+			var iKeys = returnObj.indicatorKey;
+			var html = '';
+			if (iKeys.length > 0) {
+				$.each(iKeys, function(i, iKey) {
+					html += '<p><a href="#" onclick="addIndicatorWithFilter(\'' + iKey + '\',\'country\',\''
+							+ countryName + '\');">';
+					html += iTexts[i];
+					html += '</a></p>';
+				});
+			}
+			$(divId).html(html);
+		},
+		error : function() {
+			console.log('load indicator by country error...');
+		}
+	});
 }
 
 var comingSoon = function() {
@@ -448,6 +473,11 @@ var save = function(isNew) {
 
 var addIndicator = function(key) {
 	Datanium.controller.Homepage.prototype.addIndicator(key);
+	$('#txtmodal').modal('hide');
+}
+
+var addIndicatorWithFilter = function(key, filterName, filterValue) {
+	Datanium.controller.Homepage.prototype.addIndicatorWithFilter(key, filterName, filterValue);
 	$('#txtmodal').modal('hide');
 }
 
