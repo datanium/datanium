@@ -24,42 +24,6 @@ Ext
 								return container.down(selector);
 							}
 						},
-						updateQueryParam : function() {
-							var dimensionTree = Datanium.util.CommonUtils.getCmpInActiveTab('dimensionTree');
-							var dimensions = dimensionTree.getView().getChecked(), dimNodes = [];
-							Ext.Array.each(dimensions, function(rec) {
-								var id = rec.get('id');
-								var name = rec.get('text');
-								var dimItem = {
-									uniqueName : id,
-									text : name,
-									data_type : 'dimension',
-									field_type : 'row',
-									displayOrder : 0,
-									display : true
-								}
-								dimNodes.push(dimItem);
-							});
-							var measureTree = Datanium.util.CommonUtils.getCmpInActiveTab('measureTree');
-							var measures = measureTree.getView().getChecked(), meaNodes = [];
-							Ext.Array.each(measures, function(rec) {
-								var id = rec.get('id');
-								var name = rec.get('text');
-								var meaItem = {
-									uniqueName : id,
-									text : name,
-									data_type : 'measure',
-									field_type : 'column',
-									displayOrder : 0,
-									display : true
-								}
-								meaNodes.push(meaItem);
-							});
-							var queryParam = Datanium.GlobalData.queryParam;
-							queryParam.dimensions = dimNodes;
-							queryParam.measures = meaNodes;
-							Datanium.util.CommonUtils.updateFields();
-						},
 						updateQueryParamByEP : function(toggleDimension) {
 							var epItems = Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').items;
 							var dimNodes = [];
@@ -502,6 +466,48 @@ Ext
 							} else {
 								return '';
 							}
+						},
+						addFilter : function(filterName, filterValue) {
+							var dimensions = Datanium.GlobalData.queryParam.dimensions;
+							var isDimExist = false;
+							Ext.Array.each(dimensions, function(item) {
+								if (item.uniqueName == filterName) {
+									isDimExist = true;
+									return;
+								}
+							});
+							if (!isDimExist) {
+								var filterText = '';
+								Ext.Array.each(Datanium.GlobalData.qubeInfo.dimensions, function(rec) {
+									if (rec.uniqueName == filterName)
+										filterText = rec.text;
+								});
+								var dim = {
+									data_type : "dimension",
+									display : true,
+									displayOrder : 0,
+									text : filterText,
+									uniqueName : filterName
+								};
+								Datanium.GlobalData.queryParam.dimensions.push(dim);
+							}
+
+							if ('filters' in Datanium.GlobalData.queryParam === false) {
+								Datanium.GlobalData.queryParam.filters = {};
+							}
+							if (filterName in Datanium.GlobalData.queryParam.filters === false) {
+								eval('Datanium.GlobalData.queryParam.filters.' + filterName + '=[\'' + filterValue
+										+ '\'];')
+							} else {
+								eval('Datanium.GlobalData.queryParam.filters.' + filterName + '.push(\'' + filterValue
+										+ '\');')
+							}
+							Datanium.GlobalData.queryParam.primaryFilter = filterName;
+							Datanium.GlobalData.queryParam.split = {
+								dimensions : filterName,
+								splitValue : eval('Datanium.GlobalData.queryParam.filters.' + filterName)
+							};
+							Datanium.GlobalData.queryParam.isSplit = true;
 						}
 					}
 				});
