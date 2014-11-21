@@ -120,9 +120,6 @@ Ext.define('Datanium.controller.Homepage', {
 			msg : Datanium.GlobalStatic.label_loading
 		});
 		mask.show();
-		if (filterName !== null) {
-			// to be added: apply filter directly base on keyword
-		}
 		var requestConfig = {
 			url : '/indicator/map?idc=' + key,
 			timeout : 300000,
@@ -133,9 +130,12 @@ Ext.define('Datanium.controller.Homepage', {
 						result.dimensions, Datanium.GlobalData.qubeInfo.dimensions);
 				Datanium.GlobalData.qubeInfo.measures = Datanium.util.CommonUtils.pushElements2Array(result.measures,
 						Datanium.GlobalData.qubeInfo.measures);
-				// clean up the query param/result when adding indicator.
-				// should enhance this to keeping param in the future.
-				// Datanium.util.CommonUtils.cleanData();
+				// apply filter value with selected indicator
+				if (filterName !== null) {
+					Datanium.util.CommonUtils.addFilter(filterName, filterValue);
+					Datanium.util.CommonUtils.updateFilterFields();
+					Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('selectionChange');
+				}
 				Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('refreshElementPanel',
 						result.measures);
 				Datanium.util.CommonUtils.checkEnableFilter();
