@@ -38,7 +38,7 @@ exports.querySplit = function(req, res) {
 						1000).exec(function(err, doc) {
 					if (err)
 						throw err;
-					resultJSON.grid.result = doc;
+					resultJSON.grid.result = convertResult(doc, true);
 					resultJSON.grid.total = doc.length;
 					callback();
 				});
@@ -49,7 +49,7 @@ exports.querySplit = function(req, res) {
 						sortStr4Chart).limit(1000).exec(function(err, doc) {
 					if (err)
 						throw err;
-					resultJSON.chart.result = doc;
+					resultJSON.chart.result = convertResult(doc, true);
 					callback();
 				});
 			} ], function() {
@@ -331,22 +331,34 @@ function generateSortStr(dimensons) {
 
 function convertResult(doc, isChart) {
 	var results = doc;
-	// doc.forEach(function(item) {
-	// var gstr = JSON.stringify(item._id);
-	// gstr = gstr.substring(1, gstr.length - 1);
-	// delete item._id;
-	// var mstr = JSON.stringify(item);
-	// mstr = mstr.substring(1, mstr.length - 1);
-	// var recordStr = '{' + gstr + ',' + mstr + '}';
-	// var recordObj = eval("(" + recordStr + ")");
-	// results.push(recordObj);
-	// });
 	// sort result by year for charts
 	if (isChart) {
 		if (results.length > 0 && 'year' in results[0])
 			bubbleSort(results, 'year');
 		if (results.length > 0 && 'month' in results[0])
 			bubbleSort(results, 'month');
+		// auto filter out continous empty data
+		var removeIdxArray = [];
+		results.every(function(item, index) {
+			var emptyFlag = true;
+			for ( var propertyName in item) {
+				if (propertyName !== 'year' && propertyName !== 'month') {
+					if (item[propertyName] !== 0) {
+						emptyFlag = false;
+						break;
+					}
+				}
+			}
+			if (emptyFlag) {
+				removeIdxArray.push(index);
+			} else {
+				return false;
+			}
+			return true;
+		});
+		for ( var i = removeIdxArray.length - 1; i >= 0; i--) {
+			results.splice(removeIdxArray[i], 1);
+		}
 	}
 	return results;
 }
