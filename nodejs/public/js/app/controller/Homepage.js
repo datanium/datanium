@@ -135,6 +135,7 @@ Ext.define('Datanium.controller.Homepage', {
 					Datanium.util.CommonUtils.addFilter(filterName, filterValue);
 					Datanium.util.CommonUtils.updateFilterFields();
 					Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('selectionChange');
+					Datanium.app.getController('ChartController').reloadFilterSwitchMenu();
 				}
 				Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent('refreshElementPanel',
 						result.measures);
