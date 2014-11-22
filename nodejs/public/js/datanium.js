@@ -222,6 +222,8 @@ var popDataExp = function(section) {
 		url : link,
 		type : 'get',
 		dataType : 'json',
+		contentType : 'application/json; charset=utf-8',
+		cache : false,
 		success : function(map) {
 			var html = '';
 			if (map.length > 0) {
@@ -306,6 +308,8 @@ var loadIndicatorsByCountry = function(countryName, divId) {
 		url : '/indicator/countryLoad?country=' + countryName,
 		type : 'get',
 		dataType : 'json',
+		contentType : 'application/json; charset=utf-8',
+		cache : false,
 		success : function(returnObj) {
 			var iTexts = returnObj.indicatorText;
 			var iKeys = returnObj.indicatorKey;
