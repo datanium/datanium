@@ -38,7 +38,7 @@ exports.querySplit = function(req, res) {
 						1000).exec(function(err, doc) {
 					if (err)
 						throw err;
-					resultJSON.grid.result = convertResult(doc, true);
+					resultJSON.grid.result = convertResult(doc, false);
 					resultJSON.grid.total = doc.length;
 					callback();
 				});
