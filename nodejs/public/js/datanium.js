@@ -222,8 +222,6 @@ var popDataExp = function(section) {
 		url : link,
 		type : 'get',
 		dataType : 'json',
-		contentType : 'application/json; charset=utf-8',
-		cache : false,
 		success : function(map) {
 			var html = '';
 			if (map.length > 0) {
@@ -305,11 +303,9 @@ var createCollapseCountry = function(index, item) {
 
 var loadIndicatorsByCountry = function(countryName, divId) {
 	$.ajax({
-		url : '/indicator/countryLoad?country=' + countryName,
+		url : '/indicator/countryLoad?country=' + encodeURI(countryName),
 		type : 'get',
 		dataType : 'json',
-		contentType : 'application/json; charset=utf-8',
-		cache : false,
 		success : function(returnObj) {
 			var iTexts = returnObj.indicatorText;
 			var iKeys = returnObj.indicatorKey;
