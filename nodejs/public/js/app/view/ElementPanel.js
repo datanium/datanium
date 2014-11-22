@@ -164,7 +164,7 @@ Ext.define('Datanium.view.ElementPanel', {
 					var indicator = indicators[0];
 					Ext.Array.each(ep.items.items, function(rec, idx) {
 						if (indicator.uniqueName === rec.uniqueName) {
-							ep.items.items[idx].toggle();
+							ep.items.items[idx].toggle(true);
 						}
 					});
 				}
