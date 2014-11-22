@@ -222,6 +222,7 @@ var popDataExp = function(section) {
 		url : link,
 		type : 'get',
 		dataType : 'json',
+		cache : true,
 		success : function(map) {
 			var html = '';
 			if (map.length > 0) {

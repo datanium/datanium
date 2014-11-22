@@ -88,16 +88,17 @@ Ext
 							var meaNodes = queryParam.measures;
 							var autoRun = Datanium.GlobalData.autoRun;
 							Datanium.GlobalData.autoRun = false;
+							console.log(dimNodes);
 							Ext.Array.each(epItems.items, function(rec, idx) {
 								var id = rec.uniqueName;
 								Ext.Array.each(dimNodes, function(d) {
 									if (id === d.uniqueName) {
-										epItems.items[idx].toggle();
+										epItems.items[idx].toggle(true);
 									}
 								});
 								Ext.Array.each(meaNodes, function(m) {
 									if (id === m.uniqueName) {
-										epItems.items[idx].toggle();
+										epItems.items[idx].toggle(true);
 									}
 								});
 							});
