@@ -28,7 +28,7 @@ function generateDynamicModel(field) {
 
 function storeFactory(name, template, model) {
 	template.model = model;
-	template.data = Datanium.GlobalData.QueryResult;
+	template.data = Datanium.GlobalData.queryResult;
 	// console.log(template);
 	eval(name + " = Ext.create('Ext.data.Store'," + Ext.encode(template) + ");");
 }
@@ -44,6 +44,8 @@ function modelFactory(name, fields) {
 function columnFactory(fields) {
 	var temp_columns = [];
 	// add column dimension
+	// console.log(fields);
+	var dimColumns = Datanium.GlobalData.queryParam.columns;
 
 	// add other columns
 	for ( var i = 0; i < fields.length; i++) {
@@ -157,13 +159,9 @@ Ext.define('Datanium.view.DynamicDataGrid', {
 		columns = [];
 		groups = [];
 		var fields_json = null;
-		var results_json = null;
 		if (Datanium.GlobalData.enableQuery) {
 			if (Datanium.GlobalData.queryParam != null) {
 				fields_json = Datanium.GlobalData.queryParam;
-				if (Datanium.GlobalData.QueryResult != null) {
-					results_json = Datanium.GlobalData.QueryResult;
-				}
 			} else {
 				fields = [];
 				columns = [];

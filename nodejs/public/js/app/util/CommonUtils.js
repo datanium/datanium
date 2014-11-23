@@ -78,7 +78,7 @@ Ext
 							var queryParam = Datanium.GlobalData.queryParam;
 							queryParam.dimensions = dimNodes;
 							queryParam.measures = meaNodes;
-							Datanium.GlobalData.QueryResult = null;
+							Datanium.GlobalData.queryResult = null;
 							Datanium.util.CommonUtils.updateFields();
 						},
 						updateEPSelection : function() {
@@ -408,8 +408,8 @@ Ext
 								},
 								isSplit : false
 							};
-							Datanium.GlobalData.QueryResult = null;
-							Datanium.GlobalData.QueryResult4Chart = null;
+							Datanium.GlobalData.queryResult = null;
+							Datanium.GlobalData.queryResult4Chart = null;
 							Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel')
 									.fireEvent('refreshElementPanel');
 							Datanium.util.CommonUtils.refreshAll();
