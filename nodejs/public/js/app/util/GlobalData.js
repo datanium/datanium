@@ -5,7 +5,6 @@ Ext.define('Datanium.GlobalData', {
 	queryParam : {
 		dimensions : [],
 		measures : [],
-		groups : [],
 		filters : {},
 		primaryDimension : null,
 		primaryFilter : null,
@@ -13,7 +12,9 @@ Ext.define('Datanium.GlobalData', {
 			dimensions : null,
 			splitValue : []
 		},
-		isSplit : false
+		isSplit : false,
+		groups : [],
+		columns : [ 'year' ]
 	},
 	qubeInfo : {
 		dimensions : [],
@@ -22,7 +23,6 @@ Ext.define('Datanium.GlobalData', {
 	queryResult : null,
 	queryResult4Chart : null,
 	enableQuery : false,
-	groups : [],
 	rptMode : 'grid',
 	chartMode : 'columnchart',
 	autoScale : false,

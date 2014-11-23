@@ -23,7 +23,7 @@ Ext.define('Datanium.controller.GridController', {
 			var mask = new Ext.LoadMask(dataViewBox, {
 				msg : Datanium.GlobalStatic.label_loading
 			});
-			Datanium.GlobalData.QueryResult = null;
+			Datanium.GlobalData.queryResult = null;
 			if (this.isQueryValid()) {
 				var queryUrl = '/data/result';
 				if (Datanium.GlobalData.queryParam.isSplit && Datanium.GlobalData.queryParam.isSplit !== 'false') {
@@ -37,8 +37,8 @@ Ext.define('Datanium.controller.GridController', {
 					success : function(response) {
 						mask.destroy();
 						var result = Ext.JSON.decode(response.responseText, true);
-						Datanium.GlobalData.QueryResult = result.grid;
-						Datanium.GlobalData.QueryResult4Chart = result.chart;
+						Datanium.GlobalData.queryResult = result.grid;
+						Datanium.GlobalData.queryResult4Chart = result.chart;
 						Datanium.util.CommonUtils.refreshAll();
 						console.log('Query execution time: ' + result.execute_time + ' ms.')
 					},
