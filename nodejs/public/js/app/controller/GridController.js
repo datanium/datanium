@@ -14,6 +14,9 @@ Ext.define('Datanium.controller.GridController', {
 			'datagridview' : {
 				afterrender : this.onGridPanelReady,
 				beforeshow : this.onGridPanelShow
+			},
+			'dynamicdatagrid' : {
+				afterrender : this.onDatagridReady
 			}
 		});
 	},
@@ -89,5 +92,26 @@ Ext.define('Datanium.controller.GridController', {
 	},
 	onGridPanelShow : function() {
 		console.log('onGridPanelShow');
+	},
+	onDatagridReady : function(c) {
+		var menu = c.headerCt.getMenu();
+		var menuItem = menu.add({
+			text : Datanium.GlobalStatic.label_row_col_convert,
+			icon : '/img/arrow_refresh_small.png',
+			handler : function() {
+				var originKey = menu.activeHeader.originKey;
+				Datanium.util.CommonUtils.columnConvert(originKey);
+				Datanium.util.CommonUtils.getCmpInActiveTab('dynamicdatagrid').fireEvent('refreshDatagrid');
+			}
+		});
+		menu.on('beforeshow', function() {
+			var originKey = menu.activeHeader.originKey;
+			var dimenionKeys = Datanium.util.CommonUtils.getDimenionKeys();
+			if (dimenionKeys.indexOf(originKey) < 0) {
+				menuItem.hide();
+			} else {
+				menuItem.show();
+			}
+		});
 	}
 });

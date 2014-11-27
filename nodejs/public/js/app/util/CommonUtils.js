@@ -508,6 +508,43 @@ Ext
 								splitValue : eval('Datanium.GlobalData.queryParam.filters.' + filterName)
 							};
 							Datanium.GlobalData.queryParam.isSplit = true;
+						},
+						mergeObjects : function(obj1, obj2) {
+							var obj3 = {};
+							for ( var attrname in obj1) {
+								obj3[attrname] = obj1[attrname];
+							}
+							for ( var attrname in obj2) {
+								obj3[attrname] = obj2[attrname];
+							}
+							return obj3;
+						},
+						columnConvert : function(originKey) {
+							if (Datanium.GlobalData.queryParam.columns == null)
+								Datanium.GlobalData.queryParam.columns = [];
+							if (Datanium.GlobalData.queryParam.columns.indexOf(originKey) < 0) {
+								Datanium.GlobalData.queryParam.columns.push(originKey);
+							} else {
+								var index = Datanium.GlobalData.queryParam.columns.indexOf(originKey);
+								Datanium.GlobalData.queryParam.columns.splice(index, 1);
+							}
+						},
+						objClone : function(obj) {
+							var ret = new Object();
+							for ( var p in obj) {
+								ret[p] = obj[p];
+							}
+							return ret;
+						},
+						getDimenionKeys : function() {
+							var dimKeys = [];
+							if (Datanium.GlobalData.queryParam !== null
+									&& Datanium.GlobalData.queryParam.dimensions !== null) {
+								Datanium.GlobalData.queryParam.dimensions.forEach(function(dim) {
+									dimKeys.push(dim.uniqueName);
+								});
+							}
+							return dimKeys;
 						}
 					}
 				});

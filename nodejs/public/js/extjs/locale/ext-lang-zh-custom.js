@@ -49,5 +49,6 @@ Ext.define("Datanium.locale.zh_CN.GlobalStatic", {
 	label_to : '至',
 	label_select : '选择',
 	label_select_limit : '抱歉，由于性能原因，目前你不能同时选择多于10个过滤项。',
-	label_select_mea_limit : '抱歉，由于性能原因，目前你不能同时选择多于10种数据。'
+	label_select_mea_limit : '抱歉，由于性能原因，目前你不能同时选择多于10种数据。',
+	label_row_col_convert : '行列转换'
 });
