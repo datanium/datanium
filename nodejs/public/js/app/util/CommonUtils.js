@@ -69,6 +69,8 @@ Ext
 												}
 												dimNodes.push(dimItem);
 											}
+										} else if (!rec.pressed && toggleDimension === id) {
+											Datanium.util.CommonUtils.removeColumnConvert(id);
 										}
 									});
 							if (Datanium.GlobalData.queryParam.primaryDimension == null && dimNodes.length > 0) {
@@ -527,6 +529,14 @@ Ext
 							} else {
 								var index = Datanium.GlobalData.queryParam.columns.indexOf(originKey);
 								Datanium.GlobalData.queryParam.columns.splice(index, 1);
+							}
+						},
+						removeColumnConvert : function(column) {
+							if (Datanium.GlobalData.queryParam.columns != null) {
+								var index = Datanium.GlobalData.queryParam.columns.indexOf(column);
+								if (index >= 0) {
+									Datanium.GlobalData.queryParam.columns.splice(index, 1);
+								}
 							}
 						},
 						objClone : function(obj) {
