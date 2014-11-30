@@ -14,7 +14,8 @@ Ext.define('Datanium.GlobalData', {
 		},
 		isSplit : false,
 		groups : [],
-		columns : []
+		columns : [],
+		locking : []
 	},
 	qubeInfo : {
 		dimensions : [],

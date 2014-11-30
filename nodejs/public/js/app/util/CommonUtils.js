@@ -539,6 +539,16 @@ Ext
 								}
 							}
 						},
+						columnLock : function(uniqueName) {
+							if (Datanium.GlobalData.queryParam.locking == null)
+								Datanium.GlobalData.queryParam.locking = [];
+							if (Datanium.GlobalData.queryParam.locking.indexOf(uniqueName) < 0) {
+								Datanium.GlobalData.queryParam.locking.push(uniqueName);
+							} else {
+								var index = Datanium.GlobalData.queryParam.locking.indexOf(uniqueName);
+								Datanium.GlobalData.queryParam.locking.splice(index, 1);
+							}
+						},
 						objClone : function(obj) {
 							var ret = new Object();
 							for ( var p in obj) {

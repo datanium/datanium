@@ -63,6 +63,8 @@ function columnFactory(fields) {
 				text : "<strong>" + fields[i].text + "</strong>",
 				uniqueName : fields[i].uniqueName,
 				originKey : fields[i].uniqueName,
+				lockable : true,
+				locked : (fields[i].data_type === 'dimension'),
 				name : fields[i].text,
 				sortable : true,
 				dataIndex : fields[i].uniqueName,
@@ -118,6 +120,8 @@ var addColumnDim = function(fields, dimColumns, temp_columns) {
 			var column = {
 				text : "<strong>" + dc.text + "</strong>",
 				uniqueName : dc.uniqueName,
+				lockable : false,
+				locked : false,
 				name : dc.text,
 				displayOrder : dc.displayOrder,
 				align : "auto",
@@ -140,6 +144,8 @@ var getSubColumns = function(dimColumns, allColumnValues, idx, column) {
 			text : "<strong>" + value + "</strong>",
 			uniqueName : column.uniqueName + '/' + value,
 			originKey : dimColumns[idx],
+			lockable : false,
+			locked : (column.data_type === 'dimension'),
 			name : value,
 			sortable : true,
 			dataIndex : column.uniqueName + '/' + value,
@@ -294,69 +300,75 @@ Ext.define('Datanium.view.DynamicDataGrid', {
 	xtype : 'grouped-header-grid',
 	alias : 'widget.dynamicdatagrid',
 	initComponent : function() {
-		Ext.apply(this, {
-			columnLines : true,
-			autoHeight : true,
-			autoWidth : true,
-			forceFit : false,
-			border : false,
-			viewConfig : {
-				stripeRows : true
+		// locking will separate one grid to two
+		// the second one will be locking sector which does not have init column
+		if (this.id.indexOf('locked') < 0) {
+			Ext.apply(this, {
+				columnLines : true,
+				autoHeight : true,
+				autoWidth : true,
+				forceFit : false,
+				border : false,
+				enableLocking : false,
+				enableColumnMove : false,
+				viewConfig : {
+					stripeRows : true
+				}
+			});
+			fields = [];
+			columns = [];
+			groups = [];
+			var fields_json = null;
+			if (Datanium.GlobalData.enableQuery) {
+				if (Datanium.GlobalData.queryParam != null) {
+					fields_json = Datanium.GlobalData.queryParam;
+				} else {
+					fields = [];
+					columns = [];
+					groups = [];
+				}
 			}
-		});
-		fields = [];
-		columns = [];
-		groups = [];
-		var fields_json = null;
-		if (Datanium.GlobalData.enableQuery) {
-			if (Datanium.GlobalData.queryParam != null) {
-				fields_json = Datanium.GlobalData.queryParam;
-			} else {
-				fields = [];
-				columns = [];
-				groups = [];
+			if (fields_json != null) {
+				if ("dimensions" in fields_json) {
+					for ( var i = 0; i < fields_json.dimensions.length; i++) {
+						var f = fields_json.dimensions[i];
+						f.field_type = 'row';
+						if (f.display)
+							fields.push(f);
+					}
+					for ( var i = 0; i < fields_json.measures.length; i++) {
+						var f = fields_json.measures[i];
+						f.field_type = 'column';
+						if (f.display)
+							fields.push(f);
+					}
+					// for ( var i = 0; i < fields_json.groups.length; i++) {
+					// groups.push(fields_json.groups[i]);
+					// }
+				}
 			}
+			// console.log(fields);
+			// console.log(fields_json);
+			// console.log(results_json);
+			var store = generateDynamicModel(fields);
+			this.dockedItems = [ {
+				xtype : 'pagingtoolbar',
+				store : store,
+				dock : 'bottom',
+				displayInfo : true,
+				listeners : {
+					afterrender : function() {
+						Ext.Array.each(this.items.items, function(item) {
+							item.hide();
+						});
+						this.child('tbfill').show();
+						this.child('#displayItem').show();
+					}
+				}
+			} ];
+			this.store = store;
+			this.columns = columns;
 		}
-		if (fields_json != null) {
-			if ("dimensions" in fields_json) {
-				for ( var i = 0; i < fields_json.dimensions.length; i++) {
-					var f = fields_json.dimensions[i];
-					f.field_type = 'row';
-					if (f.display)
-						fields.push(f);
-				}
-				for ( var i = 0; i < fields_json.measures.length; i++) {
-					var f = fields_json.measures[i];
-					f.field_type = 'column';
-					if (f.display)
-						fields.push(f);
-				}
-				// for ( var i = 0; i < fields_json.groups.length; i++) {
-				// groups.push(fields_json.groups[i]);
-				// }
-			}
-		}
-		// console.log(fields);
-		// console.log(fields_json);
-		// console.log(results_json);
-		var store = generateDynamicModel(fields);
-		this.dockedItems = [ {
-			xtype : 'pagingtoolbar',
-			store : store,
-			dock : 'bottom',
-			displayInfo : true,
-			listeners : {
-				afterrender : function() {
-					Ext.Array.each(this.items.items, function(item) {
-						item.hide();
-					});
-					this.child('tbfill').show();
-					this.child('#displayItem').show();
-				}
-			}
-		} ];
-		this.store = store;
-		this.columns = columns;
 		this.callParent();
 
 		this.addEvents('refreshDatagrid');
