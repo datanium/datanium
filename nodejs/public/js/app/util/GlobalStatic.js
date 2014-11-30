@@ -40,5 +40,6 @@ Ext.define('Datanium.GlobalStatic', {
 	label_select : 'Select',
 	label_select_filter_limit : 'Sorry, you cannot select more than 10 filter values.',
 	label_select_mea_limit : 'Sorry, you cannot add more than 10 measures.',
-	label_row_col_convert : 'Row/Column Convertion'
+	label_row_col_convert : 'Row/Column Convertion',
+	label_lock_column : 'Lock this column'
 });
