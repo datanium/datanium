@@ -62,4 +62,4 @@ tour.init();
 // Start the tour
 var page = window.location.pathname.split('/').pop();
 if (page === '')
-	setTimeout("tour.start();", 1000);
+	setTimeout("tour.start();", 2000);
