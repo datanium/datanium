@@ -62,5 +62,22 @@
 	"Password does not match.": "密码不正确，请再次尝试",
 	"Account does not exist.": "账号不存在。",
 	"Username already exists.": "用户名已经存在。",
-	"Email already exists.": "邮件地址已经存在。"
+	"Email already exists.": "邮件地址已经存在。",
+	"Start playing with data from here!": "从这里开始畅游数据的世界!",
+	"Try to key in some keywords 'GDP' in above search box and pick the first result.": "尝试在上面的框内输入关键词'gdp', 并按下回车。",
+	"Pick dimensions.": "选择数据的维度",
+	"Please toggle 'Year' and 'Country' buttons.": "请依次按下'年'和'国家'按钮。",
+	"You got the data already!": "数据出现了! 很简单吧?",
+	"Try to select 'Row/Column Convert' in the column header menu of 'Year'.": "试着在'年'这一列的列头菜单中找到'行列转换'并选择它，你会看到数据以另一种方式展示。",
+	"Let's see how the data look like.": "现在让我们直观地来看看这些数据。",
+	"Just click this 'Chart View' button.": "只要点一下这个'图表视图'的按钮。",
+	"Now try to focus on certain regions.": "现在让我们聚焦特定区域。",
+	"Click 'Filter' button and select 'Region'. Then select 'North America' and 'Asia Pacific'.": "点击'过滤条件'并选择'区域'。在弹出窗口中选择'东亚'和'北美'并确定。",
+	"Wanna try line chart?": "想看看曲线图吗?",
+	"Click this button and select 'Line Chart'.": "点击这个按钮菜单并选择'曲线图'",
+	"Cool! Now save your first report!": "碉堡了! 现在保存你的第一份数据吧！",
+	"Click 'Save' button and get it saved with a unique URL path.": "点击'保存'按钮。刚才所有的数据和图表将以独立的URL形式保存。",
+	"Next": "下一步",
+	"Prev": "上一步",
+	"End Tour": "结束介绍"
 }
