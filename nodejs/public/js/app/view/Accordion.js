@@ -9,6 +9,11 @@ Ext.define('Datanium.view.Accordion', {
 	initComponent : function() {
 		Ext.apply(this, {
 			items : [ {
+				xtype : 'component',
+				id : 'searchBoxAnchor',
+				height : 1
+			}, {
+				id : 'datasetBox',
 				xtype : 'elementPanel',
 				itemId : Datanium.util.CommonUtils.genItemId('elementPanel'),
 				padding : '5',

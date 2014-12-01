@@ -253,12 +253,6 @@ function columnCellStyle(column, field) {
 		column.tdCls = "x-grid-cell-inner-left";
 	}
 
-	if ("link_location" in field) {
-		if (field.link_location == "cell") {
-			rendererVal = rendererVal + "value = '<a href=\"#" + field.link_target + "\">' + value + '</a>';";
-		}
-	}
-
 	if (rendererVal.length > 0) {
 		column.renderer = function(value, metadata) {
 			eval(rendererVal);
@@ -332,19 +326,14 @@ Ext.define('Datanium.view.DynamicDataGrid', {
 				if ("dimensions" in fields_json) {
 					for ( var i = 0; i < fields_json.dimensions.length; i++) {
 						var f = fields_json.dimensions[i];
-						f.field_type = 'row';
 						if (f.display)
 							fields.push(f);
 					}
 					for ( var i = 0; i < fields_json.measures.length; i++) {
 						var f = fields_json.measures[i];
-						f.field_type = 'column';
 						if (f.display)
 							fields.push(f);
 					}
-					// for ( var i = 0; i < fields_json.groups.length; i++) {
-					// groups.push(fields_json.groups[i]);
-					// }
 				}
 			}
 			// console.log(fields);

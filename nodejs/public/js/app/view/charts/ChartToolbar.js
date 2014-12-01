@@ -9,6 +9,7 @@ Ext.define('Datanium.view.charts.ChartToolbar', {
 		this.callParent();
 	},
 	items : [ {
+		id : 'chartTypeBtn',
 		xtype : 'splitbutton',
 		iconCls : 'fa fa-bar-chart-o',
 		cls : 'chartTypeBtn',

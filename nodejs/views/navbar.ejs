@@ -14,7 +14,7 @@
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li $[if(currPage=='editor'){]class="active"$[}]>
+				<li $[if(currPage=='editor'){]class="active"$[}] id="header_editor">
 					<a href="$[=host]"><i class="fa fa-pencil-square-o"></i>&nbsp;$[=__('Editor')]</a>
 				</li>
 				$[if(currPage== 'editor'){]
@@ -27,7 +27,7 @@
 				</li>
 				$[}]
 				$[if(currPage=='editor'){]
-				<li><a href="#" onclick="saveConfirm();"><i class="fa fa-save"></i>&nbsp;$[=__('Save')]</a></li>
+				<li id="saveBtn"><a href="#" onclick="saveConfirm();"><i class="fa fa-save"></i>&nbsp;$[=__('Save')]</a></li>
 				$[}]
 				<li $[if(currPage=='space'){]class="active"$[}]>
 					<a href="#" onclick="space();"><i class="fa fa-laptop"></i>&nbsp;$[=__('Space')]</a>

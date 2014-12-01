@@ -1,6 +1,7 @@
 Ext.define('Datanium.view.DataPanel', {
 	extend : 'Ext.panel.Panel',
 	alias : 'widget.datapanel',
+	id : 'dataPanel',
 	initComponent : function() {
 		Ext.apply(this, {
 			defaults : {
