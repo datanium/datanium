@@ -60,6 +60,12 @@ var tour = new Tour({
 tour.init();
 
 // Start the tour
-var page = window.location.pathname.split('/').pop();
-if (page === '')
-	setTimeout("tour.start();", 1000);
+var checkExist = setInterval(function() {
+	if ($('#searchBoxAnchor').length) {
+		var page = window.location.pathname.split('/').pop();
+		if (page === '') {
+			tour.start();
+			clearInterval(checkExist);
+		}
+	}
+}, 1000);
