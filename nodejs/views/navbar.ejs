@@ -35,6 +35,7 @@
 				<li $[if(currPage=='release_notes'){]class="active"$[}]>
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-smile-o"></i>&nbsp;$[=__('About')]</a>
 					<ul class="dropdown-menu" role="menu">
+						<li><a href="#" onclick="userTour();"><i class="fa fa-book"></i>&nbsp;&nbsp;$[=__('User Tour')]</a></li>
 						<li><a href="#" onclick="feedbackpop();"><i class="fa fa-comment-o"></i>&nbsp;&nbsp;$[=__('Feedback')]</a></li>
 						<li><a href="$[=host]/release_notes"><i class="fa fa-file-text-o"></i>&nbsp;&nbsp;$[=__('Release Notes')]</a></li>
 						<li><a href="#" onclick="about();"><i class="fa fa-users"></i>&nbsp;&nbsp;$[=__('About us')]</a></li>
