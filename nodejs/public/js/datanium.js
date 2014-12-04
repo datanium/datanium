@@ -529,3 +529,8 @@ var changeLang = function(lang) {
 var read_cookie = function(k, r) {
 	return (r = RegExp('(^|; )' + encodeURIComponent(k) + '=([^;]*)').exec(document.cookie)) ? r[2] : null;
 }
+
+var userTour = function() {
+	document.cookie = "tour=true";
+	window.location.href = "/";
+}
