@@ -9,6 +9,9 @@ git pull
 ## redirect port 80 to port 3000
 sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 3000
 
+## install forever
+sudo /usr/local/bin/npm install forever -g cnpm --registry=http://r.cnpmjs.org
+
 ## start nodejs server
 forever start -o ~/log/sys_out.log -e ~/log/sys_err.log ~/datanium_codebase/nodejs/app.js
 
