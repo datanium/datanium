@@ -4,6 +4,7 @@ var indicator = require('../data/indicator');
 var dataset = require('../data/dataset');
 var country = require('../data/country');
 var async = require('../lib/async');
+var pinyinsort = require('../lib/pinyinsort');
 var indicatorSchema = indicator.Indicator;
 var datasetSchema = dataset.Dataset;
 var countrySchema = country.Country;
@@ -166,6 +167,11 @@ exports.topicSearch = function(req, res) {
 				}
 			});
 		});
+
+		// sort by pinyin
+		topicObjArray.sort(function(a, b) {
+			return a['section'].localeCompare(b['section']);
+		});
 		// console.log(topicObjArray);
 		res.send(topicObjArray);
 	});
@@ -185,6 +191,11 @@ exports.countrySearch = function(req, res) {
 				countryObj.count = co.indicators.length;
 				countryObjArray.push(countryObj);
 			}
+		});
+		
+		// sort by pinyin
+		countryObjArray.sort(function(a, b) {
+			return a['section'].localeCompare(b['section']);
 		});
 		console.log('country total:' + countryObjArray.length);
 		res.send(countryObjArray);
