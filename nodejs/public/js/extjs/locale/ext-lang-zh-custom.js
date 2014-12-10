@@ -41,7 +41,7 @@ Ext.define("Datanium.locale.zh_CN.GlobalStatic", {
 	label_time_s_analysis : '时间序列分析',
 	label_corr_analysis : '相关度分析',
 	label_notification : '提示',
-	label_analysis_view_tip : '这只是一个基于范例数据的功能演示。',
+	label_analysis_view_tip : '这仅仅是一个概念演示。该功能尚未完成。',
 	label_loading : '加载中...',
 	label_confirm : '确认',
 	label_clear : '清除选择',
