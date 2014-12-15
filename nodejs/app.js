@@ -61,6 +61,7 @@ var nocache = function(req, res, next) {
 // cache.init();
 
 app.get('/', routes.index);
+app.get('/home', routes.newIndex);
 app.get('/dimension/search', others.dimensionValueSearch);
 app.get('/indicator/search', indicator.searchIndicator);
 app.get('/indicator/map', indicator.indicatorMapping);
