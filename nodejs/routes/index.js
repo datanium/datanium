@@ -52,6 +52,17 @@ exports.index = function(req, res) {
 	});
 };
 
+exports.newIndex = function(req, res) {
+	res.render('newIndex.ejs', {
+		currPage : 'home',
+		hasHashKey : false,
+		host : req.protocol + '://' + req.get('host'),
+		userEmail : req.session.user ? req.session.user.email : null,
+		username : req.session.user ? req.session.user.username : null
+	});
+	return;
+};
+
 exports.helloworld = function(req, res) {
 	res.send('Hello, World!');
 };
