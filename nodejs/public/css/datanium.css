@@ -5,8 +5,9 @@ body {
 }
 
 .x-body {
-	color: #34495e;
-	background: #34495e;
+	color: #3F5878;
+	background: #3F5878;
+	background-image: url(/js/startbootstrap/img/bg.png)
 }
 
 .leftpanel .x-box-inner {
@@ -258,13 +259,13 @@ legend {
 }
 
 .index-container>header a {
-	color: #566473;
+	color: #74818e;
 	text-decoration: none;
 	outline: none;
 }
 
 .index-container>header a:hover {
-	color: #4f7bab;
+	color: #6490C0;
 }
 
 .index-container>header h1 {
@@ -277,7 +278,7 @@ legend {
 .index-container>header span {
 	display: block;
 	font-size: 55%;
-	color: #74818e;
+	color: #95A2AF;
 	padding: 0 0 5px 1px;
 }
 
