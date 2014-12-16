@@ -84,11 +84,13 @@
 	"Free data, quick analysis, and easy to use.": "Free data, quick analysis, and easy to use.",
 	"All the fun you could have here by discovering stories in data.": "All the fun you could have here by discovering stories in data.",
 	"View All Reports": "View All Reports",
-	"Want more Data &amp; Reports?": "Want more Data &amp; Reports?",
+	"Want more Data & Reports?": "Want more Data & Reports?",
 	"Try to key in the keywords to search": "Try to key in the keywords to search",
 	"Search": "Search",
 	"Home": "Home",
 	"Release Note": "Release Note",
 	"Help": "Help",
-	"Contact": "Contact"
+	"Contact": "Contact",
+	"Preview & Edit": "Preview & Edit",
+	"Eg. GDP, Consumer Price, Interest Rate.": "Eg. GDP, Consumer Price, Interest Rate."
 }
