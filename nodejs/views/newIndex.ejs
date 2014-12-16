@@ -42,7 +42,7 @@ $[ include navbar ]
                 <div class="caption">
                     <h3>Example Report 1</h3>
                     <p>Created by Datanium on 2014/10/11.</p>
-                    <a href="#" class="btn btn-default">Preview &amp;  Edit</a>
+                    <a href="#" class="btn btn-default">$[=__('Preview & Edit')]</a>
                 </div>
             </div>
         </div>
@@ -56,7 +56,7 @@ $[ include navbar ]
                 <div class="caption">
                     <h3>Example Report 2</h3>
                     <p>Created by Datanium on 2014/10/11.</p>
-                    <a href="#" class="btn btn-default">Preview &amp;  Edit</a>
+                    <a href="#" class="btn btn-default">$[=__('Preview & Edit')]</a>
                 </div>
             </div>
         </div>
@@ -70,7 +70,7 @@ $[ include navbar ]
                 <div class="caption">
                     <h3>Example Report 3</h3>
                     <p>Created by Datanium on 2014/10/11.</p>
-                    <a href="#" class="btn btn-default">Preview &amp;  Edit</a>
+                    <a href="#" class="btn btn-default">$[=__('Preview & Edit')]</a>
                 </div>
             </div>
         </div>
@@ -84,7 +84,7 @@ $[ include navbar ]
                 <div class="caption">
                     <h3>Example Report 4</h3>
                     <p>Created by Datanium on 2014/10/11.</p>
-                    <a href="#" class="btn btn-default">Preview &amp; Edit</a>
+                    <a href="#" class="btn btn-default">$[=__('Preview & Edit')]</a>
                 </div>
             </div>
         </div>
@@ -98,7 +98,7 @@ $[ include navbar ]
                 <div class="caption">
                     <h3>Example Report 5</h3>
                     <p>Created by Datanium on 2014/10/11.</p>
-                    <a href="#" class="btn btn-default">Preview &amp;  Edit</a>
+                    <a href="#" class="btn btn-default">$[=__('Preview & Edit')]</a>
                 </div>
             </div>
         </div>
@@ -112,7 +112,7 @@ $[ include navbar ]
                 <div class="caption">
                     <h3>Example Report 6</h3>
                     <p>Created by Datanium on 2014/10/11.</p>
-                    <a href="#" class="btn btn-default">Preview &amp;  Edit</a>
+                    <a href="#" class="btn btn-default">$[=__('Preview & Edit')]</a>
                 </div>
             </div>
         </div>
@@ -128,11 +128,11 @@ $[ include navbar ]
 <!-- Footer -->
 <div class="cta-mail">
     <div class="container text-center">
-        <h2>$[=__('Want more Data &amp; Reports?')]</h2>
+        <h2>$[=__('Want more Data & Reports?')]</h2>
         <h4>$[=__('Try to key in the keywords to search')]</h4>
         <div id="mc_embed_signup">
                 <div class="input-group input-group-lg">
-                    <input type="text" class="form-control" id="home-search" placeholder="Input keywords here...">
+                    <input type="text" class="form-control" id="home-search" placeholder="$[=__('Eg. GDP, Consumer Price, Interest Rate.')]">
                     <span class="input-group-btn">
                         <button type="submit" id="home-search-btn" class="btn btn-default">$[=__('Search')]</button>
                     </span>
@@ -171,12 +171,31 @@ $[ include navbar ]
         <hr>
         <div class="row">
             <div class="col-lg-12 footer-below">
-                <p>©2014 <a href="http://dtnium.com/">Datanium</a></p>
+                <p>©&nbsp;2014&nbsp;<a href="http://dtnium.com/">Datanium</a></p>
             </div>
         </div>
     </div>
 </footer>
-
+	$[ include common ]
+	<script type="text/javascript">
+		var loginUserEmail = null;
+		var loginUsername = null;
+		$[if(userEmail!=null){]
+			loginUserEmail = '$[=userEmail]';
+			loginUsername = '$[=username]';
+		$[}]
+		$[if(hasHashKey){]
+			console.log('hashid:$[=hashid]');
+			Datanium.GlobalData.hashid = '$[=hashid]';
+			Datanium.GlobalData.qubeInfo = $[-qubeInfo];
+			Datanium.GlobalData.queryParam = $[-queryParam];
+			Datanium.GlobalData.rptMode = '$[=rptMode]';
+			Datanium.GlobalData.chartMode = '$[=chartMode]';
+			Datanium.GlobalData.autoScale = $[-autoScale];
+			Datanium.GlobalData.showLegend = $[-showLegend];
+		$[}]
+	</script>
+	$[ include foot_google ]
 </body>
 
 </html>

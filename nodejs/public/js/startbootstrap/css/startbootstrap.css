@@ -15,7 +15,7 @@ p.lead {
 }
 
 hr.small {
-	max-width: 100px;
+	max-width: 120px;
 	margin: 40px auto;
 	border-color: rgba(0, 0, 0, .2)
 }
@@ -38,7 +38,7 @@ p.dm-promo-deal {
 }
 
 header.marquee {
-	padding: 50px 0;
+	padding: 80px 0;
 	text-align: center;
 	color: #fff;
 	background-color: #3F5878;
@@ -109,9 +109,15 @@ header.marquee .btn-cta:hover {
 .home-intro h2.tagline {
 	font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-weight: 400;
-	font-size: 30px;
+	font-size: 20px;
 	margin-top: 40px;
 	font-weight: 300
+}
+
+@media ( min-width :768px) {
+	.home-intro h2.tagline {
+		font-size: 30px;
+	}
 }
 
 .home-intro p.lead {
@@ -286,7 +292,8 @@ header.marquee .carbonad {
 }
 
 .previews .thumbnail img {
-	border: 1px solid #e6e6e6
+	border: 1px solid #e6e6e6;
+	margin: 0 auto
 }
 
 .previews .thumbnail img:hover {
