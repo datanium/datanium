@@ -52,7 +52,7 @@ exports.dimensionValueSearch = function(req, res) {
 	if (query.dim != null) {
 		var key = query.dim.toLowerCase();
 		var results = [];
-		
+
 		// exclude blank record
 		var matchStr = '{ ' + key + ' : { $ne : \'\' } }';
 		var matchObj = eval("(" + matchStr + ")");
@@ -69,16 +69,18 @@ exports.dimensionValueSearch = function(req, res) {
 					results.push(tempJson);
 				}
 			});
-			
+
 			// sort by pinyin
-			results.sort(function(a, b) {
-				return a['name'].localeCompare(b['name']);
-			});
-			
+			if (results.length > 0 && typeof (results[0]['name']) === 'string') {
+				results.sort(function(a, b) {
+					return a['name'].localeCompare(b['name']);
+				});
+			}
+
 			dimensionValueResultJSON = {
 				"dimensionValues" : results
 			};
-			
+
 			// put send here cause callback func is async
 			var end = new Date().getTime();
 			var time = end - start;
