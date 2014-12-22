@@ -32,7 +32,8 @@ $[ include navbar ]
         </div>
     </div>
     <div class="row previews">
-        
+    
+        $[reports.forEach(function(report){ ]
         <div class="col-lg-4 col-sm-6">
             <div class="thumbnail">
                 <a href="#" class="post-image-link">
@@ -40,82 +41,13 @@ $[ include navbar ]
 
                 </a>
                 <div class="caption">
-                    <h3>Example Report 1</h3>
-                    <p>Created by Datanium on 2014/10/11.</p>
-                    <a href="#" class="btn btn-default">$[=__('Preview & Edit')]</a>
+                    <h3>$[=report.title]</h3>
+                    <p>$[=__('Created by')] $[=report.user_name] $[=__('on')] $[=: report.creation_date | dateformat:'YYYY-MM-DD']</p>
+                    <a href="/r/$[=report.hashid]" class="btn btn-default">$[=__('Preview & Edit')]</a>
                 </div>
             </div>
         </div>
-        
-        <div class="col-lg-4 col-sm-6">
-            <div class="thumbnail">
-                <a href="#" class="post-image-link">
-                    <p><img src="/img/no_image.png" class="img-responsive" /></p>
-
-                </a>
-                <div class="caption">
-                    <h3>Example Report 2</h3>
-                    <p>Created by Datanium on 2014/10/11.</p>
-                    <a href="#" class="btn btn-default">$[=__('Preview & Edit')]</a>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-lg-4 col-sm-6">
-            <div class="thumbnail">
-                <a href="#" class="post-image-link">
-                    <p><img src="/img/no_image.png" class="img-responsive" /></p>
-
-                </a>
-                <div class="caption">
-                    <h3>Example Report 3</h3>
-                    <p>Created by Datanium on 2014/10/11.</p>
-                    <a href="#" class="btn btn-default">$[=__('Preview & Edit')]</a>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-lg-4 col-sm-6">
-            <div class="thumbnail">
-                <a href="#" class="post-image-link">
-                    <p><img src="/img/no_image.png" class="img-responsive" /></p>
-
-                </a>
-                <div class="caption">
-                    <h3>Example Report 4</h3>
-                    <p>Created by Datanium on 2014/10/11.</p>
-                    <a href="#" class="btn btn-default">$[=__('Preview & Edit')]</a>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-lg-4 col-sm-6">
-            <div class="thumbnail">
-                <a href="#" class="post-image-link">
-                    <p><img src="/img/no_image.png" class="img-responsive" /></p>
-
-                </a>
-                <div class="caption">
-                    <h3>Example Report 5</h3>
-                    <p>Created by Datanium on 2014/10/11.</p>
-                    <a href="#" class="btn btn-default">$[=__('Preview & Edit')]</a>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-lg-4 col-sm-6">
-            <div class="thumbnail">
-                <a href="#" class="post-image-link">
-                    <p><img src="/img/no_image.png" class="img-responsive" /></p>
-
-                </a>
-                <div class="caption">
-                    <h3>Example Report 6</h3>
-                    <p>Created by Datanium on 2014/10/11.</p>
-                    <a href="#" class="btn btn-default">$[=__('Preview & Edit')]</a>
-                </div>
-            </div>
-        </div>
+        $[ }); ]
         
     </div>
     <div class="text-center btn-home">
@@ -138,7 +70,6 @@ $[ include navbar ]
                     </span>
                 </div>
         </div>
-        <!-- End MailChimp Signup Form -->
     </div>
 </div>
 
@@ -183,16 +114,6 @@ $[ include navbar ]
 		$[if(userEmail!=null){]
 			loginUserEmail = '$[=userEmail]';
 			loginUsername = '$[=username]';
-		$[}]
-		$[if(hasHashKey){]
-			console.log('hashid:$[=hashid]');
-			Datanium.GlobalData.hashid = '$[=hashid]';
-			Datanium.GlobalData.qubeInfo = $[-qubeInfo];
-			Datanium.GlobalData.queryParam = $[-queryParam];
-			Datanium.GlobalData.rptMode = '$[=rptMode]';
-			Datanium.GlobalData.chartMode = '$[=chartMode]';
-			Datanium.GlobalData.autoScale = $[-autoScale];
-			Datanium.GlobalData.showLegend = $[-showLegend];
 		$[}]
 	</script>
 	$[ include foot_google ]

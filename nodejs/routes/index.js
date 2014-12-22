@@ -4,7 +4,7 @@ var reportSchema = report.Report;
 
 exports.index = function(req, res) {
 	console.log('user/index: ' + req.session.user);
-	var hashid = req.url.substr(1);
+	var hashid = req.url.substr(3);
 	if (hashid === '') {
 		res.render('index.ejs', {
 			currPage : 'editor',
@@ -53,14 +53,22 @@ exports.index = function(req, res) {
 };
 
 exports.newIndex = function(req, res) {
-	res.render('newIndex.ejs', {
-		currPage : 'home',
-		hasHashKey : false,
-		host : req.protocol + '://' + req.get('host'),
-		userEmail : req.session.user ? req.session.user.email : null,
-		username : req.session.user ? req.session.user.username : null
-	});
-	return;
+	reportSchema.find().sort({
+		'modification_date' : -1
+	}).limit(6).exec(function(err, reports) {
+		if (err)
+			console.log('Exception: ' + err);
+		else {
+			res.render('newIndex.ejs', {
+				currPage : 'home',
+				hasHashKey : false,
+				host : req.protocol + '://' + req.get('host'),
+				userEmail : req.session.user ? req.session.user.email : null,
+				username : req.session.user ? req.session.user.username : null,
+				reports : reports
+			});
+		}
+	})
 };
 
 exports.helloworld = function(req, res) {
