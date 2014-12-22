@@ -5,9 +5,6 @@ var UserSchema = user.User;
 var reportSchema = report.Report;
 var async = require('../lib/async');
 var crypto = require('crypto');
-var ejs = require('ejs');
-ejs.open = '$[';
-ejs.close = ']';
 
 exports.saveUser = function(req, res) {
 	var userip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;

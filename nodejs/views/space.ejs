@@ -31,7 +31,7 @@ $[ include header-nav ]
 					<div class="jumbotron">
 						<div class="input-group">
 							<input class="form-control" id="rpt_link_$[=report.hashid]" type="text"
-								value="$[=host]/$[=report.hashid]" />
+								value="$[=host]/r/$[=report.hashid]" />
 							<div class="input-group-addon" rel="tooltip" title="Select url to copy">
 								<a href="#" onclick="sel2copy('rpt_link_$[=report.hashid]');">
 									<span class="glyphicon glyphicon-link"></span>
@@ -39,7 +39,7 @@ $[ include header-nav ]
 							</div>
 						</div>
 						<p></p>
-						<span>$[=__('Updated')]: $[=report.modification_date]</span>
+						<span>$[=__('Updated')]: $[=: report.modification_date | dateformat:'YYYY-MM-DD HH:mm:ss']</span>
 						<p></p>
 						<div class="user_space_reports">
 							$[if (report.qubeInfo != null && report.qubeInfo.dimensions != null) {]
@@ -60,7 +60,7 @@ $[ include header-nav ]
 						</div>
 						<p></p>
 						<div class="text-right">
-							<a class="btn btn-primary" href="$[=host]/$[=report.hashid]" role="button" rel="tooltip"
+							<a class="btn btn-primary" href="$[=host]/r/$[=report.hashid]" role="button" rel="tooltip"
 								title="$[=__('Edit report')]">
 								<span class="glyphicon glyphicon-pencil"></span>
 							</a>

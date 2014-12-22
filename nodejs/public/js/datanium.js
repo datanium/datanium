@@ -460,7 +460,7 @@ var save = function(isNew) {
 		},
 		success : function(data) {
 			if (Datanium.GlobalData.hashid === null || Datanium.GlobalData.hashid === '' || isNew)
-				window.location.href = window.location.protocol + "//" + window.location.host + '/' + data.hashid;
+				window.location.href = window.location.protocol + "//" + window.location.host + '/r/' + data.hashid;
 			else if (data.status === 'userid_not_match')
 				saveAnother();
 			else

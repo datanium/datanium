@@ -5,9 +5,6 @@ var UserSchema = user.User;
 var reportSchema = report.Report;
 var async = require('../lib/async');
 var hashids = require('../lib/hashids');
-var ejs = require('ejs');
-ejs.open = '$[';
-ejs.close = ']';
 
 exports.remove = function(req, res) {
 	console.log('report/remove');
@@ -37,9 +34,12 @@ exports.remove = function(req, res) {
 }
 
 exports.save = function(req, res) {
-	var userEmail = 'anonymous user';
-	if (req.session.user != null)
+	var userEmail = 'Anonymous User';
+	var userName = 'Anonymous User';
+	if (req.session.user != null){
 		userEmail = req.session.user.email;
+		userName = req.session.user.username;
+	}
 	var reportObj = req.body;
 	var userip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 	var hashid = null;
@@ -65,6 +65,7 @@ exports.save = function(req, res) {
 						chartMode : reportObj.chartMode,
 						autoScale : JSON.parse(reportObj.autoScale),
 						showLegend : JSON.parse(reportObj.showLegend),
+						user_name : userName,
 						user_ip : userip,
 						modification_date : date
 					}, function(err, doc) {
@@ -92,6 +93,7 @@ exports.save = function(req, res) {
 				chartMode : reportObj.chartMode,
 				autoScale : JSON.parse(reportObj.autoScale),
 				showLegend : JSON.parse(reportObj.showLegend),
+				user_name : userName,
 				user_id : userEmail,
 				user_ip : userip,
 				creation_date : date,

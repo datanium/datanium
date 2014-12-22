@@ -3,6 +3,17 @@ var http = require('http');
 var path = require('path');
 var routes = require('./routes');
 var cache = require('./utils/cacheUtil');
+var moment = require('moment');
+var ejs = require('ejs');
+ejs.open = '$[';
+ejs.close = ']';
+ejs.filters.dateformat = function(obj, format) {
+	if (format == undefined) {
+		format = 'YYYY-MM-DD HH:mm:ss';
+	}
+	var ret = moment(obj).format(format);
+	return ret == 'Invalid date' ? '0000-00-00' : ret;
+};
 
 // routes config
 var data = require('./routes/dataController');
@@ -78,7 +89,7 @@ app.post('/report/save', report.save);
 app.get('/report/remove/:rptId', report.remove)
 app.post('/feedback/save', others.feedbacksave);
 app.get('/release_notes', others.release_notes);
-app.get('/:hashid', routes.index);
+app.get('/r/:hashid', routes.index);
 
 http.createServer(app).listen(app.get('port'), function() {
 	console.log('Express server listening on port ' + app.get('port'));
