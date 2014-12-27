@@ -456,7 +456,9 @@ var save = function(isNew) {
 			rptMode : Datanium.GlobalData.rptMode,
 			chartMode : Datanium.GlobalData.chartMode,
 			autoScale : Datanium.GlobalData.autoScale,
-			showLegend : Datanium.GlobalData.showLegend
+			showLegend : Datanium.GlobalData.showLegend,
+			title : Datanium.GlobalData.title,
+			description : Datanium.GlobalData.description
 		},
 		success : function(data) {
 			if (Datanium.GlobalData.hashid === null || Datanium.GlobalData.hashid === '' || isNew)

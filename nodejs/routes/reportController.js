@@ -35,8 +35,8 @@ exports.remove = function(req, res) {
 
 exports.save = function(req, res) {
 	var userEmail = 'Anonymous User';
-	var userName = 'Anonymous User';
-	if (req.session.user != null){
+	var userName = req.i18n.__('Anonymous User');
+	if (req.session.user != null) {
 		userEmail = req.session.user.email;
 		userName = req.session.user.username;
 	}
@@ -44,6 +44,18 @@ exports.save = function(req, res) {
 	var userip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 	var hashid = null;
 	var status = 'success';
+	var rptTitle = '';
+	if (reportObj.title != null && reportObj.title.length > 0) {
+		rptTitle = reportObj.title;
+	} else {
+		rptTitle = req.i18n.__('Untitled');
+	}
+	var rptDesc = '';
+	if (reportObj.description != null && reportObj.description.length > 0) {
+		rptDesc = reportObj.description;
+	} else {
+		rptDesc = req.i18n.__('No description.');
+	}
 	var date = new Date();
 	async.parallel([ function(callback) {
 		if (reportObj.hashid !== null && reportObj.hashid !== '') {
@@ -65,6 +77,8 @@ exports.save = function(req, res) {
 						chartMode : reportObj.chartMode,
 						autoScale : JSON.parse(reportObj.autoScale),
 						showLegend : JSON.parse(reportObj.showLegend),
+						title : rptTitle,
+						description : rptDesc,
 						user_name : userName,
 						user_ip : userip,
 						modification_date : date
@@ -93,6 +107,8 @@ exports.save = function(req, res) {
 				chartMode : reportObj.chartMode,
 				autoScale : JSON.parse(reportObj.autoScale),
 				showLegend : JSON.parse(reportObj.showLegend),
+				title : rptTitle,
+				description : rptDesc,
 				user_name : userName,
 				user_id : userEmail,
 				user_ip : userip,

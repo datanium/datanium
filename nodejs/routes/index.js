@@ -45,6 +45,8 @@ exports.index = function(req, res) {
 				chartMode : doc.chartMode,
 				autoScale : JSON.stringify(doc.autoScale),
 				showLegend : JSON.stringify(doc.showLegend),
+				title : JSON.stringify(doc.title),
+				description : JSON.stringify(doc.description),
 				userEmail : req.session.user ? req.session.user.email : null,
 				username : req.session.user ? req.session.user.username : null
 			});

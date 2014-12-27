@@ -7,7 +7,7 @@ var async = require('../lib/async');
 var pinyinsort = require('../lib/pinyinsort');
 
 exports.feedbacksave = function(req, res) {
-	var userEmail = 'anonymous user';
+	var userEmail = 'Anonymous User';
 	if (req.session.user != null)
 		userEmail = req.session.user.email;
 	var content = req.body.feedbackContent;
