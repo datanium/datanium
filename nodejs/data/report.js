@@ -10,6 +10,7 @@ var ReportSchema = new Schema({
 	showLegend : Boolean,
 	title : String,
 	description : String,
+	enableQuery : Boolean,
 	user_id : String,
 	user_name : String,
 	user_ip : String,

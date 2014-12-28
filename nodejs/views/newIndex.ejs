@@ -4,6 +4,7 @@
 $[ include header ] 
 $[ include header-home ]
 $[ include header-nav ]
+<script type="text/javascript" src="$[=host]/js/app/chartPreview.js"></script>
 </head>
 
 <body>
@@ -18,7 +19,7 @@ $[ include navbar ]
         	<a href="https://github.com/datanium/datanium">Github</a> $[=__('or contact us directly')] - 
         	<a href="mailto:admin@dtnium.com">dtnium@gmail.com</a>
         </p>
-        <a href="/" class="btn btn-default btn-cta"><i class="fa fa-chevron-circle-right"></i>  $[=__('Try it Out')]</a>
+        <a href="/r" class="btn btn-default btn-cta"><i class="fa fa-chevron-circle-right"></i>  $[=__('Try it Out')]</a>
     </div>
 </header>
 
@@ -36,17 +37,27 @@ $[ include navbar ]
         $[reports.forEach(function(report){ ]
         <div class="col-lg-4 col-sm-6">
             <div class="thumbnail">
-                <a href="#" class="post-image-link">
-                    <p><img src="/img/no_image.png" class="img-responsive" /></p>
-
+                <a href="/r/$[=report.hashid]" class="post-image-link">
+                    <p>
+                    $[if(report.enableQuery){]
+                    <div id="rptThumbnail_$[=report.hashid]"></div>
+                    $[} else{]
+                    <img src="/img/no_image.png" class="img-responsive" />
+                    $[}]
+                    </p>
                 </a>
                 <div class="caption">
-                    <h3>$[=report.title]</h3>
+                    <h4>$[=report.title]</h4>
                     <p>$[=__('Created by')] $[=report.user_name] $[=__('on')] $[=: report.creation_date | dateformat:'YYYY-MM-DD']</p>
                     <a href="/r/$[=report.hashid]" class="btn btn-default">$[=__('Preview & Edit')]</a>
                 </div>
             </div>
         </div>
+        <script>
+        $[report.creation_date = null]
+        $[report.modification_date = null]
+        reports.push('$[=report.hashid]');
+        </script>
         $[ }); ]
         
     </div>

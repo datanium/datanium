@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Datanium - $[=__('Play with Data')]</title>
+<title>$[=__('Editor')] - Datanium - $[=__('Play with Data')]</title>
 $[ include header ] 
 $[ include header-app ]
 $[ include header-nav ]
@@ -51,8 +51,8 @@ $[ include header-nav ]
 			Datanium.GlobalData.chartMode = '$[=chartMode]';
 			Datanium.GlobalData.autoScale = $[-autoScale];
 			Datanium.GlobalData.showLegend = $[-showLegend];
-			Datanium.GlobalData.title = $[-title];
-			Datanium.GlobalData.description = $[-description];
+			Datanium.GlobalData.title = '$[=title]';
+			Datanium.GlobalData.description = '$[=description]';
 		$[}]
 	</script>
 	$[ include foot ]

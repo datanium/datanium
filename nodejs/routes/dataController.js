@@ -382,3 +382,78 @@ function convertSplitValue(str) {
 	var returnStr = str.trim().replace(/ |-|&|\(|\)|\,|\.|\'|\uFF08|\uFF09/g, '');
 	return returnStr;
 }
+
+exports.loadChart = function(req, res) {
+	var hashid = req.url.substr(3);
+	if (hashid === '') {
+		return null;
+	}
+	console.log(hashid);
+	reportSchema.findOne({
+		hashid : hashid
+	}, function(err, doc) {
+		if (err)
+			throw err;
+		if (doc === null) {
+			res.send('404 Sorry, no such page...');
+		} else {
+			if (doc.qubeInfo == null)
+				doc.qubeInfo = {
+					dimensions : [],
+					measures : []
+				};
+			if (doc.queryParam.filters == null)
+				doc.queryParam.filters = {};
+			if (doc.autoScale == null)
+				doc.autoScale = false;
+			if (doc.showLegend == null)
+				doc.showLegend = true;
+
+			var start = new Date().getTime();
+			var queryParam = doc.queryParam;
+			var chartMode = doc.chartMode;
+			var resultJSON = {
+				"chart" : {
+					"result" : []
+				},
+				"queryParam" : queryParam,
+				"chartMode" : chartMode
+			};
+
+			var matchObj = generateMatchObj(queryParam);
+			var groupObjProject = null;
+			var sortStr = null;
+			var groupObj4Chart = null;
+			if (queryParam.isSplit == 'true') {
+				var groupSplitJSON4Chart = generateGroupSplitObj(queryParam);
+				groupObjProject = groupSplitJSON4Chart.returnProject;
+				sortStr = groupSplitJSON4Chart.returnSort;
+				groupObj4Chart = groupSplitJSON4Chart.returnObj;
+
+			} else {
+				var group = generateGroupObj(queryParam, true);
+				groupObjProject = group.returnProject;
+				sortStr = group.returnSort;
+				groupObj4Chart = group.returnObj;
+			}
+
+			async.parallel([ function(callback) {
+				// query for chart
+				datasetSchema.aggregate().match(matchObj).group(groupObj4Chart).project(groupObjProject).sort(sortStr)
+						.limit(1000).exec(function(err, doc) {
+							if (err)
+								console.log('Exception: ' + err);
+							resultJSON.chart.result = convertResult(doc, true);
+							callback();
+						});
+			} ], function() {
+				var end = new Date().getTime();
+				var time = end - start;
+				console.log('Query execution time: ' + time + ' ms');
+				resultJSON.execute_time = time;
+				res.send(resultJSON);
+			});
+		}
+	});
+
+};

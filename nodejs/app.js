@@ -71,8 +71,8 @@ var nocache = function(req, res, next) {
 // init server cache
 // cache.init();
 
-app.get('/', routes.index);
-app.get('/home', routes.newIndex);
+app.get('/', routes.newIndex);
+app.get('/r', routes.index);
 app.get('/dimension/search', others.dimensionValueSearch);
 app.get('/indicator/search', indicator.searchIndicator);
 app.get('/indicator/map', indicator.indicatorMapping);
@@ -81,6 +81,7 @@ app.get('/indicator/countrySearch', indicator.countrySearch);
 app.get('/indicator/countryLoad', indicator.countryLoad);
 app.post('/data/result', data.queryResult);
 app.post('/data/split', data.querySplit);
+app.get('/c/:hashid', data.loadChart);
 app.post('/signup', user.saveUser);
 app.post('/login', user.login);
 app.get('/signout', nocache, user.signout);
