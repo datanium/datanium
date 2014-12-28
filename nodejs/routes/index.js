@@ -11,7 +11,9 @@ exports.index = function(req, res) {
 			hasHashKey : false,
 			host : req.protocol + '://' + req.get('host'),
 			userEmail : req.session.user ? req.session.user.email : null,
-			username : req.session.user ? req.session.user.username : null
+			username : req.session.user ? req.session.user.username : null,
+			title : '',
+			description : ''
 		});
 		return;
 	}
