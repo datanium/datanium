@@ -444,6 +444,7 @@ var removeRpt = function(rptId) {
 }
 
 var save = function(isNew) {
+	Datanium.GlobalData.title = $('#rptTitle').val();
 	$('#saveConfirmModal').modal('hide');
 	var url = '/report/save';
 	$.ajax({
