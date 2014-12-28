@@ -45,8 +45,8 @@ exports.index = function(req, res) {
 				chartMode : doc.chartMode,
 				autoScale : JSON.stringify(doc.autoScale),
 				showLegend : JSON.stringify(doc.showLegend),
-				title : JSON.stringify(doc.title),
-				description : JSON.stringify(doc.description),
+				title : doc.title != null ? doc.title : '',
+				description : doc.description != null ? doc.description : '',
 				userEmail : req.session.user ? req.session.user.email : null,
 				username : req.session.user ? req.session.user.username : null
 			});
@@ -55,8 +55,8 @@ exports.index = function(req, res) {
 };
 
 exports.newIndex = function(req, res) {
-	reportSchema.find().sort({
-		'modification_date' : -1
+	reportSchema.find().select('-_id').sort({
+		'creation_date' : -1
 	}).limit(6).exec(function(err, reports) {
 		if (err)
 			console.log('Exception: ' + err);

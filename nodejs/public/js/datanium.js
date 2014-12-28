@@ -458,11 +458,16 @@ var save = function(isNew) {
 			autoScale : Datanium.GlobalData.autoScale,
 			showLegend : Datanium.GlobalData.showLegend,
 			title : Datanium.GlobalData.title,
-			description : Datanium.GlobalData.description
+			description : Datanium.GlobalData.description,
+			enableQuery : Datanium.GlobalData.enableQuery
 		},
 		success : function(data) {
 			if (Datanium.GlobalData.hashid === null || Datanium.GlobalData.hashid === '' || isNew)
-				window.location.href = window.location.protocol + "//" + window.location.host + '/r/' + data.hashid;
+				setTimeout(
+						function() {
+							window.location.href = window.location.protocol + "//" + window.location.host + '/r/'
+									+ data.hashid;
+						}, 500);
 			else if (data.status === 'userid_not_match')
 				saveAnother();
 			else
@@ -534,5 +539,5 @@ var read_cookie = function(k, r) {
 
 var userTour = function() {
 	document.cookie = "tour=true";
-	window.location.href = "/";
+	window.location.href = "/r";
 }

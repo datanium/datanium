@@ -44,19 +44,23 @@ exports.save = function(req, res) {
 	var userip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 	var hashid = null;
 	var status = 'success';
+
 	var rptTitle = '';
 	if (reportObj.title != null && reportObj.title.length > 0) {
 		rptTitle = reportObj.title;
 	} else {
 		rptTitle = req.i18n.__('Untitled');
 	}
+	console.log(rptTitle);
 	var rptDesc = '';
 	if (reportObj.description != null && reportObj.description.length > 0) {
 		rptDesc = reportObj.description;
 	} else {
 		rptDesc = req.i18n.__('No description.');
 	}
+
 	var date = new Date();
+
 	async.parallel([ function(callback) {
 		if (reportObj.hashid !== null && reportObj.hashid !== '') {
 			console.log('Update Report ' + reportObj.hashid);
@@ -77,6 +81,7 @@ exports.save = function(req, res) {
 						chartMode : reportObj.chartMode,
 						autoScale : JSON.parse(reportObj.autoScale),
 						showLegend : JSON.parse(reportObj.showLegend),
+						enableQuery : JSON.parse(reportObj.enableQuery),
 						title : rptTitle,
 						description : rptDesc,
 						user_name : userName,
@@ -107,6 +112,7 @@ exports.save = function(req, res) {
 				chartMode : reportObj.chartMode,
 				autoScale : JSON.parse(reportObj.autoScale),
 				showLegend : JSON.parse(reportObj.showLegend),
+				enableQuery : JSON.parse(reportObj.enableQuery),
 				title : rptTitle,
 				description : rptDesc,
 				user_name : userName,
