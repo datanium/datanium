@@ -54,9 +54,11 @@ $[ include navbar ]
             </div>
         </div>
         <script>
-        $[report.creation_date = null]
-        $[report.modification_date = null]
-        reports.push('$[=report.hashid]');
+	        $[if(report.enableQuery){]
+		        $[report.creation_date = null]
+		        $[report.modification_date = null]
+		        reports.push('$[=report.hashid]');
+	        $[}]
         </script>
         $[ }); ]
         
