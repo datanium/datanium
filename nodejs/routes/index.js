@@ -2,11 +2,11 @@ var mongodb = require('../data/mongodb');
 var report = require('../data/report');
 var reportSchema = report.Report;
 
-exports.index = function(req, res) {
-	console.log('user/index: ' + req.session.user);
+exports.report = function(req, res) {
+	console.log('user/report: ' + req.session.user);
 	var hashid = req.url.substr(3);
 	if (hashid === '') {
-		res.render('index.ejs', {
+		res.render('report.ejs', {
 			currPage : 'editor',
 			hasHashKey : false,
 			host : req.protocol + '://' + req.get('host'),
@@ -36,7 +36,7 @@ exports.index = function(req, res) {
 				doc.autoScale = false;
 			if (doc.showLegend == null)
 				doc.showLegend = true;
-			res.render('index.ejs', {
+			res.render('report.ejs', {
 				currPage : 'editor',
 				hasHashKey : true,
 				host : req.protocol + '://' + req.get('host'),
@@ -48,6 +48,9 @@ exports.index = function(req, res) {
 				autoScale : JSON.stringify(doc.autoScale),
 				showLegend : JSON.stringify(doc.showLegend),
 				title : doc.title != null ? doc.title : '',
+				user_name : doc.user_name != null ? doc.user_name : '',
+				creation_date : doc.creation_date,
+				modification_date : doc.modification_date,
 				description : doc.description != null ? doc.description : '',
 				userEmail : req.session.user ? req.session.user.email : null,
 				username : req.session.user ? req.session.user.username : null

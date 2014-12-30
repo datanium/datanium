@@ -72,7 +72,7 @@ var nocache = function(req, res, next) {
 // cache.init();
 
 app.get('/', routes.newIndex);
-app.get('/r', routes.index);
+app.get('/r', routes.report);
 app.get('/dimension/search', others.dimensionValueSearch);
 app.get('/indicator/search', indicator.searchIndicator);
 app.get('/indicator/map', indicator.indicatorMapping);
@@ -90,7 +90,7 @@ app.post('/report/save', report.save);
 app.get('/report/remove/:rptId', report.remove)
 app.post('/feedback/save', others.feedbacksave);
 app.get('/release_notes', others.release_notes);
-app.get('/r/:hashid', routes.index);
+app.get('/r/:hashid', routes.report);
 
 http.createServer(app).listen(app.get('port'), function() {
 	console.log('Express server listening on port ' + app.get('port'));
