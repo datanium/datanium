@@ -84,8 +84,8 @@
 	"Try it Out": "马上试试看",
 	"Free data, quick analysis, and easy to use.": "免费的数据，快速的查询，简单易用的分析。",
 	"All the fun you could have here by discovering stories in data.": "尽情享受从数据中获取知识的乐趣吧!",
-	"View All Reports": "浏览所有的报告",
-	"Want more Data & Reports?": "想要更多的数据和报告?",
+	"View All Reports": "浏览所有的数据文档",
+	"Want more Data & Reports?": "想要更多的数据和数据文档?",
 	"Try to key in the keywords to search": "尝试输入关键词来查找数据",
 	"Search": "搜索",
 	"Home": "首页",
@@ -95,10 +95,13 @@
 	"Eg. GDP, Consumer Price, Interest Rate.": "例如GDP, 人口, 消费等。",
 	"Created by": "作者:",
 	"on": "创建时间:",
-	"Untitled": "未命名",
+	"Untitled": "无标题",
 	"No description.": "缺少详细信息。",
 	"Anonymous User": "匿名用户",
 	"Indicators:": "主要数据:",
 	"New": "新建",
-	"Untitled": "无标题"
+	"Homepage": "首页",
+	"Datanium is a platform that helps you to find, present, share and play with data.": "Datanium是一个帮助你发现，展示，分享和玩转数据的平台。",
+	"Public Data,Charts,Data Analysis,Finance,Economics,Historical": "公开数据,图表,数据分析,宏观数据,历史数据,金融数据",
+	"New Report": "新数据文档"
 }
