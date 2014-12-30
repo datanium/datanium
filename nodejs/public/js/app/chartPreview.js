@@ -2,6 +2,7 @@ Ext.require('Ext.chart.*');
 Ext.require([ 'Ext.Window', 'Ext.layout.container.Fit', 'Ext.fx.target.Sprite', 'Ext.window.MessageBox' ]);
 
 var reports = [];
+var winWidth = window.innerWidth;
 
 Ext.onReady(function() {
 
@@ -155,7 +156,7 @@ Ext.onReady(function() {
 				});
 
 				Ext.create('Ext.panel.Panel', {
-					width : 350,
+					width : winWidth > 395 ? 350 : 280,
 					height : 230,
 					items : chart,
 					layout : 'fit',
