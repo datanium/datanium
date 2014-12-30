@@ -2,9 +2,10 @@ Ext.require('Ext.chart.*');
 Ext.require([ 'Ext.Window', 'Ext.layout.container.Fit', 'Ext.fx.target.Sprite', 'Ext.window.MessageBox' ]);
 
 var reports = [];
-var winWidth = window.innerWidth;
 
 Ext.onReady(function() {
+	var thumbDivWidth = $('div.thumbnail:first').width();
+	var thumbDivHeight = thumbDivWidth * 0.657;
 
 	reports.forEach(function(rptid) {
 		var queryUrl = '/c/' + rptid;
@@ -156,8 +157,8 @@ Ext.onReady(function() {
 				});
 
 				Ext.create('Ext.panel.Panel', {
-					width : winWidth > 395 ? 350 : 280,
-					height : 230,
+					width : thumbDivWidth,
+					height : thumbDivHeight,
 					items : chart,
 					layout : 'fit',
 					renderTo : Ext.get('rptThumbnail_' + rptid)
