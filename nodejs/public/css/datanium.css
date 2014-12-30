@@ -308,9 +308,13 @@ legend {
 }
 
 .x-hmenu-unlock .x-menu-item-icon {
-  background-image: url(/img/lock_open.png);
+	background-image: url(/img/lock_open.png);
 }
 
 .x-hmenu-lock .x-menu-item-icon {
-  background-image: url(/img/lock.png);
+	background-image: url(/img/lock.png);
+}
+
+.rptThumbnail div{
+	margin: 0 auto;
 }
