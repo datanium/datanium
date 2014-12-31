@@ -18,6 +18,7 @@ Ext.onReady(function() {
 				var queryParam = result.queryParam;
 				var queryResult4Chart = result.chart;
 				var chartMode = result.chartMode;
+				var autoScale = result.autoScale;
 				// console.log('Query execution time: ' + result.execute_time +
 				// ' ms.')
 
@@ -27,7 +28,11 @@ Ext.onReady(function() {
 					template.fields = mergeFields(fields);
 					if (queryResult4Chart != null) {
 						var queryResult = JSON.parse(JSON.stringify(queryResult4Chart));
-						template.data = queryResult4Chart;
+						if (autoScale) {
+							template.data = Datanium.util.CommonUtils.scaleMeasures(queryResult, yFields);
+						} else {
+							template.data = queryResult4Chart;
+						}
 					}
 					eval("ColumnChartStore = Ext.create('Ext.data.Store'," + Ext.encode(template) + ");");
 					ColumnChartStore.load();
@@ -118,6 +123,21 @@ Ext.onReady(function() {
 					}
 				}
 
+				var yLabel = function() {
+					return ''
+				};
+				if (!autoScale) {
+					yLabel = function(v) {
+						if (v > 1000000000)
+							return String(v / 1000000000) + ' B';
+						if (v > 1000000)
+							return String(v / 1000000) + ' M';
+						if (v > 1000)
+							return String(v / 1000) + ' K';
+						return Ext.util.Format.number(v, '0,0.###');
+					};
+				}
+
 				var chart = Ext.create('Ext.chart.Chart', {
 					style : 'background:#fff',
 					animate : true,
@@ -131,15 +151,7 @@ Ext.onReady(function() {
 						position : 'left',
 						fields : yFields,
 						label : {
-							renderer : function(v) {
-								if (v > 1000000000)
-									return String(v / 1000000000) + ' B';
-								if (v > 1000000)
-									return String(v / 1000000) + ' M';
-								if (v > 1000)
-									return String(v / 1000) + ' K';
-								return Ext.util.Format.number(v, '0,0.###');
-							}
+							renderer : yLabel
 						},
 						grid : true,
 						minimum : 0
