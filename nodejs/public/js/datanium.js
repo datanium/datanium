@@ -19,7 +19,7 @@ $(document).ready(function() {
 	var locale = read_cookie('locale');
 	if (locale != null && locale != 'null') {
 		$.getScript(host + "/js/extjs/locale/ext-lang-" + locale + ".js", function(data, textStatus, jqxhr) {
-			console.log('extjs default locale script is loaded: ' + locale);
+			// console.log('extjs default locale script is loaded: ' + locale);
 		});
 		$.getScript(host + "/js/extjs/locale/ext-lang-" + locale + "-custom.js", function(data, textStatus, jqxhr) {
 			console.log('extjs custom locale script is loaded: ' + locale);
