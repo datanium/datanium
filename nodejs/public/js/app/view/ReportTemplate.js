@@ -31,10 +31,17 @@ Ext.define('Datanium.view.ReportTemplate', {
 			itemId : Datanium.util.CommonUtils.genItemId('leftpanel'),
 			xtype : 'leftpanel'
 		} ],
-		tools : [ {
-			itemId : Datanium.util.CommonUtils.genItemId('refreshbtn'),
-			type : 'refresh'
-		} ]
+		listeners : {
+			afterrender : function() {
+				if (Datanium.GlobalData.hashid != null && Datanium.GlobalData.hashid.length > 0) {
+					var appWidth = Ext.get("appContainer").getWidth();
+					// var appHeight = Ext.get("appContainer").getHeight();
+					if (appWidth < 1024) {
+						this.collapsed = true;
+					}
+				}
+			}
+		}
 	}, {
 		collapsible : false,
 		region : 'center',
