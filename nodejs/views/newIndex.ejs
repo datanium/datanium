@@ -51,7 +51,7 @@ $[ include navbar ]
                 <div class="caption">
                     <h4>$[=report.title]</h4>
                     <p>$[=__('Created by')] $[=report.user_name] $[=__('on')] $[=: report.creation_date | dateformat:'YYYY-MM-DD']</p>
-                    <a href="/r/$[=report.hashid]" class="btn btn-default">$[=__('Preview & Edit')]</a>
+                    <a href="/r/$[=report.hashid]" class="btn btn-default" title="$[=report.title]" >$[=__('Preview & Edit')]</a>
                 </div>
             </div>
         </div>
