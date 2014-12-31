@@ -412,12 +412,14 @@ exports.loadChart = function(req, res) {
 			var start = new Date().getTime();
 			var queryParam = doc.queryParam;
 			var chartMode = doc.chartMode;
+			var autoScale = doc.autoScale;
 			var resultJSON = {
 				"chart" : {
 					"result" : []
 				},
 				"queryParam" : queryParam,
-				"chartMode" : chartMode
+				"chartMode" : chartMode,
+				"autoScale" : autoScale
 			};
 
 			var matchObj = generateMatchObj(queryParam);

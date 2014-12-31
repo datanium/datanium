@@ -154,7 +154,15 @@ Ext.define('Datanium.view.charts.LineChart', {
 			return ''
 		};
 		if (!Datanium.GlobalData.autoScale) {
-			yLabel = Ext.util.Format.numberRenderer('0,0.###');
+			yLabel = function(v) {
+				if (v > 1000000000)
+					return String(v / 1000000000) + ' B';
+				if (v > 1000000)
+					return String(v / 1000000) + ' M';
+				if (v > 1000)
+					return String(v / 1000) + ' K';
+				return Ext.util.Format.number(v, '0,0.###');
+			};
 		}
 		this.axes = [ {
 			type : 'Numeric',

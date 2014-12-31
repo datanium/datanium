@@ -114,11 +114,11 @@ Ext.define('Datanium.view.charts.ColumnChart', {
 		if (!Datanium.GlobalData.autoScale) {
 			yLabel = function(v) {
 				if (v > 1000000000)
-					return String(v / 1000000000) + 'B';
+					return String(v / 1000000000) + ' B';
 				if (v > 1000000)
-					return String(v / 1000000) + 'M';
+					return String(v / 1000000) + ' M';
 				if (v > 1000)
-					return String(v / 1000) + 'K';
+					return String(v / 1000) + ' K';
 				return Ext.util.Format.number(v, '0,0.###');
 			};
 		}
