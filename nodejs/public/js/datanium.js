@@ -17,7 +17,7 @@ $(document).ready(function() {
 
 	// load i18n script for extjs
 	var locale = read_cookie('locale');
-	if (locale != null) {
+	if (locale != null && locale != 'null') {
 		$.getScript(host + "/js/extjs/locale/ext-lang-" + locale + ".js", function(data, textStatus, jqxhr) {
 			console.log('extjs default locale script is loaded: ' + locale);
 		});
