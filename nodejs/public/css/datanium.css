@@ -315,6 +315,34 @@ legend {
 	background-image: url(/img/lock.png);
 }
 
-.rptThumbnail div{
+.rptThumbnail div {
 	margin: 0 auto;
+}
+
+#all_reports {
+	padding-top: 30px;
+}
+
+.dtm-header {
+	color: #fff;
+	background-color: #3F5878;
+	background-image: url(/js/startbootstrap/img/bg.png);
+	padding: 30px 0;
+	margin-top: 50px
+}
+
+.dtm-header h2 {
+	margin-top: 0
+}
+
+.dtm-header .input-group {
+	max-width: 500px;
+	margin-top: 20px
+}
+
+.dtm-jumbotron {
+	text-align: left;
+	background-image: url(/js/startbootstrap/img/premium-bg.png);
+	margin-bottom: 15px;
+	padding: 20px 30px !important;
 }

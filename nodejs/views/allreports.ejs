@@ -1,0 +1,104 @@
+<html>
+<head>
+<title>$[=__('All Reports')] - Datanium - $[=__('Play with Data')]</title>
+<meta name="Description"
+	content="$[=__('Datanium is a platform that helps you to find, present, share and play with data.')]" />
+<meta name="Keywords"
+	content="$[=__('Public Data,Charts,Data Analysis,Finance,Economics,Historical')]" />
+$[ include header ] $[ include header-nav ]
+</head>
+
+<body>
+	<!-- Navigation -->
+	$[ include navbar ]
+
+	<div class="dtm-header">
+		<div class="container text-left">
+			<h2>$[=__('All Reports')]</h2>
+			<!-- div>
+        	<div class="input-group input-group-lg">
+                <input type="text" class="form-control" id="home-search" placeholder="$[=__('Eg. GDP, Consumer Price, Interest Rate.')]">
+                <span class="input-group-btn">
+                    <button type="submit" id="home-search-btn" class="btn btn-default">$[=__('Search')]</button>
+                </span>
+            </div>
+        </div -->
+		</div>
+	</div>
+
+	<!-- Page Content -->
+	<div id="all_reports" class="container">
+		<div class="row">
+
+			$[reports.forEach(function(report){ ]
+			<div class="dtm-jumbotron thumbnail">
+				<h4><a target="_blank" href="/r/$[=report.hashid]" >$[=report.title]</a></h4>
+				<!-- p>$[=report.description]</p -->
+				<span>$[=__('Created by')] $[=report.user_name]&nbsp; $[=__('on')] $[=: report.creation_date | dateformat:'YYYY-MM-DD HH:mm:ss']</span>
+				<p></p>
+				<div class="user_space_reports">
+					$[if (report.qubeInfo != null && report.qubeInfo.measures != null) {]
+					$[report.qubeInfo.measures.forEach(function(mea){ ]
+					<button type="button" class="btn btn-default">
+						<span class="fa fa-bar-chart-o"></span> $[=mea.text]
+					</button>
+					$[ }); ] $[}]
+				</div>
+				<p></p>
+				<div class="text-right">
+					<a class="btn btn-primary" href="$[=host]/r/$[=report.hashid]" role="button" rel="tooltip"
+						title="$[=__('Preview & Edit')]"> <span class="glyphicon glyphicon-search"></span>
+					</a>
+				</div>
+			</div>
+			$[ }); ]
+
+		</div>
+		<div class="text-center btn-home">
+			<a href="#" class="btn btn-outline">$[=__('View more')]</a>
+		</div>
+
+	</div>
+
+
+	<!-- Footer -->
+
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 footer-left">
+					<ul class="list-inline">
+						<li><a href="/">$[=__('Home')]</a></li>
+						<li><a href="/editor">$[=__('Editor')]</a></li>
+						<li><a href="/release_notes">$[=__('Release Notes')]</a></li>
+						<li><a href="#">$[=__('Help')]</a></li>
+						<li><a href="#">$[=__('Contact')]</a></li>
+					</ul>
+				</div>
+				<div class="col-md-6 footer-right">
+					<p></p>
+				</div>
+			</div>
+			<hr>
+			<div class="row">
+				<div class="col-lg-12 footer-below">
+					<p>
+						©&nbsp;2014&nbsp;<a href="http://dtnium.com/">Datanium</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+	$[ include common ]
+	<script type="text/javascript">
+		var loginUserEmail = null;
+		var loginUsername = null;
+		$[if(userEmail!=null){]
+			loginUserEmail = '$[=userEmail]';
+			loginUsername = '$[=username]';
+		$[}]
+	</script>
+	$[ include foot_google ]
+</body>
+
+</html>

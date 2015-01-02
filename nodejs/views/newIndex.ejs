@@ -3,7 +3,7 @@
 <title>$[=__('Homepage')] - Datanium - $[=__('Play with Data')]</title>
 <meta name="Description" content="$[=__('Datanium is a platform that helps you to find, present, share and play with data.')]" />
 <meta name="Keywords" content="$[=__('Public Data,Charts,Data Analysis,Finance,Economics,Historical')]"/>
-$[ include header ] 
+$[ include header ]
 $[ include header-home ]
 $[ include header-nav ]
 <script type="text/javascript" src="$[=host]/js/app/chartPreview.js"></script>
@@ -50,7 +50,7 @@ $[ include navbar ]
                 </a>
                 <div class="caption">
                     <h4>$[=report.title]</h4>
-                    <p>$[=__('Created by')] $[=report.user_name] $[=__('on')] $[=: report.creation_date | dateformat:'YYYY-MM-DD']</p>
+                    <p>$[=__('Created by')] $[=report.user_name]&nbsp; $[=__('on')] $[=: report.creation_date | dateformat:'YYYY-MM-DD']</p>
                     <a href="/r/$[=report.hashid]" class="btn btn-default" title="$[=report.title]" >$[=__('Preview & Edit')]</a>
                 </div>
             </div>
@@ -66,7 +66,7 @@ $[ include navbar ]
         
     </div>
     <div class="text-center btn-home">
-        <a href="#" class="btn btn-outline">$[=__('View All Reports')]</a>
+        <a href="/reports" class="btn btn-outline">$[=__('View All Reports')]</a>
     </div>
     
 </div>

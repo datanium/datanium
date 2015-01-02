@@ -78,6 +78,25 @@ exports.newIndex = function(req, res) {
 	})
 };
 
+exports.allReports = function(req, res) {
+	reportSchema.find().select('-_id').sort({
+		'creation_date' : -1
+	}).limit(20).exec(function(err, reports) {
+		if (err)
+			console.log('Exception: ' + err);
+		else {
+			res.render('allreports.ejs', {
+				currPage : 'reports',
+				hasHashKey : false,
+				host : req.protocol + '://' + req.get('host'),
+				userEmail : req.session.user ? req.session.user.email : null,
+				username : req.session.user ? req.session.user.username : null,
+				reports : reports
+			});
+		}
+	})
+};
+
 exports.helloworld = function(req, res) {
 	res.send('Hello, World!');
 };
