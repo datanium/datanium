@@ -238,6 +238,7 @@ legend {
 
 .user_space_reports {
 	line-height: 10px;
+	min-height: 100px;
 }
 
 .x-toolbar {
@@ -319,6 +320,10 @@ legend {
 	margin: 0 auto;
 }
 
+.rptThumbnail {
+	border: 1px solid #ddd;
+}
+
 #all_reports {
 	padding-top: 30px;
 }
@@ -344,5 +349,16 @@ legend {
 	text-align: left;
 	background-image: url(/js/startbootstrap/img/premium-bg.png);
 	margin-bottom: 15px;
-	padding: 20px 30px !important;
+	padding: 18px 25px !important;
+	overflow: hidden;
+}
+
+.thumbleft {
+	width: 355x;
+	float: left;
+}
+
+.thumbright {
+	overflow: hidden;
+	padding: 0px 30px;
 }
