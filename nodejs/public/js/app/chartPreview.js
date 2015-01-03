@@ -4,8 +4,19 @@ Ext.require([ 'Ext.Window', 'Ext.layout.container.Fit', 'Ext.fx.target.Sprite', 
 var reports = [];
 
 Ext.onReady(function() {
-	var thumbDivWidth = $('div.thumbnail:first').width();
-	var thumbDivHeight = thumbDivWidth * 0.657;
+	var thumbDivWidth = 348;
+	var thumbDivHeight = 228;
+	if ($('div.dtm-jumbotron:first').width() === null) {
+		// homepage
+		thumbDivWidth = $('div.thumbnail:first').width() - 2;
+		thumbDivHeight = thumbDivWidth * 0.656;
+	} else {
+		// reports
+		var totalWidth = $('div.dtm-jumbotron:first').width();
+		if (totalWidth < 960) {
+			return false;
+		}
+	}
 
 	reports.forEach(function(rptid) {
 		var queryUrl = '/c/' + rptid;

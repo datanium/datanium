@@ -5,7 +5,9 @@
 	content="$[=__('Datanium is a platform that helps you to find, present, share and play with data.')]" />
 <meta name="Keywords"
 	content="$[=__('Public Data,Charts,Data Analysis,Finance,Economics,Historical')]" />
-$[ include header ] $[ include header-nav ]
+$[ include header ] 
+$[ include header-home ]
+$[ include header-nav ]
 </head>
 
 <body>
@@ -29,28 +31,44 @@ $[ include header ] $[ include header-nav ]
 	<!-- Page Content -->
 	<div id="all_reports" class="container">
 		<div class="row">
-
+		
 			$[reports.forEach(function(report){ ]
 			<div class="dtm-jumbotron thumbnail">
-				<h4><a target="_blank" href="/r/$[=report.hashid]" >$[=report.title]</a></h4>
-				<!-- p>$[=report.description]</p -->
-				<span>$[=__('Created by')] $[=report.user_name]&nbsp; $[=__('on')] $[=: report.creation_date | dateformat:'YYYY-MM-DD HH:mm:ss']</span>
-				<p></p>
-				<div class="user_space_reports">
-					$[if (report.qubeInfo != null && report.qubeInfo.measures != null) {]
-					$[report.qubeInfo.measures.forEach(function(mea){ ]
-					<button type="button" class="btn btn-default">
-						<span class="fa fa-bar-chart-o"></span> $[=mea.text]
-					</button>
-					$[ }); ] $[}]
+				<div class="thumbleft">
+					<a href="/r/$[=report.hashid]" class="post-image-link">
+	                    <p>
+	                    <div id="rptThumbnail_$[=report.hashid]" class="rptThumbnail"></div>
+	                    </p>
+	                </a>
 				</div>
-				<p></p>
-				<div class="text-right">
-					<a class="btn btn-primary" href="$[=host]/r/$[=report.hashid]" role="button" rel="tooltip"
-						title="$[=__('Preview & Edit')]"> <span class="glyphicon glyphicon-search"></span>
-					</a>
+				<div class="thumbright">
+					<h4><a target="_blank" href="/r/$[=report.hashid]" >$[=report.title]</a></h4>
+					<!-- p>$[=report.description]</p -->
+					<span>$[=__('Created by')] $[=report.user_name]&nbsp; $[=__('on')] $[=: report.creation_date | dateformat:'YYYY-MM-DD HH:mm:ss']</span>
+					<p></p>
+					<div class="user_space_reports">
+						$[if (report.qubeInfo != null && report.qubeInfo.measures != null) {]
+						$[report.qubeInfo.measures.forEach(function(mea){ ]
+						<button type="button" class="btn btn-default">
+							<span class="fa fa-bar-chart-o"></span> $[=mea.text]
+						</button>
+						$[ }); ] $[}]
+					</div>
+					<p></p>
+					<div class="text-right">
+						<a class="btn btn-primary" href="$[=host]/r/$[=report.hashid]" role="button" rel="tooltip"
+							title="$[=__('Preview & Edit')]"> <span class="glyphicon glyphicon-search"></span>
+						</a>
+					</div>
 				</div>
 			</div>
+	        <script>
+		        $[if(report.enableQuery){]
+			        $[report.creation_date = null]
+			        $[report.modification_date = null]
+			        reports.push('$[=report.hashid]');
+		        $[}]
+	        </script>
 			$[ }); ]
 
 		</div>

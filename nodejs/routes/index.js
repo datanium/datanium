@@ -60,7 +60,9 @@ exports.report = function(req, res) {
 };
 
 exports.newIndex = function(req, res) {
-	reportSchema.find().select('-_id').sort({
+	reportSchema.find({
+		"enableQuery" : true
+	}).select('-_id').sort({
 		'creation_date' : -1
 	}).limit(6).exec(function(err, reports) {
 		if (err)
@@ -79,9 +81,11 @@ exports.newIndex = function(req, res) {
 };
 
 exports.allReports = function(req, res) {
-	reportSchema.find().select('-_id').sort({
+	reportSchema.find({
+		"enableQuery" : true
+	}).select('-_id').sort({
 		'creation_date' : -1
-	}).limit(20).exec(function(err, reports) {
+	}).limit(10).exec(function(err, reports) {
 		if (err)
 			console.log('Exception: ' + err);
 		else {
