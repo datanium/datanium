@@ -131,3 +131,7 @@ exports.save = function(req, res) {
 		});
 	});
 }
+
+exports.loadall = function(req, res) {
+
+}
