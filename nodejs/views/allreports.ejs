@@ -36,9 +36,7 @@ $[ include header-nav ]
 			<div class="dtm-jumbotron thumbnail">
 				<div class="thumbleft">
 					<a href="/r/$[=report.hashid]" class="post-image-link">
-	                    <p>
 	                    <div id="rptThumbnail_$[=report.hashid]" class="rptThumbnail"></div>
-	                    </p>
 	                </a>
 				</div>
 				<div class="thumbright">
@@ -73,7 +71,7 @@ $[ include header-nav ]
 
 		</div>
 		<div class="text-center btn-home">
-			<a href="javascript:void(0);" id="viewmoreRptBtn" class="btn btn-outline">$[=__('View more')]</a>
+			<a href="javascript:void(0);" id="viewmoreRptBtn" onclick="viewmoreRpt();" class="btn btn-outline">$[=__('View more')]</a>
 		</div>
 
 	</div>

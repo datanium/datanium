@@ -357,6 +357,14 @@ var space = function() {
 	}
 }
 
+var settings = function() {
+	if (loginUsername != null && loginUsername != '') {
+		window.location.href = '/user/settings/';
+	} else {
+		loginpop();
+	}
+}
+
 var about = function() {
 	$('#aboutModal').modal('show');
 }
@@ -545,21 +553,13 @@ var userTour = function() {
 
 var viewmoreRpt = function() {
 	$('#viewmoreRptBtn').text(msg_loading);
-	var link = '/report/loadall?start=0';
-	$.ajax({
-		url : link,
-		type : 'get',
-		dataType : 'json',
-		cache : true,
-		success : function(map) {
-			if (map.status == 'success') {
-				var d = document.createElement('div');
-				$(d).addClass('dtm-jumbotron thumbnail').html('aaa').appendTo($('#rpt_rows'));
-				$('#viewmoreRptBtn').text(msg_viewmore_rpt);
-			}
-		},
-		error : function() {
-			console.log(error);
-		}
-	});
+	var link = '/report/loadall?start=' + rptTotalCount;
+	var d = document.createElement('div');
+	$(d).load(link).appendTo($('#rpt_rows'));
+	$('#viewmoreRptBtn').text(msg_viewmore_rpt);
+	rptTotalCount += 10;
+}
+
+var saveSettings = function() {
+
 }

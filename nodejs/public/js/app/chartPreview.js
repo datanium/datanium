@@ -1,9 +1,14 @@
 Ext.require('Ext.chart.*');
 Ext.require([ 'Ext.Window', 'Ext.layout.container.Fit', 'Ext.fx.target.Sprite', 'Ext.window.MessageBox' ]);
 
+var rptTotalCount = 10;
 var reports = [];
 
 Ext.onReady(function() {
+	renderRpt();
+});
+
+var renderRpt = function() {
 	var thumbDivWidth = 348;
 	var thumbDivHeight = 228;
 	if ($('div.dtm-jumbotron:first').width() === null) {
@@ -193,4 +198,4 @@ Ext.onReady(function() {
 		};
 		Ext.Ajax.request(requestConfig);
 	});
-});
+}
