@@ -133,5 +133,27 @@ exports.save = function(req, res) {
 }
 
 exports.loadall = function(req, res) {
-
+	var query = require('url').parse(req.url, true).query;
+	if (query.start != null && query.start.length > 0) {
+		var start = parseInt(query.start);
+		console.log(start);
+		reportSchema.find({
+			"enableQuery" : true
+		}).select('-_id').sort({
+			'creation_date' : -1
+		}).skip(start).limit(start + 10).exec(function(err, reports) {
+			if (err)
+				console.log('Exception: ' + err);
+			else {
+				res.render('loadreports.ejs', {
+					currPage : 'reports',
+					hasHashKey : false,
+					host : req.protocol + '://' + req.get('host'),
+					userEmail : req.session.user ? req.session.user.email : null,
+					username : req.session.user ? req.session.user.username : null,
+					reports : reports
+				});
+			}
+		})
+	}
 }
