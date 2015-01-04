@@ -211,3 +211,27 @@ function dateFormat(date) {
 function md5(text) {
 	return crypto.createHash('md5').update(text).digest('hex');
 }
+
+exports.settings = function(req, res) {
+	var username = null;
+	if (req.session.user == null) {
+		res.redirect('/');
+		return;
+	}
+	var username = req.session.user.username;
+	UserSchema.findOne({
+		username : username
+	}, function(err, user) {
+		if (err)
+			console.log('Exception: ' + err);
+		else {
+			res.render('settings.ejs', {
+				currPage : 'settings',
+				host : req.protocol + '://' + req.get('host'),
+				username : user.username,
+				userEmail : user.email,
+				signup_date : dateFormat(user.signup_date)
+			});
+		}
+	});
+};

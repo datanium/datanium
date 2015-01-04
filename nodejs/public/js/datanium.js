@@ -357,6 +357,14 @@ var space = function() {
 	}
 }
 
+var settings = function() {
+	if (loginUsername != null && loginUsername != '') {
+		window.location.href = '/user/settings/';
+	} else {
+		loginpop();
+	}
+}
+
 var about = function() {
 	$('#aboutModal').modal('show');
 }
@@ -550,4 +558,8 @@ var viewmoreRpt = function() {
 	$(d).load(link).appendTo($('#rpt_rows'));
 	$('#viewmoreRptBtn').text(msg_viewmore_rpt);
 	rptTotalCount += 10;
+}
+
+var saveSettings = function() {
+
 }

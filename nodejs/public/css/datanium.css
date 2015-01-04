@@ -237,8 +237,12 @@ legend {
 }
 
 .user_space_reports {
-	line-height: 50px;
+	line-height: 12px;
 	min-height: 120px;
+}
+
+.user_space_reports button {
+	margin-bottom: 4px;
 }
 
 .x-toolbar {
@@ -361,4 +365,15 @@ legend {
 .thumbright {
 	overflow: hidden;
 	padding: 0px 30px;
+}
+
+.settings-item {
+	border-bottom: 1px dotted #f2f2f2;
+	padding-bottom: 15px;
+	width: 100%;
+}
+
+.validate-error {
+	display: none;
+	color: #c33;
 }

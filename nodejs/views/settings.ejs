@@ -1,0 +1,104 @@
+<html lang="en" class="no-js">
+<head>
+<title>$[=__('Settings')] - Datanium - $[=__('Play with Data')]</title>
+$[ include header ]
+$[ include header-nav ]
+</head>
+<body>
+	<div class="index-container-space">
+		$[ include navbar ]
+		<div class="container-fluid">
+			<div id="user_space" class="row">
+				<div class="col-md-2 col-md-offset-2">
+					<div class="page-header">
+						<span class="user_space_menu"><a href="$[=host]/signout">$[=__('Sign out')]</a></span>
+					</div>
+					<div id="user_info">
+						<h4>$[=username]</h4>
+						<span class="user_space_note">$[=userEmail]</span>
+						<br />
+						<span class="user_space_note">$[=signup_date]</span>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="page-header">
+						<span class="user_space_menu">
+							<a href="$[=host]/r">$[=__('Editor')]</a>
+						</span>
+						<span class="user_space_menu">
+							<a href="$[=host]/user/space">$[=__('All your reports')]</a>
+						</span>
+						<span class="user_space_menu_sel">
+							$[=__('Settings')]
+						</span>
+					</div>
+					<form class="form-horizontal" role="form">
+						<div class="form-group settings-item">
+							<label for="set-username" class="col-sm-3 control-label">$[=__('Username')]</label>
+						    <div class="col-sm-4">
+						      <input type="text" class="form-control" id="set-username" placeholder="$[=username]">
+						      <span class="validate-error">
+						      	<i class="fa fa-info-circle"></i> 
+						      	$[=__('Username already exists.')]
+						      </span>
+						    </div>
+						</div>
+						<div class="form-group settings-item">
+							<label for="set-email" class="col-sm-3 control-label">$[=__('Email')]</label>
+						    <div class="col-sm-4">
+						      <input type="email" class="form-control" id="set-email" placeholder="$[=userEmail]">
+						      <span class="validate-error">
+						      	<i class="fa fa-info-circle"></i> 
+						      	$[=__('Email already exists.')]
+						      </span>
+						    </div>
+						</div>
+						<div class="form-group settings-item">
+							<label for="set-pass" class="col-sm-3 control-label">$[=__('Current Password')]</label>
+						    <div class="col-sm-4">
+						      <input type="password" class="form-control" id="set-pass" >
+						      <span class="validate-error">
+						      	<i class="fa fa-info-circle"></i> 
+						      	$[=__('Password does not match.')]
+						      </span>
+						    </div>
+						</div>
+						<div class="form-group settings-item">
+							<label for="set-newpass" class="col-sm-3 control-label">$[=__('New Password')]</label>
+						    <div class="col-sm-4">
+						      <input type="password" class="form-control" id="set-newpass" >
+						      <span class="validate-error">
+						      	<i class="fa fa-info-circle"></i> 
+						      	$[=__('Ensure this value has at least 6 characters')]
+						      </span>
+						    </div>
+						</div>
+						<div class="form-group settings-item">
+							<label for="set-confpass" class="col-sm-3 control-label">$[=__('Confirm Password')]</label>
+						    <div class="col-sm-4">
+						      <input type="password" class="form-control" id="set-confpass" >
+						      <span class="validate-error">
+						      	<i class="fa fa-info-circle"></i> 
+						      	$[=__('The two password fields didn\'t match.')]
+						      </span>
+						    </div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-3 control-label">
+								<button type="button" class="btn btn-primary" onclick="saveSettings();">$[=__('Save')]</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+$[ include foot ]
+$[ include common ]
+	<script>
+		var loginUserEmail = '$[=userEmail]';
+		var loginUsername = '$[=username]';
+	</script>
+$[ include foot-google ]
+</body>
+</html>
