@@ -237,8 +237,8 @@ legend {
 }
 
 .user_space_reports {
-	line-height: 10px;
-	min-height: 100px;
+	line-height: 50px;
+	min-height: 120px;
 }
 
 .x-toolbar {

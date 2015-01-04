@@ -88,7 +88,8 @@ app.post('/login', user.login);
 app.get('/signout', nocache, user.signout);
 app.get('/user/space', nocache, user.space);
 app.post('/report/save', report.save);
-app.get('/report/remove/:rptId', report.remove)
+app.get('/report/remove/:rptId', report.remove);
+app.get('/report/loadall', report.loadall);
 app.post('/feedback/save', others.feedbacksave);
 app.get('/release_notes', others.release_notes);
 app.get('/r/:hashid', routes.report);
