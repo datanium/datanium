@@ -219,19 +219,143 @@ exports.settings = function(req, res) {
 		return;
 	}
 	var username = req.session.user.username;
+	console.log("settings: " + username);
+	var userEmail = req.session.user.email;
 	UserSchema.findOne({
-		username : username
+		email : userEmail
 	}, function(err, user) {
 		if (err)
 			console.log('Exception: ' + err);
 		else {
 			res.render('settings.ejs', {
-				currPage : 'settings',
+				currPage : 'space',
 				host : req.protocol + '://' + req.get('host'),
 				username : user.username,
 				userEmail : user.email,
 				signup_date : dateFormat(user.signup_date)
 			});
 		}
+	});
+};
+
+exports.saveSettings = function(req, res) {
+	var userip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+	var username = req.session.user.username;
+	var userEmail = req.session.user.email;
+	if (req.session.user == null) {
+		res.redirect('/');
+		return;
+	}
+	var info = req.body;
+	var newusername = info.username;
+	var password = md5(info.password);
+	var newpassword = md5(info.newpassword);
+	var conpassword = md5(info.conpassword);
+
+	var returnJSON = {};
+	var status = '';
+	var message = '';
+	var userExistFlag = false;
+	var passNotMatchFlag = false;
+	async.parallel([ function(callback) {
+		UserSchema.findOne({
+			username : username
+		}, function(err, doc) {
+			if (err) {
+				console.log('Exception: ' + err);
+				res.send('500 Sorry, server error...');
+				return false;
+			}
+			if (doc != null && doc.password != password) {
+				passNotMatchFlag = true;
+			}
+			callback();
+		});
+	}, function(callback) {
+		if (newusername != null && newusername != '' && newusername != username) {
+			UserSchema.find({
+				username : newusername
+			}, function(err, doc) {
+				if (err) {
+					console.log('Exception: ' + err);
+					res.send('500 Sorry, server error...');
+					return false;
+				}
+				if (doc.length > 0) {
+					userExistFlag = true;
+				}
+				callback();
+			});
+		} else {
+			callback();
+		}
+	} ], function() {
+		if (userExistFlag) {
+			status = 'username_exists';
+			message = req.i18n.__('Username already exists.');
+			returnJSON = {
+				'status' : status,
+				'message' : message
+			}
+			res.send(returnJSON);
+			return;
+		}
+		if (passNotMatchFlag) {
+			status = 'password_not_match';
+			message = req.i18n.__('Password does not match.');
+			returnJSON = {
+				'status' : status,
+				'message' : message
+			}
+			res.send(returnJSON);
+			return;
+		}
+		var currentDate = getCurrentDate();
+		if (newusername != null && newusername != '' && newpassword != null && newpassword != '') {
+			UserSchema.update({
+				email : userEmail
+			}, {
+				'username' : newusername,
+				'password' : newpassword
+			}, function(err, user) {
+				if (err)
+					throw err;
+				req.session.user = {
+					username : user.username,
+					email : user.email
+				};
+			});
+		} else if (newpassword != null && newpassword != '') {
+			UserSchema.update({
+				email : userEmail
+			}, {
+				'password' : newpassword
+			}, function(err, user) {
+				if (err)
+					throw err;
+				req.session.user = {
+					username : user.username,
+					email : user.email
+				};
+			});
+		} else {
+			UserSchema.update({
+				email : userEmail
+			}, {
+				'username' : newusername
+			}, function(err, user) {
+				if (err)
+					throw err;
+				req.session.user = {
+					username : user.username,
+					email : user.email
+				};
+			});
+		}
+		returnJSON = {
+			'status' : "modify_success",
+			'message' : message
+		};
+		res.send(returnJSON);
 	});
 };
