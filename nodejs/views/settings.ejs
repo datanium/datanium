@@ -37,7 +37,7 @@ $[ include header-nav ]
 							<label for="set-username" class="col-sm-3 control-label">$[=__('Username')]</label>
 						    <div class="col-sm-4">
 						      <input type="text" class="form-control" id="set-username" placeholder="$[=username]">
-						      <span class="validate-error">
+						      <span class="validate-error" id="set-username-error">
 						      	<i class="fa fa-info-circle"></i> 
 						      	$[=__('Username already exists.')]
 						      </span>
@@ -46,18 +46,14 @@ $[ include header-nav ]
 						<div class="form-group settings-item">
 							<label for="set-email" class="col-sm-3 control-label">$[=__('Email')]</label>
 						    <div class="col-sm-4">
-						      <input type="email" class="form-control" id="set-email" placeholder="$[=userEmail]">
-						      <span class="validate-error">
-						      	<i class="fa fa-info-circle"></i> 
-						      	$[=__('Email already exists.')]
-						      </span>
+						      <input type="email" class="form-control" id="set-email" value="$[=userEmail]" disabled>
 						    </div>
 						</div>
 						<div class="form-group settings-item">
 							<label for="set-pass" class="col-sm-3 control-label">$[=__('Current Password')]</label>
 						    <div class="col-sm-4">
 						      <input type="password" class="form-control" id="set-pass" >
-						      <span class="validate-error">
+						      <span class="validate-error" id="set-pass-error">
 						      	<i class="fa fa-info-circle"></i> 
 						      	$[=__('Password does not match.')]
 						      </span>
@@ -67,7 +63,7 @@ $[ include header-nav ]
 							<label for="set-newpass" class="col-sm-3 control-label">$[=__('New Password')]</label>
 						    <div class="col-sm-4">
 						      <input type="password" class="form-control" id="set-newpass" >
-						      <span class="validate-error">
+						      <span class="validate-error" id="set-newpass-error">
 						      	<i class="fa fa-info-circle"></i> 
 						      	$[=__('Ensure this value has at least 6 characters')]
 						      </span>
@@ -77,7 +73,7 @@ $[ include header-nav ]
 							<label for="set-confpass" class="col-sm-3 control-label">$[=__('Confirm Password')]</label>
 						    <div class="col-sm-4">
 						      <input type="password" class="form-control" id="set-confpass" >
-						      <span class="validate-error">
+						      <span class="validate-error" id="set-confpass-error">
 						      	<i class="fa fa-info-circle"></i> 
 						      	$[=__('The two password fields didn\'t match.')]
 						      </span>

@@ -560,6 +560,77 @@ var viewmoreRpt = function() {
 	rptTotalCount += 10;
 }
 
+var validateSettings = function() {
+	var username = $('#set-username').val();
+	var password = $('#set-pass').val();
+	var newPassword = $('#set-newpass').val();
+	var confirmPassword = $('#set-confpass').val();
+	var count = 0;
+	if ((username == null || username == '') && (newPassword == null || newPassword == '')) {
+		count++;
+	}
+	if (username == loginUsername) {
+		count++;
+	}
+	if (password == null || password == '') {
+		$('#set-pass-error').show();
+		count++;
+	} else {
+		$('#set-pass-error').hide();
+	}
+	if (newPassword != null && newPassword != '' && newPassword.length < 6) {
+		$('#set-newpass-error').show();
+		count++;
+	} else {
+		$('#set-newpass-error').hide();
+	}
+	if (newPassword != null && newPassword != '' && confirmPassword != null && confirmPassword != ''
+			&& newPassword != confirmPassword) {
+		$('#set-confpass-error').show();
+		count++;
+	} else {
+		$('#set-confpass-error').hide();
+	}
+	if (count > 0) {
+		return false;
+	}
+	return true;
+}
+
 var saveSettings = function() {
+	if (!validateSettings())
+		return false;
+	var link = '/user/saveSettings';
+	$.ajax({
+		url : link,
+		type : 'POST',
+		dataType : 'json',
+		data : {
+			username : $('#set-username').val(),
+			password : $('#set-pass').val(),
+			newpassword : $('#set-newpass').val(),
+			conpassword : $('#set-confpass').val()
+		},
+		success : function(map) {
+			if (map.status == 'modify_success') {
+				window.location.reload();
+			} else {
+				if (map.status == 'password_not_match') {
+					$('#set-pass-error').show();
+				} else {
+					$('#set-pass-error').hide();
+				}
+				if (map.status == 'username_exists') {
+					$('#set-username-error').show();
+				} else {
+					$('#set-username-error').hide();
+				}
+			}
+
+		},
+		error : function() {
+			console.log(error);
+		}
+	});
 
 }

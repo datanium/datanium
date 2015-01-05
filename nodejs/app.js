@@ -88,6 +88,7 @@ app.post('/login', user.login);
 app.get('/signout', nocache, user.signout);
 app.get('/user/space', nocache, user.space);
 app.get('/user/settings', nocache, user.settings);
+app.post('/user/saveSettings', user.saveSettings);
 app.post('/report/save', report.save);
 app.get('/report/remove/:rptId', report.remove);
 app.get('/report/loadall', report.loadall);
