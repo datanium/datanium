@@ -47,7 +47,7 @@ $[ include header-nav ]
 						<div class="user_space_reports">
 							$[if (report.qubeInfo != null && report.qubeInfo.dimensions != null) {]
 							$[report.qubeInfo.dimensions.forEach(function(dim){ ]
-							<button type="button" class="btn btn-default">
+							<button type="button" class="btn btn-default" onclick="showIndicatorDetail('$[=dim.uniqueName]');">
 								<span class="fa fa-bars"></span> $[=dim.text]
 							</button>
 							$[ }); ] 
@@ -55,7 +55,7 @@ $[ include header-nav ]
 							
 							$[if (report.qubeInfo != null && report.qubeInfo.measures != null) {]
 							$[report.qubeInfo.measures.forEach(function(mea){ ]
-							<button type="button" class="btn btn-default">
+							<button type="button" class="btn btn-default" onclick="showIndicatorDetail('$[=mea.uniqueName]');">
 								<span class="fa fa-bar-chart-o"></span> $[=mea.text]
 							</button>
 							$[ }); ] 

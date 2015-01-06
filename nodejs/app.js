@@ -80,6 +80,7 @@ app.get('/indicator/map', indicator.indicatorMapping);
 app.get('/indicator/topicSearch', indicator.topicSearch);
 app.get('/indicator/countrySearch', indicator.countrySearch);
 app.get('/indicator/countryLoad', indicator.countryLoad);
+app.get('/indicator/load', indicator.loadIndicator);
 app.post('/data/result', data.queryResult);
 app.post('/data/split', data.querySplit);
 app.get('/c/:hashid', data.loadChart);

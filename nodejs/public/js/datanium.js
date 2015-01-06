@@ -632,5 +632,18 @@ var saveSettings = function() {
 			console.log(error);
 		}
 	});
+}
 
+var showIndicatorDetail = function(indicatorKey) {
+	$.ajax({
+		url : '/indicator/load?key=' + indicatorKey,
+		type : 'get',
+		dataType : 'json',
+		success : function(returnObj) {
+			showTxtModal(returnObj.text + ' - ' + returnObj.dataSource, returnObj.sourceNote);
+		},
+		error : function() {
+			console.log('load indicator error...');
+		}
+	});
 }
