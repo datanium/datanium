@@ -45,14 +45,6 @@ $[ include header-nav ]
 						<span>$[=__('Updated')]: $[=: report.modification_date | dateformat:'YYYY-MM-DD HH:mm:ss']</span>
 						<p></p>
 						<div class="user_space_reports">
-							$[if (report.qubeInfo != null && report.qubeInfo.dimensions != null) {]
-							$[report.qubeInfo.dimensions.forEach(function(dim){ ]
-							<button type="button" class="btn btn-default" onclick="showIndicatorDetail('$[=dim.uniqueName]');">
-								<span class="fa fa-bars"></span> $[=dim.text]
-							</button>
-							$[ }); ] 
-							$[}]
-							
 							$[if (report.qubeInfo != null && report.qubeInfo.measures != null) {]
 							$[report.qubeInfo.measures.forEach(function(mea){ ]
 							<button type="button" class="btn btn-default" onclick="showIndicatorDetail('$[=mea.uniqueName]');">
