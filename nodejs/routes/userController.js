@@ -111,7 +111,7 @@ exports.login = function(req, res) {
 	UserSchema.findOneAndUpdate({
 		email : email
 	}, {
-		last_signin_date : getCurrentDate()
+		last_login_date : getCurrentDate()
 	}, function(err, doc) {
 		if (err)
 			console.log('Exception: ' + err);
@@ -249,8 +249,8 @@ exports.saveSettings = function(req, res) {
 	var info = req.body;
 	var newusername = info.username;
 	var password = md5(info.password);
-	var newpassword = md5(info.newpassword);
-	var conpassword = md5(info.conpassword);
+	var newpassword = info.newpassword;
+	var conpassword = info.conpassword;
 
 	var returnJSON = {};
 	var status = '';
@@ -259,7 +259,7 @@ exports.saveSettings = function(req, res) {
 	var passNotMatchFlag = false;
 	async.parallel([ function(callback) {
 		UserSchema.findOne({
-			username : username
+			email : userEmail
 		}, function(err, doc) {
 			if (err) {
 				console.log('Exception: ' + err);
@@ -316,7 +316,7 @@ exports.saveSettings = function(req, res) {
 				email : userEmail
 			}, {
 				'username' : newusername,
-				'password' : newpassword
+				'password' : md5(newpassword)
 			}, function(err, user) {
 				if (err)
 					throw err;
@@ -329,7 +329,7 @@ exports.saveSettings = function(req, res) {
 			UserSchema.update({
 				email : userEmail
 			}, {
-				'password' : newpassword
+				'password' : md5(newpassword)
 			}, function(err, user) {
 				if (err)
 					throw err;
