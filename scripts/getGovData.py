@@ -21,10 +21,13 @@ def GetInidcator( index, request_url, dbcode,level ):
   indicator_list=[]
   indicator={}
   request_data = "code="+index+"&level="+str(level)+"&dbcode="+dbcode+"&dimension=zb"
+  print(request_data)
+  print(request_url)
   try:
     url = urllib.request.Request(url=request_url,data=request_data.encode(encoding="utf-8"),headers=headers)
     conn = urllib.request.urlopen(url)
     index_str = conn.readline().decode("utf-8")
+    print(index_str)
   except HTTPError as e:
     return indicator_list
   if (len(index_str)==0):
@@ -46,6 +49,7 @@ def GetData ( index_list, request_url, dbcode, region ):
   indicator_list = []
   data_list = []
   for index in index_list:
+    print(index + '===================')
     indicator_list = indicator_list + GetInidcator ( index ,children_url, dbcode ,1)
   for indicator in indicator_list:
     url_string = data_url + 'a=l&m='+ indicator['frequency'] +'&index='+indicator['code']+'&region='+ region + '&time=-1%2C1949&selectId='+region +'&third=region'
