@@ -44,18 +44,18 @@ def load_indicator_init(dbcode):
     
     return indicator_categories
     
-def load_indicators_monthly(is_incremental):
+def load_indicators(dbcode, is_incremental):
     ## load indicators for monthly data
     print("load indicators for monthly...")
     all_start = timeit.default_timer()
     
     static = Static()
     indicator_array = []
-    indicator_categories = load_indicator_init('hgyd')
+    indicator_categories = load_indicator_init(dbcode)
     for cate in indicator_categories:
         if(int(cate['pId']) > 0):
             print(cate['id'] + ' - ' + cate['name'])
-            indicator_array.extend(load_children(cate, 'hgyd'))
+            indicator_array.extend(load_children(cate, dbcode))
 
     print(str(len(indicator_array)) + " indicators are loaded for monthly...\n")
     ## print(indicator_array)
@@ -89,12 +89,45 @@ def load_children(parent, dbcode):
             if(child['name'].find('率') > -1 or child['name'].find('百分比') > -1):
                 data_type = 'percentage'
             topics = []
-            indicator_rec = {'indicator_key': indicator_key, 'original_id': child['id'], 'indicator_text': child['name'], 'data_type': data_type, 'sourceNote': '', 'topics': topics, 'data_source': '国家统计局', 'dimension': [{'dimension_key': 'year', 'dimension_text': '年'}, {'dimension_key': 'month', 'dimension_text': '月'}, ]}
+            indicator_rec = {}
+            if(dbcode == 'hgnd'):
+            	indicator_rec = {'indicator_key': indicator_key, 'original_id': child['id'], 'indicator_text': child['name'], 'data_type': data_type, 'sourceNote': '', 'topics': topics, 'data_source': '国家统计局', 'dimension': [{'dimension_key': 'year', 'dimension_text': '年'}]}
+            elif(dbcode == 'hgyd'):
+            	indicator_rec = {'indicator_key': indicator_key, 'original_id': child['id'], 'indicator_text': child['name'], 'data_type': data_type, 'sourceNote': '', 'topics': topics, 'data_source': '国家统计局', 'dimension': [{'dimension_key': 'year', 'dimension_text': '年'}, {'dimension_key': 'month', 'dimension_text': '月'}]}
             tmp_indicator_list.append(indicator_rec)
         else:
             tmp_indicator_list.extend(load_children(child, dbcode))
     return tmp_indicator_list
-                
 
+def load_row_data(dbcode, region):
+    # load data by indicator
+    
+    print('load row data start...')
+    static = Static()
+    client = MongoClient(static.mongo_url, static.mongo_port)
+    db = client[static.database_name]
+    indicator_col = db[static.indicator_col_name]
+    indexStr = ''
+    count = 0
+    for doc in indicator_col.find(None, ['indicator_key', 'original_id', 'indicator_text','data_source']):
+        print(doc['original_id'] + ' - ' + doc['indicator_text'])
+        count += 1
+        print(count)
+        if(count > 10):
+            r_params = {'a': 'l', 'm': dbcode, 'index': indexStr, 'region': region, 'time': '-1,198301', 'selectId': region, 'third': 'region'}
+            r = requests.get(static.request_url_data, params=r_params)
+            print(r.url)
+            res = json.loads(r.text)
+            print(res['tableData'])
+
+            indexStr = ''
+            count = 0
+        elif(count == 1):
+            indexStr += doc['original_id']
+        else:
+            indexStr += ','
+            indexStr += doc['original_id']
+                                           
 if __name__ == '__main__':
-    load_indicators_monthly(True)
+    ## load_indicators('hgyd', True)
+    load_row_data('hgyd', '000000')
