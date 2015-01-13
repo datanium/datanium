@@ -103,22 +103,24 @@ def load_row_data(dbcode, region):
     # load data by indicator
     
     print('load row data start...')
+    all_start = timeit.default_timer()
     static = Static()
     client = MongoClient(static.mongo_url, static.mongo_port)
     db = client[static.database_name]
     indicator_col = db[static.indicator_col_name]
     indexStr = ''
     count = 0
-    for doc in indicator_col.find(None, ['indicator_key', 'original_id', 'indicator_text','data_source']):
+    for idx, doc in enumerate(indicator_col.find(None, ['indicator_key', 'original_id', 'indicator_text','data_source'])):
         print(doc['original_id'] + ' - ' + doc['indicator_text'])
         count += 1
         print(count)
-        if(count > 10):
+        if(count > 50 or idx == indicator_col.count() - 1):
             r_params = {'a': 'l', 'm': dbcode, 'index': indexStr, 'region': region, 'time': '-1,198301', 'selectId': region, 'third': 'region'}
             r = requests.get(static.request_url_data, params=r_params)
             print(r.url)
             res = json.loads(r.text)
-            print(res['tableData'])
+            print('index: ' + str(len(res['value']['index'])))
+            print('time: ' + str(len(res['value']['time'])))
 
             indexStr = ''
             count = 0
@@ -127,6 +129,8 @@ def load_row_data(dbcode, region):
         else:
             indexStr += ','
             indexStr += doc['original_id']
+            
+    print("total time cost: " + str(round(timeit.default_timer() - all_start)) + 's')
                                            
 if __name__ == '__main__':
     ## load_indicators('hgyd', True)
