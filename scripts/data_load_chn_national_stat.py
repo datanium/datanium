@@ -99,7 +99,7 @@ def load_children(parent, dbcode):
             tmp_indicator_list.extend(load_children(child, dbcode))
     return tmp_indicator_list
 
-def load_row_data(dbcode, region):
+def load_row_data(dbcode, region, is_incremental):
     # load data by indicator
     
     print('load row data start...')
@@ -108,30 +108,47 @@ def load_row_data(dbcode, region):
     client = MongoClient(static.mongo_url, static.mongo_port)
     db = client[static.database_name]
     indicator_col = db[static.indicator_col_name]
+    dataset_col = db[static.dataset_col_name]
+    if not is_incremental:
+        dataset_col.drop()
     indexStr = ''
     count = 0
-    for idx, doc in enumerate(indicator_col.find(None, ['indicator_key', 'original_id', 'indicator_text','data_source'])):
-        print(doc['original_id'] + ' - ' + doc['indicator_text'])
+    for idx, doc in enumerate(indicator_col.find({'data_source': '国家统计局'}, ['indicator_key', 'original_id', 'indicator_text','data_source'])):
+        ## print(doc['original_id'] + ' - ' + doc['indicator_text'])
         count += 1
-        print(count)
-        if(count > 50 or idx == indicator_col.count() - 1):
-            r_params = {'a': 'l', 'm': dbcode, 'index': indexStr, 'region': region, 'time': '-1,198301', 'selectId': region, 'third': 'region'}
-            r = requests.get(static.request_url_data, params=r_params)
-            print(r.url)
-            res = json.loads(r.text)
-            print('index: ' + str(len(res['value']['index'])))
-            print('time: ' + str(len(res['value']['time'])))
-
-            indexStr = ''
-            count = 0
-        elif(count == 1):
+        if(count == 1):
             indexStr += doc['original_id']
         else:
             indexStr += ','
             indexStr += doc['original_id']
+        if(count == 100 or idx == indicator_col.count() - 1):
+            r_params = {'a': 'l', 'm': dbcode, 'index': indexStr, 'region': region, 'time': '-1,198301', 'selectId': region, 'third': 'region'}
+            r = requests.get(static.request_url_data, params=r_params)
+            print(r.url)
+            res = json.loads(r.text)
+            for time in res['value']['time']:
+                json_data = {"country": "中国", "load_key": "CHNNS"}
+                json_data['year'] = int(time['id'][0:4])
+                json_data['month'] = int(time['id'][4:6])
+                for index in res['value']['index']:
+                    data_key = index['id'] + '_' + region + '_' + time['id']
+                    if(data_key in res['tableData'] and res['tableData'][data_key] != ''):
+                        data_value = float(res['tableData'][data_key].replace(',', ''))
+                        json_data['CHNNS_' + index['id']] = data_value
+                ## print(json_data)
+                try:
+                    pk = dataset_col.insert(json_data)
+                except ValueError:
+                    print("Value Error: " + data_key + " / " + index['name'])
+
+            print('count: ' + str(idx))
+            print('time cost: ' + str(round(timeit.default_timer() - all_start)) + 's')
             
-    print("total time cost: " + str(round(timeit.default_timer() - all_start)) + 's')
+            indexStr = ''
+            count = 0
+            
+    print('total time cost: ' + str(round(timeit.default_timer() - all_start)) + 's')
                                            
 if __name__ == '__main__':
-    ## load_indicators('hgyd', True)
-    load_row_data('hgyd', '000000')
+    ## load_indicators('hgyd', False)
+    load_row_data('hgyd', '000000', False)

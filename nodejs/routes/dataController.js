@@ -310,19 +310,12 @@ function generateMatchObj(queryParam) {
 }
 
 function generateSortStr(dimensons) {
-	var sortStr = 'field -';
-	var timeFlag = false;
+	var sortStr = 'field';
 	if (dimensons != null && dimensons.length > 0) {
 		dimensons.forEach(function(item, index) {
-			if (item.uniqueName == 'year' || item.uniqueName == 'month') {
-				sortStr += item.uniqueName;
-				timeFlag = true;
-				return;
-			}
+			sortStr += ' -';
+			sortStr += item.uniqueName;
 		});
-		if (!timeFlag) {
-			sortStr += dimensons[0].uniqueName;
-		}
 		return sortStr;
 	} else {
 		return null;
