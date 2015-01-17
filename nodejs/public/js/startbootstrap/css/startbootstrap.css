@@ -1,16 +1,24 @@
 body {
 	margin-top: 50px;
-	font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family: 'Helvetica Neue', Helvetica, 'Lantinghei SC',
+		'Hiragino Sans GB', sans-serif;
 	font-weight: 400
 }
 
-h1,h2,h3,h4,h5,h6,.navbar-brand,.brand-name {
-	font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
+h1,h2,h3,h4,h5,h6 {
+	font-family: 'Helvetica Neue', Helvetica, 'Lantinghei SC',
+		'Hiragino Sans GB', sans-serif;
+	font-weight: 400
+}
+
+.navbar-brand,.brand-name {
+	font-family: sans-serif;
 	font-weight: 400
 }
 
 p.lead {
-	font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family: 'Helvetica Neue', Helvetica, 'Lantinghei SC',
+		'Hiragino Sans GB', sans-serif;
 	font-weight: 400
 }
 
