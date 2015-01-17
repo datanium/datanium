@@ -379,7 +379,7 @@ Ext
 							var key = Datanium.GlobalData.queryParam.primaryFilter;
 							// time dimension no quotes
 							var popSelStr = '';
-							if (key == 'year') {
+							if (key == 'year' || key == 'month' || key == 'yearmonth') {
 								popSelStr = popSelection.join(",");
 							} else {
 								popSelStr = "'" + popSelection.join("','") + "'";
@@ -446,7 +446,7 @@ Ext
 							}
 						},
 						checkTimeDim : function(dim) {
-							if (dim == 'year' || dim == 'month')
+							if (dim == 'year' || dim == 'month' || dim == 'yearmonth')
 								return true;
 							else
 								return false;

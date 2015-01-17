@@ -15,4 +15,4 @@ var IndicatorSchema = new Schema({
 		indicator_key : String
 	} ]
 });
-exports.Indicator = mongodb.mongoose.model('Indicator', IndicatorSchema, 'indicator_new');
+exports.Indicator = mongodb.mongoose.model('Indicator', IndicatorSchema, 'indicator_test');
