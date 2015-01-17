@@ -1,24 +1,19 @@
 body {
 	margin-top: 50px;
-	font-family: 'Helvetica Neue', Helvetica, 'Lantinghei SC',
-		'Hiragino Sans GB', sans-serif;
+	font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB",
+		"Hiragino Sans GB W3", "WenQuanYi Micro Hei", "Lantinghei SC", sans-serif;
 	font-weight: 400
 }
 
-h1,h2,h3,h4,h5,h6 {
-	font-family: 'Helvetica Neue', Helvetica, 'Lantinghei SC',
-		'Hiragino Sans GB', sans-serif;
-	font-weight: 400
-}
-
-.navbar-brand,.brand-name {
-	font-family: sans-serif;
+h1,h2,h3,h4,h5,h6,.navbar-brand,.brand-name {
+	font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB",
+		"Hiragino Sans GB W3", "WenQuanYi Micro Hei", "Lantinghei SC", sans-serif;
 	font-weight: 400
 }
 
 p.lead {
-	font-family: 'Helvetica Neue', Helvetica, 'Lantinghei SC',
-		'Hiragino Sans GB', sans-serif;
+	font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB",
+		"Hiragino Sans GB W3", "WenQuanYi Micro Hei", "Lantinghei SC", sans-serif;
 	font-weight: 400
 }
 
@@ -115,7 +110,8 @@ header.marquee .btn-cta:hover {
 }
 
 .home-intro h2.tagline {
-	font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB",
+		"Hiragino Sans GB W3", "WenQuanYi Micro Hei", "Lantinghei SC", sans-serif;
 	font-weight: 400;
 	font-size: 20px;
 	margin-top: 40px;
@@ -148,7 +144,8 @@ header.marquee .btn-cta:hover {
 	border: 1px solid #3F5878 !important;
 	background-color: transparent !important;
 	color: #3F5878;
-	font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB",
+		"Hiragino Sans GB W3", "WenQuanYi Micro Hei", "Lantinghei SC", sans-serif;
 	font-weight: 400 !important;
 	font-size: 16px !important
 }
@@ -234,8 +231,8 @@ header.marquee .btn-cta:hover {
 	width: auto !important;
 	height: auto !important;
 	margin-left: 145px !important;
-	font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial,
-		sans-serif !important
+	font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB",
+		"Hiragino Sans GB W3", "WenQuanYi Micro Hei", "Lantinghei SC", sans-serif;
 }
 
 .carbonad-text {
