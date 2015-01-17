@@ -277,7 +277,7 @@ function generateMatchObj(queryParam) {
 	var filterArray = [];
 	dimensions.forEach(function(item, index) {
 		if (item.uniqueName in filters) {
-			if (item.uniqueName == 'year' || item.uniqueName == 'month') {
+			if (item.uniqueName == 'year' || item.uniqueName == 'month' || item.uniqueName == 'yearmonth') {
 				var timeObj = eval('filters.' + item.uniqueName);
 				var time_start = timeObj.time_start;
 				var time_end = timeObj.time_end;
@@ -292,12 +292,7 @@ function generateMatchObj(queryParam) {
 			} else {
 				var array = eval('filters.' + item.uniqueName);
 				if (array != null && array.length > 0) {
-					var str = '';
-					if (item.uniqueName == 'year') {
-						str = array.join(",");
-					} else {
-						str = "'" + array.join("','") + "'";
-					}
+					var str = "'" + array.join("','") + "'";
 					filterArray.push(item.uniqueName + ': {$in:[' + str + ']}');
 				}
 			}
@@ -330,12 +325,14 @@ function convertResult(doc, isChart) {
 			bubbleSort(results, 'year');
 		if (results.length > 0 && 'month' in results[0])
 			bubbleSort(results, 'month');
+		if (results.length > 0 && 'yearmonth' in results[0])
+			bubbleSort(results, 'yearmonth');
 		// auto filter out continous empty data
 		var removeIdxArray = [];
 		results.every(function(item, index) {
 			var emptyFlag = true;
 			for ( var propertyName in item) {
-				if (propertyName !== 'year' && propertyName !== 'month') {
+				if (propertyName !== 'year' && propertyName !== 'month' && propertyName !== 'yearmonth' ) {
 					if (item[propertyName] !== 0) {
 						emptyFlag = false;
 						break;

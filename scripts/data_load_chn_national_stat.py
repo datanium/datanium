@@ -22,11 +22,10 @@ class Static:
     request_url_init = 'http://data.stats.gov.cn/quotas/init'
     request_url_indicator = 'http://data.stats.gov.cn/quotas/getchildren'
     request_url_data = 'http://data.stats.gov.cn/workspace/index'
-    output_folder = '/Users/Puffy/Works/data_output/TONGJIJU'
+    ## output_folder = '/Users/Puffy/Works/data_output/TONGJIJU'
     database_name = 'datanium'
-    indicator_col_name = 'indicator_test'
-    dataset_col_name = 'dataset_test'
-    date_range = '1960:2013'
+    indicator_col_name = 'indicator_new'
+    dataset_col_name = 'dataset_new'
     mongo_url = 'localhost'
     ## mongo_url = 'www.dtnium.com'
     mongo_port = 27017
@@ -65,7 +64,7 @@ def load_indicators(dbcode, is_incremental):
     db = client[static.database_name]
     indicator_col = db[static.indicator_col_name]
     if not is_incremental:
-        indicator_col.drop()
+        indicator_col.remove({'data_source': '国家统计局'})
         
     for indicator_rec in indicator_array:
         pk = indicator_col.insert(indicator_rec)
@@ -93,7 +92,7 @@ def load_children(parent, dbcode):
             if(dbcode == 'hgnd'):
             	indicator_rec = {'indicator_key': indicator_key, 'original_id': child['id'], 'indicator_text': child['name'], 'data_type': data_type, 'sourceNote': '', 'topics': topics, 'data_source': '国家统计局', 'dimension': [{'dimension_key': 'year', 'dimension_text': '年'}]}
             elif(dbcode == 'hgyd'):
-            	indicator_rec = {'indicator_key': indicator_key, 'original_id': child['id'], 'indicator_text': child['name'], 'data_type': data_type, 'sourceNote': '', 'topics': topics, 'data_source': '国家统计局', 'dimension': [{'dimension_key': 'year', 'dimension_text': '年'}, {'dimension_key': 'month', 'dimension_text': '月'}]}
+            	indicator_rec = {'indicator_key': indicator_key, 'original_id': child['id'], 'indicator_text': child['name'], 'data_type': data_type, 'sourceNote': '', 'topics': topics, 'data_source': '国家统计局', 'dimension': [{'dimension_key': 'year', 'dimension_text': '年'}, {'dimension_key': 'month', 'dimension_text': '月'}, {'dimension_key': 'yearmonth', 'dimension_text': '年/月'}]}
             tmp_indicator_list.append(indicator_rec)
         else:
             tmp_indicator_list.extend(load_children(child, dbcode))
@@ -110,7 +109,7 @@ def load_row_data(dbcode, region, is_incremental):
     indicator_col = db[static.indicator_col_name]
     dataset_col = db[static.dataset_col_name]
     if not is_incremental:
-        dataset_col.drop()
+        dataset_col.remove({"load_key":static.prefix})
     indexStr = ''
     count = 0
     for idx, doc in enumerate(indicator_col.find({'data_source': '国家统计局'}, ['indicator_key', 'original_id', 'indicator_text','data_source'])):
@@ -130,11 +129,12 @@ def load_row_data(dbcode, region, is_incremental):
                 json_data = {"country": "中国", "load_key": "CHNNS"}
                 json_data['year'] = int(time['id'][0:4])
                 json_data['month'] = int(time['id'][4:6])
+                json_data['yearmonth'] = int(time['id'])
                 for index in res['value']['index']:
                     data_key = index['id'] + '_' + region + '_' + time['id']
                     if(data_key in res['tableData'] and res['tableData'][data_key] != ''):
                         data_value = float(res['tableData'][data_key].replace(',', ''))
-                        json_data['CHNNS_' + index['id']] = data_value
+                        json_data[static.prefix + '_' + index['id']] = data_value
                 ## print(json_data)
                 try:
                     pk = dataset_col.insert(json_data)
@@ -150,5 +150,5 @@ def load_row_data(dbcode, region, is_incremental):
     print('total time cost: ' + str(round(timeit.default_timer() - all_start)) + 's')
                                            
 if __name__ == '__main__':
-    ## load_indicators('hgyd', False)
-    load_row_data('hgyd', '000000', False)
+    load_indicators('hgyd', False)
+    ## load_row_data('hgyd', '000000', True)
