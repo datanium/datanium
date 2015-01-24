@@ -110,5 +110,7 @@
 	"Loading...": "加载中...",
 	"No more": "没有更多了",
 	"Current Password": "当前密码",
-	"New Password": "新的密码"
+	"New Password": "新的密码",
+	"Data Search": "数据查询",
+	"Data Source": "数据来源"
 }

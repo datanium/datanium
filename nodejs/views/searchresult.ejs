@@ -1,0 +1,94 @@
+<html>
+<head>
+<title>$[=__('Data Search')] $[if(keyword.length>0){]- $[=keyword] $[}]- Datanium - $[=__('Play with Data')]</title>
+<meta name="Description"
+	content="$[=__('Datanium is a platform that helps you to find, present, share and play with data.')]" />
+<meta name="Keywords"
+	content="$[=__('Public Data,Charts,Data Analysis,Finance,Economics,Historical')]" />
+$[ include header ] 
+$[ include header-home ]
+$[ include header-nav ]
+</head>
+
+<body>
+	<!-- Navigation -->
+	$[ include navbar ]
+
+	<div class="dtm-header">
+		<div class="container text-left">
+			<h2>$[=__('Data Search')]</h2>
+			<div>
+	        	<div class="input-group input-group-lg">
+	                <input type="text" class="form-control" id="search-keyword" onfocus="indexSearchOnfocus();" placeholder="$[=__('Eg. GDP, Consumer Price, Interest Rate.')]" value="$[=keyword]">
+	                <span class="input-group-btn">
+	                    <button type="submit" id="search-btn" onclick="indexSearch();" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+	                </span>
+	            </div>
+        	</div>
+		</div>
+	</div>
+
+	<!-- Page Content -->
+	<div id="search-result-panel" class="container">
+		<div class="row" id="rpt_rows">
+		
+			$[results.forEach(function(res){ ]
+			<div class="dtm-jumbotron thumbnail">
+				<div class="search-result-item">
+					<h4><a href="#" >$[=res.indicator_text]</a></h4>
+					<span>$[=__('Data Source')]:&nbsp;$[=res.data_source]</span>
+					<p></p>
+					<div class="search-result-item-desc">
+						$[=res.sourceNote]
+					</div>
+					<!--div class="text-right">
+						<a class="btn btn-primary" href="#" role="button" rel="tooltip"
+							title="$[=__('Preview & Edit')]"> <span class="glyphicon glyphicon-search"></span>
+						</a>
+					</div-->
+				</div>
+			</div>
+			$[ }); ]
+
+		</div>
+		$[if(keyword.length>0 && total>0){]
+		<div class="text-center btn-home">
+			<nav>
+			  <ul class="pagination">
+			  	$[if(prev==-1){]
+			    <li class="disabled"><a href="#"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>
+			    $[}else{]
+			    <li><a href="/search?keyword=$[=keyword]&start=$[=prev]"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>
+				$[}]
+				$[range.forEach(function(idx){ ]
+					$[if(curr==idx){]
+					<li class="active"><a href="#">$[=idx/10+1]</a></li>
+					$[}else{]
+					<li><a href="/search?keyword=$[=keyword]&start=$[=idx]">$[=idx/10+1]</a></li>
+					$[}]
+				$[ }); ]
+			  	$[if(next==-1){]
+			    <li class="disabled"><a href="#"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li>
+			    $[}else{]
+			    <li><a href="/search?keyword=$[=keyword]&start=$[=next]"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li>
+			    $[}]
+			  </ul>
+			</nav>
+		</div>
+		$[}]
+	</div>
+
+$[ include foot ]
+$[ include common ]
+	<script type="text/javascript">
+		var loginUserEmail = null;
+		var loginUsername = null;
+		$[if(userEmail!=null){]
+			loginUserEmail = '$[=userEmail]';
+			loginUsername = '$[=username]';
+		$[}]
+	</script>
+$[ include foot-google ]
+</body>
+
+</html>

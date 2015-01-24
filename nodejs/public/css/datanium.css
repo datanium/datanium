@@ -345,7 +345,7 @@ legend {
 }
 
 .dtm-header .input-group {
-	max-width: 500px;
+	max-width: 600px;
 	margin-top: 20px
 }
 
@@ -376,4 +376,20 @@ legend {
 .validate-error {
 	display: none;
 	color: #c33;
+}
+
+.search-result-item {
+	padding: 0px 30px 10px 30px;
+}
+
+.search-result-item-desc {
+	line-height: 20px;
+}
+
+.search-result-item button {
+	margin-bottom: 4px;
+}
+
+#search-result-panel {
+	padding-top: 30px;
 }

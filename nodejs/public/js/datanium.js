@@ -33,6 +33,7 @@ $(document).ready(function() {
 			console.log('extjs custom locale script is loaded: ' + locale);
 		});
 	}
+
 });
 
 var showUser = function(username, email) {
@@ -646,4 +647,20 @@ var showIndicatorDetail = function(indicatorKey) {
 			console.log('load indicator error...');
 		}
 	});
+}
+
+var indexSearch = function() {
+	var keyword = $('#search-keyword').val();
+	var path = '/search?keyword=' + keyword;
+	window.location.href = path;
+}
+
+var indexSearchOnfocus = function() {
+	if ($("#search-keyword") != null) {
+		$("#search-keyword").keypress(function(e) {
+			if (e.keyCode == 13) {
+				indexSearch();
+			}
+		});
+	}
 }
