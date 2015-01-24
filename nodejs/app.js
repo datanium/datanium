@@ -19,6 +19,7 @@ ejs.filters.dateformat = function(obj, format) {
 var data = require('./routes/dataController');
 var user = require('./routes/userController');
 var indicator = require('./routes/indicatorController');
+var search = require('./routes/searchController');
 var report = require('./routes/reportController');
 var others = require('./routes/others');
 
@@ -74,6 +75,7 @@ var nocache = function(req, res, next) {
 app.get('/', routes.newIndex);
 app.get('/reports', routes.allReports);
 app.get('/r', routes.report);
+app.get('/search', search.searchEntry);
 app.get('/dimension/search', others.dimensionValueSearch);
 app.get('/indicator/search', indicator.searchIndicator);
 app.get('/indicator/map', indicator.indicatorMapping);

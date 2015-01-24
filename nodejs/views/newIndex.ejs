@@ -73,12 +73,12 @@ $[ include navbar ]
         <h2>$[=__('Want more Data & Reports?')]</h2>
         <h4>$[=__('Try to key in the keywords to search')]</h4>
         <div id="mc_embed_signup">
-                <div class="input-group input-group-lg">
-                    <input type="text" class="form-control" id="home-search" placeholder="$[=__('Eg. GDP, Consumer Price, Interest Rate.')]">
-                    <span class="input-group-btn">
-                        <button type="submit" id="home-search-btn" class="btn btn-default">$[=__('Search')]</button>
-                    </span>
-                </div>
+	        <div class="input-group input-group-lg">
+	            <input type="text" class="form-control" id="search-keyword" onfocus="indexSearchOnfocus();" placeholder="$[=__('Eg. GDP, Consumer Price, Interest Rate.')]" >
+	            <span class="input-group-btn">
+	                <button type="submit" id="search-btn" onclick="indexSearch();" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+	            </span>
+	        </div>
         </div>
     </div>
 </div>
