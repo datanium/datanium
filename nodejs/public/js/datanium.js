@@ -664,3 +664,8 @@ var indexSearchOnfocus = function() {
 		});
 	}
 }
+
+var applyIndicator = function(indicator_key) {
+	var path = '/r?i=' + indicator_key;
+	window.location.href = path;
+}

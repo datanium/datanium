@@ -68,6 +68,8 @@ Ext.application({
 			if (Datanium.GlobalData.rptMode === 'analysis') {
 				Ext.getCmp('analysisViewBtn').toggle(true);
 			}
+		} else if (Datanium.GlobalData.initIndicator != null & Datanium.GlobalData.initIndicator !== '') {
+			addIndicator(Datanium.GlobalData.initIndicator);
 		} else {
 			this.getController('GridController').generateRpt();
 		}
