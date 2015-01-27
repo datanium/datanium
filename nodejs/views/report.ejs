@@ -67,6 +67,9 @@ $[ include common ]
 			Datanium.GlobalData.title = '$[=title]';
 			Datanium.GlobalData.description = '$[=description]';
 		$[}]
+		$[if(initIndicator!=null && initIndicator.length>0){]
+			Datanium.GlobalData.initIndicator = '$[=initIndicator]';
+		$[}]
 	</script>
 $[ include foot-app ]
 $[ include foot-google ]

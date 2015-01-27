@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>$[=__('Data Search')] $[if(keyword.length>0){]- $[=keyword] $[}]- Datanium - $[=__('Play with Data')]</title>
+<title>$[if(keyword.length>0){] $[=keyword] $[}else{] $[=__('Data Search')] $[}] - Datanium - $[=__('Play with Data')]</title>
 <meta name="Description"
 	content="$[=__('Datanium is a platform that helps you to find, present, share and play with data.')]" />
 <meta name="Keywords"
@@ -35,7 +35,7 @@ $[ include header-nav ]
 			$[results.forEach(function(res){ ]
 			<div class="dtm-jumbotron thumbnail">
 				<div class="search-result-item">
-					<h4><a href="#" >$[=res.indicator_text]</a></h4>
+					<h4><a href="#" onclick="applyIndicator('$[=res.indicator_key]');">$[=res.indicator_text]</a></h4>
 					<span>$[=__('Data Source')]:&nbsp;$[=res.data_source]</span>
 					<p></p>
 					<div class="search-result-item-desc">

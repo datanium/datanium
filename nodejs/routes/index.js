@@ -4,6 +4,21 @@ var reportSchema = report.Report;
 
 exports.report = function(req, res) {
 	console.log('user/report: ' + req.session.user);
+	if (req.url.indexOf('?') > 0) {
+		var query = require('url').parse(req.url, true).query;
+		var indicator_key = query.i;
+		res.render('report.ejs', {
+			currPage : 'editor',
+			hasHashKey : false,
+			host : req.protocol + '://' + req.get('host'),
+			userEmail : req.session.user ? req.session.user.email : null,
+			username : req.session.user ? req.session.user.username : null,
+			title : '',
+			description : '',
+			initIndicator : indicator_key
+		});
+		return;
+	}
 	var hashid = req.url.substr(3);
 	if (hashid === '') {
 		res.render('report.ejs', {
@@ -13,7 +28,8 @@ exports.report = function(req, res) {
 			userEmail : req.session.user ? req.session.user.email : null,
 			username : req.session.user ? req.session.user.username : null,
 			title : '',
-			description : ''
+			description : '',
+			initIndicator : ''
 		});
 		return;
 	}
@@ -52,6 +68,7 @@ exports.report = function(req, res) {
 				creation_date : doc.creation_date,
 				modification_date : doc.modification_date,
 				description : doc.description != null ? doc.description : '',
+				initIndicator : '',
 				userEmail : req.session.user ? req.session.user.email : null,
 				username : req.session.user ? req.session.user.username : null
 			});
