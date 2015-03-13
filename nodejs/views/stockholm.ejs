@@ -1,0 +1,21 @@
+<head>
+<title>Stockholm</title>
+$[ include header ]
+<link rel="stylesheet" type="text/css" href="$[=host]/js/extjs/resources/css/ext-all-gray-debug.css">
+<script type="text/javascript" src="$[=host]/js/jquery/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="$[=host]/js/extjs/ext-all.js"></script>
+<script type="text/javascript" src="$[=host]/js/app-stockholm/app-stockholm.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	var host = '$[=host]';
+	// default language zh-CN
+	$.getScript(host + "/js/extjs/locale/ext-lang-zh.js", function(data, textStatus, jqxhr) {
+		console.log('extjs default locale script is loaded: zh');
+	});
+});
+</script>
+</head>
+<body>
+
+</body>
+</html>

@@ -22,6 +22,8 @@ var indicator = require('./routes/indicatorController');
 var search = require('./routes/searchController');
 var report = require('./routes/reportController');
 var others = require('./routes/others');
+// stockholm
+var stock = require('./routes/stockController');
 
 var app = express();
 
@@ -98,6 +100,10 @@ app.get('/report/loadall', report.loadall);
 app.post('/feedback/save', others.feedbacksave);
 app.get('/release_notes', others.release_notes);
 app.get('/r/:hashid', routes.report);
+// stockholm
+app.get('/stockholm', stock.stockholm);
+app.get('/stockholm/load', stock.loadData);
+app.get('/stockholm/dates', stock.loadDates);
 
 http.createServer(app).listen(app.get('port'), function() {
 	console.log('Express server listening on port ' + app.get('port'));
