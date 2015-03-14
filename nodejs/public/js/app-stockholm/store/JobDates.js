@@ -1,6 +1,10 @@
 Ext.define('Stockholm.store.JobDates', {
 	extend : 'Ext.data.Store',
 	model : 'Stockholm.model.JobDate',
+	sorters : [ {
+		property : 'Date',
+		direction : 'DESC'
+	} ],
 	proxy : {
 		type : 'ajax',
 		url : '/stockholm/dates',
