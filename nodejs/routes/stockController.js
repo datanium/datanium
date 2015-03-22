@@ -67,7 +67,7 @@ exports.loadData = function(req, res) {
 }
 
 exports.loadDates = function(req, res) {
-	var dirname = getUserHome() + "/tmp/export";
+	var dirname = getUserHome() + "/tmp/stockholm_export";
 	var dateArray = [];
 	fs.readdir(dirname, function(err, files) {
 		if (files != null) {
