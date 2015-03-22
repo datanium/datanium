@@ -13,7 +13,7 @@ exports.loadData = function(req, res) {
 	if (query.targetDate != null && query.targetDate.length > 0) {
 		targetDate = query.targetDate;
 	}
-	var dirname = getUserHome() + "/tmp/export";
+	var dirname = getUserHome() + "/tmp/stockholm_export";
 	var dateArray = [];
 	fs.readdir(dirname, function(err, files) {
 		if (files != null) {
