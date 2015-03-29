@@ -75,7 +75,7 @@ exports.loadDates = function(req, res) {
 				if (file.indexOf("result_") >= 0) {
 					var date = file.substr(7, 10);
 					var dateObj = {};
-					dateObj['Date'] = date;
+					dateObj['date_str'] = date;
 					dateArray.push(dateObj);
 				}
 			});

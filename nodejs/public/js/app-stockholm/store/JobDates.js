@@ -2,7 +2,7 @@ Ext.define('Stockholm.store.JobDates', {
 	extend : 'Ext.data.Store',
 	model : 'Stockholm.model.JobDate',
 	sorters : [ {
-		property : 'Date',
+		property : 'date_str',
 		direction : 'DESC'
 	} ],
 	proxy : {
@@ -10,13 +10,17 @@ Ext.define('Stockholm.store.JobDates', {
 		url : '/stockholm/dates',
 		reader : {
 			type : 'json',
-			idProperty : 'Date',
+			idProperty : 'date_str',
 			root : 'res'
 		}
 	},
 	listeners : {
 		load : function(res, operation, success) {
 			if (success) {
+				var records = res.data.items;
+				if (records.length > 0) {
+					Ext.getCmp('dateSelect').select(records[0].data['date_str']);
+				}
 			}
 		}
 	},

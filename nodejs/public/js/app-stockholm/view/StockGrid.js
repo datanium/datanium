@@ -20,7 +20,6 @@ var convertFloat = function(val) {
 Ext.define('Stockholm.view.StockGrid', {
 	extend : 'Ext.grid.Panel',
 	xtype : 'stockgrid',
-	store : 'Quotes',
 	stateful : true,
 	collapsible : true,
 	autoScroll : true,
@@ -40,7 +39,7 @@ Ext.define('Stockholm.view.StockGrid', {
 			dataIndex : 'Symbol',
 			renderer : function(val) {
 				var url = "http://q.stock.sohu.com/cn/" + val.substr(0, 6) + "/index.shtml";
-				return '<a href="' + url + '" target="_blank">' + val + '</a>';
+				return '<a href="' + url + '" target="_blank" style="text-decoration: none">' + val + '</a>';
 			}
 		}, {
 			text : '名称',
@@ -189,6 +188,21 @@ Ext.define('Stockholm.view.StockGrid', {
 			dataIndex : 'Day_9_Profit'
 		} ];
 
+		this.dockedItems.push({
+			xtype : 'pagingtoolbar',
+			store : this.store,
+			dock : 'bottom',
+			displayInfo : true,
+			listeners : {
+				afterrender : function() {
+					Ext.Array.each(this.items.items, function(item) {
+						item.hide();
+					});
+					this.child('tbfill').show();
+					this.child('#displayItem').show();
+				}
+			}
+		});
 		this.callParent();
 	}
 });
