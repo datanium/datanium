@@ -19,37 +19,12 @@ Ext.application({
 					header : false,
 					title : 'Home',
 					xtype : 'stockgrid',
+					store : 'Quotes',
 					dockedItems : [ {
+						id : 'grid-dock-toolbar',
 						dock : 'top',
-						xtype : 'toolbar',
-						items : [ {
-							xtype : 'label',
-							text : '当日推荐',
-							margin : '5 12 0 12'
-						}, {
-							id : 'dateSelect',
-							xtype : 'combobox',
-							store : 'JobDates',
-							queryMode : 'remote',
-							displayField : 'Date',
-							valueField : 'Date',
-							listeners : {
-								'select' : function(me) {
-									var key = me.getValue();
-									var grid = Ext.getCmp('stockGrid');
-									grid.store.load({
-										params : {
-											targetDate : key
-										},
-										callback : function(records, operation, success) {
-											// do something after the load
-											// finishes
-										},
-										scope : this
-									});
-								}
-							}
-						} ]
+						xtype : 'dock-toolbar',
+						height : 40
 					} ],
 				} ]
 			} ]
