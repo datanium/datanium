@@ -69,6 +69,38 @@ Ext
 								margins : '0 0 0 1'
 							},
 							{
+								id : 'basicStBtn',
+								scale : 'medium',
+								tooltipType : 'title',
+								html : '<i class="fa fa-search"></i> 显示基本指标',
+								enableToggle : true,
+								pressed : true,
+								action : 'show-basic-st'
+							},
+							{
+								id : 'advStBtn',
+								scale : 'medium',
+								tooltipType : 'title',
+								html : '<i class="fa fa-search"></i> 显示详细指标',
+								enableToggle : true,
+								pressed : false,
+								action : 'show-adv-st'
+							},
+							{
+								id : 'backTestBtn',
+								scale : 'medium',
+								tooltipType : 'title',
+								html : '<i class="fa fa-search"></i> 显示收益回测',
+								enableToggle : true,
+								pressed : true,
+								action : 'show-back-test'
+							},
+							{
+								xtype : 'tbseparator',
+								height : 16,
+								margins : '0 0 0 1'
+							},
+							{
 								xtype : 'label',
 								html : '<a href="https://github.com/benitoro/stockholm" target="_blank" style="text-decoration: none">Powered by Stockholm</a>',
 								margin : '5 12 0 12'
