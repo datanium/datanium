@@ -93,6 +93,7 @@ Ext.define('Stockholm.view.StockGrid', {
 			defaults : {
 				align : 'right',
 				sortable : true,
+				hidden : true,
 				lockable : false
 			},
 			columns : [ {
