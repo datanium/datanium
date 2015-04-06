@@ -10,7 +10,7 @@ Ext.application({
 			items : [ {
 				region : 'center',
 				xtype : 'panel',
-				bodyPadding : 10,
+				bodyPadding : 5,
 				frame : true,
 				layout : 'fit',
 				items : [ {

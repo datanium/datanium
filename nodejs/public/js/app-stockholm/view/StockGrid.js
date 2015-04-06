@@ -20,12 +20,9 @@ var convertFloat = function(val) {
 Ext.define('Stockholm.view.StockGrid', {
 	extend : 'Ext.grid.Panel',
 	xtype : 'stockgrid',
-	stateful : true,
 	collapsible : true,
 	autoScroll : true,
 	multiSelect : true,
-	stateId : 'stateGrid',
-	title : '程序推荐选股组合',
 	viewConfig : {
 		stripeRows : true,
 		enableTextSelection : true
@@ -35,7 +32,9 @@ Ext.define('Stockholm.view.StockGrid', {
 		this.columns = [ {
 			text : '代码',
 			width : 75,
+			align : 'center',
 			sortable : true,
+			locked : true,
 			dataIndex : 'Symbol',
 			renderer : function(val) {
 				var url = "http://q.stock.sohu.com/cn/" + val.substr(0, 6) + "/index.shtml";
@@ -44,148 +43,130 @@ Ext.define('Stockholm.view.StockGrid', {
 		}, {
 			text : '名称',
 			width : 70,
+			align : 'center',
 			sortable : true,
+			locked : true,
 			dataIndex : 'Name'
 		}, {
 			text : '日期',
 			width : 75,
+			align : 'center',
 			sortable : true,
+			locked : true,
 			// renderer : Ext.util.Format.dateRenderer('m/d/Y'),
 			dataIndex : 'Date'
 		}, {
-			text : '收盘价',
-			width : 55,
-			align : 'right',
+			text : '选股方法',
+			width : 85,
+			align : 'center',
 			sortable : true,
-			dataIndex : 'Close'
+			locked : true,
+			dataIndex : 'Method'
 		}, {
-			text : '涨跌',
-			width : 55,
-			align : 'right',
-			sortable : true,
-			dataIndex : 'Change',
-			renderer : convertRatio
+			text : '基本指标',
+			id : 'basicStCol',
+			defaults : {
+				sortable : true,
+				lockable : false
+			},
+			columns : [ {
+				text : '类型',
+				width : 55,
+				align : 'center',
+				dataIndex : 'Type'
+			}, {
+				text : '收盘价',
+				width : 55,
+				align : 'right',
+				dataIndex : 'Close'
+			}, {
+				text : '涨跌',
+				width : 55,
+				align : 'right',
+				dataIndex : 'Change',
+				renderer : convertRatio
+			} ]
 		}, {
-			text : '成交量变化',
-			width : 70,
-			align : 'right',
-			sortable : true,
-			dataIndex : 'Vol_Change',
-			renderer : convertRatio
+			text : '详细技术指标',
+			id : 'advStCol',
+			hidden : true,
+			defaults : {
+				align : 'right',
+				sortable : true,
+				lockable : false
+			},
+			columns : [ {
+				text : '成交量变化',
+				width : 70,
+				dataIndex : 'Vol_Change',
+				renderer : convertRatio
+			}, {
+				text : '10天均线',
+				width : 70,
+				dataIndex : 'MA_10'
+			}, {
+				text : 'KDJ/K',
+				width : 50,
+				renderer : convertFloat,
+				dataIndex : 'KDJ_K'
+			}, {
+				text : 'KDJ/D',
+				width : 50,
+				renderer : convertFloat,
+				dataIndex : 'KDJ_D'
+			}, {
+				text : 'KDJ/J',
+				width : 50,
+				renderer : convertFloat,
+				dataIndex : 'KDJ_J'
+			} ]
 		}, {
-			text : '10天均线',
-			width : 70,
-			align : 'right',
-			sortable : true,
-			dataIndex : 'MA_10'
-		}, {
-			text : 'KDJ/K',
-			width : 50,
-			sortable : true,
-			align : 'right',
-			renderer : convertFloat,
-			dataIndex : 'KDJ_K',
-			hidden : true
-		}, {
-			text : 'KDJ/D',
-			width : 50,
-			sortable : true,
-			align : 'right',
-			renderer : convertFloat,
-			dataIndex : 'KDJ_D',
-			hidden : true
-		}, {
-			text : 'KDJ/J',
-			width : 50,
-			sortable : true,
-			align : 'right',
-			renderer : convertFloat,
-			dataIndex : 'KDJ_J',
-			hidden : true
-		}, {
-			text : '1天相对收益 %',
-			width : 95,
-			sortable : true,
-			align : 'right',
-			renderer : convertRatio,
-			dataIndex : 'Day_1_Differ'
-		}, {
-			text : '1天沪深300变化 %',
-			width : 95,
-			sortable : true,
-			align : 'right',
-			renderer : convertRatio,
-			dataIndex : 'Day_1_INDEX_Change'
-		}, {
-			text : '1天实际收益 %',
-			width : 95,
-			sortable : true,
-			align : 'right',
-			renderer : convertRatio,
-			dataIndex : 'Day_1_Profit'
-		}, {
-			text : '3天相对收益 %',
-			width : 95,
-			sortable : true,
-			align : 'right',
-			renderer : convertRatio,
-			dataIndex : 'Day_3_Differ'
-		}, {
-			text : '3天沪深300变化 %',
-			width : 95,
-			sortable : true,
-			align : 'right',
-			renderer : convertRatio,
-			dataIndex : 'Day_3_INDEX_Change'
-		}, {
-			text : '3天实际收益 %',
-			width : 95,
-			sortable : true,
-			align : 'right',
-			renderer : convertRatio,
-			dataIndex : 'Day_3_Profit'
-		}, {
-			text : '5天相对收益 %',
-			width : 95,
-			sortable : true,
-			align : 'right',
-			renderer : convertRatio,
-			dataIndex : 'Day_5_Differ'
-		}, {
-			text : '5天沪深300变化 %',
-			width : 95,
-			sortable : true,
-			align : 'right',
-			renderer : convertRatio,
-			dataIndex : 'Day_5_INDEX_Change'
-		}, {
-			text : '5天实际收益 %',
-			width : 95,
-			sortable : true,
-			align : 'right',
-			renderer : convertRatio,
-			dataIndex : 'Day_5_Profit'
-		}, {
-			text : '9天相对收益 %',
-			width : 95,
-			sortable : true,
-			align : 'right',
-			renderer : convertRatio,
-			dataIndex : 'Day_9_Differ'
-		}, {
-			text : '9天沪深300变化 %',
-			width : 95,
-			sortable : true,
-			align : 'right',
-			renderer : convertRatio,
-			dataIndex : 'Day_9_INDEX_Change'
-		}, {
-			text : '9天实际收益 %',
-			width : 95,
-			sortable : true,
-			align : 'right',
-			renderer : convertRatio,
-			dataIndex : 'Day_9_Profit'
+			text : '收益回测',
+			id : 'backTestCol',
+			defaults : {
+				width : 95,
+				align : 'right',
+				sortable : true,
+				lockable : false,
+				renderer : convertRatio
+			},
+			columns : [ {
+				text : '1天相对收益 %',
+				dataIndex : 'Day_1_Differ'
+			}, {
+				text : '1天沪深300变化 %',
+				dataIndex : 'Day_1_INDEX_Change'
+			}, {
+				text : '1天实际收益 %',
+				dataIndex : 'Day_1_Profit'
+			}, {
+				text : '3天相对收益 %',
+				dataIndex : 'Day_3_Differ'
+			}, {
+				text : '3天沪深300变化 %',
+				dataIndex : 'Day_3_INDEX_Change'
+			}, {
+				text : '3天实际收益 %',
+				dataIndex : 'Day_3_Profit'
+			}, {
+				text : '5天相对收益 %',
+				dataIndex : 'Day_5_Differ'
+			}, {
+				text : '5天沪深300变化 %',
+				dataIndex : 'Day_5_INDEX_Change'
+			}, {
+				text : '5天实际收益 %',
+				dataIndex : 'Day_5_Profit'
+			}, {
+				text : '9天相对收益 %',
+				dataIndex : 'Day_9_Differ'
+			}, {
+				text : '9天沪深300变化 %',
+				dataIndex : 'Day_9_INDEX_Change'
+			}, {
+				text : '9天实际收益 %',
+				dataIndex : 'Day_9_Profit'
+			} ]
 		} ];
 
 		this.dockedItems.push({
