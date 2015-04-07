@@ -23,6 +23,7 @@ Ext
 								id : 'dateSelect',
 								xtype : 'combobox',
 								margin : '5 12 0 12',
+								width : 100,
 								store : 'JobDates',
 								queryMode : 'remote',
 								displayField : 'date_str',
