@@ -70,6 +70,25 @@ Ext
 								margins : '0 0 0 1'
 							},
 							{
+								id : 'runTestBtn',
+								scale : 'medium',
+								tooltipType : 'title',
+								html : '<i class="fa fa-play-circle-o"></i> 执行回测',
+								action : 'run-test'
+							},
+							{
+								id : 'showMethodBtn',
+								scale : 'medium',
+								tooltipType : 'title',
+								html : '<i class="fa fa-play-circle-o"></i> 选股方法',
+								action : 'show-method'
+							},
+							{
+								xtype : 'tbseparator',
+								height : 16,
+								margins : '0 0 0 1'
+							},
+							{
 								id : 'basicStBtn',
 								scale : 'medium',
 								tooltipType : 'title',

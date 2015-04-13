@@ -1,4 +1,5 @@
 var fs = require("fs");
+var PythonShell = require('python-shell');
 
 exports.stockholm = function(req, res) {
 	res.render('stockholm.ejs', {
@@ -84,6 +85,33 @@ exports.loadDates = function(req, res) {
 			};
 			res.send(resultJSON);
 		}
+	});
+}
+
+exports.runTest = function(req, res) {
+	var resultJSON = {
+		"status" : "Successful",
+		"msg" : "回测执行完毕..."
+	};
+
+	var options = {
+		mode : 'text',
+		pythonPath : 'python3.4',
+		args : [ '--reload=N', '--portfolio=Y', '--testfile=mongodb' ],
+		scriptPath : '/Users/Puffy/git/stockholm/stockholm'
+	// scriptPath : '/opt/datanium/stockholm_codebase/stockholm'
+	};
+	// console.log(options);
+
+	PythonShell.run('main.py', options, function(err, results) {
+		if (err) {
+			resultJSON = {
+				"status" : "Failed",
+				"msg" : "回测执行失败..."
+			};
+		}
+		console.log('script execution is completed...');
+		res.send(resultJSON);
 	});
 }
 
