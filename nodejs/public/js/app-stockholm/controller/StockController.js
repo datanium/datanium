@@ -70,6 +70,29 @@ Ext.define('Stockholm.controller.StockController', {
 						backTestCol.hide();
 					}
 				}
+			},
+			'dock-toolbar > button[action=run-test]' : {
+				click : function(btn) {
+					var mask = new Ext.LoadMask(Ext.getBody(), {
+						msg : '正在执行...'
+					});
+					mask.show();
+					var requestConfig = {
+						url : '/stockholm/runtest',
+						timeout : 300000,
+						success : function(response) {
+							mask.destroy();
+							var result = Ext.JSON.decode(response.responseText, true);
+							Ext.Msg.alert('结果', result['msg']);
+
+						},
+						failure : function() {
+							mask.destroy();
+							Ext.Msg.alert('结果', '发生未知错误...');
+						}
+					};
+					Ext.Ajax.request(requestConfig);
+				}
 			}
 		});
 	}

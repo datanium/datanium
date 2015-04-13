@@ -104,6 +104,7 @@ app.get('/r/:hashid', routes.report);
 app.get('/stockholm', stock.stockholm);
 app.get('/stockholm/load', stock.loadData);
 app.get('/stockholm/dates', stock.loadDates);
+app.get('/stockholm/runtest', stock.runTest);
 
 http.createServer(app).listen(app.get('port'), function() {
 	console.log('Express server listening on port ' + app.get('port'));
