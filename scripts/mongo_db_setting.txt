@@ -1,4 +1,4 @@
-./mongod --dbpath=../data/db --setParameter textSearchEnabled=true;
+./mongod --dbpath=../data/db --setParameter textSearchEnabled=true --bind_ip=127.0.0.1;
 db.indicator.ensureIndex( {indicator_text: "text"} );
 db.indicator.find( { $text: { $search: "gdp" } } ); //2.6
 db.indicator.runCommand( "text", { search: "gdp" } ); //2.4
