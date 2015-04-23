@@ -1,5 +1,8 @@
 var fs = require("fs");
 var PythonShell = require('python-shell');
+var mongodb = require('../data/mongodb');
+var method = require('../data/stock_method');
+var methodSchema = method.Method;
 
 exports.stockholm = function(req, res) {
 	res.render('stockholm.ejs', {
@@ -111,6 +114,38 @@ exports.runTest = function(req, res) {
 			};
 		}
 		console.log('script execution is completed...');
+		res.send(resultJSON);
+	});
+}
+
+exports.loadMethods = function(req, res) {
+	console.log(0);
+	methodSchema.find({}, function(err, doc) {
+		console.log(1);
+		if (err) {
+			console.log(2);
+			console.log('Exception: ' + err);
+		}
+		console.log(3);
+		var methodObjArray = [];
+		console.log(doc);
+		doc.forEach(function(rec) {
+			var methodObj = {
+				'name' : rec.name,
+				'desc' : rec.desc,
+				'method' : rec.method,
+				'user_id' : rec.user_id,
+				'user_name' : rec.user_name,
+				'creation_date' : rec.creation_date,
+				'modification_date' : rec.modification_date
+			};
+			methodObjArray.push(methodObj);
+		});
+		console.log(methodObjArray);
+		var resultJSON = {
+			"status" : "Successful",
+			"res" : methodObjArray
+		};
 		res.send(resultJSON);
 	});
 }

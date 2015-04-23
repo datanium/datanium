@@ -93,6 +93,28 @@ Ext.define('Stockholm.controller.StockController', {
 					};
 					Ext.Ajax.request(requestConfig);
 				}
+			},
+			'dock-toolbar > button[action=show-method]' : {
+				click : function(btn) {
+					var mask = new Ext.LoadMask(Ext.getBody(), {
+						msg : '处理中...'
+					});
+					mask.show();
+					var requestConfig = {
+						url : '/stockholm/methods/load',
+						timeout : 300000,
+						success : function(response) {
+							mask.destroy();
+							var result = Ext.JSON.decode(response.responseText, true);
+							console.log(result);
+						},
+						failure : function() {
+							mask.destroy();
+							Ext.Msg.alert('结果', '发生未知错误...');
+						}
+					};
+					Ext.Ajax.request(requestConfig);
+				}
 			}
 		});
 	}

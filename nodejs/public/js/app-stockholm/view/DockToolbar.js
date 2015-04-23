@@ -80,7 +80,7 @@ Ext
 								id : 'showMethodBtn',
 								scale : 'medium',
 								tooltipType : 'title',
-								html : '<i class="fa fa-play-circle-o"></i> 选股方法',
+								html : '<i class="fa fa-folder-o"></i> 选股方法',
 								action : 'show-method'
 							},
 							{
