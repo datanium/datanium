@@ -1,6 +1,6 @@
 Ext.define('Stockholm.controller.StockController', {
 	extend : 'Ext.app.Controller',
-	views : [ 'StockGrid', 'DockToolbar' ],
+	views : [ 'StockGrid', 'DockToolbar', 'MethodBox', 'MethodGrid' ],
 	models : [ 'Quote', 'JobDate' ],
 	stores : [ 'Quotes', 'JobDates' ],
 	init : function() {
@@ -107,6 +107,7 @@ Ext.define('Stockholm.controller.StockController', {
 							mask.destroy();
 							var result = Ext.JSON.decode(response.responseText, true);
 							console.log(result);
+							Ext.create('widget.methodbox').show();
 						},
 						failure : function() {
 							mask.destroy();

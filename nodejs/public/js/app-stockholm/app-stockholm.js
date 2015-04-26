@@ -25,7 +25,7 @@ Ext.application({
 						dock : 'top',
 						xtype : 'dock-toolbar',
 						height : 40
-					} ],
+					} ]
 				} ]
 			} ]
 		});
