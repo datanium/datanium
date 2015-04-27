@@ -57,7 +57,7 @@ Ext.define('Stockholm.view.MethodGrid', {
 			}
 		} ];
 
-		this.dockedItems.push({
+		this.dockedItems = [ {
 			xtype : 'pagingtoolbar',
 			store : this.store,
 			dock : 'bottom',
@@ -71,7 +71,7 @@ Ext.define('Stockholm.view.MethodGrid', {
 					this.child('#displayItem').show();
 				}
 			}
-		});
+		} ];
 		this.callParent();
 	}
 });
