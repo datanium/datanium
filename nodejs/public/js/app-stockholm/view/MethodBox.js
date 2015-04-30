@@ -12,7 +12,7 @@ Ext.define('Stockholm.view.MethodBox', {
 	items : [ {
 		header : false,
 		xtype : 'methodgrid',
-		// store : 'Quotes',
+		store : 'Methods',
 		dockedItems : []
 	} ],
 	buttons : [ {
