@@ -12,49 +12,45 @@ Ext.define('Stockholm.view.MethodGrid', {
 	initComponent : function() {
 		this.columns = [ {
 			text : '方法名',
-			width : 95,
+			width : 100,
 			align : 'center',
 			sortable : true,
-			// dataIndex : 'name',
+			dataIndex : 'name',
 			renderer : function(val) {
 				var url = "#";
 				return '<a href="' + url + '" target="_blank" style="text-decoration: none">' + val + '</a>';
 			}
 		}, {
 			text : '表达式',
-			width : 330,
+			width : 320,
 			align : 'center',
 			sortable : true,
-		// dataIndex : 'method'
+			dataIndex : 'method'
 		}, {
 			text : '创建者',
 			width : 85,
 			align : 'center',
 			sortable : true,
-		// dataIndex : 'username'
+			dataIndex : 'user_name'
 		}, {
 			text : '创建时间',
 			width : 75,
 			align : 'center',
 			sortable : true,
-		// renderer : Ext.util.Format.dateRenderer('m/d/Y'),
-		// dataIndex : 'creationDate'
+			renderer : Ext.util.Format.dateRenderer('m/d/Y'),
+			dataIndex : 'creation_date'
 		}, {
 			text : '更新时间',
 			width : 75,
 			align : 'center',
 			sortable : true,
-		// renderer : Ext.util.Format.dateRenderer('m/d/Y'),
-		// dataIndex : 'modificationDate'
+			renderer : Ext.util.Format.dateRenderer('m/d/Y'),
+			dataIndex : 'modification_date'
 		}, {
-			text : '编辑',
-			width : 48,
+			text : '应用',
+			width : 53,
 			align : 'center',
-			sortable : true,
-			renderer : function(val) {
-				var url = "#";
-				return '<a href="' + url + '" target="_blank" style="text-decoration: none">' + val + '</a>';
-			}
+			sortable : true
 		} ];
 
 		this.dockedItems = [ {

@@ -1,8 +1,8 @@
 Ext.define('Stockholm.controller.StockController', {
 	extend : 'Ext.app.Controller',
 	views : [ 'StockGrid', 'DockToolbar', 'MethodBox', 'MethodGrid' ],
-	models : [ 'Quote', 'JobDate' ],
-	stores : [ 'Quotes', 'JobDates' ],
+	models : [ 'Quote', 'JobDate', 'Method' ],
+	stores : [ 'Quotes', 'JobDates', 'Methods' ],
 	init : function() {
 		this.control({
 			'stockgrid' : {},
@@ -96,25 +96,7 @@ Ext.define('Stockholm.controller.StockController', {
 			},
 			'dock-toolbar > button[action=show-method]' : {
 				click : function(btn) {
-					var mask = new Ext.LoadMask(Ext.getBody(), {
-						msg : '处理中...'
-					});
-					mask.show();
-					var requestConfig = {
-						url : '/stockholm/methods/load',
-						timeout : 300000,
-						success : function(response) {
-							mask.destroy();
-							var result = Ext.JSON.decode(response.responseText, true);
-							console.log(result);
-							Ext.create('widget.methodbox').show();
-						},
-						failure : function() {
-							mask.destroy();
-							Ext.Msg.alert('结果', '发生未知错误...');
-						}
-					};
-					Ext.Ajax.request(requestConfig);
+					Ext.create('widget.methodbox').show();
 				}
 			}
 		});
