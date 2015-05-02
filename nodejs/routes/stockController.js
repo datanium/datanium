@@ -119,18 +119,21 @@ exports.runTest = function(req, res) {
 }
 
 exports.loadMethods = function(req, res) {
-	console.log(0);
-	methodSchema.find({}, function(err, doc) {
-		console.log(1);
+	var query = require('url').parse(req.url, true).query;
+	var findObj = {};
+	if (query.id != null && query.id.length > 0) {
+		findObj = {
+			"method_id" : query.id
+		};
+	}
+	methodSchema.find(findObj, function(err, doc) {
 		if (err) {
-			console.log(2);
 			console.log('Exception: ' + err);
 		}
-		console.log(3);
 		var methodObjArray = [];
-		console.log(doc);
 		doc.forEach(function(rec) {
 			var methodObj = {
+				'method_id' : rec.method_id,
 				'name' : rec.name,
 				'desc' : rec.desc,
 				'method' : rec.method,
@@ -141,13 +144,59 @@ exports.loadMethods = function(req, res) {
 			};
 			methodObjArray.push(methodObj);
 		});
-		console.log(methodObjArray);
 		var resultJSON = {
 			"status" : "Successful",
 			"res" : methodObjArray
 		};
 		res.send(resultJSON);
 	});
+}
+
+exports.saveMethod = function(req, res) {
+	var query = require('url').parse(req.url, true).query;
+	var methodObj = req.body;
+	var date = new Date();
+	if (methodObj.method_id != null) {
+		console.log('Update Method ' + methodObj.method_name);
+		methodSchema.findOne({
+			method_id : methodObj.method_id
+		}, function(err, mtd) {
+			if (err)
+				throw err;
+			methodSchema.update({
+				method_id : methodObj.method_id
+			}, {
+				'name' : methodObj.name,
+				'desc' : methodObj.desc,
+				'method' : methodObj.method,
+				'modification_date' : date
+			}, function(err, doc) {
+				if (err)
+					throw err;
+			});
+			res.send({
+				status : "successful",
+				msg : "保存成功..."
+			});
+		});
+	} else {
+		console.log('Save New Method');
+		var newMethod = new methodSchema({
+			'method_id' : getNextSequence("method_id"),
+			'name' : methodObj.name,
+			'desc' : methodObj.desc,
+			'method' : methodObj.method,
+			'user_id' : 'dtnium@gmail.com',
+			'user_name' : 'Stockholm',
+			'creation_date' : date,
+			'modification_date' : date
+		});
+		newMethod.save();
+		res.send({
+			status : "successful",
+			msg : "保存成功..."
+		});
+	}
 }
 
 var getUserHome = function() {
