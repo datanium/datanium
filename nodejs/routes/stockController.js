@@ -156,8 +156,8 @@ exports.saveMethod = function(req, res) {
 	var query = require('url').parse(req.url, true).query;
 	var methodObj = req.body;
 	var date = new Date();
-	if (methodObj.method_id != null) {
-		console.log('Update Method ' + methodObj.method_name);
+	if (methodObj.method_id != null && methodObj.method_id != '') {
+		console.log('Update Method ' + methodObj.name);
 		methodSchema.findOne({
 			method_id : methodObj.method_id
 		}, function(err, mtd) {
@@ -171,18 +171,22 @@ exports.saveMethod = function(req, res) {
 				'method' : methodObj.method,
 				'modification_date' : date
 			}, function(err, doc) {
-				if (err)
+				if (err) {
+					res.send({
+						success : false,
+						msg : "保存出错..."
+					});
 					throw err;
-			});
-			res.send({
-				status : "successful",
-				msg : "保存成功..."
+				}
+				res.send({
+					success : true,
+					msg : "保存成功..."
+				});
 			});
 		});
 	} else {
 		console.log('Save New Method');
 		var newMethod = new methodSchema({
-			'method_id' : getNextSequence("method_id"),
 			'name' : methodObj.name,
 			'desc' : methodObj.desc,
 			'method' : methodObj.method,
@@ -191,10 +195,44 @@ exports.saveMethod = function(req, res) {
 			'creation_date' : date,
 			'modification_date' : date
 		});
-		newMethod.save();
+		newMethod.save(function(err, doc) {
+			if (err) {
+				res.send({
+					success : false,
+					msg : "保存出错..."
+				});
+				throw err;
+			}
+			res.send({
+				success : true,
+				msg : "保存成功..."
+			});
+		});
+
+	}
+}
+
+exports.removeMethod = function(req, res) {
+	var query = require('url').parse(req.url, true).query;
+	var findObj = {};
+	if (query.id != null && query.id.length > 0) {
+		methodSchema.remove({
+			"method_id" : query.id
+		}, function(err, doc) {
+			var resultJSON = {
+				"status" : "Success"
+			};
+			if (err) {
+				console.log('Exception: ' + err);
+				resultJSON = {
+					"status" : "Failed"
+				};
+			}
+			res.send(resultJSON);
+		});
+	} else {
 		res.send({
-			status : "successful",
-			msg : "保存成功..."
+			"status" : "Failed"
 		});
 	}
 }
