@@ -83,12 +83,12 @@ Ext.define('Stockholm.controller.StockController', {
 						success : function(response) {
 							mask.destroy();
 							var result = Ext.JSON.decode(response.responseText, true);
-							Ext.Msg.alert('结果', result['msg']);
+							Ext.Msg.alert('Success', result['msg']);
 
 						},
 						failure : function() {
 							mask.destroy();
-							Ext.Msg.alert('结果', '发生未知错误...');
+							Ext.Msg.alert('Failed', '发生未知错误...');
 						}
 					};
 					Ext.Ajax.request(requestConfig);

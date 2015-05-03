@@ -91,13 +91,47 @@ Ext.define('Stockholm.view.MethodGrid', {
 		this.callParent();
 	},
 	onRemoveClick : function(grid, rowIndex) {
-		console.log('remove item');
-		// this.getStore().removeAt(rowIndex);
+		var methodId = this.getStore().getAt(rowIndex).get('method_id');
+		Ext.Msg.show({
+			title : '确认删除',
+			msg : '请确认是否要删除该选股方法?',
+			fn : removeMethod,
+			buttons : Ext.Msg.YESNO,
+			icon : Ext.Msg.QUESTION,
+			methodId : methodId
+		});
 	}
 });
 
+var removeMethod = function(buttonId, x, obj) {
+	if (buttonId == 'yes') {
+		var methodId = obj.methodId;
+		var mask = new Ext.LoadMask(Ext.getBody(), {
+			msg : '正在执行...'
+		});
+		mask.show();
+		var requestConfig = {
+			url : '/stockholm/methods/remove?id=' + methodId,
+			timeout : 300000,
+			success : function(response) {
+				mask.destroy();
+				var result = Ext.JSON.decode(response.responseText, true);
+				if (result.status == 'Success') {
+					Ext.Msg.alert('Success', '删除成功...');
+				}
+				reloadMethodGrid();
+			},
+			failure : function() {
+				mask.destroy();
+				Ext.Msg.alert('Failed', '发生未知错误...');
+				reloadMethodGrid();
+			}
+		};
+		Ext.Ajax.request(requestConfig);
+	}
+}
 var showTestMethod = function(methodId, methodName) {
-	if (methodId != null && methodId > 0) {
+	if (methodId != null) {
 		var methodForm = Ext.create('widget.methodform');
 		Ext.ModelMgr.getModel('Stockholm.model.Method').load(methodId, {
 			success : function(method) {
@@ -105,6 +139,7 @@ var showTestMethod = function(methodId, methodName) {
 			}
 		});
 		Ext.create('Ext.window.Window', {
+			id : 'methodDetailWindow',
 			layout : 'fit',
 			modal : true,
 			title : methodName,

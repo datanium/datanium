@@ -106,6 +106,8 @@ app.get('/stockholm/load', stock.loadData);
 app.get('/stockholm/dates', stock.loadDates);
 app.get('/stockholm/runtest', stock.runTest);
 app.get('/stockholm/methods/load', stock.loadMethods);
+app.post('/stockholm/methods/save', stock.saveMethod);
+app.get('/stockholm/methods/remove', stock.removeMethod);
 
 http.createServer(app).listen(app.get('port'), function() {
 	console.log('Express server listening on port ' + app.get('port'));

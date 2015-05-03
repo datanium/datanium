@@ -1,5 +1,4 @@
 var cache = require('memory-cache');
-var mongodb = require('../data/mongodb');
 var indicator = require('../data/indicator');
 var dataset = require('../data/dataset');
 var country = require('../data/country');

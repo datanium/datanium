@@ -11,6 +11,7 @@ Ext.define('Stockholm.view.MethodBox', {
 	buttonAlign : 'right',
 	items : [ {
 		header : false,
+		id : 'methodGrid',
 		xtype : 'methodgrid',
 		store : 'Methods',
 		dockedItems : []
@@ -18,7 +19,14 @@ Ext.define('Stockholm.view.MethodBox', {
 	buttons : [ {
 		text : '新建方法',
 		handler : function() {
-			console.log('add');
+			var methodForm = Ext.create('widget.methodform');
+			Ext.create('Ext.window.Window', {
+				layout : 'fit',
+				id : 'methodDetailWindow',
+				modal : true,
+				title : '新建选股方法',
+				items : [ methodForm ]
+			}).show();
 		}
 	}, {
 		text : '执行回测',
@@ -28,7 +36,16 @@ Ext.define('Stockholm.view.MethodBox', {
 	}, {
 		text : '确定',
 		handler : function() {
-			console.log('ok');
+			reloadMethodGrid();
 		}
 	} ]
 });
+
+var reloadMethodGrid = function() {
+	var grid = Ext.getCmp('methodGrid');
+	grid.getStore().reload({
+		callback : function() {
+			grid.getView().refresh();
+		}
+	});
+}
