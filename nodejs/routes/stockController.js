@@ -100,9 +100,9 @@ exports.runTest = function(req, res) {
 	var options = {
 		mode : 'text',
 		pythonPath : 'python3.4',
-		args : [ '--reload=N', '--portfolio=Y', '--testfile=mongodb' ],
-		scriptPath : '/Users/Puffy/git/stockholm/stockholm'
-	// scriptPath : '/opt/datanium/stockholm_codebase/stockholm'
+		args : [ '--reload=N', '--portfolio=Y', '--testfile=mongodb', '--dbname=datanium' ],
+		// scriptPath : '/Users/Puffy/git/stockholm/stockholm'
+		scriptPath : '/opt/datanium/stockholm_codebase/stockholm'
 	};
 	// console.log(options);
 
@@ -113,6 +113,7 @@ exports.runTest = function(req, res) {
 				"msg" : "回测执行失败..."
 			};
 		}
+		// console.log(results);
 		console.log('script execution is completed...');
 		res.send(resultJSON);
 	});
