@@ -25,18 +25,28 @@ Ext.define('Stockholm.view.MethodBox', {
 				id : 'methodDetailWindow',
 				modal : true,
 				title : '新建选股方法',
-				items : [ methodForm ]
+				items : [ methodForm ],
+				tbar : [ {
+					id : 'mtd_tb_open',
+					scale : 'medium',
+					text : '开盘价'
+				}, {
+					id : 'mtd_tb_close',
+					scale : 'medium',
+					text : '收盘价'
+				} ]
 			}).show();
 		}
 	}, {
 		text : '执行回测',
 		handler : function() {
-			console.log('run');
+			Stockholm.app.getController('StockController').runBackTest();
+			this.up('.window').close();
 		}
 	}, {
 		text : '确定',
 		handler : function() {
-			reloadMethodGrid();
+			this.up('.window').close();
 		}
 	} ]
 });
