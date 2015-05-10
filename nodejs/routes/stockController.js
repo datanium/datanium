@@ -112,6 +112,7 @@ exports.runTest = function(req, res) {
 				"status" : "Failed",
 				"msg" : "回测执行失败..."
 			};
+			console.log(err);
 		}
 		// console.log(results);
 		console.log('script execution is completed...');
