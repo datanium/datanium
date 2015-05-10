@@ -101,8 +101,8 @@ exports.runTest = function(req, res) {
 		mode : 'text',
 		pythonPath : 'python3.4',
 		args : [ '--reload=N', '--portfolio=Y', '--testfile=mongodb', '--dbname=datanium' ],
-		scriptPath : '/Users/Puffy/git/stockholm/stockholm'
-	// scriptPath : '/opt/datanium/stockholm_codebase/stockholm'
+		// scriptPath : '/Users/Puffy/git/stockholm/stockholm'
+		scriptPath : '/opt/datanium/stockholm_codebase/stockholm'
 	};
 	// console.log(options);
 
