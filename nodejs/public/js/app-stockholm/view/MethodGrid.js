@@ -138,12 +138,8 @@ var showTestMethod = function(methodId, methodName) {
 				methodForm.loadRecord(method);
 			}
 		});
-		Ext.create('Ext.window.Window', {
-			id : 'methodDetailWindow',
-			layout : 'fit',
-			modal : true,
-			title : methodName,
-			items : [ methodForm ]
-		}).show();
+		var methodFormBox = Ext.create('widget.methodformbox');
+		methodFormBox.add(methodForm);
+		methodFormBox.show();
 	}
 };
