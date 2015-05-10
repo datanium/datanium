@@ -1,7 +1,7 @@
 Ext.define('Stockholm.view.MethodForm', {
 	extend : 'Ext.form.Panel',
 	xtype : 'methodform',
-	width : 480,
+	width : 640,
 	url : '/stockholm/methods/save',
 	layout : 'anchor',
 	bodyPadding : 10,

@@ -2,7 +2,7 @@ Ext.define('Stockholm.view.MethodBox', {
 	extend : 'Ext.window.Window',
 	alias : 'widget.methodbox',
 	autoScroll : true,
-	height : 400,
+	height : 480,
 	width : 720,
 	border : false,
 	layout : 'fit',
@@ -20,22 +20,9 @@ Ext.define('Stockholm.view.MethodBox', {
 		text : '新建方法',
 		handler : function() {
 			var methodForm = Ext.create('widget.methodform');
-			Ext.create('Ext.window.Window', {
-				layout : 'fit',
-				id : 'methodDetailWindow',
-				modal : true,
-				title : '新建选股方法',
-				items : [ methodForm ],
-				tbar : [ {
-					id : 'mtd_tb_open',
-					scale : 'medium',
-					text : '开盘价'
-				}, {
-					id : 'mtd_tb_close',
-					scale : 'medium',
-					text : '收盘价'
-				} ]
-			}).show();
+			var methodFormBox = Ext.create('widget.methodformbox');
+			methodFormBox.add(methodForm);
+			methodFormBox.show();
 		}
 	}, {
 		text : '执行回测',

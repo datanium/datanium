@@ -1,6 +1,6 @@
 Ext.define('Stockholm.controller.StockController', {
 	extend : 'Ext.app.Controller',
-	views : [ 'StockGrid', 'DockToolbar', 'MethodBox', 'MethodGrid', 'MethodForm' ],
+	views : [ 'StockGrid', 'DockToolbar', 'MethodBox', 'MethodGrid', 'MethodForm', 'MethodFormBox' ],
 	models : [ 'Quote', 'JobDate', 'Method' ],
 	stores : [ 'Quotes', 'JobDates', 'Methods' ],
 	init : function() {
