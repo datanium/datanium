@@ -30,6 +30,7 @@ Ext.define('Stockholm.view.MethodForm', {
 		allowBlank : true
 	}, {
 		xtype : 'textareafield',
+		id : 'methodFormExp',
 		fieldLabel : '表达式',
 		name : 'method',
 		height : 140,
