@@ -27,7 +27,15 @@ Ext.define('Stockholm.view.MethodBox', {
 	}, {
 		text : '执行回测',
 		handler : function() {
-			Stockholm.app.getController('StockController').runBackTest();
+			var ids = '';
+			var grid = Ext.getCmp('methodGrid');
+			Ext.each(grid.getSelectionModel().getSelection(), function(row, index, value) {
+				console.log(row.data);
+				ids = ids + row.data.method_id + ',';
+			});
+			ids = ids.slice(0, -1);
+			console.log(ids);
+			Stockholm.app.getController('StockController').runBackTest(ids);
 			this.up('.window').close();
 		}
 	}, {

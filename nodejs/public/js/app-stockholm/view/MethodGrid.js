@@ -12,6 +12,11 @@ Ext.define('Stockholm.view.MethodGrid', {
 	initComponent : function() {
 		this.columns = [
 				{
+					xtype : 'gridcolumn',
+					hidden : true,
+					dataIndex : 'method_id'
+				},
+				{
 					text : '方法名',
 					width : 100,
 					align : 'center',
@@ -50,15 +55,6 @@ Ext.define('Stockholm.view.MethodGrid', {
 					renderer : Ext.util.Format.dateRenderer('m/d/Y'),
 					dataIndex : 'modification_date'
 				}, {
-					xtype : 'checkcolumn',
-					text : '应用',
-					width : 46,
-					sortable : false,
-					align : 'center',
-					menuDisabled : true,
-					dataIndex : 'enable',
-					stopSelection : false
-				}, {
 					xtype : 'actioncolumn',
 					text : '删除',
 					width : 46,
@@ -72,6 +68,11 @@ Ext.define('Stockholm.view.MethodGrid', {
 						handler : this.onRemoveClick
 					} ]
 				} ];
+
+		this.selModel = Ext.create('Ext.selection.CheckboxModel', {
+			ignoreRightMouseSelection : true,
+			checkOnly : true
+		});
 
 		this.dockedItems = [ {
 			xtype : 'pagingtoolbar',
@@ -103,7 +104,7 @@ Ext.define('Stockholm.view.MethodGrid', {
 	}
 });
 
-var removeMethod = function(buttonId, x, obj) {
+var removeMethod = function(buttonId, e, obj) {
 	if (buttonId == 'yes') {
 		var methodId = obj.methodId;
 		var mask = new Ext.LoadMask(Ext.getBody(), {
