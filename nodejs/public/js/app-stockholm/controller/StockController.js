@@ -83,13 +83,13 @@ Ext.define('Stockholm.controller.StockController', {
 			}
 		});
 	},
-	runBackTest : function() {
+	runBackTest : function(ids) {
 		var mask = new Ext.LoadMask(Ext.getBody(), {
 			msg : '正在执行...'
 		});
 		mask.show();
 		var requestConfig = {
-			url : '/stockholm/runtest',
+			url : '/stockholm/runtest?ids=' + ids,
 			timeout : 300000,
 			success : function(response) {
 				mask.destroy();

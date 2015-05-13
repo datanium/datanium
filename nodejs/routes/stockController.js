@@ -92,6 +92,12 @@ exports.loadDates = function(req, res) {
 }
 
 exports.runTest = function(req, res) {
+	var methodIds = [];
+	var query = require('url').parse(req.url, true).query;
+	if (query.ids != null && query.ids.length > 0) {
+		methodIds = query.ids.split(',');
+	}
+	console.log(methodIds);
 	var resultJSON = {
 		"status" : "Successful",
 		"msg" : "回测执行完毕..."
