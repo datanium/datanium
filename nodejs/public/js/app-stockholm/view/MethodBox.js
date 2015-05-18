@@ -34,7 +34,7 @@ Ext.define('Stockholm.view.MethodBox', {
 				ids = ids + row.data.method_id + ',';
 			});
 			ids = ids.slice(0, -1);
-			c// onsole.log(ids);
+			// console.log(ids);
 			Stockholm.app.getController('StockController').runBackTest(ids);
 			this.up('.window').close();
 		}
