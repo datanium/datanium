@@ -84,6 +84,9 @@ Ext.define('Stockholm.controller.StockController', {
 		});
 	},
 	runBackTest : function(ids) {
+		if (ids == null) {
+			ids = '';
+		}
 		var mask = new Ext.LoadMask(Ext.getBody(), {
 			msg : '正在执行...'
 		});

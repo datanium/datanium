@@ -97,7 +97,6 @@ exports.runTest = function(req, res) {
 	if (query.ids != null && query.ids.length > 0) {
 		methodIds = query.ids.split(',');
 	}
-	console.log(methodIds);
 	var resultJSON = {
 		"status" : "Successful",
 		"msg" : "回测执行完毕..."
@@ -110,6 +109,9 @@ exports.runTest = function(req, res) {
 		// scriptPath : '/Users/Puffy/git/stockholm/stockholm'
 		scriptPath : '/opt/datanium/stockholm_codebase/stockholm'
 	};
+	if (methodIds != null && methodIds.length > 0) {
+		options['args'].push('--methods=' + methodIds);
+	}
 	// console.log(options);
 
 	PythonShell.run('main.py', options, function(err, results) {

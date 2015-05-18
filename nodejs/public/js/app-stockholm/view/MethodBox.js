@@ -30,11 +30,11 @@ Ext.define('Stockholm.view.MethodBox', {
 			var ids = '';
 			var grid = Ext.getCmp('methodGrid');
 			Ext.each(grid.getSelectionModel().getSelection(), function(row, index, value) {
-				console.log(row.data);
+				// console.log(row.data);
 				ids = ids + row.data.method_id + ',';
 			});
 			ids = ids.slice(0, -1);
-			console.log(ids);
+			c// onsole.log(ids);
 			Stockholm.app.getController('StockController').runBackTest(ids);
 			this.up('.window').close();
 		}
