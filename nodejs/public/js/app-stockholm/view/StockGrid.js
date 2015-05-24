@@ -102,9 +102,21 @@ Ext.define('Stockholm.view.StockGrid', {
 				dataIndex : 'Vol_Change',
 				renderer : convertRatio
 			}, {
-				text : '10天均线',
+				text : '5日均线',
+				width : 70,
+				dataIndex : 'MA_5'
+			}, {
+				text : '10日均线',
 				width : 70,
 				dataIndex : 'MA_10'
+			}, {
+				text : '20日均线',
+				width : 70,
+				dataIndex : 'MA_20'
+			}, {
+				text : '30日均线',
+				width : 70,
+				dataIndex : 'MA_30'
 			}, {
 				text : 'KDJ/K',
 				width : 50,
