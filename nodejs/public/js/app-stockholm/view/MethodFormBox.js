@@ -180,10 +180,25 @@ Ext.define('Stockholm.view.MethodFormBox', {
 			text : '成交量变化(%)',
 			val_key : 'Vol_Change'
 		}, {
+			id : 'mtd_tb_ma_5',
+			scale : 'medium',
+			text : '5日均价',
+			val_key : 'MA_5'
+		}, {
 			id : 'mtd_tb_ma_10',
 			scale : 'medium',
 			text : '10日均价',
 			val_key : 'MA_10'
+		}, {
+			id : 'mtd_tb_ma_20',
+			scale : 'medium',
+			text : '20日均价',
+			val_key : 'MA_20'
+		}, {
+			id : 'mtd_tb_ma_30',
+			scale : 'medium',
+			text : '30日均价',
+			val_key : 'MA_30'
 		}, {
 			id : 'mtd_tb_kdj_k',
 			scale : 'medium',
