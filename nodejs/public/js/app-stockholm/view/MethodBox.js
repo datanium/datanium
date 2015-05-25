@@ -35,7 +35,14 @@ Ext.define('Stockholm.view.MethodBox', {
 			});
 			ids = ids.slice(0, -1);
 			// console.log(ids);
-			Stockholm.app.getController('StockController').runBackTest(ids);
+			Ext.Msg.show({
+				title : '确认执行',
+				msg : '即将根据最近50个交易日的数据进行回测，请确认。',
+				fn : runBackTest,
+				buttons : Ext.Msg.YESNO,
+				icon : Ext.Msg.QUESTION,
+				ids : ids
+			});
 			this.up('.window').close();
 		}
 	}, {
