@@ -73,7 +73,13 @@ Ext.define('Stockholm.controller.StockController', {
 			},
 			'dock-toolbar > button[action=run-test]' : {
 				click : function(btn) {
-					this.runBackTest();
+					Ext.Msg.show({
+						title : '确认执行',
+						msg : '即将根据最近50个交易日的数据进行回测，请确认。',
+						fn : runBackTest,
+						buttons : Ext.Msg.YESNO,
+						icon : Ext.Msg.QUESTION
+					});
 				}
 			},
 			'dock-toolbar > button[action=show-method]' : {
@@ -82,8 +88,12 @@ Ext.define('Stockholm.controller.StockController', {
 				}
 			}
 		});
-	},
-	runBackTest : function(ids) {
+	}
+});
+
+var runBackTest = function(buttonId, e, obj) {
+	if (buttonId == 'yes') {
+		var ids = obj.ids;
 		if (ids == null) {
 			ids = '';
 		}
@@ -113,4 +123,4 @@ Ext.define('Stockholm.controller.StockController', {
 		};
 		Ext.Ajax.request(requestConfig);
 	}
-});
+}
