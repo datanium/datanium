@@ -177,6 +177,7 @@ Ext.define('Stockholm.view.StockGrid', {
 		}, {
 			text : '收益回测',
 			id : 'backTestCol_all',
+			hidden : true,
 			defaults : {
 				width : 95,
 				align : 'right',
