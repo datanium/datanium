@@ -61,12 +61,20 @@ Ext.define('Stockholm.controller.StockController', {
 					}
 				}
 			},
-			'dock-toolbar > button[action=show-back-test]' : {
+			/*
+			 * 'dock-toolbar > button[action=show-back-test]' : { toggle :
+			 * function(btn) { var backTestCol = Ext.getCmp('backTestCol'); if
+			 * (btn.pressed) { backTestCol.show(); } else { backTestCol.hide(); } } },
+			 */
+			'dock-toolbar > button[action=show-real-profit]' : {
 				toggle : function(btn) {
 					var backTestCol = Ext.getCmp('backTestCol');
+					var backTestCol_all = Ext.getCmp('backTestCol_all');
 					if (btn.pressed) {
+						backTestCol_all.hide();
 						backTestCol.show();
 					} else {
+						backTestCol_all.show();
 						backTestCol.hide();
 					}
 				}
