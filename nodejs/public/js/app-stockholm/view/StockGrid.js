@@ -144,6 +144,47 @@ Ext.define('Stockholm.view.StockGrid', {
 				renderer : convertRatio
 			},
 			columns : [ {
+				text : '1天实际收益 %',
+				dataIndex : 'Day_1_Profit'
+			}, {
+				text : '2天实际收益 %',
+				dataIndex : 'Day_2_Profit'
+			}, {
+				text : '3天实际收益 %',
+				dataIndex : 'Day_3_Profit'
+			}, {
+				text : '4天实际收益 %',
+				dataIndex : 'Day_3_Profit'
+			}, {
+				text : '5天实际收益 %',
+				dataIndex : 'Day_5_Profit'
+			}, {
+				text : '6天实际收益 %',
+				dataIndex : 'Day_5_Profit'
+			}, {
+				text : '7天实际收益 %',
+				dataIndex : 'Day_5_Profit'
+			}, {
+				text : '8天实际收益 %',
+				dataIndex : 'Day_5_Profit'
+			}, {
+				text : '9天实际收益 %',
+				dataIndex : 'Day_9_Profit'
+			}, {
+				text : '10天实际收益 %',
+				dataIndex : 'Day_9_Profit'
+			} ]
+		}, {
+			text : '收益回测',
+			id : 'backTestCol_all',
+			defaults : {
+				width : 95,
+				align : 'right',
+				sortable : true,
+				lockable : false,
+				renderer : convertRatio
+			},
+			columns : [ {
 				text : '1天相对收益 %',
 				dataIndex : 'Day_1_Differ'
 			}, {
@@ -153,6 +194,15 @@ Ext.define('Stockholm.view.StockGrid', {
 				text : '1天实际收益 %',
 				dataIndex : 'Day_1_Profit'
 			}, {
+				text : '2天相对收益 %',
+				dataIndex : 'Day_2_Differ'
+			}, {
+				text : '2天沪深300变化 %',
+				dataIndex : 'Day_2_INDEX_Change'
+			}, {
+				text : '2天实际收益 %',
+				dataIndex : 'Day_2_Profit'
+			}, {
 				text : '3天相对收益 %',
 				dataIndex : 'Day_3_Differ'
 			}, {
@@ -160,6 +210,15 @@ Ext.define('Stockholm.view.StockGrid', {
 				dataIndex : 'Day_3_INDEX_Change'
 			}, {
 				text : '3天实际收益 %',
+				dataIndex : 'Day_3_Profit'
+			}, {
+				text : '4天相对收益 %',
+				dataIndex : 'Day_3_Differ'
+			}, {
+				text : '4天沪深300变化 %',
+				dataIndex : 'Day_3_INDEX_Change'
+			}, {
+				text : '4天实际收益 %',
 				dataIndex : 'Day_3_Profit'
 			}, {
 				text : '5天相对收益 %',
@@ -171,6 +230,33 @@ Ext.define('Stockholm.view.StockGrid', {
 				text : '5天实际收益 %',
 				dataIndex : 'Day_5_Profit'
 			}, {
+				text : '6天相对收益 %',
+				dataIndex : 'Day_5_Differ'
+			}, {
+				text : '6天沪深300变化 %',
+				dataIndex : 'Day_5_INDEX_Change'
+			}, {
+				text : '6天实际收益 %',
+				dataIndex : 'Day_5_Profit'
+			}, {
+				text : '7天相对收益 %',
+				dataIndex : 'Day_5_Differ'
+			}, {
+				text : '7天沪深300变化 %',
+				dataIndex : 'Day_5_INDEX_Change'
+			}, {
+				text : '7天实际收益 %',
+				dataIndex : 'Day_5_Profit'
+			}, {
+				text : '8天相对收益 %',
+				dataIndex : 'Day_5_Differ'
+			}, {
+				text : '8天沪深300变化 %',
+				dataIndex : 'Day_5_INDEX_Change'
+			}, {
+				text : '8天实际收益 %',
+				dataIndex : 'Day_5_Profit'
+			}, {
 				text : '9天相对收益 %',
 				dataIndex : 'Day_9_Differ'
 			}, {
@@ -178,6 +264,15 @@ Ext.define('Stockholm.view.StockGrid', {
 				dataIndex : 'Day_9_INDEX_Change'
 			}, {
 				text : '9天实际收益 %',
+				dataIndex : 'Day_9_Profit'
+			}, {
+				text : '10天相对收益 %',
+				dataIndex : 'Day_9_Differ'
+			}, {
+				text : '10天沪深300变化 %',
+				dataIndex : 'Day_9_INDEX_Change'
+			}, {
+				text : '10天实际收益 %',
 				dataIndex : 'Day_9_Profit'
 			} ]
 		} ];

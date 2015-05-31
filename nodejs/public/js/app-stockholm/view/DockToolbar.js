@@ -106,14 +106,18 @@ Ext
 								pressed : false,
 								action : 'show-adv-st'
 							},
+							/*
+							 * { scale : 'medium', tooltipType : 'title', html : '<i
+							 * class="fa fa-search"></i> 显示收益回测', enableToggle :
+							 * true, pressed : true, action : 'show-back-test' },
+							 */
 							{
-								id : 'backTestBtn',
 								scale : 'medium',
 								tooltipType : 'title',
-								html : '<i class="fa fa-search"></i> 显示收益回测',
+								html : '<i class="fa fa-search"></i> 只显示实际收益',
 								enableToggle : true,
 								pressed : true,
-								action : 'show-back-test'
+								action : 'show-real-profit'
 							},
 							{
 								xtype : 'tbseparator',
