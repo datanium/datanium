@@ -154,25 +154,25 @@ Ext.define('Stockholm.view.StockGrid', {
 				dataIndex : 'Day_3_Profit'
 			}, {
 				text : '4天实际收益 %',
-				dataIndex : 'Day_3_Profit'
+				dataIndex : 'Day_4_Profit'
 			}, {
 				text : '5天实际收益 %',
 				dataIndex : 'Day_5_Profit'
 			}, {
 				text : '6天实际收益 %',
-				dataIndex : 'Day_5_Profit'
+				dataIndex : 'Day_6_Profit'
 			}, {
 				text : '7天实际收益 %',
-				dataIndex : 'Day_5_Profit'
+				dataIndex : 'Day_7_Profit'
 			}, {
 				text : '8天实际收益 %',
-				dataIndex : 'Day_5_Profit'
+				dataIndex : 'Day_8_Profit'
 			}, {
 				text : '9天实际收益 %',
 				dataIndex : 'Day_9_Profit'
 			}, {
 				text : '10天实际收益 %',
-				dataIndex : 'Day_9_Profit'
+				dataIndex : 'Day_10_Profit'
 			} ]
 		}, {
 			text : '收益回测',
@@ -181,6 +181,7 @@ Ext.define('Stockholm.view.StockGrid', {
 			defaults : {
 				width : 95,
 				align : 'right',
+				hidden : true,
 				sortable : true,
 				lockable : false,
 				renderer : convertRatio
@@ -214,13 +215,13 @@ Ext.define('Stockholm.view.StockGrid', {
 				dataIndex : 'Day_3_Profit'
 			}, {
 				text : '4天相对收益 %',
-				dataIndex : 'Day_3_Differ'
+				dataIndex : 'Day_4_Differ'
 			}, {
 				text : '4天沪深300变化 %',
-				dataIndex : 'Day_3_INDEX_Change'
+				dataIndex : 'Day_4_INDEX_Change'
 			}, {
 				text : '4天实际收益 %',
-				dataIndex : 'Day_3_Profit'
+				dataIndex : 'Day_4_Profit'
 			}, {
 				text : '5天相对收益 %',
 				dataIndex : 'Day_5_Differ'
@@ -232,31 +233,31 @@ Ext.define('Stockholm.view.StockGrid', {
 				dataIndex : 'Day_5_Profit'
 			}, {
 				text : '6天相对收益 %',
-				dataIndex : 'Day_5_Differ'
+				dataIndex : 'Day_6_Differ'
 			}, {
 				text : '6天沪深300变化 %',
-				dataIndex : 'Day_5_INDEX_Change'
+				dataIndex : 'Day_6_INDEX_Change'
 			}, {
 				text : '6天实际收益 %',
-				dataIndex : 'Day_5_Profit'
+				dataIndex : 'Day_6_Profit'
 			}, {
 				text : '7天相对收益 %',
-				dataIndex : 'Day_5_Differ'
+				dataIndex : 'Day_7_Differ'
 			}, {
 				text : '7天沪深300变化 %',
-				dataIndex : 'Day_5_INDEX_Change'
+				dataIndex : 'Day_7_INDEX_Change'
 			}, {
 				text : '7天实际收益 %',
-				dataIndex : 'Day_5_Profit'
+				dataIndex : 'Day_7_Profit'
 			}, {
 				text : '8天相对收益 %',
-				dataIndex : 'Day_5_Differ'
+				dataIndex : 'Day_8_Differ'
 			}, {
 				text : '8天沪深300变化 %',
-				dataIndex : 'Day_5_INDEX_Change'
+				dataIndex : 'Day_8_INDEX_Change'
 			}, {
 				text : '8天实际收益 %',
-				dataIndex : 'Day_5_Profit'
+				dataIndex : 'Day_8_Profit'
 			}, {
 				text : '9天相对收益 %',
 				dataIndex : 'Day_9_Differ'
