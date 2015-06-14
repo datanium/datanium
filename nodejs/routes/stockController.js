@@ -59,6 +59,7 @@ exports.loadData = function(req, res) {
 							});
 
 							resultJSON.res = data;
+							// console.log(data);
 							res.send(resultJSON);
 						});
 					}
@@ -106,8 +107,8 @@ exports.runTest = function(req, res) {
 		mode : 'text',
 		pythonPath : 'python3.4',
 		args : [ '--reload=N', '--portfolio=Y', '--testfile=mongodb', '--dbname=datanium' ],
-		// scriptPath : '/Users/Puffy/git/stockholm/stockholm'
-		scriptPath : '/opt/datanium/stockholm_codebase/stockholm'
+		scriptPath : '/Users/Puffy/git/stockholm/stockholm'
+	// scriptPath : '/opt/datanium/stockholm_codebase/stockholm'
 	};
 	if (methodIds != null && methodIds.length > 0) {
 		options['args'].push('--methods=' + methodIds);
@@ -245,6 +246,85 @@ exports.removeMethod = function(req, res) {
 			"status" : "Failed"
 		});
 	}
+}
+
+exports.loadTrend = function(req, res) {
+	var targetDate = null;
+	var targetSymbol = null;
+	var query = require('url').parse(req.url, true).query;
+	if (query.targetDate != null && query.targetDate.length > 0) {
+		targetDate = query.targetDate;
+	}
+	if (query.targetSymbol != null && query.targetSymbol.length > 0) {
+		targetSymbol = query.targetSymbol;
+	}
+	var dirname = getUserHome() + "/tmp/stockholm_export";
+	var dateArray = [];
+	fs.readdir(dirname, function(err, files) {
+		if (files != null) {
+			var isDateValid = false;
+			files.forEach(function(file) {
+				if (file.indexOf("result_") >= 0) {
+					var date = file.substr(7, 10);
+					dateArray.push(date);
+					if (date == targetDate) {
+						isDateValid = true;
+					}
+				}
+			});
+			if (targetDate == null || targetDate == "") {
+				targetDate = dateArray[dateArray.length - 1];
+				isDateValid = true;
+			}
+			var resultJSON = {
+				"res" : [],
+				"targetDate" : targetDate,
+				"targetSymbol" : targetSymbol
+			};
+			if (isDateValid && targetSymbol != null) {
+				files.forEach(function(file) {
+					if (file.indexOf(targetDate) >= 0) {
+						var filepath = dirname + "/" + file;
+						fs.readFile(filepath, function(error, fileData) {
+							if (error) {
+								console.log(error);
+							}
+							var data = JSON.parse(fileData);
+							var trends = [];
+							data.forEach(function(item, index) {
+								if (item["Symbol"] == targetSymbol) {
+									if ("Data" in item && item.Data.length > 0) {
+										for ( var key in item.Data[0]) {
+											item[key] = item.Data[0][key];
+										}
+									}
+									for (i = 1; i <= 10; i++) {
+										var profitKey = "Day_" + i + "_Profit";
+										if (item[profitKey] != null) {
+											var trend = {
+												Date : targetDate,
+												Symbol : item["Symbol"],
+												Name : item["Name"],
+												Day : i,
+												Change : item[profitKey]
+											}
+											trends.push(trend);
+										}
+									}
+								}
+							});
+
+							console.log(trends);
+							resultJSON.res = trends;
+							res.send(resultJSON);
+						});
+					}
+				});
+			} else {
+				res.send(resultJSON);
+			}
+		}
+	});
 }
 
 var getUserHome = function() {
