@@ -103,6 +103,7 @@ app.get('/r/:hashid', routes.report);
 // stockholm
 app.get('/stockholm', stock.stockholm);
 app.get('/stockholm/load', stock.loadData);
+app.get('/stockholm/loadtrend', stock.loadTrend);
 app.get('/stockholm/dates', stock.loadDates);
 app.get('/stockholm/runtest', stock.runTest);
 app.get('/stockholm/methods/load', stock.loadMethods);
