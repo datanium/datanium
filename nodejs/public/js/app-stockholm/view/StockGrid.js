@@ -153,7 +153,7 @@ Ext.define('Stockholm.view.StockGrid', {
 						renderer : convertRatio
 					},
 					columns : [
-							{
+							/*{
 								text : '趋势',
 								width : 40,
 								align : 'center',
@@ -164,7 +164,8 @@ Ext.define('Stockholm.view.StockGrid', {
 									return '<i class="fa fa-line-chart" onclick="viewTrend(\'' + quoteSymbol + '\',\''
 											+ quoteDate + '\');" style="cursor:pointer;"></i>';
 								}
-							}, {
+							}, */
+							{
 								text : '1天实际收益 %',
 								dataIndex : 'Day_1_Profit'
 							}, {
