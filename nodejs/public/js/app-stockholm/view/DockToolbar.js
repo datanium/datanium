@@ -112,6 +112,14 @@ Ext
 							 * true, pressed : true, action : 'show-back-test' },
 							 */
 							{
+								scale : 'medium',
+								tooltipType : 'title',
+								html : '<i class="fa fa-search"></i> 显示绝对收益',
+								enableToggle : true,
+								pressed : true,
+								action : 'show-real-profit'
+							},
+							{
 								xtype : 'tbseparator',
 								height : 16,
 								margins : '0 0 0 1'

@@ -69,7 +69,7 @@ Ext.define('Stockholm.controller.StockController', {
 			'dock-toolbar > button[action=show-real-profit]' : {
 				toggle : function(btn) {
 					var backTestCol = Ext.getCmp('backTestCol');
-					var backTestCol_all = Ext.getCmp('backTestCol_all');
+					var backTestCol_all = Ext.getCmp('backTestCol_dif');
 					if (btn.pressed) {
 						backTestCol_all.hide();
 						backTestCol.show();

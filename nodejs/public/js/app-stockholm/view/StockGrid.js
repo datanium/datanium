@@ -196,6 +196,49 @@ Ext.define('Stockholm.view.StockGrid', {
 								text : '10天实际收益 %',
 								dataIndex : 'Day_10_Profit'
 							} ]
+				},
+				{
+					text : '收益回测',
+					id : 'backTestCol_dif',
+					defaults : {
+						width : 95,
+						align : 'right',
+						sortable : true,
+						lockable : false,
+						renderer : convertRatio
+					},
+					columns : [
+							{
+								text : '1天相对收益 %',
+								dataIndex : 'Day_1_Differ'
+							}, {
+								text : '2天相对收益 %',
+								dataIndex : 'Day_2_Differ'
+							}, {
+								text : '3天相对收益 %',
+								dataIndex : 'Day_3_Differ'
+							}, {
+								text : '4天相对收益 %',
+								dataIndex : 'Day_4_Differ'
+							}, {
+								text : '5天相对收益 %',
+								dataIndex : 'Day_5_Differ'
+							}, {
+								text : '6天相对收益 %',
+								dataIndex : 'Day_6_Differ'
+							}, {
+								text : '7天相对收益 %',
+								dataIndex : 'Day_7_Differ'
+							}, {
+								text : '8天相对收益 %',
+								dataIndex : 'Day_8_Differ'
+							}, {
+								text : '9天相对收益 %',
+								dataIndex : 'Day_9_Differ'
+							}, {
+								text : '10天相对收益 %',
+								dataIndex : 'Day_10_Differ'
+							} ]
 				} ];
 
 		this.dockedItems.push({
