@@ -8,8 +8,8 @@ Ext.define('Datanium.view.ElementPanel', {
 		Ext.apply(this, {});
 		this.items = [];
 		this.callParent();
-		this.addEvents('refreshElementPanel');
-		this.addEvents('selectionChange');
+		//this.addEvents('refreshElementPanel');
+		//this.addEvents('selectionChange');
 		this.on('refreshElementPanel', function(indicators) {
 			if (Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel') != null) {
 				var ep = Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel');
