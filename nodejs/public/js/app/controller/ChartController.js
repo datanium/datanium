@@ -33,7 +33,7 @@ Ext.define('Datanium.controller.ChartController', {
 	},
 	onChartPanelReady : function(me) {
 		console.log('onChartPanelReady');
-		Datanium.util.CommonUtils.generateChart();
+		//Datanium.util.CommonUtils.generateChart();
 
 	},
 	onChartPanelShow : function(me) {
