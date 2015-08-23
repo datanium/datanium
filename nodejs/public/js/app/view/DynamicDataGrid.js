@@ -360,7 +360,7 @@ Ext.define('Datanium.view.DynamicDataGrid', {
 		}
 		this.callParent();
 
-		this.addEvents('refreshDatagrid');
+		//this.addEvents('refreshDatagrid');
 		this.on('refreshDatagrid', function() {
 			console.log('refreshDatagrid');
 			if (Datanium.util.CommonUtils.getCmpInActiveTab('dynamicdatagrid') != null) {
