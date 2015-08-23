@@ -81,7 +81,7 @@ exports.newIndex = function(req, res) {
 		"enableQuery" : true
 	}).select('-_id').sort({
 		'creation_date' : -1
-	}).limit(6).exec(function(err, reports) {
+	}).limit(9).exec(function(err, reports) {
 		if (err)
 			console.log('Exception: ' + err);
 		else {
