@@ -393,3 +393,33 @@ legend {
 #search-result-panel {
 	padding-top: 30px;
 }
+
+.x-body {
+	font-size: 13px;
+	color: #34495e;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	-webkit-font-smoothing: antialiased;
+}
+
+.x-btn-icon-left>.x-btn-icon-el-default-small,.x-btn-icon-right>.x-btn-icon-el-default-small
+	{
+	width: 16px;
+	padding: 3px 3px;
+}
+
+.x-btn-icon-el-default-toolbar-medium {
+	height: 15px;
+	padding: 3px 0 0 6px;
+}
+
+.x-btn-button-default-toolbar-medium {
+	height: 15px;
+}
+
+.x-btn-inner-default-toolbar-medium {
+	padding: 0 3px;;
+}
+
+.x-form-item-label-default {
+	padding-top: 0px;
+}

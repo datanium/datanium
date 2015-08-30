@@ -24,8 +24,8 @@ Ext.define('Datanium.view.charts.ChartToolbar', {
 			iconCls : Datanium.util.CommonUtils.getChartModeStar('columnchart'),
 			text : Datanium.GlobalStatic.label_column_chart,
 			handler : function() {
-				this.parentMenu.ownerButton.setText(Datanium.GlobalStatic.label_column_chart);
-				this.parentMenu.ownerButton.setTooltip(Datanium.GlobalStatic.label_column_chart);
+				this.parentMenu.ownerCmp.setText(Datanium.GlobalStatic.label_column_chart);
+				this.parentMenu.ownerCmp.setTooltip(Datanium.GlobalStatic.label_column_chart);
 				Datanium.util.CommonUtils.markSelection(this);
 				if (Datanium.GlobalData.chartMode != 'columnchart') {
 					Datanium.GlobalData.chartMode = 'columnchart';
@@ -36,8 +36,8 @@ Ext.define('Datanium.view.charts.ChartToolbar', {
 			iconCls : Datanium.util.CommonUtils.getChartModeStar('stackchart'),
 			text : Datanium.GlobalStatic.label_stack_chart,
 			handler : function() {
-				this.parentMenu.ownerButton.setText(Datanium.GlobalStatic.label_stack_chart);
-				this.parentMenu.ownerButton.setTooltip(Datanium.GlobalStatic.label_stack_chart);
+				this.parentMenu.ownerCmp.setText(Datanium.GlobalStatic.label_stack_chart);
+				this.parentMenu.ownerCmp.setTooltip(Datanium.GlobalStatic.label_stack_chart);
 				Datanium.util.CommonUtils.markSelection(this);
 				if (Datanium.GlobalData.chartMode != 'stackchart') {
 					Datanium.GlobalData.chartMode = 'stackchart';
@@ -48,8 +48,8 @@ Ext.define('Datanium.view.charts.ChartToolbar', {
 			iconCls : Datanium.util.CommonUtils.getChartModeStar('linechart'),
 			text : Datanium.GlobalStatic.label_line_chart,
 			handler : function() {
-				this.parentMenu.ownerButton.setText(Datanium.GlobalStatic.label_line_chart);
-				this.parentMenu.ownerButton.setTooltip(Datanium.GlobalStatic.label_line_chart);
+				this.parentMenu.ownerCmp.setText(Datanium.GlobalStatic.label_line_chart);
+				this.parentMenu.ownerCmp.setTooltip(Datanium.GlobalStatic.label_line_chart);
 				Datanium.util.CommonUtils.markSelection(this);
 				if (Datanium.GlobalData.chartMode != 'linechart') {
 					Datanium.GlobalData.chartMode = 'linechart';
