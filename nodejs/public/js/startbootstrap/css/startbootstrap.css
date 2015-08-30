@@ -1,5 +1,4 @@
 body {
-	margin-top: 50px;
 	font-family: "Helvetica Neue", Helvetica, Arial, "Lantinghei SC",
 		"Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft YaHei UI",
 		"Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
@@ -44,7 +43,7 @@ p.dm-promo-deal {
 }
 
 header.marquee {
-	padding: 80px 0;
+	padding: 130px 0px 80px 0px;
 	text-align: center;
 	color: #fff;
 	background-color: #3F5878;
@@ -97,7 +96,7 @@ header.marquee .btn-cta:hover {
 
 @media ( min-width :768px) {
 	header.marquee {
-		padding: 80px 0
+		padding: 130px 0px 80px 0px;
 	}
 	header.marquee .brand-name {
 		font-size: 70px

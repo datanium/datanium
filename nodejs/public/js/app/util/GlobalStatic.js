@@ -1,5 +1,6 @@
 Ext.define('Datanium.GlobalStatic', {
 	singleton : true,
+	label_my_dataset : 'My Dataset',
 	label_column_chart : 'Column Chart',
 	label_stack_chart : 'Stack Chart',
 	label_line_chart : 'Line Chart',

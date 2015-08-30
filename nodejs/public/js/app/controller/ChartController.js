@@ -33,11 +33,11 @@ Ext.define('Datanium.controller.ChartController', {
 	},
 	onChartPanelReady : function(me) {
 		console.log('onChartPanelReady');
-		//Datanium.util.CommonUtils.generateChart();
 
 	},
 	onChartPanelShow : function(me) {
 		console.log('onChartPanelShow');
+		Datanium.util.CommonUtils.generateChart();
 	},
 	reloadDimSwitchMenu : function() {
 		var dimensions = Datanium.GlobalData.queryParam.dimensions;
@@ -55,7 +55,7 @@ Ext.define('Datanium.controller.ChartController', {
 					iconCls : iconClsTxt,
 					text : dim.text,
 					handler : function() {
-						this.parentMenu.ownerButton.setText(dim.text);
+						this.parentMenu.ownerCmp.setText(dim.text);
 						Datanium.util.CommonUtils.markSelection(this);
 
 						Datanium.GlobalData.queryParam.primaryDimension = dim.uniqueName;
@@ -95,7 +95,7 @@ Ext.define('Datanium.controller.ChartController', {
 							text : dim.text,
 							itemId : f,
 							handler : function() {
-								this.parentMenu.ownerButton.setText(dim.text);
+								this.parentMenu.ownerCmp.setText(dim.text);
 								Datanium.util.CommonUtils.markSelection(this);
 
 								var popSelection = [];

@@ -17,10 +17,10 @@ Ext.define('Datanium.view.IndicatorSearchCombo', {
 	typeAhead : false,
 	height : 26,
 	margin : '1 0 5 5',
-	fieldLabel : ' ',
+	fieldLabel : '<i class="fa fa-search fa-2x"></i>',
 	labelSeparator : '',
-	labelCls : 'fa fa-search fa-2x',
-	labelClsExtra : 'searchboxLabel',
+	// labelCls : 'fa fa-search fa-2x',
+	// labelClsExtra : 'searchboxLabel',
 	labelWidth : 24,
 	listeners : {
 		afterrender : function() {

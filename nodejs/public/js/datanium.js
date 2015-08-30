@@ -18,18 +18,18 @@ $(document).ready(function() {
 	// load i18n script for extjs
 	var locale = read_cookie('locale');
 	if (locale != null && locale != 'null') {
-		$.getScript(host + "/js/extjs/locale/ext-lang-" + locale + ".js", function(data, textStatus, jqxhr) {
+		$.getScript(host + "/js/locale/ext-lang-" + locale + ".js", function(data, textStatus, jqxhr) {
 			// console.log('extjs default locale script is loaded: ' + locale);
 		});
-		$.getScript(host + "/js/extjs/locale/ext-lang-" + locale + "-custom.js", function(data, textStatus, jqxhr) {
+		$.getScript(host + "/js/locale/ext-lang-" + locale + "-custom.js", function(data, textStatus, jqxhr) {
 			console.log('extjs custom locale script is loaded: ' + locale);
 		});
 	} else {
 		// default language zh-CN
-		$.getScript(host + "/js/extjs/locale/ext-lang-zh.js", function(data, textStatus, jqxhr) {
+		$.getScript(host + "/js/locale/ext-lang-zh.js", function(data, textStatus, jqxhr) {
 			console.log('extjs default locale script is loaded: ' + locale);
 		});
-		$.getScript(host + "/js/extjs/locale/ext-lang-zh-custom.js", function(data, textStatus, jqxhr) {
+		$.getScript(host + "/js/locale/ext-lang-zh-custom.js", function(data, textStatus, jqxhr) {
 			console.log('extjs custom locale script is loaded: ' + locale);
 		});
 	}

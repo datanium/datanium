@@ -3,13 +3,13 @@ Ext.define('Datanium.view.ElementPanel', {
 	alias : 'widget.elementPanel',
 	padding : 10,
 	defaults : {},
-	title : 'My Dataset',
+	title : Datanium.GlobalStatic.label_my_dataset,
 	initComponent : function() {
 		Ext.apply(this, {});
 		this.items = [];
 		this.callParent();
-		//this.addEvents('refreshElementPanel');
-		//this.addEvents('selectionChange');
+		// this.addEvents('refreshElementPanel');
+		// this.addEvents('selectionChange');
 		this.on('refreshElementPanel', function(indicators) {
 			if (Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel') != null) {
 				var ep = Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel');
@@ -47,7 +47,7 @@ Ext.define('Datanium.view.ElementPanel', {
 											iconCls : 'fa fa-check',
 											text : Datanium.GlobalStatic.label_apply,
 											handler : function() {
-												var btn = this.parentMenu.ownerButton;
+												var btn = this.parentMenu.ownerCmp;
 												btn.toggle();
 											}
 										},
@@ -56,8 +56,8 @@ Ext.define('Datanium.view.ElementPanel', {
 											text : Datanium.GlobalStatic.label_remove,
 											handler : function() {
 												Datanium.util.CommonUtils
-														.removeElement(this.parentMenu.ownerButton.uniqueName);
-												this.parentMenu.ownerButton.destroy();
+														.removeElement(this.parentMenu.ownerCmp.uniqueName);
+												this.parentMenu.ownerCmp.destroy();
 												Datanium.util.CommonUtils.updateQueryParamByEP();
 												Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent(
 														'selectionChange');
@@ -67,7 +67,7 @@ Ext.define('Datanium.view.ElementPanel', {
 											iconCls : 'fa fa-filter',
 											text : Datanium.GlobalStatic.label_filter,
 											handler : function() {
-												var btn = this.parentMenu.ownerButton;
+												var btn = this.parentMenu.ownerCmp;
 												Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent(
 														'popFilter', btn.uniqueName, btn.text);
 											}
@@ -76,7 +76,7 @@ Ext.define('Datanium.view.ElementPanel', {
 											iconCls : 'fa fa-times-circle-o',
 											text : Datanium.GlobalStatic.label_clean_filter,
 											handler : function() {
-												var btn = this.parentMenu.ownerButton;
+												var btn = this.parentMenu.ownerCmp;
 												var key = btn.uniqueName;
 												delete Datanium.GlobalData.queryParam.filters[key];
 												if (key == Datanium.GlobalData.queryParam.primaryFilter)
@@ -126,7 +126,7 @@ Ext.define('Datanium.view.ElementPanel', {
 											iconCls : 'fa fa-check',
 											text : Datanium.GlobalStatic.label_apply,
 											handler : function() {
-												var btn = this.parentMenu.ownerButton;
+												var btn = this.parentMenu.ownerCmp;
 												btn.toggle();
 											}
 										},
@@ -134,7 +134,7 @@ Ext.define('Datanium.view.ElementPanel', {
 											iconCls : 'fa fa-info-circle',
 											text : Datanium.GlobalStatic.label_desc,
 											handler : function() {
-												var btn = this.parentMenu.ownerButton;
+												var btn = this.parentMenu.ownerCmp;
 												Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent(
 														'popDesc', btn.uniqueName, btn.text);
 											}
@@ -144,8 +144,8 @@ Ext.define('Datanium.view.ElementPanel', {
 											text : Datanium.GlobalStatic.label_remove,
 											handler : function() {
 												Datanium.util.CommonUtils
-														.removeElement(this.parentMenu.ownerButton.uniqueName);
-												this.parentMenu.ownerButton.destroy();
+														.removeElement(this.parentMenu.ownerCmp.uniqueName);
+												this.parentMenu.ownerCmp.destroy();
 												Datanium.util.CommonUtils.updateQueryParamByEP();
 												Datanium.util.CommonUtils.getCmpInActiveTab('elementPanel').fireEvent(
 														'selectionChange');
