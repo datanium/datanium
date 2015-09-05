@@ -296,7 +296,7 @@ legend {
 }
 
 .navbar-header img {
-	width: 26px;
+	width: 32px;
 }
 
 .navbar-nav>li {
@@ -422,4 +422,8 @@ legend {
 
 .x-form-item-label-default {
 	padding-top: 0px;
+}
+
+.navbar-brand {
+	padding: 9px 14px !important;
 }
