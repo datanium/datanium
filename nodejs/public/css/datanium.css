@@ -404,7 +404,7 @@ legend {
 .x-btn-icon-left>.x-btn-icon-el-default-small,.x-btn-icon-right>.x-btn-icon-el-default-small
 	{
 	width: 16px;
-	padding: 2px 3px;
+	padding: 2px 2px;
 }
 
 .x-btn-icon-el-default-toolbar-medium {
@@ -429,5 +429,9 @@ legend {
 }
 
 .x-panel-body-default {
-	font-size: 13px;
+	font-size: 14px;
+}
+
+.fa-lg {
+    font-size: 1.3em;
 }
