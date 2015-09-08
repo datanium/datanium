@@ -40,7 +40,7 @@ Ext.define('Datanium.view.InnerToolbar', {
 		html : '<i class="fa fa-list-alt fa-2x"></i>',
 		action : 'show-fields',
 		enableToggle : true,
-		pressed : true
+		pressed : false
 	}, {
 		id : 'apply_filter_btn',
 		xtype : 'splitbutton',

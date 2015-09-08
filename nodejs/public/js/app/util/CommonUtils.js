@@ -191,11 +191,12 @@ Ext
 							var isEmpty = (Datanium.GlobalData.queryParam.dimensions == null || Datanium.GlobalData.queryParam.dimensions.length == 0)
 									&& (Datanium.GlobalData.queryParam.measures == null || Datanium.GlobalData.queryParam.measures.length == 0);
 							var showFieldBtn = Ext.getCmp('show_field_panel_btn');
-							if (isEmpty) {
-								showFieldBtn.toggle(false);
-							} else {
-								showFieldBtn.toggle(true);
-							}
+							// if (isEmpty) {
+							// showFieldBtn.toggle(false);
+							// } else {
+							// showFieldBtn.toggle(true);
+							// }
+							showFieldBtn.toggle(false);
 							var autoScaleBtn = Ext.getCmp('auto_scale_btn');
 							if (Datanium.GlobalData.queryParam.measures != null
 									&& Datanium.GlobalData.queryParam.measures.length > 1
@@ -313,7 +314,7 @@ Ext
 						},
 						getScaleFactor : function(array) {
 							var sum = 0;
-							for ( var i = 0; i < array.length; i++) {
+							for (var i = 0; i < array.length; i++) {
 								sum += array[i];
 							}
 							var avg = sum / array.length;
@@ -323,9 +324,9 @@ Ext
 							return !isNaN(parseFloat(n));
 						},
 						scaleMeasures : function(queryResult, yFields) {
-							for ( var j = 0; j < yFields.length; j++) {
+							for (var j = 0; j < yFields.length; j++) {
 								var numbers = [];
-								for ( var i = 0; i < queryResult.result.length; i++) {
+								for (var i = 0; i < queryResult.result.length; i++) {
 									if (yFields[j] in queryResult.result[i]) {
 										var number = (queryResult.result[i])[yFields[j]];
 										numbers.push(number);
@@ -335,7 +336,7 @@ Ext
 								var sf = Datanium.util.CommonUtils.getScaleFactor(numbers);
 								// console.log(sf);
 								if (Datanium.util.CommonUtils.isNumber(sf)) {
-									for ( var i = 0; i < queryResult.result.length; i++) {
+									for (var i = 0; i < queryResult.result.length; i++) {
 										if (yFields[j] in queryResult.result[i]) {
 											var number = (queryResult.result[i])[yFields[j]];
 											(queryResult.result[i])[yFields[j]] = number * sf;
