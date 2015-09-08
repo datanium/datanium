@@ -196,7 +196,6 @@ Ext
 							// } else {
 							// showFieldBtn.toggle(true);
 							// }
-							showFieldBtn.toggle(false);
 							var autoScaleBtn = Ext.getCmp('auto_scale_btn');
 							if (Datanium.GlobalData.queryParam.measures != null
 									&& Datanium.GlobalData.queryParam.measures.length > 1
