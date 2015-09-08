@@ -76,7 +76,7 @@ Ext.define('Datanium.view.ReportTemplate', {
 					bodyPadding : 0,
 					header : false,
 					width : '100%',
-					hidden : false
+					hidden : true
 				} ]
 			}, {
 				itemId : Datanium.util.CommonUtils.genItemId('datapanel'),
