@@ -142,6 +142,7 @@ exports.topicSearch = function(req, res) {
 		if (null == doc) {
 			console.log('topicSearch - no data.');
 			res.send([]);
+			return;
 		}
 		var topicArray = [];
 		var topicObjArray = [];
