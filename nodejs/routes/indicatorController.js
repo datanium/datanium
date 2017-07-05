@@ -139,6 +139,10 @@ exports.topicSearch = function(req, res) {
 	}).exec(function(err, doc) {
 		if (err)
 			console.log('Exception: ' + err);
+		if (null == doc) {
+			console.log('topicSearch - no data.');
+			res.send([]);
+		}
 		var topicArray = [];
 		var topicObjArray = [];
 		doc.forEach(function(item) {
