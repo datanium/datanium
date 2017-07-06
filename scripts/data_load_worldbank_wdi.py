@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import requests
 import json
 import timeit
@@ -13,7 +14,8 @@ class Static:
     request_url_country_zh = 'http://api.worldbank.org/zh/countries'
     request_url_indicator_zh = 'http://api.worldbank.org/zh/indicators'
     request_url_rowdata_zh = 'http://api.worldbank.org/zh/countries/all/indicators/'
-    output_folder = '/Users/Puffy/Works/data_output/WDI/ZH'
+    # output_folder = '/Users/Puffy/Works/data_output/WDI/ZH'
+    output_folder = 'D:/tmp/data_output/WDI/ZH'
     dataset_folder = '/20141109'
     dataset_bydim_folder = '/by_dim'
     database_name = 'datanium'
@@ -21,8 +23,8 @@ class Static:
     country_col_name = 'country'
     dataset_col_name = 'dataset_new'
     date_range = '1960:2013'
-    ## mongo_url = 'localhost'
-    mongo_url = 'www.dtnium.com'
+    mongo_url = 'localhost'
+    # mongo_url = 'www.dtnium.com'
     mongo_port = 27017
 
 def load_countries_to_json_zh():
@@ -325,10 +327,10 @@ def load_countries_to_mongo_zh(is_incremental):
 
 if __name__ == '__main__':
     ## load_countries_to_json_zh()
-    ## load_indicators_to_json_zh()
-    ## load_indicators_to_mongo_zh(False)
+    # load_indicators_to_json_zh()
+    load_indicators_to_mongo_zh(False)
     ## load_rowdata_to_json_zh()
     ## convert_rowdata_to_dim_lvl()
     ## load_rowdata_to_mongo_zh(False)
-    load_countries_to_mongo_zh(False)
+    # load_countries_to_mongo_zh(False)
     
