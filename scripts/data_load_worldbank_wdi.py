@@ -16,13 +16,13 @@ class Static:
     request_url_rowdata_zh = 'http://api.worldbank.org/zh/countries/all/indicators/'
     # output_folder = '/Users/Puffy/Works/data_output/WDI/ZH'
     output_folder = 'D:/tmp/data_output/WDI/ZH'
-    dataset_folder = '/20141109'
+    dataset_folder = '/20170711'
     dataset_bydim_folder = '/by_dim'
     database_name = 'datanium'
     indicator_col_name = 'indicator_new'
     country_col_name = 'country'
     dataset_col_name = 'dataset_new'
-    date_range = '1960:2013'
+    date_range = '1960:2017'
     mongo_url = 'localhost'
     # mongo_url = 'www.dtnium.com'
     mongo_port = 27017
@@ -144,19 +144,26 @@ def load_rowdata_to_json_zh():
 def load_data_by_indicator(indicator, counter, country_dict, all_start):
     static = Static()
     dataset_by_indicator = []
-    page_size = 20000
+    page_size = 10000
     page_no = 1
     r_params = {'date': static.date_range, 'format': 'json', 'per_page': 10, 'page': 1}
     r = requests.get(static.request_url_rowdata_zh + indicator['id'], params=r_params)
     indicator_key = indicator['id'].replace('.', '_') + '_ZH'
+    if r.text is None:
+        return
     return_obj = json.loads(r.text)
-    page_info = return_obj[0]
+    try:
+        page_info = return_obj[0]
+    except KeyError:
+        print("Key Error: " + indicator_key + " / " + indicator['name'])
+        print(return_obj)
+        return
     total_size = page_info['total']
     print(time.strftime('%Y-%m-%d %H:%M:%S',time.localtime()) + " >>> " + indicator['name'] + " total " + str(total_size) + "\n")
     ## print('page size: ' + str(page_size))
 
     while page_no <= round(total_size/page_size, 0):
-        ## print('loading page ' + str(page_no) + '...')
+        # print('loading page ' + str(page_no) + '...')
         r_params = {'date': static.date_range, 'format': 'json', 'per_page': page_size, 'page': page_no}
         r = requests.get(static.request_url_rowdata_zh + indicator['id'], params=r_params)
         if r.text is not None:
@@ -173,6 +180,9 @@ def load_data_by_indicator(indicator, counter, country_dict, all_start):
                         dataset_by_indicator.append(dataset_rec)
                         counter.append(1)
                         ## pk = dataset_col.insert(dataset_rec)
+            except KeyError:
+                print("Key Error: " + indicator_key + " / " + indicator['name'])
+                print(return_obj)
             except ValueError:
                 print("Value Error: " + indicator_key + " / " + indicator['name'])
         page_no += 1
@@ -326,11 +336,11 @@ def load_countries_to_mongo_zh(is_incremental):
     print("total time cost: " + str(round(timeit.default_timer() - all_start)) + 's')
 
 if __name__ == '__main__':
-    ## load_countries_to_json_zh()
+    # load_countries_to_json_zh()
     # load_indicators_to_json_zh()
-    load_indicators_to_mongo_zh(False)
-    ## load_rowdata_to_json_zh()
-    ## convert_rowdata_to_dim_lvl()
+    # load_indicators_to_mongo_zh(False)
+    load_rowdata_to_json_zh()
+    # convert_rowdata_to_dim_lvl()
     ## load_rowdata_to_mongo_zh(False)
     # load_countries_to_mongo_zh(False)
     
