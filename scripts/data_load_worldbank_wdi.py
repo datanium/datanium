@@ -149,6 +149,8 @@ def load_data_by_indicator(indicator, counter, country_dict, all_start):
     r_params = {'date': static.date_range, 'format': 'json', 'per_page': 10, 'page': 1}
     r = requests.get(static.request_url_rowdata_zh + indicator['id'], params=r_params)
     indicator_key = indicator['id'].replace('.', '_') + '_ZH'
+    if r.text is None:
+        return
     return_obj = json.loads(r.text)
     try:
         page_info = return_obj[0]
