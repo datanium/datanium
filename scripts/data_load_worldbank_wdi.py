@@ -147,11 +147,8 @@ def load_data_by_indicator(indicator, counter, country_dict, all_start):
     page_size = 10000
     page_no = 1
     r_params = {'date': static.date_range, 'format': 'json', 'per_page': 10, 'page': 1}
-    r = requests.get(static.request_url_rowdata_zh + indicator['id'], params=r_params)
     indicator_key = indicator['id'].replace('.', '_') + '_ZH'
-    if r.text is None:
-        return
-    return_obj = json.loads(r.text)
+    return_obj = requests.get(static.request_url_rowdata_zh + indicator['id'], params=r_params).json()
     try:
         page_info = return_obj[0]
     except KeyError:
@@ -165,26 +162,24 @@ def load_data_by_indicator(indicator, counter, country_dict, all_start):
     while page_no <= round(total_size/page_size, 0):
         # print('loading page ' + str(page_no) + '...')
         r_params = {'date': static.date_range, 'format': 'json', 'per_page': page_size, 'page': page_no}
-        r = requests.get(static.request_url_rowdata_zh + indicator['id'], params=r_params)
-        if r.text is not None:
-            try:
-                return_obj = json.loads(r.text)
-                results = return_obj[1]
-                for res in results:
-                    value = res['value']
-                    if res['country']['value'] in country_dict:
-                        region = country_dict[res['country']['value']]['region']
-                        if value is not None:
-                            value = float(res['value'])
-                        dataset_rec = {'country': res['country']['value'], 'region': region, 'year': int(res['date']), indicator_key: value, 'load_key': 'WDI_ZH' + str(time.strftime("%Y%m%d"))}
-                        dataset_by_indicator.append(dataset_rec)
-                        counter.append(1)
-                        ## pk = dataset_col.insert(dataset_rec)
-            except KeyError:
-                print("Key Error: " + indicator_key + " / " + indicator['name'])
-                print(return_obj)
-            except ValueError:
-                print("Value Error: " + indicator_key + " / " + indicator['name'])
+        try:
+            return_obj = requests.get(static.request_url_rowdata_zh + indicator['id'], params=r_params).json()
+            results = return_obj[1]
+            for res in results:
+                value = res['value']
+                if res['country']['value'] in country_dict:
+                    region = country_dict[res['country']['value']]['region']
+                    if value is not None:
+                        value = float(res['value'])
+                    dataset_rec = {'country': res['country']['value'], 'region': region, 'year': int(res['date']), indicator_key: value, 'load_key': 'WDI_ZH' + str(time.strftime("%Y%m%d"))}
+                    dataset_by_indicator.append(dataset_rec)
+                    counter.append(1)
+                    ## pk = dataset_col.insert(dataset_rec)
+        except KeyError:
+            print("Key Error: " + indicator_key + " / " + indicator['name'])
+            print(return_obj)
+        except ValueError:
+            print("Value Error: " + indicator_key + " / " + indicator['name'])
         page_no += 1
 
     if len(dataset_by_indicator) > 0:
