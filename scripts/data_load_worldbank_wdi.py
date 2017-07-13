@@ -44,7 +44,7 @@ def load_countries_to_json_zh():
             country_rec = {'id': res['id'], 'iso2Code': res['iso2Code'], 'name': res['name'], 'region': res['region']['value']}
             country_dict[res['name']] = country_rec
 
-    f = io.open(static.output_folder + '/worldbank_wdi_countries_zh.json', 'w', encoding='utf8')
+    f = io.open(static.output_folder + '/worldbank_wdi_countries_zh.json', 'w', encoding='utf8', errors='ignore')
     json.dump(country_dict, f, ensure_ascii=False)
     f.close()
 
@@ -82,7 +82,7 @@ def load_indicators_to_json_zh():
     
     print(str(len(indicator_array)) + ' indicators are loaded.')
 
-    f = io.open(static.output_folder + '/worldbank_wdi_indicators_zh.json', 'w', encoding='utf8')
+    f = io.open(static.output_folder + '/worldbank_wdi_indicators_zh.json', 'w', encoding='utf8', errors='ignore')
     json.dump(indicator_array, f, ensure_ascii=False)
     f.close()
 
@@ -93,7 +93,7 @@ def load_indicators_to_mongo_zh(is_incremental):
     print("start loading indicator data(zh) from JSON file to MongoDB...")
     all_start = timeit.default_timer()
     static = Static()
-    f = io.open(static.output_folder + '/worldbank_wdi_indicators_zh.json', 'r', encoding='utf8')
+    f = io.open(static.output_folder + '/worldbank_wdi_indicators_zh.json', 'r', encoding='utf8', errors='ignore')
     json_str = f.readline()
     indicator_array = json.loads(json_str)
     f.close()
@@ -123,10 +123,10 @@ def load_rowdata_to_json_zh():
     all_start = timeit.default_timer()
     static = Static()
     
-    f = io.open(static.output_folder + '/worldbank_wdi_indicators_zh.json', 'r', encoding='utf8')
+    f = io.open(static.output_folder + '/worldbank_wdi_indicators_zh.json', 'r', encoding='utf8', errors='ignore')
     json_str = f.readline()
     indicator_array = json.loads(json_str)
-    f = io.open(static.output_folder + '/worldbank_wdi_countries_zh.json', 'r', encoding='utf8')
+    f = io.open(static.output_folder + '/worldbank_wdi_countries_zh.json', 'r', encoding='utf8', errors='ignore')
     json_str = f.readline()
     country_dict = json.loads(json_str)
     f.close()
@@ -148,12 +148,11 @@ def load_data_by_indicator(indicator, counter, country_dict, all_start):
     page_no = 1
     r_params = {'date': static.date_range, 'format': 'json', 'per_page': 10, 'page': 1}
     indicator_key = indicator['id'].replace('.', '_') + '_ZH'
-    return_obj = requests.get(static.request_url_rowdata_zh + indicator['id'], params=r_params).json()
     try:
+        return_obj = requests.get(static.request_url_rowdata_zh + indicator['id'], params=r_params).json()
         page_info = return_obj[0]
-    except KeyError:
-        print("Key Error: " + indicator_key + " / " + indicator['name'])
-        print(return_obj)
+    except:
+        print("Error: " + indicator_key + " / " + indicator['name'])
         return
     total_size = page_info['total']
     print(time.strftime('%Y-%m-%d %H:%M:%S',time.localtime()) + " >>> " + indicator['name'] + " total " + str(total_size) + "\n")
@@ -186,7 +185,7 @@ def load_data_by_indicator(indicator, counter, country_dict, all_start):
         directory = static.output_folder + '/' + str(time.strftime("%Y%m%d"))
         if not os.path.exists(directory):
             os.makedirs(directory)
-        f = io.open(directory + '/WDI_' + indicator_key + '.json', 'w', encoding='utf8')
+        f = io.open(directory + '/WDI_' + indicator_key + '.json', 'w', encoding='utf8', errors='ignore')
         json.dump(dataset_by_indicator, f, ensure_ascii=False)
         f.close()
     
@@ -212,7 +211,7 @@ def convert_rowdata_to_dim_lvl():
         file_path = os.path.join(dataset_dir, file)
         print("loading " + str(file_path) + ".\n")
         if os.path.isfile(file_path):
-            f = io.open(file_path, 'r', encoding='utf8')
+            f = io.open(file_path, 'r', encoding='utf8', errors='ignore')
             json_str = f.readline()
             dataset_array = json.loads(json_str)
             f.close()
@@ -226,14 +225,14 @@ def convert_rowdata_to_dim_lvl():
                     data_key = year + '_' + region + '_' + country
                     data_bydim_path = bydim_dir + '/' + data_key + '.json'
                     if os.path.isfile(data_bydim_path):
-                        f = io.open(data_bydim_path, 'r+', encoding='utf8')
+                        f = io.open(data_bydim_path, 'r+', encoding='utf8', errors='ignore')
                         json_data = json.load(f)
                         json_data[indicator_key] = rec[indicator_key]
                         f.seek(0)
                         f.write(json.dumps(json_data, ensure_ascii=False))
                         f.truncate()
                     else:
-                        f = io.open(data_bydim_path, 'w', encoding='utf8')
+                        f = io.open(data_bydim_path, 'w', encoding='utf8', errors='ignore')
                         json.dump(rec, f, ensure_ascii=False)
                     f.close()
         print(time.strftime('%Y-%m-%d %H:%M:%S',time.localtime()) + " >>> " + str(idx) + '.' + str(file_path) + " time cost: " + str(round(timeit.default_timer() - all_start)) + "s.\n")
@@ -275,7 +274,7 @@ def insert_by_dim(file_path, counter, dataset_col, all_start):
     print(time.strftime('%Y-%m-%d %H:%M:%S',time.localtime()) + " >>> " + file_path + "\n")
     
     try:
-        f = io.open(file_path, 'r', encoding='utf8')
+        f = io.open(file_path, 'r', encoding='utf8', errors='ignore')
         json_data = json.load(f)
     except FileNotFoundError:
         print(file_path + ' file not found.')
@@ -292,7 +291,7 @@ def load_countries_to_mongo_zh(is_incremental):
     print("start loading country data(zh) from JSON file to MongoDB...")
     all_start = timeit.default_timer()
     static = Static()
-    f = io.open(static.output_folder + '/worldbank_wdi_countries_zh.json', 'r', encoding='utf8')
+    f = io.open(static.output_folder + '/worldbank_wdi_countries_zh.json', 'r', encoding='utf8', errors='ignore')
     json_str = f.readline()
     country_array = json.loads(json_str)
     f.close()
@@ -334,8 +333,8 @@ if __name__ == '__main__':
     # load_countries_to_json_zh()
     # load_indicators_to_json_zh()
     # load_indicators_to_mongo_zh(False)
-    load_rowdata_to_json_zh()
-    # convert_rowdata_to_dim_lvl()
+    # load_rowdata_to_json_zh()
+    convert_rowdata_to_dim_lvl()
     ## load_rowdata_to_mongo_zh(False)
     # load_countries_to_mongo_zh(False)
     
