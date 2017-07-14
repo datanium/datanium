@@ -213,7 +213,11 @@ def convert_rowdata_to_dim_lvl():
         if os.path.isfile(file_path):
             f = io.open(file_path, 'r', encoding='utf8', errors='ignore')
             json_str = f.readline()
-            dataset_array = json.loads(json_str)
+            dataset_array = []
+            try:
+                dataset_array = json.loads(json_str)
+            except:
+                print("json format error: " + file_path)
             f.close()
             for rec in dataset_array:
                 indicator_key = os.path.splitext(file)[0][4:]
